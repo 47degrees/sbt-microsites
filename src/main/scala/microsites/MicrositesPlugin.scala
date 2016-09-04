@@ -1,8 +1,11 @@
-import sbt._
+package microsites
+
 import com.typesafe.sbt.SbtNativePackager
 import com.typesafe.sbt.packager.NativePackagerKeys
 import com.typesafe.sbt.site.jekyll.JekyllPlugin
+import microsites.layouts.Home
 import sbt.Keys._
+import sbt._
 import sbt.plugins.IvyPlugin
 import tut.Plugin._
 
@@ -44,7 +47,7 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
 
     val targetDir = dir.getAbsolutePath + (if (dir.getAbsolutePath.endsWith("/")) "" else "/")
 
-    Seq(createConfigYML(config, targetDir))
+    Seq(createConfigYML(config, targetDir), createLayouts(config, targetDir))
   }
 
   def createConfigYML(config: MicrositeConfig, targetDir: String): File = {
@@ -63,6 +66,16 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
                              |  tut:
                              |    output: true
                              |""".stripMargin)
+
+    targetFile
+
+  }
+
+  def createLayouts(config: MicrositeConfig, targetDir: String): File = {
+    val layoutsDir = targetDir + "jekyll/_layouts/"
+    val targetFile = new File(layoutsDir + "home.html")
+
+    IO.write(targetFile, Home.html(config).toString())
 
     targetFile
 
