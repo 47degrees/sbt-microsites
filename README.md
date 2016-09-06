@@ -1,5 +1,13 @@
 #sbt-microsites
 
+## Prerequisites
+
+* [Jekyll](https://jekyllrb.com/):
+
+```bash
+gem install jekyll
+```
+
 ### Steps:
 
 Add plugin in `project/plugins.sbt`:
