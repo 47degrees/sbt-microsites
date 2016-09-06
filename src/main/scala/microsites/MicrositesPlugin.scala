@@ -63,6 +63,8 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
     val sourceDir = getPathWithSlash(resourcesDir)
     val targetDir = getPathWithSlash(resourceManagedDir)
 
+    copyPluginResources(getClass.getProtectionDomain.getCodeSource.getLocation, s"${targetDir}jekyll/")
+
     copyFilesRecursively(s"${sourceDir}microsite", s"${targetDir}jekyll/img/")
 
     Seq(createConfigYML(config, targetDir), createLayouts(config, targetDir))
