@@ -79,6 +79,16 @@ micrositeHighlightTheme := "monokai"
 ```
 [Available themes: https://cdnjs.com/libraries/highlight.js/](https://cdnjs.com/libraries/highlight.js/)
 
+- You could add new images to personalize the microsite, you can specify them through the `micrositeImgDirectory` setting. The images in that folder will be automatically copied by the plugin and they will be placed together with the rest of the jekyll resources. By default, its value is `(resourceDirectory in Compile).value / "microsite" / "img"` but you can override it, for instance:
+```
+micrositeImgDirectory := (resourceDirectory in Compile).value / "site" / "images"
+```
+
+- At the same time, you could override the styles through the `micrositeCssDirectory` setting. The css files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "css"` but you can override it in this way:
+```
+micrositeImgDirectory := (resourceDirectory in Compile).value / "site" / "styles"
+```
+
 - Style uses essentially 8 colors which palette can be set through the setting `micrositePalette` as below:
 ```
 micrositePalette := Map(
