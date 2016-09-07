@@ -99,7 +99,7 @@ object Layouts {
   def homeMain(config: MicrositeSettings): TypedTag[String] = main(id := "site-main",
     section(cls := "use",
       div(cls := "container",
-        div(id := "content", cls := "row", "{{ content }}")
+        div(id := "content", "{{ content }}")
       )
     ),
     section(cls := "technologies",
