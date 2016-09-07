@@ -36,7 +36,10 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
         author = micrositeAuthor.value,
         homepage = micrositeHomepage.value,
         twitter = micrositeTwitter.value,
-        highlightTheme = micrositeHighlightTheme.value
+        highlightTheme = micrositeHighlightTheme.value,
+        palette = micrositePalette.value,
+        githubOwner = micrositeGithubOwner.value,
+        githubRepo = micrositeGithubRepo.value
       )),
     sourceDirectory in Jekyll := resourceManaged.value / "main" / "jekyll",
     tutSourceDirectory := sourceDirectory.value / "tut",
@@ -49,8 +52,18 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
     micrositeAuthor := organizationName.value,
     micrositeHomepage := homepage.value.map(_.toString).getOrElse(""),
     micrositeTwitter := "",
-    micrositeHighlightTheme := "tomorrow"
-  )
+    micrositeHighlightTheme := "tomorrow",
+    micrositePalette := Map(
+      "brand-primary" -> "#E05236",
+      "brand-secondary" -> "#3F3242",
+      "brand-tertiary" -> "#2D232F",
+      "gray-dark" -> "#453E46",
+      "gray" -> "#837F84",
+      "gray-light" -> "#E3E2E3",
+      "gray-lighter" -> "#F4F3F4",
+      "white-color" -> "#FFFFFF"),
+    micrositeGithubOwner := "47deg",
+    micrositeGithubRepo := "sbt-microsites")
 
   object Resolvers {
     val allResolvers = Seq(
@@ -63,17 +76,17 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
     val sourceDir = getPathWithSlash(resourcesDir)
     val targetDir = getPathWithSlash(resourceManagedDir)
 
-    copyPluginResources(getClass.getProtectionDomain.getCodeSource.getLocation, s"${targetDir}jekyll/")
+//    copyPluginResources(getClass.getProtectionDomain.getCodeSource.getLocation, s"${targetDir}jekyll/")
+    copyPluginResources(getClass.getProtectionDomain.getCodeSource.getLocation, s"${targetDir}jekyll/", "_sass")
+    copyPluginResources(getClass.getProtectionDomain.getCodeSource.getLocation, s"${targetDir}jekyll/", "css")
 
     copyFilesRecursively(s"${sourceDir}microsite", s"${targetDir}jekyll/img/")
 
-    Seq(createConfigYML(config, targetDir), createLayouts(config, targetDir))
+    Seq(createConfigYML(config, targetDir), createLayouts(config, targetDir), createPalette(config, targetDir))
   }
 
   def createConfigYML(config: MicrositeConfig, targetDir: String): File = {
-
     val targetFile = createFilePathIfNotExists(s"${targetDir}jekyll/_config.yml")
-
     IO.write(targetFile, s"""name: ${config.name}
                              |description: "${config.description}"
                              |github_owner: 47deg
@@ -90,10 +103,15 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
     targetFile
   }
 
+  def createPalette(config: MicrositeConfig, targetDir: String): File = {
+    val targetFile = createFilePathIfNotExists(s"${targetDir}jekyll/_sass/_variables_palette.scss")
+    val content = config.palette.map{case (key, value) => s"""$$${key}: $value;"""}.mkString("\n")
+    IO.write(targetFile, content)
+    targetFile
+  }
+
   def createLayouts(config: MicrositeConfig, targetDir: String): File = {
-
     val targetFile = createFilePathIfNotExists(s"${targetDir}jekyll/_layouts/home.html")
-
     IO.write(targetFile, Layouts.home(config).toString())
     targetFile
   }

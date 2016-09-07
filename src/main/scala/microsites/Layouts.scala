@@ -16,6 +16,7 @@ object Layouts {
       body(
         homeHeader(config),
         homeMain(config),
+        globalFooter(config),
         scriptsMain(config)
       )
     )
@@ -43,7 +44,8 @@ object Layouts {
     link(rel := "stylesheet", href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
     link(rel := "stylesheet", href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"),
     link(rel := "stylesheet", href := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/${config.highlightTheme}.min.css"),
-    link(rel := "stylesheet", href := s"styles/style.scss")
+    link(rel := "stylesheet", href := s"css/style.css"),
+    link(rel := "stylesheet", href := s"css/palette.css")
   )
 
   def scripts(config: MicrositeConfig): Seq[TypedTag[String]] = Seq(
@@ -53,24 +55,23 @@ object Layouts {
     script(src:="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/scala.min.js")
   )
 
-  def homeHeader(config: MicrositeConfig) = header(id := "site-header",
-    div(cls := "navbar-wrapper",
-      div(cls := "container",
-        div(cls := "row",
-          div(cls := "col-xs-6",
-            a(href := "{{ site.baseurl }}/", cls := "brand",
-              div(cls := "icon-wrapper", style := "background: url('img/navbar_brand.png') no-repeat"),
-              span("{{ site.name }}")
+  def homeHeader(config: MicrositeConfig): TypedTag[String] = header( id:="site-header",
+    div( cls:="navbar-wrapper",
+      div( cls:="container",
+        div( cls:="row",
+          div( cls:="col-xs-6",
+            a( href:="#", data.href:="{{ site.baseurl }}/", cls:="brand",
+              div( cls:="icon-wrapper", style:="background:url('img/navbar_brand.png') no-repeat", span(config.name) )
             )
-          )
-        ),
-        div(cls := "col-xs-6",
-          nav(cls := "text-right",
-            ul(
-              li(
-                a(href := "https://github.com/{{ site.github_owner }}{{ site.baseurl }}",
-                  i(cls := "fa fa-github"),
-                  span(cls := "hidden-xs", "GitHub")
+          ),
+          div( cls:="col-xs-6",
+            nav( cls:="text-right",
+              ul(
+                li(
+                  a( href:=s"https://github.com/${config.githubOwner}/${config.githubRepo}", i( cls:="fa fa-github"), span( cls:="hidden-xs","GitHub") )
+                ),
+                li(
+                  a( href:="{{ site.baseurl }}/docs", i( cls:="fa fa-file-text"), span( cls:="hidden-xs","Documentation") )
                 )
               )
             )
@@ -78,19 +79,17 @@ object Layouts {
         )
       )
     ),
-    div(cls := "jumbotron", style := "background-image:url('img/jumbotron_pattern.png')",
-      div(cls := "container",
-        h1(cls := "text-center", "{{ site.description }}"),
-        h2,
-        p(cls := "text-center",
-          a(href := "https://github.com/{{ site.github_owner }}{{ site.baseurl }}", cls := "btn btn-outline-inverse", "View on GitHub")
-        )
+    div( cls:="jumbotron", style:="background-image:url('img/jumbotron_pattern.png')",
+      div( cls:="container",
+        h1( cls:="text-center",config.description),
+        h2(),
+        p( cls:="text-center", a( href:=s"https://github.com/${config.githubOwner}/${config.githubRepo}", cls:="btn btn-outline-inverse","View on GitHub") )
       )
     )
   )
 
 
-  def homeMain(config: MicrositeConfig) = main(id := "site-main",
+  def homeMain(config: MicrositeConfig): TypedTag[String] = main(id := "site-main",
     section(cls := "use",
       div(cls := "container",
         div(id := "content", cls := "row", "{{ content }}")
@@ -108,6 +107,21 @@ object Layouts {
           ),
           """{% endfor %}
           {% endfor %}"""
+        )
+      )
+    )
+  )
+
+  def globalFooter(config: MicrositeConfig) = footer( id:="site-footer",
+    div( cls:="container",
+      div( cls:="row",
+        div( cls:="col-xs-6",
+          p("{{ site.name }} is designed and developed by" ,a( href:="{{ site.organization.url }}", target:="_blank","{{ site.organization.name }}"))
+        ),
+        div( cls:="col-xs-6",
+          p( cls:="text-right",
+            a( href:="#", data.href:="https://github.com/{{ site.github_owner }}{{ site.baseurl }}", span( cls:="fa fa-github"), "View on Github" )
+          )
         )
       )
     )
