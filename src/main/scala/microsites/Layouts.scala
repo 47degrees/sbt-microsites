@@ -3,7 +3,7 @@ package microsites
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
 import scalatags.Text.tags2.{title, nav, main, section}
-
+import FileHelper._
 
 object Layouts {
 
@@ -40,13 +40,20 @@ object Layouts {
     meta(name := "twitter:site", content := config.twitter),
     link(rel := "icon", `type` := "image/png", href := "img/favicon.png"))
 
-  def styles(config: MicrositeSettings): Seq[TypedTag[String]] = Seq(
-    link(rel := "stylesheet", href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
-    link(rel := "stylesheet", href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"),
-    link(rel := "stylesheet", href := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/${config.highlightTheme}.min.css"),
-    link(rel := "stylesheet", href := s"css/style.css"),
-    link(rel := "stylesheet", href := s"css/palette.css")
-  )
+  def styles(config: MicrositeSettings): Seq[TypedTag[String]] = {
+
+    val customCssList = fetchFilesRecursively(config.micrositeCssDirectory) map { css =>
+      link(rel := "stylesheet", href := s"css/${css.getName}")
+    }
+
+    Seq(
+      link(rel := "stylesheet", href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
+      link(rel := "stylesheet", href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"),
+      link(rel := "stylesheet", href := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/${config.highlightTheme}.min.css"),
+      link(rel := "stylesheet", href := s"css/style.css"),
+      link(rel := "stylesheet", href := s"css/palette.css")
+    ) ++ customCssList
+  }
 
   def scripts(config: MicrositeSettings): Seq[TypedTag[String]] = Seq(
     script(src:="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"),
