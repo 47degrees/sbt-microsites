@@ -147,49 +147,8 @@
 // Use
 // -----------------------------------------------------
 .use {
-
-    padding-top: ($section-padding / 4);
-    
-    //ul {
-    //    padding-top: ($section-padding / 3.3);
-    //    padding-bottom: ($section-padding / 1.8);
-    //    padding-left: 0;
-    //    margin: 0;
-    //    @extend .clearfix;
-    //    @media screen and (min-width: $screen-md-min) {
-    //        padding-top: $section-padding;
-    //        padding-bottom: $section-padding;
-    //    }
-    //    li {
-    //        list-style: none;
-    //        h2 {
-    //            font-size: floor(($font-size-h2 / 1.3));
-    //        }
-    //    }
-    //}
-    
-    
-    //ul:nth-child(2n+1) {
-    //    li:first-child {
-    //        @extend .col-md-4;
-    //    }
-    //    li:last-child {
-    //        @extend .col-md-7;
-    //        @extend .col-md-offset-1;
-    //    }
-    //}
-    //ul:nth-child(2n) {
-    //    li:first-child {
-    //        @extend .col-md-4;
-    //        @extend .col-md-push-8;
-    //    }
-    //    li:last-child {
-    //        @extend .col-md-7;
-    //        @extend .col-md-pull-4;
-    //    }
-    //}
+    padding: ($section-padding / 1.3) 0;
 }
-
 
 
 // Footer
