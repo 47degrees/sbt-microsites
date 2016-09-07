@@ -3,11 +3,11 @@ package microsites
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
 import scalatags.Text.tags2.{title, nav, main, section}
-
+import FileHelper._
 
 object Layouts {
 
-  def home(config: MicrositeConfig): TypedTag[String] = {
+  def home(config: MicrositeSettings): TypedTag[String] = {
     html(
       head(
         metas(config),
@@ -22,7 +22,7 @@ object Layouts {
     )
   }
 
-  def metas(config: MicrositeConfig): Seq[TypedTag[String]] = Seq(
+  def metas(config: MicrositeSettings): Seq[TypedTag[String]] = Seq(
     meta(charset := "utf-8"),
     meta(httpEquiv := "X-UA-Compatible", content := "IE=edge,chrome=1"),
     title(config.name),
@@ -40,22 +40,29 @@ object Layouts {
     meta(name := "twitter:site", content := config.twitter),
     link(rel := "icon", `type` := "image/png", href := "img/favicon.png"))
 
-  def styles(config: MicrositeConfig): Seq[TypedTag[String]] = Seq(
-    link(rel := "stylesheet", href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
-    link(rel := "stylesheet", href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"),
-    link(rel := "stylesheet", href := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/${config.highlightTheme}.min.css"),
-    link(rel := "stylesheet", href := s"css/style.css"),
-    link(rel := "stylesheet", href := s"css/palette.css")
-  )
+  def styles(config: MicrositeSettings): Seq[TypedTag[String]] = {
 
-  def scripts(config: MicrositeConfig): Seq[TypedTag[String]] = Seq(
+    val customCssList = fetchFilesRecursively(config.micrositeCssDirectory) map { css =>
+      link(rel := "stylesheet", href := s"css/${css.getName}")
+    }
+
+    Seq(
+      link(rel := "stylesheet", href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
+      link(rel := "stylesheet", href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"),
+      link(rel := "stylesheet", href := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/${config.highlightTheme}.min.css"),
+      link(rel := "stylesheet", href := s"css/style.css"),
+      link(rel := "stylesheet", href := s"css/palette.css")
+    ) ++ customCssList
+  }
+
+  def scripts(config: MicrositeSettings): Seq[TypedTag[String]] = Seq(
     script(src:="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"),
     script(src:="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),
     script(src:="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"),
     script(src:="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/scala.min.js")
   )
 
-  def homeHeader(config: MicrositeConfig): TypedTag[String] = header( id:="site-header",
+  def homeHeader(config: MicrositeSettings): TypedTag[String] = header( id:="site-header",
     div( cls:="navbar-wrapper",
       div( cls:="container",
         div( cls:="row",
@@ -89,7 +96,7 @@ object Layouts {
   )
 
 
-  def homeMain(config: MicrositeConfig): TypedTag[String] = main(id := "site-main",
+  def homeMain(config: MicrositeSettings): TypedTag[String] = main(id := "site-main",
     section(cls := "use",
       div(cls := "container",
         div(id := "content", cls := "row", "{{ content }}")
@@ -112,7 +119,7 @@ object Layouts {
     )
   )
 
-  def globalFooter(config: MicrositeConfig) = footer( id:="site-footer",
+  def globalFooter(config: MicrositeSettings) = footer( id:="site-footer",
     div( cls:="container",
       div( cls:="row",
         div( cls:="col-xs-6",
@@ -127,7 +134,7 @@ object Layouts {
     )
   )
 
-  def scriptsMain(config:MicrositeConfig): Seq[TypedTag[String]] = scripts(config) ++
+  def scriptsMain(config:MicrositeSettings): Seq[TypedTag[String]] = scripts(config) ++
     Seq(script("jQuery(document).ready(function(){hljs.initHighlightingOnLoad();});"))
 
 
