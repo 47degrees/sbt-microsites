@@ -4,7 +4,7 @@ import microsites.MicrositeSettings
 
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
-import scalatags.Text.tags2.{main, nav, section}
+import scalatags.Text.tags2.{main, section}
 
 trait HomeLayout extends Layout {
 

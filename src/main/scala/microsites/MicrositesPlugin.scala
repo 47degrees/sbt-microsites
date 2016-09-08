@@ -100,9 +100,7 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
 
     IO.write(targetFile, s"""name: ${config.name}
                              |description: "${config.description}"
-                             |github_owner: 47deg
                              |baseurl: $baseUrl
-                             |highlight_theme: tomorrow
                              |docs: true
                              |
                              |markdown: kramdown
