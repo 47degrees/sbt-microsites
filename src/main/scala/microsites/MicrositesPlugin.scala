@@ -39,6 +39,7 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
         micrositeImgDirectory = micrositeImgDirectory.value,
         micrositeCssDirectory = micrositeCssDirectory.value,
         micrositeExtratMdFiles = micrositeExtratMdFiles.value,
+        micrositeBaseUrl = micrositeBaseUrl.value,
         palette = micrositePalette.value,
         githubOwner = micrositeGithubOwner.value,
         githubRepo = micrositeGithubRepo.value
@@ -53,6 +54,7 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
     micrositeDescription := description.value,
     micrositeAuthor := organizationName.value,
     micrositeHomepage := homepage.value.map(_.toString).getOrElse(""),
+    micrositeBaseUrl := "",
     micrositeTwitter := "",
     micrositeHighlightTheme := "tomorrow",
     micrositeImgDirectory := (resourceDirectory in Compile).value / "microsite" / "img",
@@ -91,11 +93,14 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
 
   def createConfigYML(config: MicrositeSettings, targetDir: String): File = {
     val targetFile = createFilePathIfNotExists(s"${targetDir}jekyll/_config.yml")
+
+    val baseUrl = if(!config.micrositeBaseUrl.isEmpty && !config.micrositeBaseUrl.startsWith("/"))
+      s"/${config.micrositeBaseUrl}"
+    else config.micrositeBaseUrl
+
     IO.write(targetFile, s"""name: ${config.name}
                              |description: "${config.description}"
-                             |github_owner: 47deg
-                             |baseurl: /mylibrary
-                             |highlight_theme: tomorrow
+                             |baseurl: $baseUrl
                              |docs: true
                              |
                              |markdown: kramdown

@@ -12,6 +12,7 @@ case class MicrositeSettings(
   micrositeImgDirectory: File,
   micrositeCssDirectory: File,
   micrositeExtratMdFiles: Seq[File],
+  micrositeBaseUrl: String,
   palette: Map[String, String],
   githubOwner: String,
   githubRepo: String)

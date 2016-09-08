@@ -4,7 +4,7 @@ import microsites.MicrositeSettings
 
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
-import scalatags.Text.tags2.{main, nav, section}
+import scalatags.Text.tags2.{main, section}
 
 trait HomeLayout extends Layout {
 
@@ -33,7 +33,7 @@ trait HomeLayout extends Layout {
             span(cls := "icon-bar"),
             span(cls := "icon-bar")
           ),
-          a(href := "#", data.href := "{{ site.baseurl }}/", cls := "brand",
+          a(href := "{{ site.baseurl }}/", cls := "brand",
             div(cls := "icon-wrapper", style := "background:url('img/navbar_brand.png') no-repeat", span(config.name))
           )
         ),
@@ -43,7 +43,7 @@ trait HomeLayout extends Layout {
               a(href := s"https://github.com/${config.githubOwner}/${config.githubRepo}", span("GitHub"))
             ),
             li(
-              a(href := "{{ site.baseurl }}/docs", span("Documentation"))
+              a(href := "{{ site.baseurl }}/docs.html", span("Documentation"))
             )
           )
         )
@@ -86,11 +86,11 @@ trait HomeLayout extends Layout {
     div( cls:="container",
       div( cls:="row",
         div( cls:="col-xs-6",
-          p("{{ site.name }} is designed and developed by" ,a( href:="{{ site.organization.url }}", target:="_blank","{{ site.organization.name }}"))
+          p("{{ site.name }} is designed and developed by " ,a( href:=s"${config.homepage}", target:="_blank",s"${config.author}"))
         ),
         div( cls:="col-xs-6",
           p( cls:="text-right",
-            a( href:="#", data.href:="https://github.com/{{ site.github_owner }}{{ site.baseurl }}", span( cls:="fa fa-github"), "View on Github" )
+            a( href:=s"https://github.com/${config.githubOwner}/${config.githubRepo}", span( cls:="fa fa-github"), "View on Github" )
           )
         )
       )

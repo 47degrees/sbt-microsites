@@ -57,6 +57,11 @@ micrositeName := "Dummy"
 micrositeDescription := "This is my Dummy description"
 ```
 
+- Site base URL could be configured through the sbt setting `micrositeBaseUrl` (empty by default):
+```
+micrositeBaseUrl := "/yoursite"
+```
+
 - The author of the microsite is taken from the sbt setting `organizationName`, but you can override it:
 ```
 micrositeAuthor := "Rafa Paradela"
