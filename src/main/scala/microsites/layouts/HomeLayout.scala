@@ -23,35 +23,37 @@ trait HomeLayout extends Layout {
     )
   }
 
-  def homeHeader(config: MicrositeSettings): TypedTag[String] = header( id:="site-header",
-    div( cls:="navbar-wrapper",
-      div( cls:="container",
-        div( cls:="row",
-          div( cls:="col-xs-6",
-            a( href:="#", data.href:="{{ site.baseurl }}/", cls:="brand",
-              div( cls:="icon-wrapper", style:="background:url('img/navbar_brand.png') no-repeat", span(config.name) )
-            )
+  def homeHeader(config: MicrositeSettings): TypedTag[String] = header(id := "site-header",
+    div(cls := "navbar-wrapper navbar-inverse",
+      div(cls := "container",
+        div(cls := "navbar-header",
+          button(tpe := "button", cls := "navbar-toggle collapsed", data.toggle := "collapse", data.target := "#bs-example-navbar-collapse-1", aria.expanded := "false",
+            span(cls := "sr-only", "Toggle navigation"),
+            span(cls := "icon-bar"),
+            span(cls := "icon-bar"),
+            span(cls := "icon-bar")
           ),
-          div( cls:="col-xs-6",
-            nav( cls:="text-right",
-              ul(
-                li(
-                  a( href:=s"https://github.com/${config.githubOwner}/${config.githubRepo}", i( cls:="fa fa-github"), span( cls:="hidden-xs","GitHub") )
-                ),
-                li(
-                  a( href:="{{ site.baseurl }}/docs", i( cls:="fa fa-file-text"), span( cls:="hidden-xs","Documentation") )
-                )
-              )
+          a(href := "#", data.href := "{{ site.baseurl }}/", cls := "brand",
+            div(cls := "icon-wrapper", style := "background:url('img/navbar_brand.png') no-repeat", span(config.name))
+          )
+        ),
+        div(cls := "collapse navbar-collapse", id := "bs-example-navbar-collapse-1",
+          ul(cls := "nav navbar-nav navbar-right",
+            li(
+              a(href := s"https://github.com/${config.githubOwner}/${config.githubRepo}", span("GitHub"))
+            ),
+            li(
+              a(href := "{{ site.baseurl }}/docs", span("Documentation"))
             )
           )
         )
       )
     ),
-    div( cls:="jumbotron", style:="background-image:url('img/jumbotron_pattern.png')",
-      div( cls:="container",
-        h1( cls:="text-center",config.description),
+    div(cls := "jumbotron", style := "background-image:url('img/jumbotron_pattern.png')",
+      div(cls := "container",
+        h1(cls := "text-center", config.description),
         h2(),
-        p( cls:="text-center", a( href:=s"https://github.com/${config.githubOwner}/${config.githubRepo}", cls:="btn btn-outline-inverse","View on GitHub") )
+        p(cls := "text-center", a(href := s"https://github.com/${config.githubOwner}/${config.githubRepo}", cls := "btn btn-outline-inverse", "View on GitHub"))
       )
     )
   )
