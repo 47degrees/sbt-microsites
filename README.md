@@ -89,6 +89,11 @@ micrositeImgDirectory := (resourceDirectory in Compile).value / "site" / "images
 micrositeImgDirectory := (resourceDirectory in Compile).value / "site" / "styles"
 ```
 
+- `micrositeExtratMdFiles` setting could be handy if you want to include additional markdown files in your site, and these files are not located in the same place of your `tut` directory. By default, the setting is set up as a empty list. You could override it, in this way:
+```
+micrositeExtratMdFiles := Seq(file("CONTRIBUTING.md"))
+```
+
 - Style uses essentially 8 colors which palette can be set through the setting `micrositePalette` as below:
 ```
 micrositePalette := Map(

@@ -24,10 +24,13 @@ trait FileHelper {
   def copyFilesRecursively(sourcePath: String, targetDirPath: String): Unit = {
 
     val source = sourcePath.toFile
-    fetchFilesRecursively(source) foreach { f =>
-      val filePath = f.getAbsolutePath.replaceAll(sourcePath, "")
-      copyFile(f, s"$targetDirPath$filePath".toFile)
-    }
+
+    if(source.isFile) copyFile(source, s"$targetDirPath".toFile)
+    else
+      fetchFilesRecursively(source) foreach { f =>
+        val filePath = f.getAbsolutePath.replaceAll(sourcePath, "")
+        copyFile(f, s"$targetDirPath$filePath".toFile)
+      }
   }
 
   def copyPluginResources(jarUrl: URL, output: String, filter: String = "styles") = {

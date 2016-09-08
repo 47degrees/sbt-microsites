@@ -37,12 +37,13 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
         highlightTheme = micrositeHighlightTheme.value,
         micrositeImgDirectory = micrositeImgDirectory.value,
         micrositeCssDirectory = micrositeCssDirectory.value,
+        micrositeExtratMdFiles = micrositeExtratMdFiles.value,
         palette = micrositePalette.value,
         githubOwner = micrositeGithubOwner.value,
         githubRepo = micrositeGithubRepo.value
       ), resourceManagedDir = (resourceManaged in Compile).value),
     sourceDirectory in Jekyll := resourceManaged.value / "main" / "jekyll",
-    tutSourceDirectory := sourceDirectory.value / "tut",
+    tutSourceDirectory := sourceDirectory.value / "main" / "tut",
     tutTargetDirectory := resourceManaged.value / "main" / "jekyll"
   )
 
@@ -55,6 +56,7 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
     micrositeHighlightTheme := "tomorrow",
     micrositeImgDirectory := (resourceDirectory in Compile).value / "microsite" / "img",
     micrositeCssDirectory := (resourceDirectory in Compile).value / "microsite" / "css",
+    micrositeExtratMdFiles := Seq.empty,
     micrositePalette := Map(
       "brand-primary" -> "#E05236",
       "brand-secondary" -> "#3F3242",
@@ -77,6 +79,10 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
 
     copyFilesRecursively(config.micrositeImgDirectory.getAbsolutePath, s"${targetDir}jekyll/img/")
     copyFilesRecursively(config.micrositeCssDirectory.getAbsolutePath, s"${targetDir}jekyll/css/")
+
+    config.micrositeExtratMdFiles foreach { f =>
+      copyFilesRecursively(f.getAbsolutePath, s"${targetDir}jekyll/${f.getName.toLowerCase}")
+    }
 
     Seq(createConfigYML(config, targetDir), createLayouts(config, targetDir), createPalette(config, targetDir))
   }
