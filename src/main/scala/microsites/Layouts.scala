@@ -75,10 +75,10 @@ object Layouts {
             nav( cls:="text-right",
               ul(
                 li(
-                  a( href:=s"https://github.com/${config.githubOwner}/${config.githubRepo}", i( cls:="fa fa-github"), span( cls:="hidden-xs","GitHub") )
+                  a( href:=s"https://github.com/${config.githubOwner}/${config.githubRepo}", span("GitHub") )
                 ),
                 li(
-                  a( href:="{{ site.baseurl }}/docs", i( cls:="fa fa-file-text"), span( cls:="hidden-xs","Documentation") )
+                  a( href:="{{ site.baseurl }}/docs", span("Documentation") )
                 )
               )
             )
