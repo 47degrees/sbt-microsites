@@ -12,6 +12,7 @@ trait MicrositeKeys {
   val micrositeHighlightTheme = settingKey[String]("Microsite Highlight Theme")
   val micrositeImgDirectory = settingKey[File]("Optional. Microsite images directory. By default, it'll be the resourcesDirectory + '/microsite/img'")
   val micrositeCssDirectory = settingKey[File]("Optional. Microsite CSS directory. By default, it'll be the resourcesDirectory + '/microsite/css'")
+  val micrositeExtratMdFiles = settingKey[Seq[File]]("Optional. Additional document files located in a different place from the tutSourceDirectory. By default, it's empty")
   val micrositePalette = settingKey[Map[String, String]]("Microsite palette")
   val micrositeGithubOwner = settingKey[String]("Microsite Github owner")
   val micrositeGithubRepo = settingKey[String]("Microsite Github repo")
