@@ -1,4 +1,3 @@
-
 jQuery(document).ready(function() {
   activeLinks();
   loadStyle();
@@ -119,13 +118,11 @@ function activeLinks() {
 
 var baseURL = window.location.href;
 
-function shareSiteFacebook() {
-  var title = 'Title';
-  launchPopup('http://www.facebook.com/sharer/sharer.php?u='+baseURL+'&t=' + title);
+function shareSiteFacebook(text) {
+  launchPopup('http://www.facebook.com/sharer/sharer.php?u='+baseURL+'&t=' + text);
 }
 
-function shareSiteTwitter() {
-  var text = 'Title '+baseURL;
+function shareSiteTwitter(text) {
   launchPopup('https://twitter.com/home?status=' + text);
   return false;
 }
@@ -137,4 +134,14 @@ function shareSiteGoogle() {
 
 function launchPopup(url) {
   window.open(url, 'Social Share', 'height=320, width=640, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, directories=no, status=no');
+}
+
+function loadGitHubStats(repo) {
+
+  var gitHubAPI = "https://api.github.com/repos/" + repo + "?callback=?";
+  $.getJSON(gitHubAPI).done(function(data) {
+    $('#eyes').text(data.data.subscribers_count);
+    $('#stars').text(data.data.stargazers_count);
+  });
+
 }
