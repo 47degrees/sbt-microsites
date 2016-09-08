@@ -11,6 +11,7 @@ import sbt._
 import sbt.plugins.IvyPlugin
 import tut.Plugin._
 import microsites.FileHelper._
+import microsites.layouts.{DocsLayout, HomeLayout}
 
 object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
 
@@ -76,6 +77,7 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
 
     copyPluginResources(pluginURL, s"${targetDir}jekyll/", "_sass")
     copyPluginResources(pluginURL, s"${targetDir}jekyll/", "css")
+    copyPluginResources(pluginURL, s"${targetDir}jekyll/", "js")
 
     copyFilesRecursively(config.micrositeImgDirectory.getAbsolutePath, s"${targetDir}jekyll/img/")
     copyFilesRecursively(config.micrositeCssDirectory.getAbsolutePath, s"${targetDir}jekyll/css/")
@@ -84,7 +86,7 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
       copyFilesRecursively(f.getAbsolutePath, s"${targetDir}jekyll/${f.getName.toLowerCase}")
     }
 
-    Seq(createConfigYML(config, targetDir), createLayouts(config, targetDir), createPalette(config, targetDir))
+    Seq(createConfigYML(config, targetDir), createPalette(config, targetDir)) ++ createLayouts(config, targetDir)
   }
 
   def createConfigYML(config: MicrositeSettings, targetDir: String): File = {
@@ -112,10 +114,11 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
     targetFile
   }
 
-  def createLayouts(config: MicrositeSettings, targetDir: String): File = {
-    val targetFile = createFilePathIfNotExists(s"${targetDir}jekyll/_layouts/home.html")
-    IO.write(targetFile, Layouts.home(config).toString())
-    targetFile
-  }
+  def createLayouts(config: MicrositeSettings, targetDir: String): Seq[File] =
+    List("home" -> HomeLayout, "docs" -> DocsLayout) map { case (layoutName, layout) =>
+      val targetFile = createFilePathIfNotExists(s"${targetDir}jekyll/_layouts/$layoutName.html")
+      IO.write(targetFile, layout.render(config).toString())
+      targetFile
+    }
 
 }
