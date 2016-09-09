@@ -11,6 +11,7 @@ import sbt._
 import sbt.plugins.IvyPlugin
 import tut.Plugin._
 import microsites.FileHelper._
+import microsites.layouts.{DocsLayout, HomeLayout, MenuPartialLayout, PageLayout}
 
 object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
 
@@ -38,6 +39,7 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
         micrositeImgDirectory = micrositeImgDirectory.value,
         micrositeCssDirectory = micrositeCssDirectory.value,
         micrositeExtratMdFiles = micrositeExtratMdFiles.value,
+        micrositeBaseUrl = micrositeBaseUrl.value,
         palette = micrositePalette.value,
         githubOwner = micrositeGithubOwner.value,
         githubRepo = micrositeGithubRepo.value
@@ -52,8 +54,9 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
     micrositeDescription := description.value,
     micrositeAuthor := organizationName.value,
     micrositeHomepage := homepage.value.map(_.toString).getOrElse(""),
+    micrositeBaseUrl := "",
     micrositeTwitter := "",
-    micrositeHighlightTheme := "tomorrow",
+    micrositeHighlightTheme := "default",
     micrositeImgDirectory := (resourceDirectory in Compile).value / "microsite" / "img",
     micrositeCssDirectory := (resourceDirectory in Compile).value / "microsite" / "css",
     micrositeExtratMdFiles := Seq.empty,
@@ -76,6 +79,7 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
 
     copyPluginResources(pluginURL, s"${targetDir}jekyll/", "_sass")
     copyPluginResources(pluginURL, s"${targetDir}jekyll/", "css")
+    copyPluginResources(pluginURL, s"${targetDir}jekyll/", "js")
 
     copyFilesRecursively(config.micrositeImgDirectory.getAbsolutePath, s"${targetDir}jekyll/img/")
     copyFilesRecursively(config.micrositeCssDirectory.getAbsolutePath, s"${targetDir}jekyll/css/")
@@ -84,16 +88,20 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
       copyFilesRecursively(f.getAbsolutePath, s"${targetDir}jekyll/${f.getName.toLowerCase}")
     }
 
-    Seq(createConfigYML(config, targetDir), createLayouts(config, targetDir), createPalette(config, targetDir))
+    Seq(createConfigYML(config, targetDir), createPalette(config, targetDir)) ++
+      createLayouts(config, targetDir) ++ createPartialLayout(config, targetDir)
   }
 
   def createConfigYML(config: MicrositeSettings, targetDir: String): File = {
     val targetFile = createFilePathIfNotExists(s"${targetDir}jekyll/_config.yml")
+
+    val baseUrl = if(!config.micrositeBaseUrl.isEmpty && !config.micrositeBaseUrl.startsWith("/"))
+      s"/${config.micrositeBaseUrl}"
+    else config.micrositeBaseUrl
+
     IO.write(targetFile, s"""name: ${config.name}
                              |description: "${config.description}"
-                             |github_owner: 47deg
-                             |baseurl: /mylibrary
-                             |highlight_theme: tomorrow
+                             |baseurl: $baseUrl
                              |docs: true
                              |
                              |markdown: kramdown
@@ -112,10 +120,18 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
     targetFile
   }
 
-  def createLayouts(config: MicrositeSettings, targetDir: String): File = {
-    val targetFile = createFilePathIfNotExists(s"${targetDir}jekyll/_layouts/home.html")
-    IO.write(targetFile, Layouts.home(config).toString())
-    targetFile
-  }
+  def createLayouts(config: MicrositeSettings, targetDir: String): Seq[File] =
+    List("home" -> HomeLayout, "docs" -> DocsLayout, "page" -> PageLayout) map { case (layoutName, layout) =>
+      val targetFile = createFilePathIfNotExists(s"${targetDir}jekyll/_layouts/$layoutName.html")
+      IO.write(targetFile, layout.render(config).toString())
+      targetFile
+    }
+
+  def createPartialLayout(config: MicrositeSettings, targetDir: String): Seq[File] =
+    List("menu" -> MenuPartialLayout) map { case (layoutName, layout) =>
+      val targetFile = createFilePathIfNotExists(s"${targetDir}jekyll/_includes/$layoutName.html")
+      IO.write(targetFile, layout.render(config).toString())
+      targetFile
+    }
 
 }
