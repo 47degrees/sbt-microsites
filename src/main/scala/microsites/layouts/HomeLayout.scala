@@ -37,16 +37,7 @@ trait HomeLayout extends Layout {
             div(cls := "icon-wrapper", style := "background:url('img/navbar_brand.png') no-repeat", span(config.name))
           )
         ),
-        div(cls := "collapse navbar-collapse", id := "bs-example-navbar-collapse-1",
-          ul(cls := "nav navbar-nav navbar-right",
-            li(
-              a(href := s"https://github.com/${config.githubOwner}/${config.githubRepo}", span("GitHub"))
-            ),
-            li(
-              a(href := "{{ site.baseurl }}/docs.html", span("Documentation"))
-            )
-          )
-        )
+        buildCollapseMenu(config)
       )
     ),
     div(cls := "jumbotron", style := "background-image:url('img/jumbotron_pattern.png')",
@@ -58,7 +49,6 @@ trait HomeLayout extends Layout {
     ),
     "{% include menu.html %}"
   )
-
 
   def homeMain(config: MicrositeSettings): TypedTag[String] = main(id := "site-main",
     section(cls := "use",
@@ -78,21 +68,6 @@ trait HomeLayout extends Layout {
           ),
           """{% endfor %}
           {% endfor %}"""
-        )
-      )
-    )
-  )
-
-  def globalFooter(config: MicrositeSettings) = footer( id:="site-footer",
-    div( cls:="container",
-      div( cls:="row",
-        div( cls:="col-xs-6",
-          p("{{ site.name }} is designed and developed by " ,a( href:=s"${config.homepage}", target:="_blank",s"${config.author}"))
-        ),
-        div( cls:="col-xs-6",
-          p( cls:="text-right",
-            a( href:=s"https://github.com/${config.githubOwner}/${config.githubRepo}", span( cls:="fa fa-github"), "View on Github" )
-          )
         )
       )
     )
