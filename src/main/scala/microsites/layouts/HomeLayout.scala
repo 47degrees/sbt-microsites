@@ -34,13 +34,13 @@ trait HomeLayout extends Layout {
             span(cls := "icon-bar")
           ),
           a(href := "{{ site.baseurl }}/", cls := "brand",
-            div(cls := "icon-wrapper", style := "background:url('img/navbar_brand.png') no-repeat", span(config.name))
+            div(cls := "icon-wrapper", style := "background:url('{{site.baseurl}}/img/navbar_brand.png') no-repeat", span(config.name))
           )
         ),
         buildCollapseMenu(config)
       )
     ),
-    div(cls := "jumbotron", style := "background-image:url('img/jumbotron_pattern.png')",
+    div(cls := "jumbotron", style := "background-image:url('{{site.baseurl}}/img/jumbotron_pattern.png')",
       div(cls := "container",
         h1(cls := "text-center", config.description),
         h2(),
