@@ -18,29 +18,29 @@ trait Layout {
     meta(name := "viewport", content := "width=device-width, initial-scale=1.0"),
     meta(name := "description", content := config.description),
     meta(name := "author", content := config.author),
-    meta(name := "og:image", content := "img/poster.png"),
+    meta(name := "og:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
     meta(name := "og:title", content := config.name),
     meta(name := "og:site_name", content := config.name),
     meta(name := "og:url", content := config.homepage),
     meta(name := "og:type", content := "website"),
     meta(name := "og:description", content := config.description),
-    meta(name := "twitter:image", content := "img/poster.png"),
+    meta(name := "twitter:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
     meta(name := "twitter:card", content := "summary_large_image"),
     meta(name := "twitter:site", content := config.twitter),
-    link(rel := "icon", `type` := "image/png", href := "img/favicon.png"))
+    link(rel := "icon", `type` := "image/png", href := "{{site.url}}{{site.baseurl}}/img/favicon.png"))
 
   def styles(config: MicrositeSettings): Seq[TypedTag[String]] = {
 
     val customCssList = fetchFilesRecursively(config.micrositeCssDirectory) map { css =>
-      link(rel := "stylesheet", href := s"/css/${css.getName}")
+      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${css.getName}")
     }
 
     Seq(
       link(rel := "stylesheet", href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
       link(rel := "stylesheet", href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"),
       link(rel := "stylesheet", href := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/${config.highlightTheme}.min.css"),
-      link(rel := "stylesheet", href := s"/css/style.css"),
-      link(rel := "stylesheet", href := s"/css/palette.css")
+      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/style.css"),
+      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/palette.css")
     ) ++ customCssList
   }
 

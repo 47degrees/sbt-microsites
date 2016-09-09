@@ -28,11 +28,11 @@ trait DocsLayout extends Layout {
         ul(id := "sidebar", cls := "sidebar-nav",
           li(cls := "sidebar-brand",
             a(href := "{{ site.baseurl }}/", cls := "brand",
-              div(cls := "brand-wrapper", style := "background:url('/img/sidebar_brand.png') no-repeat", span(config.name))
+              div(cls := "brand-wrapper", style := "background:url('{{site.baseurl}}/img/sidebar_brand.png') no-repeat", span(config.name))
             )
           ),
           "{% for x in site.pages %} {% if x.section == page.section %}",
-          li(a(href := "{{x.url}}", cls := "{% if x.title == page.title %} active {% endif %}", "{{x.title}}")),
+          li(a(href := "{{ site.baseurl }}{{x.url}}", cls := "{% if x.title == page.title %} active {% endif %}", "{{x.title}}")),
           "{% endif %} {% endfor %}"
         )
       ),
@@ -74,9 +74,8 @@ trait DocsLayout extends Layout {
     )
   }
 
-
   def scriptsDocs(config: MicrositeSettings): Seq[TypedTag[String]] = scripts(config) ++
-    Seq(script(src := "/js/main.js"))
+    Seq(script(src := "{{ site.baseurl }}/js/main.js"))
 }
 
 object DocsLayout extends DocsLayout
