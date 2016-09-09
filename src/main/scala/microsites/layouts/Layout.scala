@@ -45,9 +45,38 @@ trait Layout {
   }
 
   def scripts(config: MicrositeSettings): Seq[TypedTag[String]] = Seq(
-    script(src:="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"),
-    script(src:="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),
-    script(src:="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"),
-    script(src:="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/scala.min.js")
+    script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"),
+    script(src := "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),
+    script(src := "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"),
+    script(src := "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/scala.min.js")
   )
+
+  def globalFooter(config: MicrositeSettings) = footer( id:="site-footer",
+    div( cls:="container",
+      div( cls:="row",
+        div( cls:="col-xs-6",
+          p("{{ site.name }} is designed and developed by " ,a( href:=s"${config.homepage}", target:="_blank",s"${config.author}"))
+        ),
+        div( cls:="col-xs-6",
+          p( cls:="text-right",
+            a( href:=s"https://github.com/${config.githubOwner}/${config.githubRepo}", span( cls:="fa fa-github"), "View on Github" )
+          )
+        )
+      )
+    )
+  )
+
+  def buildCollapseMenu(config: MicrositeSettings): TypedTag[String] =
+    div(cls := "collapse navbar-collapse", id := "bs-example-navbar-collapse-1",
+      ul(cls := "nav navbar-nav navbar-right",
+        li(
+          a(href := s"https://github.com/${config.githubOwner}/${config.githubRepo}", span("GitHub"))
+        ),
+        if(!config.micrositeDocumentationUrl.isEmpty)
+          li(
+            a(href := s"{{ site.baseurl }}/${config.micrositeDocumentationUrl}", span("Documentation"))
+          )
+        else ()
+      )
+    )
 }

@@ -10,6 +10,7 @@ trait MicrositeKeys {
   val micrositeHomepage = settingKey[String]("Microsite homepage")
   val micrositeTwitter = settingKey[String]("Microsite twitter")
   val micrositeBaseUrl = settingKey[String]("Microsite site base url")
+  val micrositeDocumentationUrl = settingKey[String]("Microsite site documentation url")
   val micrositeHighlightTheme = settingKey[String]("Microsite Highlight Theme")
   val micrositeImgDirectory = settingKey[File]("Optional. Microsite images directory. By default, it'll be the resourcesDirectory + '/microsite/img'")
   val micrositeCssDirectory = settingKey[File]("Optional. Microsite CSS directory. By default, it'll be the resourcesDirectory + '/microsite/css'")

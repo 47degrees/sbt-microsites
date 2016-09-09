@@ -40,6 +40,7 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
         micrositeCssDirectory = micrositeCssDirectory.value,
         micrositeExtratMdFiles = micrositeExtratMdFiles.value,
         micrositeBaseUrl = micrositeBaseUrl.value,
+        micrositeDocumentationUrl = micrositeDocumentationUrl.value,
         palette = micrositePalette.value,
         githubOwner = micrositeGithubOwner.value,
         githubRepo = micrositeGithubRepo.value
@@ -55,6 +56,7 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
     micrositeAuthor := organizationName.value,
     micrositeHomepage := homepage.value.map(_.toString).getOrElse(""),
     micrositeBaseUrl := "",
+    micrositeDocumentationUrl := "",
     micrositeTwitter := "",
     micrositeHighlightTheme := "default",
     micrositeImgDirectory := (resourceDirectory in Compile).value / "microsite" / "img",

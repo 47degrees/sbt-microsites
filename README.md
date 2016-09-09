@@ -62,6 +62,11 @@ micrositeDescription := "This is my Dummy description"
 micrositeBaseUrl := "/yoursite"
 ```
 
+- Documentation URL could be configured through the sbt setting `micrositeDocumentationUrl` (empty by default):
+```
+micrositeDocumentationUrl := "/docs.html"
+```
+
 - The author of the microsite is taken from the sbt setting `organizationName`, but you can override it:
 ```
 micrositeAuthor := "Rafa Paradela"
