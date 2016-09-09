@@ -74,7 +74,7 @@ trait Layout {
         ),
         if(!config.micrositeDocumentationUrl.isEmpty)
           li(
-            a(href := s"{{ site.baseurl }}/${config.micrositeDocumentationUrl}", span("Documentation"))
+            a(href := s"${config.micrositeDocumentationUrl}", span("Documentation"))
           )
         else ()
       )
