@@ -5,6 +5,7 @@ import com.typesafe.sbt.packager.NativePackagerKeys
 import com.typesafe.sbt.packager.MappingsHelper._
 import com.typesafe.sbt.packager.universal.UniversalPlugin
 import com.typesafe.sbt.SbtNativePackager.Universal
+import com.typesafe.sbt.site.SitePlugin.autoImport._
 import com.typesafe.sbt.site.jekyll.JekyllPlugin
 import sbt.Keys._
 import sbt._
@@ -46,6 +47,13 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
         githubRepo = micrositeGithubRepo.value
       ), resourceManagedDir = (resourceManaged in Compile).value),
     sourceDirectory in Jekyll := resourceManaged.value / "main" / "jekyll",
+    micrositeConfig := copyConfigurationFile((sourceDirectory in Jekyll).value, siteDirectory.value),
+    makeMicrosite := Def.sequential(
+      microsite,
+      tut,
+      makeSite,
+      micrositeConfig
+    ).value,
     tutSourceDirectory := sourceDirectory.value / "main" / "tut",
     tutTargetDirectory := resourceManaged.value / "main" / "jekyll"
   )
@@ -135,5 +143,12 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
       IO.write(targetFile, layout.render(config).toString())
       targetFile
     }
+
+  def copyConfigurationFile(sourceDir: File, targetDir: File) = {
+
+    val targetFile = createFilePathIfNotExists(s"$targetDir/_config.yml")
+
+    copyFilesRecursively(s"${sourceDir.getAbsolutePath}/_config.yml", targetFile.getAbsolutePath)
+  }
 
 }
