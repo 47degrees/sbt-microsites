@@ -6,7 +6,7 @@ import scalatags.Text.TypedTag
 import scalatags.Text.all._
 import scalatags.Text.tags2.{main, section}
 
-trait HomeLayout extends Layout {
+trait PageLayout extends Layout {
 
   override def render(config: MicrositeSettings): TypedTag[String] = {
     html(
@@ -15,15 +15,15 @@ trait HomeLayout extends Layout {
         styles(config)
       ),
       body(
-        homeHeader(config),
-        homeMain(config),
+        pageHeader(config),
+        pageMain(config),
         globalFooter(config),
         scriptsMain(config)
       )
     )
   }
 
-  def homeHeader(config: MicrositeSettings): TypedTag[String] = header(id := "site-header",
+  def pageHeader(config: MicrositeSettings): TypedTag[String] = header(id := "site-header",
     div(cls := "navbar-wrapper navbar-inverse",
       div(cls := "container",
         div(cls := "navbar-header",
@@ -49,36 +49,15 @@ trait HomeLayout extends Layout {
         )
       )
     ),
-    div(cls := "jumbotron", style := "background-image:url('img/jumbotron_pattern.png')",
-      div(cls := "container",
-        h1(cls := "text-center", config.description),
-        h2(),
-        p(cls := "text-center", a(href := s"https://github.com/${config.githubOwner}/${config.githubRepo}", cls := "btn btn-outline-inverse", "View on GitHub"))
-      )
-    ),
+    div(cls := "jumbotron", style := "background-image:url('img/jumbotron_pattern.png')"),
     "{% include menu.html %}"
   )
 
 
-  def homeMain(config: MicrositeSettings): TypedTag[String] = main(id := "site-main",
+  def pageMain(config: MicrositeSettings): TypedTag[String] = main(id := "site-main",
     section(cls := "use",
       div(cls := "container",
         div(id := "content", "{{ content }}")
-      )
-    ),
-    section(cls := "technologies",
-      div(cls := "container",
-        div(cls := "row",
-          """{% for tech_hash in page.technologies %}
-            {% for tech in tech_hash %}"""
-          , div(cls := "col-md-4",
-            div(cls := "{{ tech[0] }}-icon-wrapper"),
-            h3("{{ tech[1][0] }}"),
-            p("{{ tech[1][1] }}")
-          ),
-          """{% endfor %}
-          {% endfor %}"""
-        )
       )
     )
   )
@@ -103,4 +82,4 @@ trait HomeLayout extends Layout {
 
 }
 
-object HomeLayout extends HomeLayout
+object PageLayout extends PageLayout

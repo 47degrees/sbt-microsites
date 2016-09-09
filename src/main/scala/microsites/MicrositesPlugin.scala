@@ -11,7 +11,7 @@ import sbt._
 import sbt.plugins.IvyPlugin
 import tut.Plugin._
 import microsites.FileHelper._
-import microsites.layouts.{DocsLayout, HomeLayout}
+import microsites.layouts.{DocsLayout, HomeLayout, MenuPartialLayout, PageLayout}
 
 object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
 
@@ -56,7 +56,7 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
     micrositeHomepage := homepage.value.map(_.toString).getOrElse(""),
     micrositeBaseUrl := "",
     micrositeTwitter := "",
-    micrositeHighlightTheme := "tomorrow",
+    micrositeHighlightTheme := "default",
     micrositeImgDirectory := (resourceDirectory in Compile).value / "microsite" / "img",
     micrositeCssDirectory := (resourceDirectory in Compile).value / "microsite" / "css",
     micrositeExtratMdFiles := Seq.empty,
@@ -88,7 +88,8 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
       copyFilesRecursively(f.getAbsolutePath, s"${targetDir}jekyll/${f.getName.toLowerCase}")
     }
 
-    Seq(createConfigYML(config, targetDir), createPalette(config, targetDir)) ++ createLayouts(config, targetDir)
+    Seq(createConfigYML(config, targetDir), createPalette(config, targetDir)) ++
+      createLayouts(config, targetDir) ++ createPartialLayout(config, targetDir)
   }
 
   def createConfigYML(config: MicrositeSettings, targetDir: String): File = {
@@ -120,8 +121,15 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
   }
 
   def createLayouts(config: MicrositeSettings, targetDir: String): Seq[File] =
-    List("home" -> HomeLayout, "docs" -> DocsLayout) map { case (layoutName, layout) =>
+    List("home" -> HomeLayout, "docs" -> DocsLayout, "page" -> PageLayout) map { case (layoutName, layout) =>
       val targetFile = createFilePathIfNotExists(s"${targetDir}jekyll/_layouts/$layoutName.html")
+      IO.write(targetFile, layout.render(config).toString())
+      targetFile
+    }
+
+  def createPartialLayout(config: MicrositeSettings, targetDir: String): Seq[File] =
+    List("menu" -> MenuPartialLayout) map { case (layoutName, layout) =>
+      val targetFile = createFilePathIfNotExists(s"${targetDir}jekyll/_includes/$layoutName.html")
       IO.write(targetFile, layout.render(config).toString())
       targetFile
     }
