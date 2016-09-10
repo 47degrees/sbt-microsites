@@ -63,7 +63,7 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
     micrositeHighlightTheme := "default",
     micrositeImgDirectory := (resourceDirectory in Compile).value / "microsite" / "img",
     micrositeCssDirectory := (resourceDirectory in Compile).value / "microsite" / "css",
-    micrositeExtratMdFiles := Seq.empty,
+    micrositeExtratMdFiles := Map.empty,
     micrositePalette := Map("brand-primary"   -> "#E05236",
                             "brand-secondary" -> "#3F3242",
                             "brand-tertiary"  -> "#2D232F",

@@ -34,8 +34,10 @@ trait MicrositeKeys {
     "Optional. Microsite images directory. By default, it'll be the resourcesDirectory + '/microsite/img'")
   val micrositeCssDirectory = settingKey[File](
     "Optional. Microsite CSS directory. By default, it'll be the resourcesDirectory + '/microsite/css'")
-  val micrositeExtratMdFiles = settingKey[Seq[File]](
-    "Optional. Additional document files located in a different place from the tutSourceDirectory. By default, it's empty")
+  val micrositeExtratMdFiles = settingKey[Map[File, String]](
+    "Optional. The key is related with the source file, the map value corresponds with the target relative file path. " +
+      "This keys is useful for those document files that are located in a different places from the tutSourceDirectory. " +
+      "By default, it's empty")
   val micrositePalette     = settingKey[Map[String, String]]("Microsite palette")
   val micrositeGithubOwner = settingKey[String]("Microsite Github owner")
   val micrositeGithubRepo  = settingKey[String]("Microsite Github repo")

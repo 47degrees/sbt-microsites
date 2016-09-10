@@ -1,6 +1,6 @@
 lazy val gpgFolder       = sys.env.getOrElse("GPG_FOLDER", ".")
 lazy val publishSnapshot = taskKey[Unit]("Publish only if the version is a SNAPSHOT")
-scalaVersion in ThisBuild := "2.10.6"
+
 pgpPassphrase := Some(sys.env.getOrElse("GPG_PASSPHRASE", "").toCharArray)
 pgpPublicRing := file(s"$gpgFolder/pubring.gpg")
 pgpSecretRing := file(s"$gpgFolder/secring.gpg")
