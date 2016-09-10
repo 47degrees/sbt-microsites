@@ -1,4 +1,20 @@
-package microsites
+/*
+ * Copyright 2016 47 Degrees, LLC. <http://www.47deg.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package microsites.util
 
 import java.io.{File, FileOutputStream}
 import java.net.URL
@@ -25,7 +41,7 @@ trait FileHelper {
 
     val source = sourcePath.toFile
 
-    if(source.isFile) copyFile(source, s"$targetDirPath".toFile)
+    if (source.isFile) copyFile(source, s"$targetDirPath".toFile)
     else
       fetchFilesRecursively(source) foreach { f =>
         val filePath = f.getAbsolutePath.replaceAll(sourcePath, "")
@@ -39,33 +55,27 @@ trait FileHelper {
     val zipIn = new ZipInputStream(jarUrl.openStream())
 
     val buffer = new Array[Byte](1024)
-    Stream
-      .continually(zipIn.getNextEntry)
-      .takeWhile(_ != null)
-      .foreach { entry =>
+    Stream.continually(zipIn.getNextEntry).takeWhile(_ != null).foreach { entry =>
+      val newFile = new File(output + File.separator + entry.getName)
 
-        val newFile = new File(output + File.separator + entry.getName)
+      (entry.isDirectory,
+       !newFile.exists() &&
+         newFile.getAbsolutePath.startsWith(s"$output$filter")) match {
+        case (true, true) => newFile.mkdir()
+        case (true, _)    =>
+        case (false, true) =>
+          createFileIfNotExists(newFile)
 
-        (entry.isDirectory,
-          !newFile.exists() &&
-            newFile.getAbsolutePath.startsWith(s"$output$filter")) match {
-          case (true, true) => newFile.mkdir()
-          case (true, _) =>
-          case (false, true) =>
-            createFileIfNotExists(newFile)
+          val fos = new FileOutputStream(newFile)
 
-            val fos = new FileOutputStream(newFile)
+          Stream.continually(zipIn.read(buffer)).takeWhile(_ != -1).foreach { count =>
+            fos.write(buffer, 0, count)
+          }
 
-            Stream.continually(zipIn.read(buffer))
-              .takeWhile(_ != -1)
-              .foreach { count =>
-                fos.write(buffer, 0, count)
-              }
-
-            fos.close()
-          case _ =>
-        }
+          fos.close()
+        case _ =>
       }
+    }
   }
 
   def fetchFilesRecursively(directory: File): List[File] = {
@@ -74,7 +84,7 @@ trait FileHelper {
 
     listFiles match {
       case Some(firstLevelFiles) =>
-        val onlyFirstLevelFiles = firstLevelFiles filter (_.isFile)
+        val onlyFirstLevelFiles   = firstLevelFiles filter (_.isFile)
         val firstLevelDirectories = firstLevelFiles filter (_.isDirectory)
 
         (onlyFirstLevelFiles ++ firstLevelDirectories.flatMap(d => fetchFilesRecursively(d))).toList

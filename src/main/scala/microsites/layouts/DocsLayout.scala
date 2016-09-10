@@ -1,27 +1,40 @@
+/*
+ * Copyright 2016 47 Degrees, LLC. <http://www.47deg.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package microsites.layouts
 
-import microsites.MicrositeSettings
+import microsites.domain.MicrositeSettings
 
 import scalatags.Text.TypedTag
 import scalatags.Text.tags2.section
 import scalatags.Text.all._
 
-trait DocsLayout extends Layout {
+class DocsLayout(config: MicrositeSettings) extends Layout(config) {
 
-  override def render(config: MicrositeSettings): TypedTag[String] = {
+  override def render: TypedTag[String] = {
     html(
-      head(
-        metas(config),
-        styles(config)
-      ),
+      commonHead,
       body(cls := "docs",
-        sideBarAndContent(config),
-        scriptsDocs(config)
+        sideBarAndContent,
+        scriptsDocs
       )
     )
   }
 
-  def sideBarAndContent(config: MicrositeSettings): TypedTag[String] = {
+  def sideBarAndContent: TypedTag[String] = {
     val text = s"${config.name} ${config.description}"
     div(id := "wrapper",
       div(id := "sidebar-wrapper",
@@ -74,8 +87,6 @@ trait DocsLayout extends Layout {
     )
   }
 
-  def scriptsDocs(config: MicrositeSettings): Seq[TypedTag[String]] = scripts(config) ++
+  def scriptsDocs: Seq[TypedTag[String]] = scripts ++
     Seq(script(src := "{{ site.baseurl }}/js/main.js"))
 }
-
-object DocsLayout extends DocsLayout
