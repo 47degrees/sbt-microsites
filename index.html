@@ -1,0 +1,150 @@
+<html><head><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><title>sbt-microsites</title><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="An easy way to create your project's microsite" /><meta name="author" content="47 Degrees" /><meta name="og:image" content="/sbt-microsites/img/poster.png" /><meta name="og:title" content="sbt-microsites" /><meta name="og:site_name" content="sbt-microsites" /><meta name="og:url" content="http://47deg.github.io/sbt-microsites/" /><meta name="og:type" content="website" /><meta name="og:description" content="An easy way to create your project's microsite" /><meta name="twitter:image" content="/sbt-microsites/img/poster.png" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:site" content="" /><link rel="icon" type="image/png" href="/sbt-microsites/img/favicon.png" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/atom-one-light.min.css" /><link rel="stylesheet" href="/sbt-microsites/css/style.css" /><link rel="stylesheet" href="/sbt-microsites/css/palette.css" /></head><body><header id="site-header"><div class="navbar-wrapper navbar-inverse"><div class="container"><div class="navbar-header"><button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/sbt-microsites/" class="brand"><div class="icon-wrapper" style="background:url('/sbt-microsites/img/navbar_brand.png') no-repeat"><span>sbt-microsites</span></div></a></div><div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><ul class="nav navbar-nav navbar-right"><li><a href="https://github.com/47deg/sbt-microsites"><span>GitHub</span></a></li></ul></div></div></div><div class="jumbotron" style="background-image:url('/sbt-microsites/img/jumbotron_pattern.png')"><div class="container"><h1 class="text-center">An easy way to create your project's microsite</h1><h2></h2><p class="text-center"><a href="https://github.com/47deg/sbt-microsites" class="btn btn-outline-inverse">View on GitHub</a></p></div></div><div><ul class="horizontalNav">      </ul></div></header><main id="site-main"><section class="use"><div class="container"><div id="content"><h1 id="sbt-microsites">sbt-microsites</h1>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li>Install <a href="https://jekyllrb.com/">Jekyll</a>, locally, depending on your platform, you might do this with:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>yum install jekyll
+
+apt-get install jekyll
+
+gem install jekyll
+</code></pre>
+</div>
+
+<h2 id="install">Install</h2>
+
+<p>Add plugin in <code class="highlighter-rouge">project/plugins.sbt</code>:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>resolvers += Resolver.sonatypeRepo("snapshots")
+addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "0.2.0-SNAPSHOT")
+</code></pre>
+</div>
+
+<p>Enable the plugin in <code class="highlighter-rouge">build.sbt</code>:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>enablePlugins(MicrositesPlugin)
+</code></pre>
+</div>
+
+<h2 id="build-the-microsite">Build the microsite</h2>
+
+<p>Once you have written down your documents you can build the microste running this sbt task:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sbt&gt; makeMicrosite
+</code></pre>
+</div>
+
+<p>Internally, sequentially it’ll run other tasks, among theirs, <a href="https://github.com/tpolecat/tut"><code class="highlighter-rouge">tut</code></a> and <code class="highlighter-rouge">makeSite</code> (<a href="https://github.com/sbt/sbt-site">sbt-site</a>) tasks.</p>
+
+<h2 id="view-the-microsite-in-your-browser">View the microsite in your browser</h2>
+
+<ol>
+  <li>
+    <p>In a shell, navigate to the generated site directory in <code class="highlighter-rouge">target/site</code></p>
+  </li>
+  <li>
+    <p>Start jekyll with <code class="highlighter-rouge">jekyll serve</code></p>
+  </li>
+  <li>
+    <p>Navigate to http://localhost:4000/yourbase_url/ in your browser, where <code class="highlighter-rouge">yourbase_url</code> depends on your own preferences (see <code class="highlighter-rouge">micrositeBaseUrl</code> setting).</p>
+  </li>
+</ol>
+
+<h2 id="publish-the-microsite">Publish the microsite</h2>
+
+<p>Before publishing, a couple of requirements should be satisfied:</p>
+
+<ol>
+  <li>Initializing the gh-pages branch, you can follow the instructions defined in the <a href="https://goo.gl/G0Ffv0">sbt-ghpages</a> repository</li>
+  <li>Define <code class="highlighter-rouge">micrositeGithubOwner</code> and <code class="highlighter-rouge">micrositeGithubRepo</code> settings, you can see more details about them later on in this document</li>
+</ol>
+
+<p>Once both requirements are satisfied, you can just run:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sbt&gt; publishMicrosite
+</code></pre>
+</div>
+
+<h2 id="microsite-settings">Microsite settings</h2>
+
+<ul>
+  <li>The name of the microsite is taken from the sbt setting <code class="highlighter-rouge">name</code>, but you can override it:
+    <div class="highlighter-rouge"><pre class="highlight"><code>micrositeName := "Dummy"
+</code></pre>
+    </div>
+  </li>
+  <li>The description of the microsite is taken from the sbt setting <code class="highlighter-rouge">description</code>, but you can override it:
+    <div class="highlighter-rouge"><pre class="highlight"><code>micrositeDescription := "This is my Dummy description"
+</code></pre>
+    </div>
+  </li>
+  <li>Site base URL could be configured through the sbt setting <code class="highlighter-rouge">micrositeBaseUrl</code> (empty by default):
+    <div class="highlighter-rouge"><pre class="highlight"><code>micrositeBaseUrl := "/yoursite"
+</code></pre>
+    </div>
+  </li>
+  <li>Documentation URL could be configured through the sbt setting <code class="highlighter-rouge">micrositeDocumentationUrl</code> (empty by default):
+    <div class="highlighter-rouge"><pre class="highlight"><code>micrositeDocumentationUrl := "/docs.html"
+</code></pre>
+    </div>
+  </li>
+  <li>The author of the microsite is taken from the sbt setting <code class="highlighter-rouge">organizationName</code>, but you can override it:
+    <div class="highlighter-rouge"><pre class="highlight"><code>micrositeAuthor := "47 Degrees"
+</code></pre>
+    </div>
+  </li>
+  <li>The homepage of the microsite is taken from the sbt setting <code class="highlighter-rouge">homepage</code>, but you can override it:
+    <div class="highlighter-rouge"><pre class="highlight"><code>micrositeHomepage := "http://www.mywebpage.com"
+</code></pre>
+    </div>
+  </li>
+  <li>In order to add links to GitHub repo, <code class="highlighter-rouge">micrositeGithubOwner</code> and <code class="highlighter-rouge">micrositeGithubRepo</code> are required:
+    <div class="highlighter-rouge"><pre class="highlight"><code>micrositeGithubOwner := "47deg"
+micrositeGithubRepo := "sbt-microsites"
+</code></pre>
+    </div>
+  </li>
+  <li>The theme of Highlight.js is <a href="https://highlightjs.org/static/demo/">tomorrow</a> by default, however you set other theme:
+    <div class="highlighter-rouge"><pre class="highlight"><code>micrositeHighlightTheme := "monokai"
+</code></pre>
+    </div>
+    <p><a href="https://cdnjs.com/libraries/highlight.js/">Available themes: https://cdnjs.com/libraries/highlight.js/</a></p>
+  </li>
+  <li>You could add new images to personalize the microsite, you can specify them through the <code class="highlighter-rouge">micrositeImgDirectory</code> setting. The images in that folder will be automatically copied by the plugin and they will be placed together with the rest of the jekyll resources. By default, its value is <code class="highlighter-rouge">(resourceDirectory in Compile).value / "microsite" / "img"</code> but you can override it, for instance:
+    <div class="highlighter-rouge"><pre class="highlight"><code>micrositeImgDirectory := (resourceDirectory in Compile).value / "site" / "images"
+</code></pre>
+    </div>
+  </li>
+  <li>At the same time, you could override the styles through the <code class="highlighter-rouge">micrositeCssDirectory</code> setting. The css files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is <code class="highlighter-rouge">(resourceDirectory in Compile).value / "microsite" / "css"</code> but you can override it in this way:
+    <div class="highlighter-rouge"><pre class="highlight"><code>micrositeImgDirectory := (resourceDirectory in Compile).value / "site" / "styles"
+</code></pre>
+    </div>
+  </li>
+  <li><code class="highlighter-rouge">micrositeExtratMdFiles</code> setting could be handy if you want to include additional markdown files in your site, and these files are not located in the same place of your <code class="highlighter-rouge">tut</code> directory. By default, the setting is set up as a empty map. You could override it, in this way:
+    <div class="highlighter-rouge"><pre class="highlight"><code>micrositeExtratMdFiles := Map(file("README.md") -&gt; "index.md", file("CONTRIBUTING.md") -&gt; "contributing.md")
+</code></pre>
+    </div>
+  </li>
+  <li>Style uses essentially 8 colors which palette can be set through the setting <code class="highlighter-rouge">micrositePalette</code> as below:
+    <div class="highlighter-rouge"><pre class="highlight"><code>micrositePalette := Map(
+      "brand-primary"     -&gt; "#E05236",
+      "brand-secondary"   -&gt; "#3F3242",
+      "brand-tertiary"    -&gt; "#2D232F",
+      "gray-dark"         -&gt; "#453E46",
+      "gray"              -&gt; "#837F84",
+      "gray-light"        -&gt; "#E3E2E3",
+      "gray-lighter"      -&gt; "#F4F3F4",
+      "white-color"       -&gt; "#FFFFFF")
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+</div></div></section><section class="technologies"><div class="container"><div class="row">
+            <div class="col-md-4"><div class="scala-icon-wrapper"></div><h3>Scala</h3><p>sbt-microsites plugin is written in Scala</p></div>
+          
+            <div class="col-md-4"><div class="sbt-icon-wrapper"></div><h3>SBT</h3><p>sbt-microsites plugin uses SBT and other sbt plugins to generate microsites easily</p></div>
+          
+            <div class="col-md-4"><div class="jekyll-icon-wrapper"></div><h3>Jekyll</h3><p>Jekyll allows to transform plain text into static websites and blogs.</p></div>
+          </div></div></section></main><footer id="site-footer"><div class="container"><div class="row"><div class="col-xs-6"><p>sbt-microsites is designed and developed by <a href="http://47deg.github.io/sbt-microsites/" target="_blank">47 Degrees</a></p></div><div class="col-xs-6"><p class="text-right"><a href="https://github.com/47deg/sbt-microsites"><span class="fa fa-github"></span>View on Github</a></p></div></div></div></footer><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/scala.min.js"></script><script>jQuery(document).ready(function(){hljs.initHighlightingOnLoad();});</script></body></html>
