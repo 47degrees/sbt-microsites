@@ -45,7 +45,7 @@ Internally, sequentially it'll run other tasks, among theirs, [`tut`](https://gi
 
 ## Publish the microsite
 
-Before publishing you should accomplish a couple of requirements:
+Before publishing, a couple of requirements should be satisfied:
 
 1. Initializing the gh-pages branch, you can follow the instructions defined in the [sbt-ghpages](https://goo.gl/G0Ffv0) repository
 2. Define `micrositeGithubOwner` and `micrositeGithubRepo` settings, you can see more details about them later on in this document
