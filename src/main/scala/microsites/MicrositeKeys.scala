@@ -19,7 +19,9 @@ package microsites
 import sbt._
 
 trait MicrositeKeys {
-  val makeMicrosite             = taskKey[Unit]("Main Task to build a Microsite")
+  val makeMicrosite = taskKey[Unit]("Main Task to build a Microsite")
+  val publishMicrosite =
+    taskKey[Unit]("Publish the microsite (using the pushSite task) after build it")
   val microsite                 = taskKey[Seq[File]]("Create microsite files")
   val micrositeConfig           = taskKey[Unit]("Copy microsite config to the site folder")
   val micrositeName             = settingKey[String]("Microsite name")

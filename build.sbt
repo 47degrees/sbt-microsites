@@ -15,7 +15,10 @@ lazy val artifactSettings = Seq(
 lazy val commonSettings = Seq(
     sbtPlugin := true,
     scalaVersion in ThisBuild := "2.10.6",
-    resolvers += Resolver.sonatypeRepo("releases"),
+    resolvers ++= Seq(
+      Resolver.sonatypeRepo("releases"),
+      "jgit-repo" at "http://download.eclipse.org/jgit/maven"
+    ),
     libraryDependencies += "com.lihaoyi" %% "scalatags" % "0.6.0",
     scalafmtConfig in ThisBuild := Some(file(".scalafmt"))
   ) ++ reformatOnCompileSettings
@@ -28,4 +31,5 @@ lazy val `sbt-microsites` = (project in file("."))
   .settings(addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.0.3"))
   .settings(addSbtPlugin("org.tpolecat"     % "tut-plugin"          % "0.4.3"))
   .settings(addSbtPlugin("com.typesafe.sbt" % "sbt-site"            % "1.0.0"))
+  .settings(addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages"         % "0.5.4"))
   .enablePlugins(JavaServerAppPackaging, UniversalPlugin, JekyllPlugin, AutomateHeaderPlugin)

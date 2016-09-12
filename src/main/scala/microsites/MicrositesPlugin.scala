@@ -16,6 +16,9 @@
 
 package microsites
 
+import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
+import com.typesafe.sbt.SbtGhPages.ghpages
+import com.typesafe.sbt.SbtGit.git
 import com.typesafe.sbt.SbtNativePackager
 import com.typesafe.sbt.SbtNativePackager.Universal
 import com.typesafe.sbt.packager.MappingsHelper._
@@ -45,7 +48,9 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
     tutSettings ++
       micrositeDefaultSettings ++
       micrositeTasksSettings ++
+      ghpages.settings ++
       Seq(
+        git.remoteRepo := s"git@github.com:${micrositeGithubOwner.value}/${micrositeGithubRepo.value}.git",
         mappings in Universal ++= directory("src/main/resources/microsite"),
         sourceDirectory in Jekyll := resourceManaged.value / "main" / "jekyll",
         tutSourceDirectory := sourceDirectory.value / "main" / "tut",
@@ -106,6 +111,13 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
         tut,
         makeSite,
         micrositeConfig
+      )
+      .value,
+    publishMicrosite := Def
+      .sequential(
+        clean,
+        makeMicrosite,
+        pushSite
       )
       .value
   )
