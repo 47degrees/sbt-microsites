@@ -17,7 +17,7 @@ gem install jekyll
 Add plugin in `project/plugins.sbt`:
 ```
 resolvers += Resolver.sonatypeRepo("snapshots")
-addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "0.1.1-SNAPSHOT")
+addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "0.2.0-SNAPSHOT")
 ```
 
 Enable the plugin in `build.sbt`:
