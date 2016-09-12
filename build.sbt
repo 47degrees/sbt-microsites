@@ -12,7 +12,7 @@ lazy val artifactSettings = Seq(
   )
 )
 
-lazy val commonSettings = Seq(
+lazy val pluginSettings = Seq(
     sbtPlugin := true,
     scalaVersion in ThisBuild := "2.10.6",
     resolvers ++= Seq(
@@ -38,10 +38,24 @@ lazy val micrositeSettings = Seq(
                           "gray"                  -> "#7E7E7E",
                           "gray-light"            -> "#E8E8E8",
                           "gray-lighter"          -> "#F6F6F6",
-                          "white-color"           -> "#FFFFFF")
+                          "white-color"           -> "#FFFFFF"),
+  includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
 )
 
-lazy val allSettings = commonSettings ++ artifactSettings ++ tutSettings
+lazy val miscSettings = Seq(
+  shellPrompt := { s: State =>
+    val c     = scala.Console
+    val blue  = c.RESET + c.BLUE + c.BOLD
+    val white = c.RESET + c.BOLD
+
+    val projectName = Project.extract(s).currentProject.id
+
+    s"$blue$projectName$white>${c.RESET}"
+  }
+)
+
+lazy val commonSettings = artifactSettings ++ miscSettings
+lazy val allSettings    = pluginSettings ++ commonSettings ++ tutSettings
 
 lazy val `sbt-microsites` = (project in file("."))
   .settings(moduleName := "sbt-microsites")
@@ -53,6 +67,7 @@ lazy val `sbt-microsites` = (project in file("."))
   .enablePlugins(JavaServerAppPackaging, UniversalPlugin, JekyllPlugin, AutomateHeaderPlugin)
 
 lazy val docs = (project in file("docs"))
-  .settings(artifactSettings)
-  .settings(moduleName := "sbt-microsite-docs")
+  .settings(commonSettings: _*)
+  .settings(micrositeSettings: _*)
+  .settings(moduleName := "docs")
   .enablePlugins(MicrositesPlugin)
