@@ -1,4 +1,4 @@
-#sbt-microsites
+# sbt-microsites
 
 ## Prerequisites
 
@@ -16,7 +16,8 @@ gem install jekyll
 
 Add plugin in `project/plugins.sbt`:
 ```
-addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "1.0.1-SNAPSHOT")
+resolvers += Resolver.sonatypeRepo("snapshots")
+addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "0.1.1-SNAPSHOT")
 ```
 
 Enable the plugin in `build.sbt`:
@@ -41,6 +42,19 @@ Internally, sequentially it'll run other tasks, among theirs, [`tut`](https://gi
 2. Start jekyll with `jekyll serve`
 
 3. Navigate to http://localhost:4000/yourbase_url/ in your browser, where `yourbase_url` depends on your own preferences (see `micrositeBaseUrl` setting).
+
+## Publish the microsite
+
+Before publishing you should accomplish a couple of requirements:
+
+1. Initializing the gh-pages branch, you can follow the instructions defined in the [sbt-ghpages](https://goo.gl/G0Ffv0) repository
+2. Define `micrositeGithubOwner` and `micrositeGithubRepo` settings, you can see more details about them later on in this document
+
+Once both requirements are satisfied, you can just run:
+
+```
+sbt> publishMicrosite
+```
 
 ## Microsite settings
 
