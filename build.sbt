@@ -5,6 +5,7 @@ lazy val artifactSettings = Seq(
   name := "sbt-microsites",
   organization := "com.fortysevendeg",
   organizationName := "47 Degrees",
+  homepage := Option(url("http://47deg.github.io/sbt-microsites/")),
   organizationHomepage := Some(new URL("http://47deg.com")),
   headers := Map(
     "scala" -> Apache2_0("2016", "47 Degrees, LLC. <http://www.47deg.com>")
