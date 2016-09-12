@@ -2,13 +2,17 @@
 
 ## Prerequisites
 
-* [Jekyll](https://jekyllrb.com/):
+* Install [Jekyll](https://jekyllrb.com/), locally, depending on your platform, you might do this with:
 
 ```bash
+yum install jekyll
+
+apt-get install jekyll
+
 gem install jekyll
 ```
 
-## Install:
+## Install
 
 Add plugin in `project/plugins.sbt`:
 ```
@@ -20,30 +24,23 @@ Enable the plugin in `build.sbt`:
 enablePlugins(MicrositesPlugin)
 ```
 
-## Create the microsite
+## Build the microsite
 
-Write markdown documents called `index.md` in `src/tut` like [this one](https://gist.github.com/rafaparadela/9ccfcf1f52c5282c9a5e894b0ddf6508).
-
-Create microsite
-```
-sbt> microsite
-```
-
-Compile:
+Once you have written down your documents you can build the microste running this sbt task:
 
 ```
-sbt> tut
+sbt> makeMicrosite
 ```
 
-Make site:
-```
-sbt> makeSite
-```
+Internally, sequentially it'll run other tasks, among theirs, [`tut`](https://github.com/tpolecat/tut) and `makeSite` ([sbt-site](https://github.com/sbt/sbt-site)) tasks.
 
-Preview site:
-```
-sbt> previewSite
-```
+## View the microsite in your browser
+
+1. In a shell, navigate to the generated site directory in `target/site`
+
+2. Start jekyll with `jekyll serve`
+
+3. Navigate to http://localhost:4000/yourbase_url/ in your browser, where `yourbase_url` depends on your own preferences (see `micrositeBaseUrl` setting).
 
 ## Microsite settings
 
@@ -69,7 +66,7 @@ micrositeDocumentationUrl := "/docs.html"
 
 - The author of the microsite is taken from the sbt setting `organizationName`, but you can override it:
 ```
-micrositeAuthor := "Rafa Paradela"
+micrositeAuthor := "47 Degrees"
 ```
 
 - The homepage of the microsite is taken from the sbt setting `homepage`, but you can override it:
@@ -99,9 +96,9 @@ micrositeImgDirectory := (resourceDirectory in Compile).value / "site" / "images
 micrositeImgDirectory := (resourceDirectory in Compile).value / "site" / "styles"
 ```
 
-- `micrositeExtratMdFiles` setting could be handy if you want to include additional markdown files in your site, and these files are not located in the same place of your `tut` directory. By default, the setting is set up as a empty list. You could override it, in this way:
+- `micrositeExtratMdFiles` setting could be handy if you want to include additional markdown files in your site, and these files are not located in the same place of your `tut` directory. By default, the setting is set up as a empty map. You could override it, in this way:
 ```
-micrositeExtratMdFiles := Seq(file("CONTRIBUTING.md"))
+micrositeExtratMdFiles := Map(file("README.md") -> "index.md", file("CONTRIBUTING.md") -> "contributing.md")
 ```
 
 - Style uses essentially 8 colors which palette can be set through the setting `micrositePalette` as below:
@@ -116,8 +113,6 @@ micrositePalette := Map(
         "gray-lighter"      -> "#F4F3F4",
         "white-color"       -> "#FFFFFF")
 ```
-
-## Images
 
 
 
