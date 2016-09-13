@@ -26,20 +26,11 @@ lazy val pluginSettings = Seq(
 lazy val micrositeSettings = Seq(
   micrositeName := "sbt-microsites",
   micrositeDescription := "A sbt plugin to create awesome microsites for your project",
-  micrositeHighlightTheme := "atom-one-light",
   micrositeBaseUrl := "sbt-microsites",
   micrositeDocumentationUrl := "/sbt-microsites/docs.html",
   micrositeGithubOwner := "47deg",
   micrositeGithubRepo := "sbt-microsites",
   micrositeExtratMdFiles := Map(file("README.md") -> "index.md"),
-  micrositePalette := Map("brand-primary"         -> "#FC4053",
-                          "brand-secondary"       -> "#B92239",
-                          "brand-tertiary"        -> "#8C192F",
-                          "gray-dark"             -> "#464646",
-                          "gray"                  -> "#7E7E7E",
-                          "gray-light"            -> "#E8E8E8",
-                          "gray-lighter"          -> "#F6F6F6",
-                          "white-color"           -> "#FFFFFF"),
   includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
 )
 
