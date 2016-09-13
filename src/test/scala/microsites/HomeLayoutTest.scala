@@ -1,0 +1,75 @@
+/*
+ * Copyright 2016 47 Degrees, LLC. <http://www.47deg.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package microsites
+
+import microsites.domain.MicrositeSettings
+import microsites.layouts.HomeLayout
+import microsites.util.Arbitraries
+import org.scalacheck.Prop._
+import org.scalatest.prop.Checkers
+import org.scalatest.{FunSuite, Matchers}
+
+class HomeLayoutTest extends FunSuite with Checkers with Matchers with Arbitraries {
+
+  test("render should return a html document") {
+
+    val property = forAll { settings: MicrositeSettings ⇒
+      val layout = new HomeLayout(settings)
+
+      layout.render.tag shouldBe "html"
+      !layout.render.void
+    }
+
+    check(property)
+  }
+
+  test("homeHeader should return a `header` TypeTag") {
+
+    val property = forAll { settings: MicrositeSettings ⇒
+      val layout = new HomeLayout(settings)
+
+      layout.homeHeader.tag shouldBe "header"
+      !layout.homeHeader.void
+    }
+
+    check(property)
+  }
+
+  test("homeMain should return a `main` TypeTag") {
+
+    val property = forAll { implicit settings: MicrositeSettings ⇒
+      val layout = new HomeLayout(settings)
+
+      layout.homeMain.tag shouldBe "main"
+      !layout.homeMain.void
+    }
+
+    check(property)
+  }
+
+  test("scriptsMain TypeTag list shouldn't be empty") {
+
+    val property = forAll { implicit settings: MicrositeSettings ⇒
+      val layout = new HomeLayout(settings)
+
+      layout.scriptsMain should not be empty
+      layout.scriptsMain.nonEmpty
+    }
+
+    check(property)
+  }
+}
