@@ -53,7 +53,7 @@ trait Arbitraries {
       highlightTheme            ← Arbitrary.arbitrary[String]
       micrositeImgDirectory     ← Arbitrary.arbitrary[File]
       micrositeCssDirectory     ← Arbitrary.arbitrary[File]
-      micrositeExtraMdFiles    ← markdownMapArbitrary.arbitrary
+      micrositeExtraMdFiles     ← markdownMapArbitrary.arbitrary
       micrositeBaseUrl          ← Arbitrary.arbitrary[String]
       micrositeDocumentationUrl ← Arbitrary.arbitrary[String]
       palette                   ← paletteMapArbitrary.arbitrary

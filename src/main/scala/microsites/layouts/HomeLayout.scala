@@ -84,8 +84,8 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
                          """{% endfor %}
           {% endfor %}"""))))
 
-  def scriptsMain: Seq[TypedTag[String]] =
+  def scriptsMain: List[TypedTag[String]] =
     scripts ++
-      Seq(script("jQuery(document).ready(function(){hljs.initHighlightingOnLoad();});"))
+      List(script("jQuery(document).ready(function(){hljs.initHighlightingOnLoad();});"))
 
 }

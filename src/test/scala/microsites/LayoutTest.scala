@@ -28,7 +28,7 @@ import scalatags.Text.all._
 
 class LayoutTest extends FunSuite with Checkers with Matchers with Arbitraries {
 
-  test("meta should never be empty") {
+  test("meta typetag list shouldn't be empty") {
 
     val property = forAll { settings: MicrositeSettings ⇒
       lazy val layout = new Layout(settings) {
