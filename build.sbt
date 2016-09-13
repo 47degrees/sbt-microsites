@@ -43,6 +43,12 @@ lazy val micrositeSettings = Seq(
   includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
 )
 
+lazy val noPublishSettings = Seq(
+  publish := (),
+  publishLocal := (),
+  publishArtifact := false
+)
+
 lazy val miscSettings = Seq(
   shellPrompt := { s: State =>
     val c     = scala.Console
@@ -70,5 +76,6 @@ lazy val `sbt-microsites` = (project in file("."))
 lazy val docs = (project in file("docs"))
   .settings(commonSettings: _*)
   .settings(micrositeSettings: _*)
+  .settings(noPublishSettings: _*)
   .settings(moduleName := "docs")
   .enablePlugins(MicrositesPlugin)
