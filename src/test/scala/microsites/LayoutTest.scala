@@ -28,15 +28,65 @@ import scalatags.Text.all._
 
 class LayoutTest extends FunSuite with Checkers with Matchers with Arbitraries {
 
-  test("meta typetag list shouldn't be empty") {
+  def buildParentLayout(implicit settings: MicrositeSettings) = new Layout(settings) {
+    override def render: TypedTag[String] = html
+  }
 
-    val property = forAll { settings: MicrositeSettings ⇒
-      lazy val layout = new Layout(settings) {
-        override def render: TypedTag[String] = html
-      }
+  test("meta TypeTag list shouldn't be empty") {
+
+    val property = forAll { implicit settings: MicrositeSettings ⇒
+      val layout = buildParentLayout
 
       layout.metas should not be empty
       layout.metas.nonEmpty
+    }
+
+    check(property)
+  }
+
+  test("styles TypeTag list shouldn't be empty") {
+
+    val property = forAll { implicit settings: MicrositeSettings ⇒
+      val layout = buildParentLayout
+
+      layout.styles should not be empty
+      layout.styles.nonEmpty
+    }
+
+    check(property)
+  }
+
+  test("scripts TypeTag list shouldn't be empty") {
+
+    val property = forAll { implicit settings: MicrositeSettings ⇒
+      val layout = buildParentLayout
+
+      layout.scripts should not be empty
+      layout.scripts.nonEmpty
+    }
+
+    check(property)
+  }
+
+  test("globalFooter TypeTag should be `footer`") {
+
+    val property = forAll { implicit settings: MicrositeSettings ⇒
+      val layout = buildParentLayout
+
+      layout.globalFooter.tag shouldBe "footer"
+      !layout.globalFooter.void
+    }
+
+    check(property)
+  }
+
+  test("buildCollapseMenu TypeTag should be a `div`") {
+
+    val property = forAll { implicit settings: MicrositeSettings ⇒
+      val layout = buildParentLayout
+
+      layout.buildCollapseMenu.tag shouldBe "div"
+      !layout.buildCollapseMenu.void
     }
 
     check(property)
