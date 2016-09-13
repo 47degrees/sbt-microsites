@@ -7,3 +7,5 @@ addSbtPlugin("com.geirsson"      % "sbt-scalafmt"         % "0.3.1")
 addSbtPlugin("net.virtual-void"  % "sbt-dependency-graph" % "0.8.2")
 resolvers += "jgit-repo" at "http://download.eclipse.org/jgit/maven"
 addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.5.4")
+// Plugin inception dependency to be able to generate the sbt-microsites' microsite
+addSbtPlugin("com.fortysevendeg" % "sbt-microsites" % "0.2.0-SNAPSHOT")
