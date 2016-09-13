@@ -117,4 +117,8 @@ Once both requirements are satisfied, you can just run:
 sbt> publishMicrosite
 ```
 
+## Examples
+
+Apart from the microsite for this plugin that you can finde in the `docs` sbt module in this repository, a quite complete example is located on https://github.com/47deg/dummy-sbt-microsite.
+
 Please see the [documentation](https://47deg.github.io/sbt-microsites/docs.html) for more information.
