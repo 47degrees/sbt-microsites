@@ -6,6 +6,8 @@ technologies:
  - jekyll: ["Jekyll", "Jekyll allows to transform plain text into static websites and blogs."]
 ---
 
+[![Build Status](https://travis-ci.org/47deg/sbt-microsites.svg?branch=master)](https://travis-ci.org/47deg/sbt-microsites)
+
 # sbt-microsites
 
 **sbt-microsites** is a sbt plugin tool that facilitates the creation of fancy microsites for your projects.
