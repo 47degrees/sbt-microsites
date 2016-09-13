@@ -25,9 +25,10 @@ lazy val pluginSettings = Seq(
 
 lazy val micrositeSettings = Seq(
   micrositeName := "sbt-microsites",
-  micrositeDescription := "An easy way to create your project's microsite",
+  micrositeDescription := "A sbt plugin to create awesome microsites for your project",
   micrositeHighlightTheme := "atom-one-light",
   micrositeBaseUrl := "sbt-microsites",
+  micrositeDocumentationUrl := "/sbt-microsites/docs.html",
   micrositeGithubOwner := "47deg",
   micrositeGithubRepo := "sbt-microsites",
   micrositeExtratMdFiles := Map(file("README.md") -> "index.md"),
