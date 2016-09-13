@@ -28,6 +28,7 @@ lazy val micrositeSettings = Seq(
   micrositeDescription := "An easy way to create your project's microsite",
   micrositeHighlightTheme := "atom-one-light",
   micrositeBaseUrl := "sbt-microsites",
+  micrositeDocumentationUrl := "/docs.html",
   micrositeGithubOwner := "47deg",
   micrositeGithubRepo := "sbt-microsites",
   micrositeExtratMdFiles := Map(file("README.md") -> "index.md"),
