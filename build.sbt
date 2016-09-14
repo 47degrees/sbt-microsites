@@ -39,6 +39,24 @@ lazy val micrositeSettings = Seq(
   includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
 )
 
+lazy val testSettings =
+  ScriptedPlugin.scriptedSettings ++ Seq(
+    scriptedDependencies <<= (compile in Test) map { (analysis) =>
+      Unit
+    },
+    scriptedLaunchOpts := {
+      scriptedLaunchOpts.value ++
+        Seq(
+          "-Xmx2048M",
+          "-XX:MaxPermSize=512M",
+          "-XX:ReservedCodeCacheSize=256m",
+          "-XX:+UseConcMarkSweepGC",
+          "-Dplugin.version=" + version.value,
+          "-Dscala.version=" + scalaVersion.value
+        )
+    }
+  )
+
 lazy val noPublishSettings = Seq(
   publish := (),
   publishLocal := (),
@@ -58,7 +76,7 @@ lazy val miscSettings = Seq(
 )
 
 lazy val commonSettings = artifactSettings ++ miscSettings
-lazy val allSettings    = pluginSettings ++ commonSettings ++ tutSettings
+lazy val allSettings    = pluginSettings ++ commonSettings ++ tutSettings ++ testSettings
 
 lazy val `sbt-microsites` = (project in file("."))
   .settings(moduleName := "sbt-microsites")
