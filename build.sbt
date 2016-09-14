@@ -28,7 +28,7 @@ lazy val commonSettings = Seq(
 
 lazy val testSettings =
   ScriptedPlugin.scriptedSettings ++ Seq(
-    publishLocal := (),
+    scriptedDependencies <<= (compile in Test) map { (analysis) => Unit },
     scriptedLaunchOpts := {
       scriptedLaunchOpts.value ++
         Seq(
@@ -44,6 +44,7 @@ lazy val testSettings =
   )
 
 lazy val pluginSettings = Seq(
+  version in ThisBuild := "0.2.1-SNAPSHOT",
   sbtPlugin := true,
   scalaVersion in ThisBuild := "2.10.6"
 ) ++ testSettings
@@ -79,10 +80,11 @@ lazy val miscSettings = Seq(
 
 lazy val root = (project in file("."))
   .settings(miscSettings: _*)
+  .settings(noPublishSettings: _*)
   .aggregate(docs, core, `sbt-microsites`)
 
 lazy val docs = (project in file("docs"))
-  .enablePlugins(MicrositesPlugin)
+  .enablePlugins(MicrositePlugin)
   .settings(commonSettings: _*)
   .settings(noPublishSettings: _*)
   .settings(micrositeSettings: _*)
@@ -104,3 +106,5 @@ lazy val `sbt-microsites` = (project in file("sbt-microsites"))
   .dependsOn(core)
 
 addCommandAlias("testAll", ";core/test;sbt-microsites/scripted")
+addCommandAlias("micrositesPublishLocal", ";sbt-microsites/publishLocal")
+addCommandAlias("micrositesPublishSigned", ";sbt-microsites/publishSigned")
