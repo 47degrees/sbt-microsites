@@ -9,4 +9,4 @@ addSbtPlugin("com.typesafe.sbt"                    % "sbt-ghpages"     % "0.5.4"
 libraryDependencies <+= sbtVersion("org.scala-sbt" % "scripted-plugin" % _)
 // Plugin inception dependency to be able to generate the sbt-microsites' microsite
 resolvers += Resolver.sonatypeRepo("snapshots")
-addSbtPlugin("com.fortysevendeg" % "sbt-microsites" % "0.2.0-SNAPSHOT" changing ())
+addSbtPlugin("com.fortysevendeg" % "sbt-microsites" % "0.2.2-SNAPSHOT" changing ())
