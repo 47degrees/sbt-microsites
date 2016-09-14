@@ -16,7 +16,7 @@
 
 package microsites.domain
 
-import sbt._
+import java.io.File
 
 case class MicrositeSettings(name: String,
                              description: String,

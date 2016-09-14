@@ -44,4 +44,3 @@ trait MicrositeKeys {
   val micrositeGithubOwner = settingKey[String]("Microsite Github owner")
   val micrositeGithubRepo  = settingKey[String]("Microsite Github repo")
 }
-object MicrositeKeys extends MicrositeKeys
