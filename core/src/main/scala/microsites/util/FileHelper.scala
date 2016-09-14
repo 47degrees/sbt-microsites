@@ -27,11 +27,11 @@ import java.util.zip.ZipInputStream
 trait FileHelper {
 
   implicit class FileNameImplicit(filename: String) {
-    def toPath = get(filename)
+    def toPath: Path = get(filename)
 
-    def toFile = new File(filename.fixPath)
+    def toFile: File = new File(filename.fixPath)
 
-    def fixPath = filename.replaceAll("/", File.separator)
+    def fixPath: String = filename.replaceAll("/", File.separator)
   }
 
   def getPathWithSlash(f: File): String =

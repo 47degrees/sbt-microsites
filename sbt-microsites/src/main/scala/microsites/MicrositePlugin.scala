@@ -27,17 +27,16 @@ import com.typesafe.sbt.packager.universal.UniversalPlugin
 import com.typesafe.sbt.site.SitePlugin.autoImport._
 import com.typesafe.sbt.site.jekyll.JekyllPlugin
 import microsites.domain.MicrositeSettings
-import microsites.util.MicrositeHelper
 import sbt.Keys._
 import sbt._
 import sbt.plugins.IvyPlugin
 import tut.Plugin._
 
-object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
+object MicrositePlugin extends AutoPlugin with NativePackagerKeys {
 
   object autoImport extends MicrositeKeys
 
-  import MicrositesPlugin.autoImport._
+  import MicrositePlugin.autoImport._
   import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport._
 
   override def requires = IvyPlugin && SbtNativePackager && JekyllPlugin && UniversalPlugin

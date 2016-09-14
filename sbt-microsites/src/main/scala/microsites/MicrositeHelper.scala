@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package microsites.util
+package microsites
 
 import microsites.domain.MicrositeSettings
 import microsites.layouts._
@@ -45,7 +45,7 @@ class MicrositeHelper(config: MicrositeSettings) {
       createLayouts(targetDir) ++ createPartialLayout(targetDir)
   }
 
-  def createConfigYML(targetDir: String): File = {
+  private[this] def createConfigYML(targetDir: String): File = {
     val targetFile = createFilePathIfNotExists(s"${targetDir}jekyll/_config.yml")
 
     val baseUrl =
@@ -68,14 +68,14 @@ class MicrositeHelper(config: MicrositeSettings) {
     targetFile
   }
 
-  def createPalette(targetDir: String): File = {
+  private[this] def createPalette(targetDir: String): File = {
     val targetFile = createFilePathIfNotExists(s"${targetDir}jekyll/_sass/_variables_palette.scss")
     val content    = config.palette.map { case (key, value) => s"""$$$key: $value;""" }.mkString("\n")
     IO.write(targetFile, content)
     targetFile
   }
 
-  def createLayouts(targetDir: String): List[File] =
+  private[this] def createLayouts(targetDir: String): List[File] =
     List(
       "home" -> new HomeLayout(config),
       "docs" -> new DocsLayout(config),
@@ -87,7 +87,7 @@ class MicrositeHelper(config: MicrositeSettings) {
         targetFile
     }
 
-  def createPartialLayout(targetDir: String): List[File] =
+  private[this] def createPartialLayout(targetDir: String): List[File] =
     List("menu" -> new MenuPartialLayout(config)) map {
       case (layoutName, layout) =>
         val targetFile =
