@@ -32,6 +32,7 @@ class MicrositeHelper(config: MicrositeSettings) {
     copyPluginResources(pluginURL, s"${targetDir}jekyll/", "_sass")
     copyPluginResources(pluginURL, s"${targetDir}jekyll/", "css")
     copyPluginResources(pluginURL, s"${targetDir}jekyll/", "js")
+    copyPluginResources(pluginURL, s"${targetDir}jekyll/", "img")
 
     copyFilesRecursively(config.micrositeImgDirectory.getAbsolutePath, s"${targetDir}jekyll/img/")
     copyFilesRecursively(config.micrositeCssDirectory.getAbsolutePath, s"${targetDir}jekyll/css/")
@@ -59,7 +60,7 @@ class MicrositeHelper(config: MicrositeSettings) {
           |baseurl: $baseUrl
           |docs: true
           |
-                             |markdown: kramdown
+          |markdown: kramdown
           |collections:
           |  tut:
           |    output: true
