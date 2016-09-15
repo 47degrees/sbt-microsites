@@ -1,6 +1,4 @@
 ---
-
-[![Join the chat at https://gitter.im/47deg/sbt-microsites](https://badges.gitter.im/47deg/sbt-microsites.svg)](https://gitter.im/47deg/sbt-microsites?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 layout: home
 technologies:
  - scala: ["Scala", "sbt-microsites plugin is completely written in Scala"]
