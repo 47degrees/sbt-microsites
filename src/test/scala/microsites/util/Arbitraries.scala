@@ -1,0 +1,78 @@
+/*
+ * Copyright 2016 47 Degrees, LLC. <http://www.47deg.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package microsites.util
+
+import java.io.File
+
+import microsites.domain.MicrositeSettings
+import org.scalacheck.Arbitrary
+import org.scalacheck.Gen._
+
+trait Arbitraries {
+
+  implicit def fileArbitrary: Arbitrary[File] = Arbitrary {
+    uuid map (randomFileName => new File(randomFileName.toString))
+  }
+
+  implicit def markdownMapArbitrary: Arbitrary[Map[File, String]] = Arbitrary {
+    for {
+      n        ← choose(1, 100)
+      fileList <- listOfN[File](n, Arbitrary.arbitrary[File])
+      map      <- (fileList map (f => f -> f.getName)).toMap
+    } yield map
+  }
+
+  implicit def paletteMapArbitrary: Arbitrary[Map[String, String]] = Arbitrary {
+    for {
+      stringList <- listOfN[String](6, Arbitrary.arbitrary[String])
+      map        <- (stringList map (s => s -> s"value of $s")).toMap
+    } yield map
+  }
+
+  implicit def settingsArbitrary: Arbitrary[MicrositeSettings] = Arbitrary {
+    for {
+      name                      ← Arbitrary.arbitrary[String]
+      description               ← Arbitrary.arbitrary[String]
+      author                    ← Arbitrary.arbitrary[String]
+      homepage                  ← Arbitrary.arbitrary[String]
+      twitter                   ← Arbitrary.arbitrary[String]
+      highlightTheme            ← Arbitrary.arbitrary[String]
+      micrositeImgDirectory     ← Arbitrary.arbitrary[File]
+      micrositeCssDirectory     ← Arbitrary.arbitrary[File]
+      micrositeExtraMdFiles     ← markdownMapArbitrary.arbitrary
+      micrositeBaseUrl          ← Arbitrary.arbitrary[String]
+      micrositeDocumentationUrl ← Arbitrary.arbitrary[String]
+      palette                   ← paletteMapArbitrary.arbitrary
+      githubOwner               ← Arbitrary.arbitrary[String]
+      githubRepo                ← Arbitrary.arbitrary[String]
+    } yield
+      MicrositeSettings(name,
+                        description,
+                        author,
+                        homepage,
+                        twitter,
+                        highlightTheme,
+                        micrositeImgDirectory,
+                        micrositeCssDirectory,
+                        micrositeExtraMdFiles,
+                        micrositeBaseUrl,
+                        micrositeDocumentationUrl,
+                        palette,
+                        githubOwner,
+                        githubRepo)
+  }
+}

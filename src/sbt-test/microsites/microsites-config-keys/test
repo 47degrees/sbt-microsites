@@ -1,0 +1,23 @@
+# check that the sbt-microsites plugin work well for the specified settings
+
+> makeMicrosite
+
+# check images and styles at resource_managed folder
+
+$ exists target/scala-2.11/resource_managed/main/jekyll/img/scala.png
+$ exists target/scala-2.11/resource_managed/main/jekyll/img/sbt.png
+$ exists target/scala-2.11/resource_managed/main/jekyll/css/override-1.css
+$ exists target/scala-2.11/resource_managed/main/jekyll/css/override-2.css
+
+# check images and css at site folder
+
+$ exists target/site/img/scala.png
+$ exists target/site/img/sbt.png
+$ exists target/site/css/palette.css
+$ exists target/site/css/style.css
+$ exists target/site/css/override-1.css
+$ exists target/site/css/override-2.css
+
+# check _config.yml file at site folder
+
+> check

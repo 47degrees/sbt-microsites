@@ -66,8 +66,8 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
     main(id := "site-main",
          section(cls := "use", div(cls := "container", div(id := "content", "{{ content }}"))))
 
-  def scriptsMain: Seq[TypedTag[String]] =
+  def scriptsMain: List[TypedTag[String]] =
     scripts ++
-      Seq(script("jQuery(document).ready(function(){hljs.initHighlightingOnLoad();});"))
+      List(script("jQuery(document).ready(function(){hljs.initHighlightingOnLoad();});"))
 
 }

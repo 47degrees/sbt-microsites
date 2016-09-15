@@ -24,7 +24,7 @@ import sbt._
 class MicrositeHelper(config: MicrositeSettings) {
   implicitly(config)
 
-  def createResources(resourceManagedDir: File): Seq[File] = {
+  def createResources(resourceManagedDir: File): List[File] = {
 
     val targetDir: String = getPathWithSlash(resourceManagedDir)
     val pluginURL: URL    = getClass.getProtectionDomain.getCodeSource.getLocation
@@ -37,12 +37,12 @@ class MicrositeHelper(config: MicrositeSettings) {
     copyFilesRecursively(config.micrositeImgDirectory.getAbsolutePath, s"${targetDir}jekyll/img/")
     copyFilesRecursively(config.micrositeCssDirectory.getAbsolutePath, s"${targetDir}jekyll/css/")
 
-    config.micrositeExtratMdFiles foreach {
+    config.micrositeExtraMdFiles foreach {
       case (sourceFile, relativeTargetFile) =>
         copyFilesRecursively(sourceFile.getAbsolutePath, s"${targetDir}jekyll/$relativeTargetFile")
     }
 
-    Seq(createConfigYML(targetDir), createPalette(targetDir)) ++
+    List(createConfigYML(targetDir), createPalette(targetDir)) ++
       createLayouts(targetDir) ++ createPartialLayout(targetDir)
   }
 
@@ -76,7 +76,7 @@ class MicrositeHelper(config: MicrositeSettings) {
     targetFile
   }
 
-  def createLayouts(targetDir: String): Seq[File] =
+  def createLayouts(targetDir: String): List[File] =
     List(
       "home" -> new HomeLayout(config),
       "docs" -> new DocsLayout(config),
@@ -88,7 +88,7 @@ class MicrositeHelper(config: MicrositeSettings) {
         targetFile
     }
 
-  def createPartialLayout(targetDir: String): Seq[File] =
+  def createPartialLayout(targetDir: String): List[File] =
     List("menu" -> new MenuPartialLayout(config)) map {
       case (layoutName, layout) =>
         val targetFile =

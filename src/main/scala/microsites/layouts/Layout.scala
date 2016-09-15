@@ -35,33 +35,33 @@ abstract class Layout(config: MicrositeSettings) {
     )
   }
 
-  def metas: Seq[TypedTag[String]] =
-    Seq(meta(charset := "utf-8"),
-        meta(httpEquiv := "X-UA-Compatible", content := "IE=edge,chrome=1"),
-        title(config.name),
-        meta(name := "viewport", content := "width=device-width, initial-scale=1.0"),
-        meta(name := "description", content := config.description),
-        meta(name := "author", content := config.author),
-        meta(name := "og:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
-        meta(name := "og:title", content := config.name),
-        meta(name := "og:site_name", content := config.name),
-        meta(name := "og:url", content := config.homepage),
-        meta(name := "og:type", content := "website"),
-        meta(name := "og:description", content := config.description),
-        meta(name := "twitter:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
-        meta(name := "twitter:card", content := "summary_large_image"),
-        meta(name := "twitter:site", content := config.twitter),
-        link(rel := "icon",
-             `type` := "image/png",
-             href := "{{site.url}}{{site.baseurl}}/img/favicon.png"))
+  def metas: List[TypedTag[String]] =
+    List(meta(charset := "utf-8"),
+         meta(httpEquiv := "X-UA-Compatible", content := "IE=edge,chrome=1"),
+         title(config.name),
+         meta(name := "viewport", content := "width=device-width, initial-scale=1.0"),
+         meta(name := "description", content := config.description),
+         meta(name := "author", content := config.author),
+         meta(name := "og:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
+         meta(name := "og:title", content := config.name),
+         meta(name := "og:site_name", content := config.name),
+         meta(name := "og:url", content := config.homepage),
+         meta(name := "og:type", content := "website"),
+         meta(name := "og:description", content := config.description),
+         meta(name := "twitter:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
+         meta(name := "twitter:card", content := "summary_large_image"),
+         meta(name := "twitter:site", content := config.twitter),
+         link(rel := "icon",
+              `type` := "image/png",
+              href := "{{site.url}}{{site.baseurl}}/img/favicon.png"))
 
-  def styles: Seq[TypedTag[String]] = {
+  def styles: List[TypedTag[String]] = {
 
     val customCssList = fetchFilesRecursively(config.micrositeCssDirectory) map { css =>
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${css.getName}")
     }
 
-    Seq(
+    List(
       link(rel := "stylesheet",
            href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
       link(rel := "stylesheet",
@@ -74,7 +74,7 @@ abstract class Layout(config: MicrositeSettings) {
     ) ++ customCssList
   }
 
-  def scripts: Seq[TypedTag[String]] = Seq(
+  def scripts: List[TypedTag[String]] = List(
     script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"),
     script(
       src := "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),

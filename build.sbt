@@ -19,7 +19,12 @@ lazy val pluginSettings = Seq(
       Resolver.sonatypeRepo("releases"),
       "jgit-repo" at "http://download.eclipse.org/jgit/maven"
     ),
-    libraryDependencies += "com.lihaoyi" %% "scalatags" % "0.6.0",
+    libraryDependencies ++= Seq(
+      "com.lihaoyi"    %% "scalatags"  % "0.6.0",
+      "org.scalactic"  %% "scalactic"  % "3.0.0",
+      "org.scalatest"  %% "scalatest"  % "3.0.0" % "test",
+      "org.scalacheck" %% "scalacheck" % "1.13.2" % "test"
+    ),
     scalafmtConfig in ThisBuild := Some(file(".scalafmt"))
   ) ++ reformatOnCompileSettings
 
@@ -30,9 +35,27 @@ lazy val micrositeSettings = Seq(
   micrositeDocumentationUrl := "/sbt-microsites/docs.html",
   micrositeGithubOwner := "47deg",
   micrositeGithubRepo := "sbt-microsites",
-  micrositeExtratMdFiles := Map(file("README.md") -> "index.md"),
+  micrositeExtraMdFiles := Map(file("README.md") -> "index.md"),
   includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
 )
+
+lazy val testSettings =
+  ScriptedPlugin.scriptedSettings ++ Seq(
+    scriptedDependencies <<= (compile in Test) map { (analysis) =>
+      Unit
+    },
+    scriptedLaunchOpts := {
+      scriptedLaunchOpts.value ++
+        Seq(
+          "-Xmx2048M",
+          "-XX:MaxPermSize=512M",
+          "-XX:ReservedCodeCacheSize=256m",
+          "-XX:+UseConcMarkSweepGC",
+          "-Dplugin.version=" + version.value,
+          "-Dscala.version=" + scalaVersion.value
+        )
+    }
+  )
 
 lazy val noPublishSettings = Seq(
   publish := (),
@@ -53,7 +76,7 @@ lazy val miscSettings = Seq(
 )
 
 lazy val commonSettings = artifactSettings ++ miscSettings
-lazy val allSettings    = pluginSettings ++ commonSettings ++ tutSettings
+lazy val allSettings    = pluginSettings ++ commonSettings ++ tutSettings ++ testSettings
 
 lazy val `sbt-microsites` = (project in file("."))
   .settings(moduleName := "sbt-microsites")

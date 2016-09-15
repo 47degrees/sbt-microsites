@@ -1,5 +1,7 @@
 ---
 layout: docs
+title: Introduction
+section: docs
 ---
 
 # Introduction
@@ -167,9 +169,9 @@ micrositeImgDirectory := (resourceDirectory in Compile).value / "site" / "images
 micrositeImgDirectory := (resourceDirectory in Compile).value / "site" / "styles"
 ```
 
-- `micrositeExtratMdFiles` setting could be handy if you want to include additional markdown files in your site, and these files are not located in the same place of your `tut` directory. By default, the setting is set up as a empty map. You could override it, in this way:
+- `micrositeExtraMdFiles` setting could be handy if you want to include additional markdown files in your site, and these files are not located in the same place of your `tut` directory. By default, the setting is set up as a empty map. You could override it, in this way:
 ```
-micrositeExtratMdFiles := Map(file("README.md") -> "index.md", file("CONTRIBUTING.md") -> "contributing.md")
+micrositeExtraMdFiles := Map(file("README.md") -> "index.md", file("CONTRIBUTING.md") -> "contributing.md")
 ```
 
 - Style uses essentially 8 colors which palette can be set through the setting `micrositePalette` as below:

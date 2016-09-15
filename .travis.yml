@@ -1,0 +1,14 @@
+language: scala
+
+scala:
+- 2.10.6
+
+before_install:
+ - export PATH=${PATH}:./vendor/bundle
+
+install:
+  - gem install jekyll -v 2.5
+
+script:
+- sbt ++$TRAVIS_SCALA_VERSION publishLocal
+- sbt ++$TRAVIS_SCALA_VERSION test scripted

@@ -87,6 +87,6 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
     )
   }
 
-  def scriptsDocs: Seq[TypedTag[String]] = scripts ++
-    Seq(script(src := "{{ site.baseurl }}/js/main.js"))
+  def scriptsDocs: List[TypedTag[String]] = scripts ++
+    List(script(src := "{{ site.baseurl }}/js/main.js"))
 }
