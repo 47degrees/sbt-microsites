@@ -63,6 +63,11 @@ lazy val noPublishSettings = Seq(
   publishArtifact := false
 )
 
+lazy val buildInfoSettings = Seq(
+  buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
+  buildInfoPackage := "microsites"
+)
+
 lazy val miscSettings = Seq(
   shellPrompt := { s: State =>
     val c     = scala.Console
@@ -91,5 +96,7 @@ lazy val docs = (project in file("docs"))
   .settings(commonSettings: _*)
   .settings(micrositeSettings: _*)
   .settings(noPublishSettings: _*)
+  .settings(buildInfoSettings: _*)
   .settings(moduleName := "docs")
   .enablePlugins(MicrositesPlugin)
+  .enablePlugins(BuildInfoPlugin)

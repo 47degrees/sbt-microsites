@@ -74,9 +74,9 @@ addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "0.1.0")
 ```
 
 Latest snapshot built from the `master` branch code:
-```
-resolvers += Resolver.sonatypeRepo("snapshots")
-addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "0.2.0-SNAPSHOT")
+
+```tut:evaluated
+println(s"""addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "${microsites.BuildInfo.version}")""")
 ```
 
 Finally, to enable the plugin, add this to your `build.sbt` file:
