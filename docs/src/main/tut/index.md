@@ -81,7 +81,7 @@ Latest snapshot built from the `master` branch code:
 
 ```tut:evaluated
 println("""resolvers += Resolver.sonatypeRepo("snapshots")""")
-println(s"""addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "${microsites.BuildInfo.version}"""")
+println(s"""addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "${microsites.BuildInfo.version}")""")
 ```
 
 Finally, to enable the plugin, add this to your `build.sbt` file:

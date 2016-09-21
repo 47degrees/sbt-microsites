@@ -19,11 +19,6 @@ package microsites
 import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
 import com.typesafe.sbt.SbtGhPages.ghpages
 import com.typesafe.sbt.SbtGit.git
-import com.typesafe.sbt.SbtNativePackager
-import com.typesafe.sbt.SbtNativePackager.Universal
-import com.typesafe.sbt.packager.MappingsHelper._
-import com.typesafe.sbt.packager.NativePackagerKeys
-import com.typesafe.sbt.packager.universal.UniversalPlugin
 import com.typesafe.sbt.site.SitePlugin.autoImport._
 import com.typesafe.sbt.site.jekyll.JekyllPlugin
 import microsites.domain.MicrositeSettings
@@ -33,14 +28,14 @@ import sbt._
 import sbt.plugins.IvyPlugin
 import tut.Plugin._
 
-object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
+object MicrositesPlugin extends AutoPlugin {
 
   object autoImport extends MicrositeKeys
 
   import MicrositesPlugin.autoImport._
   import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport._
 
-  override def requires = IvyPlugin && SbtNativePackager && JekyllPlugin && UniversalPlugin
+  override def requires = IvyPlugin && JekyllPlugin
 
   override def trigger = allRequirements
 
@@ -51,7 +46,7 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
       ghpages.settings ++
       Seq(
         git.remoteRepo := s"git@github.com:${micrositeGithubOwner.value}/${micrositeGithubRepo.value}.git",
-        mappings in Universal ++= directory("src/main/resources/microsite"),
+        mappings ++= micrositeHelper.value.directory("src/main/resources/microsite"),
         sourceDirectory in Jekyll := resourceManaged.value / "main" / "jekyll",
         tutSourceDirectory := sourceDirectory.value / "main" / "tut",
         tutTargetDirectory := resourceManaged.value / "main" / "jekyll"

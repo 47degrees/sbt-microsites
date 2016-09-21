@@ -90,7 +90,7 @@ lazy val `sbt-microsites` = (project in file("."))
   .settings(addSbtPlugin("org.tpolecat"     % "tut-plugin"          % "0.4.4"))
   .settings(addSbtPlugin("com.typesafe.sbt" % "sbt-site"            % "1.0.0"))
   .settings(addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages"         % "0.5.4"))
-  .enablePlugins(JavaServerAppPackaging, UniversalPlugin, JekyllPlugin, AutomateHeaderPlugin)
+  .enablePlugins(JekyllPlugin, AutomateHeaderPlugin)
 
 lazy val docs = (project in file("docs"))
   .settings(commonSettings: _*)

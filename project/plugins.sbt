@@ -1,4 +1,3 @@
-addSbtPlugin("com.typesafe.sbt"  % "sbt-native-packager" % "1.0.3")
 addSbtPlugin("org.tpolecat"      % "tut-plugin"          % "0.4.4")
 addSbtPlugin("com.typesafe.sbt"  % "sbt-site"            % "1.0.0")
 addSbtPlugin("com.jsuereth"      % "sbt-pgp"             % "1.0.1")
