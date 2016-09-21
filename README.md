@@ -23,7 +23,7 @@ In order to achieve the microsite creation, it uses directly these plugins and l
 * [sbt-ghpages](https://github.com/sbt/sbt-ghpages)
 * [scalatags](https://github.com/lihaoyi/scalatags)
 
-Additionally it's supported for other useful libraries and plugins like:
+Additionally it depends on other useful libraries and plugins like:
 
 * [sbt-native-packager](https://github.com/sbt/sbt-native-packager)
 * [sbt-scalafmt](https://github.com/olafurpg/scalafmt)
@@ -65,7 +65,7 @@ This is needed in order to install and be able to use `jekyll` gem from other pa
 ```
 install:
  - ...
- - gem install jekyll -v 2.5
+ - gem install jekyll -v 3.2.1
 ```
 
 ## Setup
@@ -91,7 +91,7 @@ enablePlugins(MicrositesPlugin)
 
 ## Build the microsite
 
-Once you have written down your documents you can build the microste running this sbt task:
+Once you have written down your documents you can build the microsite running this sbt task:
 
 ```
 sbt> makeMicrosite
