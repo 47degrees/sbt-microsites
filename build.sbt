@@ -32,10 +32,9 @@ lazy val micrositeSettings = Seq(
   micrositeName := "sbt-microsites",
   micrositeDescription := "A sbt plugin to create awesome microsites for your project",
   micrositeBaseUrl := "sbt-microsites",
-  micrositeDocumentationUrl := "/sbt-microsites/docs.html",
+  micrositeDocumentationUrl := "/sbt-microsites/docs-1.html",
   micrositeGithubOwner := "47deg",
   micrositeGithubRepo := "sbt-microsites",
-  micrositeExtraMdFiles := Map(file("README.md") -> "index.md"),
   includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
 )
 
