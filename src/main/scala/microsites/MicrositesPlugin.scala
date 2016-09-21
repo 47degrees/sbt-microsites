@@ -101,8 +101,10 @@ object MicrositesPlugin extends AutoPlugin with NativePackagerKeys {
   }
 
   lazy val micrositeTasksSettings = Seq(
-    microsite := micrositeHelper.value.createResources(
-      resourceManagedDir = (resourceManaged in Compile).value),
+    microsite := micrositeHelper.value.createResources(resourceManagedDir =
+                                                         (resourceManaged in Compile).value,
+                                                       tutSourceDirectory =
+                                                         (tutSourceDirectory in Compile).value),
     micrositeConfig := micrositeHelper.value
       .copyConfigurationFile((sourceDirectory in Jekyll).value, siteDirectory.value),
     makeMicrosite := Def

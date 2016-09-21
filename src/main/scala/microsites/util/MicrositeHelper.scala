@@ -24,22 +24,28 @@ import sbt._
 class MicrositeHelper(config: MicrositeSettings) {
   implicitly(config)
 
-  def createResources(resourceManagedDir: File): List[File] = {
+  val jekyllDir = "jekyll"
 
-    val targetDir: String = getPathWithSlash(resourceManagedDir)
-    val pluginURL: URL    = getClass.getProtectionDomain.getCodeSource.getLocation
+  def createResources(resourceManagedDir: File, tutSourceDirectory: File): List[File] = {
 
-    copyPluginResources(pluginURL, s"${targetDir}jekyll/", "_sass")
-    copyPluginResources(pluginURL, s"${targetDir}jekyll/", "css")
-    copyPluginResources(pluginURL, s"${targetDir}jekyll/", "js")
-    copyPluginResources(pluginURL, s"${targetDir}jekyll/", "img")
+    val targetDir: String    = getPathWithSlash(resourceManagedDir)
+    val tutSourceDir: String = getPathWithSlash(tutSourceDirectory)
+    val pluginURL: URL       = getClass.getProtectionDomain.getCodeSource.getLocation
 
-    copyFilesRecursively(config.micrositeImgDirectory.getAbsolutePath, s"${targetDir}jekyll/img/")
-    copyFilesRecursively(config.micrositeCssDirectory.getAbsolutePath, s"${targetDir}jekyll/css/")
+    copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "_sass")
+    copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "css")
+    copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "js")
+    copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "img")
+
+    copyFilesRecursively(config.micrositeImgDirectory.getAbsolutePath,
+                         s"$targetDir$jekyllDir/img/")
+    copyFilesRecursively(config.micrositeCssDirectory.getAbsolutePath,
+                         s"$targetDir$jekyllDir/css/")
 
     config.micrositeExtraMdFiles foreach {
       case (sourceFile, relativeTargetFile) =>
-        copyFilesRecursively(sourceFile.getAbsolutePath, s"${targetDir}jekyll/$relativeTargetFile")
+        println(s"Copying from ${sourceFile.getAbsolutePath} to $tutSourceDir$relativeTargetFile")
+        copyFilesRecursively(sourceFile.getAbsolutePath, s"$tutSourceDir$relativeTargetFile")
     }
 
     List(createConfigYML(targetDir), createPalette(targetDir)) ++
@@ -47,7 +53,7 @@ class MicrositeHelper(config: MicrositeSettings) {
   }
 
   def createConfigYML(targetDir: String): File = {
-    val targetFile = createFilePathIfNotExists(s"${targetDir}jekyll/_config.yml")
+    val targetFile = createFilePathIfNotExists(s"$targetDir$jekyllDir/_config.yml")
 
     val baseUrl =
       if (!config.micrositeBaseUrl.isEmpty && !config.micrositeBaseUrl.startsWith("/"))
@@ -70,8 +76,9 @@ class MicrositeHelper(config: MicrositeSettings) {
   }
 
   def createPalette(targetDir: String): File = {
-    val targetFile = createFilePathIfNotExists(s"${targetDir}jekyll/_sass/_variables_palette.scss")
-    val content    = config.palette.map { case (key, value) => s"""$$$key: $value;""" }.mkString("\n")
+    val targetFile = createFilePathIfNotExists(
+      s"$targetDir$jekyllDir/_sass/_variables_palette.scss")
+    val content = config.palette.map { case (key, value) => s"""$$$key: $value;""" }.mkString("\n")
     IO.write(targetFile, content)
     targetFile
   }
@@ -83,7 +90,8 @@ class MicrositeHelper(config: MicrositeSettings) {
       "page" -> new PageLayout(config)
     ) map {
       case (layoutName, layout) =>
-        val targetFile = createFilePathIfNotExists(s"${targetDir}jekyll/_layouts/$layoutName.html")
+        val targetFile =
+          createFilePathIfNotExists(s"$targetDir$jekyllDir/_layouts/$layoutName.html")
         IO.write(targetFile, layout.render.toString())
         targetFile
     }
@@ -92,7 +100,7 @@ class MicrositeHelper(config: MicrositeSettings) {
     List("menu" -> new MenuPartialLayout(config)) map {
       case (layoutName, layout) =>
         val targetFile =
-          createFilePathIfNotExists(s"${targetDir}jekyll/_includes/$layoutName.html")
+          createFilePathIfNotExists(s"$targetDir$jekyllDir/_includes/$layoutName.html")
         IO.write(targetFile, layout.render.toString())
         targetFile
     }
