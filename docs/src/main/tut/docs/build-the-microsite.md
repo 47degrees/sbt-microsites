@@ -38,7 +38,9 @@ Once both requirements are satisfied, you can just run:
 sbt> publishMicrosite
 ```
 
-And that's all. If you don't have any domain names pointing to your site, you can see your microsite at:
+And that's all. Behind the scenes, `makeMicrosite` and `pushSite` are invoked. The second task is possible thanks to [`sbt-ghpages` plugin](https://github.com/sbt/sbt-ghpages).
+
+If you don't have any domain names pointing to your site, you can see your microsite at:
 
 [http://username.github.io/your-microsite](http://username.github.io/your-microsite)
 
