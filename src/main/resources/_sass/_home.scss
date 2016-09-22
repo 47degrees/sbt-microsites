@@ -23,7 +23,7 @@
                 44px);
                 span {
                     position: absolute;
-									  white-space: nowrap;
+					white-space: nowrap;
                     top: 5px;
                     left: 55px;
                     z-index: 30;
@@ -61,7 +61,7 @@
                     }
 
                     &:first-child {
-                        margin-right: 20px;
+                        margin-right: 50px;
 
                         @media screen and (max-width: $screen-xs-max) {
                             margin-right: 10px;

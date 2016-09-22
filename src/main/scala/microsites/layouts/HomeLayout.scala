@@ -40,24 +40,19 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
     header(
       id := "site-header",
       div(
-        cls := "navbar-wrapper navbar-inverse",
-        div(cls := "container",
-            div(cls := "navbar-header",
-                button(tpe := "button",
-                       cls := "navbar-toggle collapsed",
-                       data.toggle := "collapse",
-                       data.target := "#bs-example-navbar-collapse-1",
-                       aria.expanded := "false",
-                       span(cls := "sr-only", "Toggle navigation"),
-                       span(cls := "icon-bar"),
-                       span(cls := "icon-bar"),
-                       span(cls := "icon-bar")),
+        cls := "navbar-wrapper",
+        div(
+          cls := "container",
+          div(
+            cls := "row",
+            div(cls := "col-xs-6",
                 a(href := "{{ site.baseurl }}/",
                   cls := "brand",
                   div(cls := "icon-wrapper",
                       style := "background:url('{{site.baseurl}}/img/navbar_brand.png') no-repeat",
                       span(config.name)))),
-            buildCollapseMenu)),
+            div(cls := "col-xs-6", buildCollapseMenu)))
+      ),
       div(cls := "jumbotron",
           style := "background-image:url('{{site.baseurl}}/img/jumbotron_pattern.png')",
           div(cls := "container",

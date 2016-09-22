@@ -71,7 +71,7 @@ micrositeGithubOwner := "47deg"
 micrositeGithubRepo := "sbt-microsites"
 ```
 
-- `micrositeHighlightTheme`: by default, the theme of Highlight.js is [tomorrow](https://highlightjs.org/static/demo/), however, you could configure a different one thanks to this setting:
+- `micrositeHighlightTheme`: by default, the theme of Highlight.js is [default](https://highlightjs.org/static/demo/), however, you could configure a different one thanks to this setting:
 
 ```
 micrositeHighlightTheme := "monokai"

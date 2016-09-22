@@ -21,7 +21,7 @@ import microsites.util.FileHelper._
 
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
-import scalatags.Text.tags2.title
+import scalatags.Text.tags2.{title, nav}
 
 abstract class Layout(config: MicrositeSettings) {
   implicitly(config)
@@ -98,16 +98,18 @@ abstract class Layout(config: MicrositeSettings) {
                       "View on Github"))))))
 
   def buildCollapseMenu: TypedTag[String] =
-    div(cls := "collapse navbar-collapse",
-        id := "bs-example-navbar-collapse-1",
-        ul(cls := "nav navbar-nav navbar-right",
+    nav(cls := "text-right",
+        ul(cls := "",
            li(
              a(href := s"https://github.com/${config.githubOwner}/${config.githubRepo}",
-               span("GitHub"))
+               i(cls := "fa fa-github"),
+               span(cls := "hidden-xs", "GitHub"))
            ),
            if (!config.micrositeDocumentationUrl.isEmpty)
              li(
-               a(href := s"${config.micrositeDocumentationUrl}", span("Documentation"))
+               a(href := s"${config.micrositeDocumentationUrl}",
+                 i(cls := "fa fa-file-text"),
+                 span(cls := "hidden-xs", "Documentation"))
              )
            else ()))
 }
