@@ -1,33 +1,30 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
 .technologies {
-  background: #3F3242; }
+  background: #1C2C52; }
 
 #site-header .navbar-wrapper a {
   color: #fff; }
 
 #site-footer {
-  background: #2D232F; }
+  background: #162341; }
 
 ::-moz-selection {
-  background: #E05236;
+  background: #02B4E5;
   color: #FFFFFF; }
 
 ::selection {
-  background: #E05236;
+  background: #02B4E5;
   color: #FFFFFF; }
 
 .jumbotron {
-  background-color: #3F3242; }
+  background-color: #1C2C52; }
   .jumbotron .btn-outline-inverse {
     border: 2px solid #FFFFFF;
     color: #FFFFFF; }
     .jumbotron .btn-outline-inverse:hover, .jumbotron .btn-outline-inverse:focus {
       background: #FFFFFF;
-      color: #3F3242; }
+      color: #1C2C52; }
 
-@media screen and (max-width: 768px) {
-  .navbar-collapse {
-    background: #2D232F; } }
 pre {
   background: rgba(244, 243, 244, 0.6); }
   pre code {
@@ -44,7 +41,7 @@ body.docs {
   background-color: #F4F3F4; }
 
 #sidebar-wrapper {
-  background: #3F3242; }
+  background: #1C2C52; }
 
 #page-content-wrapper .nav a {
   color: #837F84; }
@@ -54,10 +51,10 @@ body.docs {
     font-size: 18px; }
 
 .sidebar-nav > li a:hover {
-  background: #2D232F; }
+  background: #162341; }
 .sidebar-nav > li a.active {
-  border-left: 3px solid #E05236; }
+  border-left: 3px solid #02B4E5; }
 .sidebar-nav > .sidebar-brand a {
-  background: #2D232F; }
+  background: #162341; }
   .sidebar-nav > .sidebar-brand a:hover {
-    background: #2D232F; }
+    background: #162341; }
