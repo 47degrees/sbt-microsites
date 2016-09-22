@@ -2,6 +2,7 @@
 layout: docs
 title: Getting Started
 section: docs
+weight : 1
 ---
 
 # Prerequisites
@@ -11,7 +12,7 @@ section: docs
 
 To satisfy the `jekyll` prerequisite, here a couple of hints for local and travis environments.
 
-# Local Environment
+## Local Environment
 
 Depending on your platform, you might do this with:
 
@@ -23,7 +24,7 @@ apt-get install jekyll
 gem install jekyll
 ```
 
-# Continuous Integration - Travis
+## Continuous Integration - Travis
 
 If you have enabled [Travis](https://travis-ci.org/) for your project, you might have to tweak some parts of your `.travis.yml` file:
 
@@ -34,7 +35,7 @@ before_install:
  - export PATH=${PATH}:./vendor/bundle
 ```
 
-This is needed in order to install and be able to use `jekyll` gem from other parts of your project. We have to do it in the Travis `install` section:
+This is needed in order to install and be able to use the `jekyll` gem from other parts of your travis descriptor file. Once, we have the `/vendor/bundle` path in the Travis `PATH` env variable, we have to install the gem in the `install` travis section:
 
 ```
 install:
@@ -42,11 +43,12 @@ install:
  - gem install jekyll -v 2.5
 ```
 
-# Setup
+# Setup `sbt-microsites` in your Project
 
-First of all, add the following lines to the `project/plugins.sbt` file, within your project or sbt module where you want to use the `sbt-microsites` plugin. Depending on the version:
+First of all, add the following lines to the `project/plugins.sbt` file, within your project or sbt module where you want to use the `sbt-microsites` plugin. Depending on the version you might want to use:
 
 Latest release:
+
 ```
 addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "0.2.0")
 ```

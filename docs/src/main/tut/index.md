@@ -23,7 +23,7 @@ A microsite is an instance of Jekyll, ready to publish a static web page for you
 
 This plugin is based in other awesome sbt plugins to make it possible, so basically, integrates everything in some basic steps to automatically create and publish the microsite to [GitHub Pages](https://pages.github.com/).
 
-The plugin provides some basic free styles, css, and image resources by default, everything based [Bootstrap](http://getbootstrap.com/) framework. If you want to personalize color palette, styles and images you can do it in your project side in a easy way as you can see in the [documentation](https://47deg.github.io/sbt-microsites/docs-1.html).
+The plugin provides some basic free styles, css, and image resources by default, everything based [Bootstrap](http://getbootstrap.com/) framework. If you want to personalize the color palette, styles and images you can do it in your project side in a easy way as you can see in the [documentation](docs/).
 
 In order to achieve the microsite creation, it uses directly these plugins and libraries:
 
@@ -34,7 +34,7 @@ In order to achieve the microsite creation, it uses directly these plugins and l
 
 Additionally it depends on other useful libraries and plugins like:
 
-* [sbt-native-packager](https://github.com/sbt/sbt-native-packager)
 * [sbt-scalafmt](https://github.com/olafurpg/scalafmt)
 * [sbt-pgp](https://github.com/sbt/sbt-pgp)
 * [sbt-header](https://github.com/sbt/sbt-header)
+* [sbt-native-packager](https://github.com/sbt/sbt-native-packager)

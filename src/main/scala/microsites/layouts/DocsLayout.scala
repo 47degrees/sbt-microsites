@@ -44,7 +44,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
               div(cls := "brand-wrapper", style := "background:url('{{site.baseurl}}/img/sidebar_brand.png') no-repeat", span(config.name))
             )
           ),
-          "{% for x in site.pages %} {% if x.section == page.section %}",
+          "{% assign items = site.pages | sort: 'weight' %} {% for x in items %} {% if x.section == page.section %}",
           li(a(href := "{{ site.baseurl }}{{x.url}}", cls := "{% if x.title == page.title %} active {% endif %}", "{{x.title}}")),
           "{% endif %} {% endfor %}"
         )

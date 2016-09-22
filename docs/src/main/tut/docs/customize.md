@@ -2,6 +2,7 @@
 layout: docs
 title: Customize
 section: docs
+weight : 5
 ---
 
 # Customize

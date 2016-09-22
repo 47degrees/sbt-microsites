@@ -5,7 +5,7 @@ lazy val artifactSettings = Seq(
   name := "sbt-microsites",
   organization := "com.fortysevendeg",
   organizationName := "47 Degrees",
-  homepage := Option(url("http://47deg.github.io/sbt-microsites/")),
+  homepage := Option(url("http://www.47deg.com")),
   organizationHomepage := Some(new URL("http://47deg.com")),
   headers := Map(
     "scala" -> Apache2_0("2016", "47 Degrees, LLC. <http://www.47deg.com>")
@@ -32,7 +32,7 @@ lazy val micrositeSettings = Seq(
   micrositeName := "sbt-microsites",
   micrositeDescription := "A sbt plugin to create awesome microsites for your project",
   micrositeBaseUrl := "sbt-microsites",
-  micrositeDocumentationUrl := "/sbt-microsites/docs-1.html",
+  micrositeDocumentationUrl := "/sbt-microsites/docs/",
   micrositeGithubOwner := "47deg",
   micrositeGithubRepo := "sbt-microsites",
   includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
