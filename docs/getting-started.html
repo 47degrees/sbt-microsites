@@ -5,7 +5,7 @@
   <li><a href="https://jekyllrb.com/">jekyll</a></li>
 </ul>
 
-<p>To satisfy the <code class="highlighter-rouge">jekyll</code> prerequisite, here a couple of hints for local and travis environments.</p>
+<p>To satisfy the <code class="highlighter-rouge">jekyll</code> prerequisite, here are a few hints for local and travis environments.</p>
 
 <h2 id="local-environment">Local Environment</h2>
 
@@ -23,14 +23,14 @@ gem install jekyll
 
 <p>If you have enabled <a href="https://travis-ci.org/">Travis</a> for your project, you might have to tweak some parts of your <code class="highlighter-rouge">.travis.yml</code> file:</p>
 
-<p>Potentially, your project is a scala project (<code class="highlighter-rouge">language: scala</code>), therefore you need to add the bundle gems vendro path in the <code class="highlighter-rouge">PATH</code> environment variable:</p>
+<p>Potentially, your project is a Scala project (<code class="highlighter-rouge">language: scala</code>), therefore you need to add the bundle gems vendro path in the <code class="highlighter-rouge">PATH</code> environment variable:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>before_install:
  - export PATH=${PATH}:./vendor/bundle
 </code></pre>
 </div>
 
-<p>This is needed in order to install and be able to use the <code class="highlighter-rouge">jekyll</code> gem from other parts of your travis descriptor file. Once, we have the <code class="highlighter-rouge">/vendor/bundle</code> path in the Travis <code class="highlighter-rouge">PATH</code> env variable, we have to install the gem in the <code class="highlighter-rouge">install</code> travis section:</p>
+<p>This is needed in order to install and be able to use the <code class="highlighter-rouge">jekyll</code> gem from other parts of your travis descriptor file. Once we have the <code class="highlighter-rouge">/vendor/bundle</code> path in the Travis <code class="highlighter-rouge">PATH</code> env variable, we have to install the gem in the <code class="highlighter-rouge">install</code> travis section:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>install:
  - ...
@@ -40,7 +40,7 @@ gem install jekyll
 
 <h1 id="set-it-up-in-your-project">Set it up in your Project</h1>
 
-<p>First of all, add the following lines to the <code class="highlighter-rouge">project/plugins.sbt</code> file, within your project or sbt module where you want to use the <code class="highlighter-rouge">sbt-microsites</code> plugin. Depending on the version you might want to use:</p>
+<p>To Begin, add the following lines to the <code class="highlighter-rouge">project/plugins.sbt</code> file within your project or sbt module where you want to use the <code class="highlighter-rouge">sbt-microsites</code> plugin. Depending on the version, you might want to use:</p>
 
 <p>Latest release:</p>
 
