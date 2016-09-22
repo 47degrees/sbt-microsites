@@ -40,3 +40,7 @@ If you create your own images (which makes sense) and override the default ones,
 `sbt-microsites` is completely based on [Bootstrap](http://getbootstrap.com/), adding some extra styles that makes the microsites even more beautiful :P
 
 Said that, you can personalize even more through your own css files. In the same fashion as we've just seen for images, all the css files that you place in the directory associated with `micrositeCssDirectory` setting  (`src/main/resources/microsite/css` by default), will be copied to the generated microsite. Therefore, you can add new styles or even, overriding existing ones.
+
+## Colors
+
+Colors can be customized through the `micrositePalette` settings (take a look at [Configuring the Microsite](settings.html) section for a deeper explanation).
