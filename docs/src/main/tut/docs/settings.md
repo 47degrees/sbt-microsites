@@ -7,50 +7,50 @@ weight : 2
 
 # Configuring the Microsite
 
-The following is the set of `sbt` settings that you can use to make some adjustments regarding the deployment, configuration and appearance of your microsite. Not all these settings are mandatory, since most of them have default values, as we'll see briefly.
+The following are the `sbt` settings that you can use to make adjustments to your microsite regarding deployment, configuration, and appearance. Not all of these settings are mandatory, since most of them have default values, as we'll see briefly.
 
-Before starting to detail them, the **sbt-microsites** plugin will use some regular sbt configurations from your `build.sbt` file, in order to set the microsite up in a minimal way, all of them are used as default values:
+Before beginning to detail the settings, the **sbt-microsites** plugin will use regular sbt configurations from your `build.sbt` file. In order to set the microsite up in a minimal manner, all of the configurations are used as default values:
    
 ## Regular SBT Settings
    
 - `name`: default value for the microsite name.
 - `description`: value by default used for the microsite description.
-- `organizationName`: used as microsite author by default.
-- `homepage`: used as default microsite homepage.
+- `organizationName`: used as the microsite author by default.
+- `homepage`: used as the default microsite homepage.
 
-However, these default settings can be overridden by the following ones, provided by the plugin, keep reading the next section to know more. 
+However, you can override these default settings by using the ones provided by the plugin, which we will describe in detail in the next section. 
 
 ## Microsite SBT Settings
 
-We tried to bring all the parameters that potentially are needed to configure any microsite. If you think that something additional could be added, please, we are open to suggestions and contributions :)
+We tried to bring all of the parameters that are potentially needed to configure any microsite. If you think that something additional could be added, please let us know as we are open to suggestions and contributions.  
 
-- `micrositeName`: the microsite name. As we said in the previous section, by default, it's taken from the sbt setting `name`. Sometimes, it isn't the default behaviour so you can override it in this way:
+- `micrositeName`: the microsite name. As we mentioned previously, by default, it's taken from the sbt setting `name`. Sometimes, it isn't the default behavior so you can override it like this:
 
 ```
 micrositeName := "Your Awesome Library Name"
 ```
 
-- `micrositeDescription`: the microsite description. If you don't configure this setting, the value is taken from the sbt setting `description` as we saw beforehand. For instance:
+- `micrositeDescription`: the microsite description. If you don't configure this setting, the value is taken from the sbt setting `description` as we saw earlier. For instance:
 
 ```
 micrositeDescription := "This is the description of my Awesome Library"
 ```
 
-- `micrositeBaseUrl`: this setting brings the ability to setup a site base URL for your microsite. It's empty by default, however, you might need something like this:
+- `micrositeBaseUrl`: this setting brings the ability to set up a site base URL for your microsite. It's empty by default. However, you might need something like this:
 
 ```
 micrositeBaseUrl := "/yoursite"
 ```
 
-In this case, your microsite would be placed on: http://yourdomain.io/yoursite .
+In this case, your microsite would be placed on: http://yourdomain.io/yoursite.
 
-- `micrositeDocumentationUrl`: your microsite might need some documentation pages in an specific part of your microsite. This setting allows to personalize this URL to fit your needs. As **sbt-microsites** plugin provides an specific layout to have also a beautiful documentation, we strongly recommend to have a look to the [layouts](layouts.html) section. It's empty by default, hence your `Documentation` link won't appear in the microsite in that case.
+- `micrositeDocumentationUrl`: you might need documentation pages in a specific section of your microsite. This setting allows you to personalize this URL to fit your needs. As the **sbt-microsites** plugin provides a specific layout to improve the look of your documentation, we strongly recommend having a look at the [layouts](layouts.html) section. It's empty by default. Hence your `Documentation` link won't appear in the microsite in that case.
 
 ```
 micrositeDocumentationUrl := "/yoursite/docs"
 ```
 
-Therefore, considering the example above, your microsite documentation would be placed on: http://yourdomain.io/yoursite/docs . Moreover, the layouts provided by the plugin will provide a link in the upper-right area pointing to this URL (if it isn't empty).
+Therefore, considering the example above, your microsite documentation would be placed on: http://yourdomain.io/yoursite/docs. Moreover, the layouts supplied by the plugin will provide a link in the upper-right area pointing to this URL (if it isn't empty).
 
 - `micrositeAuthor`: the author of the microsite is taken from this sbt setting. However, if nothing is specified, the default value will be `organizationName`, but you can override it, as we can see in this example:
 
@@ -58,7 +58,7 @@ Therefore, considering the example above, your microsite documentation would be 
 micrositeAuthor := "47 Degrees"
 ```
 
-- `micrositeHomepage`: in the same way as we are seeing for other properties, this particular setting is used for the homepage url. This link is used in the footer-left link in the microsite. By default, the value is taken from the sbt setting `homepage`, but you can override it:
+- `micrositeHomepage`: this particular setting is used for the homepage url, similar to the way we've seen in other properties. This link is used in the footer-left link in the microsite. By default, the value is taken from the sbt setting `homepage`, but you can override it:
 
 ```
 micrositeHomepage := "http://www.47deg.com"
@@ -71,32 +71,32 @@ micrositeGithubOwner := "47deg"
 micrositeGithubRepo := "sbt-microsites"
 ```
 
-- `micrositeHighlightTheme`: by default, the theme of Highlight.js is [default](https://highlightjs.org/static/demo/), however, you could configure a different one thanks to this setting:
+- `micrositeHighlightTheme`: by default, the theme of Highlight.js is [default](https://highlightjs.org/static/demo/), however, you can configure it to a different theme thanks to this setting:
 
 ```
 micrositeHighlightTheme := "monokai"
 ```
 [Available themes: https://cdnjs.com/libraries/highlight.js/](https://cdnjs.com/libraries/highlight.js/)
 
-- `micrositeImgDirectory`: the plugin provides some basic images, but you could add new images to personalize the microsite. This is the property where you can specify where they will be placed. The images in this folder will be automatically copied by the plugin, and they will be placed together with the rest of the jekyll resources. By default, its value is `(resourceDirectory in Compile).value / "microsite" / "img"` but you can override it, for instance:
+- `micrositeImgDirectory`: the plugin provides some basic images, but you can add new images to personalize the microsite. This is the property where you can specify where they will be placed. The images in this folder will be automatically copied by the plugin, and they will be placed together with the rest of the Jekyll resources. By default, its value is `(resourceDirectory in Compile).value / "microsite" / "img"` but you can override it, for instance:
 
 ```
 micrositeImgDirectory := (resourceDirectory in Compile).value / "site" / "images"
 ```
 
-- `micrositeCssDirectory`: in the same way, you could override the styles through the `micrositeCssDirectory` setting. The css files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "css"` but you can override it in this way:
+- `micrositeCssDirectory`: you can also override the styles through the `micrositeCssDirectory` setting, by using the same method. The css files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "css"` but you can override it like this:
 
 ```
 micrositeCssDirectory := (resourceDirectory in Compile).value / "site" / "styles"
 ```
 
-- `micrositeExtraMdFiles`: setting could be handy if you want to include additional markdown files in your site, and these files are not located in the same place of your `tut` directory. By default, the setting is set up as a empty map. You could override it, in this way:
+- `micrositeExtraMdFiles`: this setting can be handy if you want to include additional markdown files in your site, and these files are not located in the same place in your `tut` directory. By default, the setting is set up as an empty map. You can override it, in this way:
 
 ```
 micrositeExtraMdFiles := Map(file("README.md") -> "index.md", file("CONTRIBUTING.md") -> "contributing.md")
 ```
 
-- `micrositePalette`: the default microsite style uses essentially 8 colors. All of them can be configured as below:
+- `micrositePalette`: the default microsite style essentially uses eight colors. You can configure all of them, as seen below:
 
 ```
 micrositePalette := Map(

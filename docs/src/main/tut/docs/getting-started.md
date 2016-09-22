@@ -10,7 +10,7 @@ weight : 1
 * [sbt](http://www.scala-sbt.org/) 0.13.8+
 * [jekyll](https://jekyllrb.com/)
 
-To satisfy the `jekyll` prerequisite, here a couple of hints for local and travis environments.
+To satisfy the `jekyll` prerequisite, here are a few hints for local and travis environments.
 
 ## Local Environment
 
@@ -28,14 +28,14 @@ gem install jekyll
 
 If you have enabled [Travis](https://travis-ci.org/) for your project, you might have to tweak some parts of your `.travis.yml` file:
 
-Potentially, your project is a scala project (`language: scala`), therefore you need to add the bundle gems vendro path in the `PATH` environment variable:
+Potentially, your project is a Scala project (`language: scala`), therefore you need to add the bundle gems vendro path in the `PATH` environment variable:
 
 ```
 before_install:
  - export PATH=${PATH}:./vendor/bundle
 ```
 
-This is needed in order to install and be able to use the `jekyll` gem from other parts of your travis descriptor file. Once, we have the `/vendor/bundle` path in the Travis `PATH` env variable, we have to install the gem in the `install` travis section:
+This is needed in order to install and be able to use the `jekyll` gem from other parts of your travis descriptor file. Once we have the `/vendor/bundle` path in the Travis `PATH` env variable, we have to install the gem in the `install` travis section:
 
 ```
 install:
@@ -45,7 +45,7 @@ install:
 
 # Set it up in your Project
 
-First of all, add the following lines to the `project/plugins.sbt` file, within your project or sbt module where you want to use the `sbt-microsites` plugin. Depending on the version you might want to use:
+To Begin, add the following lines to the `project/plugins.sbt` file within your project or sbt module where you want to use the `sbt-microsites` plugin. Depending on the version, you might want to use:
 
 Latest release:
 

@@ -7,7 +7,7 @@ weight : 0
 
 # sbt-microsites Documentation
 
-In this section, you can found everything about how **sbt-microsites** works and how can be tweaked, see next points to know more about it: 
+In this section, you can find everything you need to know about how **sbt-microsites** work and how they can be tweaked, review the following points to learn more: 
 
 {% assign pages = site.pages | sort:"weight"  %}
 {% for x in pages %}
