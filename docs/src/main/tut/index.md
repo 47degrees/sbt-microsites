@@ -1,9 +1,9 @@
 ---
 layout: home
 technologies:
- - scala: ["Scala", "sbt-microsites plugin is completely written in Scala"]
- - sbt: ["SBT", "sbt-microsites plugin uses SBT and other sbt plugins to generate microsites easily"]
- - jekyll: ["Jekyll", "Jekyll allows to transform plain text into static websites and blogs."]
+ - first: ["Scala", "sbt-microsites plugin is completely written in Scala"]
+ - second: ["SBT", "sbt-microsites plugin uses SBT and other sbt plugins to generate microsites easily"]
+ - third: ["Jekyll", "Jekyll allows to transform plain text into static websites and blogs."]
 ---
 
 # sbt-microsites

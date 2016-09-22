@@ -99,11 +99,9 @@
 .technologies {
     padding-top: ($section-padding / 2.8);
     padding-bottom: ($section-padding / 2);
-    .scala-icon-wrapper,
-    .android-icon-wrapper,
-    .database-icon-wrapper,
-    .cats-icon-wrapper,
-    .fp-icon-wrapper
+    .first-icon-wrapper,
+    .second-icon-wrapper,
+    .third-icon-wrapper
     {
         float: left;
         margin-top: 0;
@@ -114,39 +112,26 @@
             margin-top: 26px;
         }
     }
-    /*
-    .scala-icon-wrapper {
-        background: url('images/icon_scala.png') no-repeat;
-        @include image-2x('images/icon_scala2x.png',
+
+    .first-icon-wrapper {
+        background: url('../img/first_icon.png') no-repeat;
+        @include image-2x('../img/first_icon2x.png',
         40px,
         40px);
     }
-    .android-icon-wrapper {
-        background: url('images/icon_android.png') no-repeat;
-        @include image-2x('images/icon_android2x.png',
+    .second-icon-wrapper {
+        background: url('../img/second_icon.png') no-repeat;
+        @include image-2x('../img/second_icon2x.png',
         40px,
         40px);
     }
-    .database-icon-wrapper {
-        background: url('images/icon_database.png');
-        @include image-2x('images/icon_database2x.png',
-        40px,
-        40px);
-    }
-    */
-    .cats-icon-wrapper {
-        background: url('images/icon_cat.png');
-        @include image-2x('images/icon_cat2x.png',
+    .third-icon-wrapper {
+        background: url('../img/third_icon.png');
+        @include image-2x('../img/third_icon2x.png',
         40px,
         40px);
     }
     
-    .fp-icon-wrapper {
-        background: url('images/icon_functional_programming.png');
-        @include image-2x('images/icon_functional_programming2x.png',
-        40px,
-        40px);
-    }
     
     h3,
     p {
