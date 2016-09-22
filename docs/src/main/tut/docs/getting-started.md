@@ -43,7 +43,7 @@ install:
  - gem install jekyll -v 2.5
 ```
 
-# Setup `sbt-microsites` in your Project
+# Set it up in your Project
 
 First of all, add the following lines to the `project/plugins.sbt` file, within your project or sbt module where you want to use the `sbt-microsites` plugin. Depending on the version you might want to use:
 
