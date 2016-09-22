@@ -85,7 +85,7 @@ class LayoutTest extends FunSuite with Checkers with Matchers with Arbitraries {
     val property = forAll { implicit settings: MicrositeSettings ⇒
       val layout = buildParentLayout
 
-      layout.buildCollapseMenu.tag shouldBe "div"
+      layout.buildCollapseMenu.tag shouldBe "nav"
       !layout.buildCollapseMenu.void
     }
 
