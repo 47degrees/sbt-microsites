@@ -28,7 +28,7 @@ gem install jekyll
 
 If you have enabled [Travis](https://travis-ci.org/) for your project, you might have to tweak some parts of your `.travis.yml` file:
 
-Potentially, your project is a Scala project (`language: scala`), therefore you need to add the bundle gems vendro path in the `PATH` environment variable:
+Potentially, your project is a Scala project (`language: scala`), therefore you need to add the bundle gems vendor path in the `PATH` environment variable:
 
 ```
 before_install:
