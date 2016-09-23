@@ -17,8 +17,8 @@ env:
 script:
 - sbt ++$TRAVIS_SCALA_VERSION publishLocal
 - sbt ++$TRAVIS_SCALA_VERSION test scripted
-- bash ./publishMicrosite.sh
 
 after_success:
-- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash deploy.sh; fi
+- bash scripts/publishMicrosite.sh
+- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash scripts/deploy.sh; fi
 - if [ "$TRAVIS_PULL_REQUEST" = "true" ]; then echo "Not in master branch, skipping release"; fi
