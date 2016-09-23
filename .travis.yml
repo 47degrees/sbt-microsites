@@ -9,10 +9,16 @@ before_install:
 install:
 - gem install jekyll -v 2.5
 
+env:
+  global:
+  - ENCRYPTION_LABEL: "0d40c3508e9d"
+  - COMMIT_AUTHOR_EMAIL: "developer@47deg.com"
+
 script:
 - sbt ++$TRAVIS_SCALA_VERSION publishLocal
 - sbt ++$TRAVIS_SCALA_VERSION test scripted
 
 after_success:
-- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash deploy.sh; fi
+- bash scripts/publishMicrosite.sh
+- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash scripts/deploy.sh; fi
 - if [ "$TRAVIS_PULL_REQUEST" = "true" ]; then echo "Not in master branch, skipping release"; fi
