@@ -50,7 +50,7 @@ To Begin, add the following lines to the `project/plugins.sbt` file within your 
 Latest release:
 
 ```
-addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "0.2.0")
+addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "0.2.4")
 ```
 
 Latest snapshot built from the `master` branch code:
