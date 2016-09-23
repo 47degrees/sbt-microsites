@@ -12,4 +12,21 @@ A microsite is an instance of Jekyll, ready to publish a static web page for you
 - Templates, layouts, styles, and other resources will be able through the plugin at compile time.
 - You don't have to deal with the styling.
 
-Please see the [documentation](https://47deg.github.io/sbt-microsites/docs/) for more information on setup, installation, etc.
+# Installation
+
+To Begin, add the following lines to the `project/plugins.sbt` file within your project or sbt module where you want to use the `sbt-microsites` plugin.
+
+```
+addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "0.2.0")
+```
+
+Finally, to enable the plugin, add this to your `build.sbt` file:
+```
+enablePlugins(MicrositesPlugin)
+```
+
+We recommend taking a look at the `Getting Started` section at the [documentation](https://47deg.github.io/sbt-microsites/docs/getting-started.html) since there are some prerequisites that are needed to build your microsite.
+
+# Documentation
+
+Microsites comes with a range of options to customize and configure your project's site. Please visit the [documentation](https://47deg.github.io/sbt-microsites/docs/) section for more information.
