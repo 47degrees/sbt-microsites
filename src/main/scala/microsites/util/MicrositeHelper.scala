@@ -16,6 +16,8 @@
 
 package microsites.util
 
+import java.io.File
+
 import microsites.domain.MicrositeSettings
 import microsites.layouts._
 import microsites.util.FileHelper._
@@ -110,5 +112,18 @@ class MicrositeHelper(config: MicrositeSettings) {
     val targetFile = createFilePathIfNotExists(s"$targetDir/_config.yml")
 
     copyFilesRecursively(s"${sourceDir.getAbsolutePath}/_config.yml", targetFile.getAbsolutePath)
+  }
+
+  /*
+   * This method has been extracted from the sbt-native-packager plugin:
+   *
+   * https://github.com/sbt/sbt-native-packager/blob/b5e2bb9027d08c00420476e6be0d876cf350963a/src/main/scala/com/typesafe/sbt/packager/MappingsHelper.scala#L21
+   *
+   */
+  def directory(sourceDirPath: String): Seq[(File, String)] = {
+    val sourceDir = file(sourceDirPath)
+    Option(sourceDir.getParentFile)
+      .map(parent => sourceDir.*** pair relativeTo(parent))
+      .getOrElse(sourceDir.*** pair basic)
   }
 }
