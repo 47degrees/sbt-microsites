@@ -38,6 +38,14 @@ lazy val micrositeSettings = Seq(
   includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
 )
 
+lazy val jsSettings = Seq(
+  scalaJSStage in Global := FastOptStage,
+  parallelExecution := false,
+  scalaJSUseRhino := false,
+  requiresDOM := false,
+  jsEnv := NodeJSEnv().value
+)
+
 lazy val testSettings =
   ScriptedPlugin.scriptedSettings ++ Seq(
     scriptedDependencies <<= (compile in Test) map { (analysis) =>
@@ -99,3 +107,9 @@ lazy val docs = (project in file("docs"))
   .settings(moduleName := "docs")
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(BuildInfoPlugin)
+
+lazy val js = (project in file("js"))
+  .settings(moduleName := "sbt-microsites-js")
+  .settings(commonSettings:_*)
+  .settings(jsSettings:_*)
+  .enablePlugins(ScalaJSPlugin)
