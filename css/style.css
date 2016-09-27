@@ -6002,8 +6002,6 @@ pre {
           .sidebar-nav > li ul li a:hover, .sidebar-nav > li ul li a:active {
             text-decoration: none;
             color: #fff; }
-  .sidebar-nav ul.sub_section {
-    display: none; }
   .sidebar-nav .active {
     display: block; }
   .sidebar-nav > .sidebar-brand {
