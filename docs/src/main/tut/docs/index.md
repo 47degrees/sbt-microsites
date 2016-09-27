@@ -37,8 +37,10 @@ This is needed in order to install and be able to use the `jekyll` gem from othe
 
 ```
 install:
- - ...
- - gem install jekyll -v 2.5
+  - rvm use 2.2.3 --install --fuzzy
+  - gem update --system
+  - gem install sass
+  - gem install jekyll -v 3.2.1
 ```
 
 # Set it up in your Project
@@ -48,7 +50,7 @@ To begin, add the following lines to the `project/plugins.sbt` file within your 
 Latest release:
 
 ```
-addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "0.2.4")
+addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "0.2.5")
 ```
 
 Latest snapshot built from the `master` branch code:
