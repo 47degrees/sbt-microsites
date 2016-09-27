@@ -36,6 +36,9 @@ trait MicrositeKeys {
     "Optional. Microsite images directory. By default, it'll be the resourcesDirectory + '/microsite/img'")
   val micrositeCssDirectory = settingKey[File](
     "Optional. Microsite CSS directory. By default, it'll be the resourcesDirectory + '/microsite/css'")
+  val micrositeDataDirectory = settingKey[File](
+    "Optional. Microsite Data directory, useful to define the microsite data files " +
+      "(https://jekyllrb.com/docs/datafiles/). By default, it'll be the resourcesDirectory + '/microsite/data'")
   val micrositeExtraMdFiles = settingKey[Map[File, String]](
     "Optional. The key is related with the source file, the map value corresponds with the target relative file path. " +
       "This keys is useful for those document files that are located in a different places from the tutSourceDirectory. " +
