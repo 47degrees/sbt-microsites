@@ -43,7 +43,7 @@ install:
 
 # Set it up in your Project
 
-To Begin, add the following lines to the `project/plugins.sbt` file within your project or sbt module where you want to use the `sbt-microsites` plugin. Depending on the version, you might want to use:
+To begin, add the following lines to the `project/plugins.sbt` file within your project or sbt module where you want to use the `sbt-microsites` plugin. Depending on the version, you might want to use:
 
 Latest release:
 

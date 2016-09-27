@@ -90,7 +90,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
       "{% if x.nested_options %} ",
       ul(cls := "sub_section",
         "{% for sub in x.nested_options %} ",
-        li(a(href := s"$baseUrl{{sub.url}}", cls := "{% if sub.title == page.title %} active {% endif %}", "{{sub.title}}")),
+        li(a(href := s"$baseUrl{{sub.url}}", cls := "{% if sub.title == page.title and x.section == page.section %} active {% endif %}", "{{sub.title}}")),
         "{% endfor %}"
       ),
       "{% endif %} {% endfor %}"
