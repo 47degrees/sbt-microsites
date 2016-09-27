@@ -37,18 +37,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
   def sideBarAndContent: TypedTag[String] = {
     val text = s"${config.name} ${config.description}"
     div(id := "wrapper",
-      div(id := "sidebar-wrapper",
-        ul(id := "sidebar", cls := "sidebar-nav",
-          li(cls := "sidebar-brand",
-            a(href := "{{ site.baseurl }}/", cls := "brand",
-              div(cls := "brand-wrapper", style := "background:url('{{site.baseurl}}/img/sidebar_brand.png') no-repeat", span(config.name))
-            )
-          ),
-          "{% assign items = site.pages | sort: 'weight' %} {% for x in items %} {% if x.section == page.section %}",
-          li(a(href := "{{ site.baseurl }}{{x.url}}", cls := "{% if x.title == page.title %} active {% endif %}", "{{x.title}}")),
-          "{% endif %} {% endfor %}"
-        )
-      ),
+      div(id := "sidebar-wrapper", buildSidebar),
       div(id := "page-content-wrapper",
         div(cls := "nav",
           div(cls := "container-fluid",
@@ -85,6 +74,27 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
         )
       )
     )
+  }
+
+  def buildSidebar: TypedTag[String] = {
+    val baseUrl = s"${config.micrositeDocumentationUrl}"
+    ul(id := "sidebar", cls := "sidebar-nav",
+      li(cls := "sidebar-brand",
+        a(href := "{{ site.baseurl }}/", cls := "brand",
+          div(cls := "brand-wrapper", style := "background:url('{{site.baseurl}}/img/sidebar_brand.png') no-repeat", span(config.name))
+        )
+      ),
+      "{% assign items = site.data.menu.options %} {% for x in items %} ",
+      li(
+        a(href := s"$baseUrl{{x.url}}", cls := "{% if x.title == page.title %} active {% endif %}", "{{x.title}}"),
+      "{% if x.nested_options %} ",
+      ul(cls := "sub_section",
+        "{% for sub in x.nested_options %} ",
+        li(a(href := s"$baseUrl{{sub.url}}", cls := "{% if sub.title == page.title %} active {% endif %}", "{{sub.title}}")),
+        "{% endfor %}"
+      ),
+      "{% endif %} {% endfor %}"
+    ))
   }
 
   def scriptsDocs: List[TypedTag[String]] = scripts ++
