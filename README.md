@@ -25,7 +25,7 @@ Finally, to enable the plugin, add this to your `build.sbt` file:
 enablePlugins(MicrositesPlugin)
 ```
 
-We recommend taking a look at the `Getting Started` section at the [documentation](https://47deg.github.io/sbt-microsites/docs/getting-started.html) since there are some prerequisites that are needed to build your microsite.
+We recommend taking a look at the `Getting Started` section at the [documentation](https://47deg.github.io/sbt-microsites/docs/) since there are some prerequisites that are needed to build your microsite.
 
 # Documentation
 
