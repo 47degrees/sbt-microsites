@@ -1,8 +1,6 @@
 ---
 layout: docs
 title: Customize
-section: docs
-weight : 4
 ---
 
 # Customize

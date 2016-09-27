@@ -1,8 +1,6 @@
 ---
 layout: docs
 title: Build the Microsite
-section: docs
-weight : 5
 ---
 
 # Build the microsite

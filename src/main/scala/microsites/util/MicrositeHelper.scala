@@ -43,6 +43,8 @@ class MicrositeHelper(config: MicrositeSettings) {
                          s"$targetDir$jekyllDir/img/")
     copyFilesRecursively(config.micrositeCssDirectory.getAbsolutePath,
                          s"$targetDir$jekyllDir/css/")
+    copyFilesRecursively(config.micrositeDataDirectory.getAbsolutePath,
+                         s"$targetDir$jekyllDir/_data/")
 
     config.micrositeExtraMdFiles foreach {
       case (sourceFile, relativeTargetFile) =>

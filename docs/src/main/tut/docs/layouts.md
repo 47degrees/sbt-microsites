@@ -1,8 +1,6 @@
 ---
 layout: docs
 title: Layouts
-section: docs
-weight : 3
 ---
 
 # Layouts
@@ -56,12 +54,66 @@ All these files contain as a header, something similar to this:
 ---
 layout: docs
 title: <Document Title>
-section: docs
-weight : <order>
 ---
 ```
 
-`<Document Title>` will be used as a menu item name on the left. `<order>` is related to the order in which they will appear in the left menu.
+`<Document Title>` will be used as a menu item name on the left.
+
+### How to setup the Docs Menu?
+
+Looking at the [Configuring the Microsite](settings.html) section, in the directory configured under the `micrositeDataDirectory` setting, you need to create a new file named `menu.yml`. This `YAML` file will be accessed by the `Docs Layout` in order to create the menu. Let's see an example:
+
+```
+options:
+  - title: Getting Started
+    url: index.html
+    section: intro
+
+  - title: Configuring the Microsite
+    url: settings.html
+
+  - title: Layouts
+    url: layouts.html
+    section: resources
+
+  - title: Customize
+    url: customize.html
+
+  - title: Build the microsite
+    url: build-the-microsite.html
+```
+
+* The `options` key is mandatory. It'll be the parent of all the options defined here. Each `option` or menu item will contain:
+* `title`: the menu title. It should be the same as defined in the meta-property associated with the file (`<Document Title>`, where the layout is defined).
+* `url`: relative path to the documentation file.
+* `section`: this key is mandatory only when you have a nested submenu. It'll be useful to distinguish between sub-items with the same name in different menu options.
+* Optionally, we could define a second level of nested sub-items, thanks to the `nested_options` key, defined at the same level that `title` and `url` of the parent menu. For example:
+
+```
+options:
+  - title: Introduction
+    url: index.html
+    section: intro
+
+    nested_options:
+     - title: Submenu 1
+       url: subfolder/submenu1.html
+     - title: Submenu 2
+       url: subfolder/submenu2.html
+
+  - title: Configuring the Microsite
+    url: settings.html
+```
+
+In this example, `Submenu 1` and `Submenu 2` will be nested under the `Introduction` menu option. At the same time, `submenu1` and `submenu2` would have the same section name as the parent. For instance, `submenu1.md` would have a header like this, where the `section` field matches the one defined in `menu.yml`:
+
+```
+---
+layout: docs
+title:  "Submenu 2"
+section: "intro"
+---
+```
 
 ## Page Layout and Menu Partial Layout
 
