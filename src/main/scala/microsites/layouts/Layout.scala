@@ -57,8 +57,9 @@ abstract class Layout(config: MicrositeSettings) {
 
   def styles: List[TypedTag[String]] = {
 
-    val customCssList = fetchFilesRecursively(config.micrositeCssDirectory) map { css =>
-      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${css.getName}")
+    val customCssList = fetchFilesRecursively(config.micrositeCssDirectory, List("css")) map {
+      css =>
+        link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${css.getName}")
     }
 
     List(
