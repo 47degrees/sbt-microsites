@@ -24,9 +24,8 @@ lazy val pluginSettings = Seq(
       "org.scalactic"  %% "scalactic"  % "3.0.0",
       "org.scalatest"  %% "scalatest"  % "3.0.0" % "test",
       "org.scalacheck" %% "scalacheck" % "1.13.2" % "test"
-    ),
-    scalafmtConfig in ThisBuild := Some(file(".scalafmt"))
-  ) ++ reformatOnCompileSettings
+    )
+)
 
 lazy val micrositeSettings = Seq(
   micrositeName := "sbt-microsites",
@@ -41,6 +40,7 @@ lazy val micrositeSettings = Seq(
 val circeVersion = "0.5.2"
 
 lazy val jsSettings = Seq(
+  scalaVersion := "2.11.8",
   scalaJSStage in Global := FastOptStage,
   parallelExecution := false,
   scalaJSUseRhino := false,
@@ -48,11 +48,10 @@ lazy val jsSettings = Seq(
   jsEnv := NodeJSEnv().value,
   libraryDependencies ++= Seq(
     "org.scala-js" %%% "scalajs-dom" % "0.9.0",
-    "be.doeraene" %%% "scalajs-jquery" % "0.9.0",
-    "com.lihaoyi" %%% "upickle" % "0.4.1"
+    "com.lihaoyi" %%% "upickle" % "0.4.1",
+    "org.typelevel" %%% "cats" % "0.6.1",
+    "org.scala-exercises" %%% "evaluator-client" % "0.0.4-SNAPSHOT" changing()
   ),
-  jsDependencies +=
-      "org.webjars" % "jquery" % "2.1.3" / "2.1.3/jquery.js",
   resolvers += Resolver.url(
     "bintray-sbt-plugin-releases",
     url("https://dl.bintray.com/content/sbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns)
@@ -96,8 +95,9 @@ lazy val miscSettings = Seq(
     val projectName = Project.extract(s).currentProject.id
 
     s"$blue$projectName$white>${c.RESET}"
-  }
-)
+  },
+  scalafmtConfig in ThisBuild := Some(file(".scalafmt"))
+  ) ++ reformatOnCompileSettings
 
 lazy val commonSettings = artifactSettings ++ miscSettings
 lazy val allSettings    = pluginSettings ++ commonSettings ++ tutSettings ++ testSettings
@@ -105,7 +105,6 @@ lazy val allSettings    = pluginSettings ++ commonSettings ++ tutSettings ++ tes
 lazy val `sbt-microsites` = (project in file("."))
   .settings(moduleName := "sbt-microsites")
   .settings(allSettings: _*)
-  .settings(addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.0.3"))
   .settings(addSbtPlugin("org.tpolecat"     % "tut-plugin"          % "0.4.4"))
   .settings(addSbtPlugin("com.typesafe.sbt" % "sbt-site"            % "1.0.0"))
   .settings(addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages"         % "0.5.4"))
