@@ -38,6 +38,26 @@ lazy val micrositeSettings = Seq(
   includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
 )
 
+val circeVersion = "0.5.2"
+
+lazy val jsSettings = Seq(
+  scalaJSStage in Global := FastOptStage,
+  parallelExecution := false,
+  scalaJSUseRhino := false,
+  requiresDOM := false,
+  jsEnv := NodeJSEnv().value,
+  libraryDependencies ++= Seq(
+    "org.scala-js" %%% "scalajs-dom" % "0.9.0",
+    "be.doeraene" %%% "scalajs-jquery" % "0.9.0",
+    "com.lihaoyi" %%% "upickle" % "0.4.1"
+  ),
+  jsDependencies +=
+      "org.webjars" % "jquery" % "2.1.3" / "2.1.3/jquery.js",
+  resolvers += Resolver.url(
+    "bintray-sbt-plugin-releases",
+    url("https://dl.bintray.com/content/sbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns)
+)
+
 lazy val testSettings =
   ScriptedPlugin.scriptedSettings ++ Seq(
     scriptedDependencies <<= (compile in Test) map { (analysis) =>
@@ -99,3 +119,9 @@ lazy val docs = (project in file("docs"))
   .settings(moduleName := "docs")
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(BuildInfoPlugin)
+
+lazy val js = (project in file("js"))
+  .settings(moduleName := "sbt-microsites-js")
+  .settings(commonSettings:_*)
+  .settings(jsSettings:_*)
+  .enablePlugins(ScalaJSPlugin)
