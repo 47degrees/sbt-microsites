@@ -78,16 +78,25 @@ trait FileHelper {
     }
   }
 
-  def fetchFilesRecursively(directory: File): List[File] = {
+  def fetchFilesRecursively(directory: File,
+                            includeFilesExtension: List[String] = Nil): List[File] = {
 
     val listFiles = Option(directory.listFiles)
 
     listFiles match {
       case Some(firstLevelFiles) =>
-        val onlyFirstLevelFiles   = firstLevelFiles filter (_.isFile)
-        val firstLevelDirectories = firstLevelFiles filter (_.isDirectory)
+        val filteredFilesByExtension = includeFilesExtension match {
+          case Nil => firstLevelFiles.toList
+          case _ =>
+            includeFilesExtension flatMap { extension =>
+              firstLevelFiles filter (_.getName.endsWith(extension))
+            }
+        }
 
-        (onlyFirstLevelFiles ++ firstLevelDirectories.flatMap(d => fetchFilesRecursively(d))).toList
+        val onlyFirstLevelFiles   = filteredFilesByExtension filter (_.isFile)
+        val firstLevelDirectories = filteredFilesByExtension filter (_.isDirectory)
+
+        onlyFirstLevelFiles ++ firstLevelDirectories.flatMap(d => fetchFilesRecursively(d))
       case None =>
         Nil
     }
