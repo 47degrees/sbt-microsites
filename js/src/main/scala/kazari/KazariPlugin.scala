@@ -6,15 +6,22 @@ import org.scalajs.dom._
 import scala.scalajs.js.JSApp
 import scala.scalajs.js.annotation.JSExport
 import dom.ext.PimpedNodeList
-import kazari.model.{EvaluatorConfig, EvaluatorDependency, EvaluatorRequest}
-import org.scalajs.jquery.{JQueryAjaxSettings, JQueryXHR, jQuery}
+import kazari.model.EvaluatorConfig
+import org.scalaexercises.evaluator.Dependency
+import org.scalaexercises.evaluator.{EvalResponse, EvaluatorClient}
+import org.scalaexercises.evaluator.EvaluatorClient._
+import org.scalaexercises.evaluator.implicits._
+import org.scalaexercises.evaluator.EvaluatorResponses.EvaluationResponse
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+import scala.util.{Failure, Success}
 
-import scala.scalajs.js
-import upickle.default._
-
+@JSExport
 object KazariPlugin extends JSApp with DOMHelper {
   val codeExcludeClass = "code-exclude"
   lazy val codeSnippets = document.querySelectorAll(s"code.language-scala:not(.$codeExcludeClass)")
+  val dependenciesMetaName = "scala-dependencies"
+  val resolversMetaName = "scala-resolvers"
 
   @JSExport
   def main(): Unit = { }
@@ -26,19 +33,24 @@ object KazariPlugin extends JSApp with DOMHelper {
     codeSnippets.zipWithIndex foreach { case (node, i) =>
       appendButton(node, "Evaluate", onClickFunction = (e: dom.MouseEvent) => {
         val snippet = textSnippets.lift(i + 1)
-        val request = generateEvalRequest(snippet.getOrElse(""), Seq[String](), Seq[EvaluatorDependency]())
 
-        requestEvaluationOfSnippet(request,
+        val client = new EvaluatorClient(
           config.url,
-          config.authToken,
-          (data: js.Any, textStatus: String, jqHXR: JQueryXHR) => {
-            println(s"Connection to evaluator established: $textStatus")
-          },
-          (jqHXR: JQueryXHR, status: String, error: String) => {
-            println(s"Error while connecting with remote evaluator: $error")
-          }
-        )
-      });
+          config.authToken)
+
+        val evalResponse: Future[EvaluationResponse[EvalResponse]] =
+          client.api.evaluates(
+            dependencies = getDependenciesList(),
+            resolvers = getResolversList(),
+            code = snippet.getOrElse("")).exec
+
+        evalResponse onComplete  {
+          case Success(r) ⇒
+            println(s"Connection to evaluator established: $r")
+          case Failure(f) ⇒
+            println(s"Error while connecting with remote evaluator: $f")
+        }
+      })
     }
   }
 
@@ -47,28 +59,27 @@ object KazariPlugin extends JSApp with DOMHelper {
         .scanLeft("")((currentItem, result) => currentItem + result)
   }
 
-  def requestEvaluationOfSnippet(snippet: String,
-      url: String,
-      token: String,
-      success: (js.Any, String, JQueryXHR) => Unit,
-      failure: (JQueryXHR, String, String) => Unit) = {
-    val settings = js.Dynamic.literal(
-      `type` = "POST",
-      url = url,
-      beforeSend = (xhrObj: JQueryXHR) => {
-        xhrObj.setRequestHeader("X-Scala-Eval-Api-Token", token)
-        xhrObj.setRequestHeader("Content-Type", "application/json")
-      },
-      data = snippet,
-      success = success,
-      error = failure
-    ).asInstanceOf[JQueryAjaxSettings]
+  def getMetaContent(metaTag: String): String =
+    document.querySelector(s"meta[property=" + """"""" + s"$metaTag" + """"""" + "]").getAttribute("content")
 
-    jQuery.ajax(settings)
+  def getDependenciesList(): List[Dependency] = {
+    val content = getMetaContent(dependenciesMetaName)
+    val elements = content.split(",")
+
+    elements.foldRight(Seq[Dependency]()) { case (e, l) =>
+      val split = e.split(";")
+      if (split.length == 3) {
+        l ++ Seq(Dependency(split(0), split(1), split(2)))
+      } else {
+        l
+      }
+    }.toList
   }
 
-  def generateEvalRequest(snippet: String, resolvers: Seq[String], dependencies: Seq[EvaluatorDependency]): String =
-    write(EvaluatorRequest(resolvers, dependencies, snippet))
+  def getResolversList(): List[String] = {
+    val content = getMetaContent(resolversMetaName)
+    content.split(",").toList
+  }
 }
 
 trait DOMHelper {

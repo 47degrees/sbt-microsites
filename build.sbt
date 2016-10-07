@@ -41,6 +41,7 @@ lazy val micrositeSettings = Seq(
 val circeVersion = "0.5.2"
 
 lazy val jsSettings = Seq(
+  scalaVersion := "2.11.8",
   scalaJSStage in Global := FastOptStage,
   parallelExecution := false,
   scalaJSUseRhino := false,
@@ -49,13 +50,12 @@ lazy val jsSettings = Seq(
   libraryDependencies ++= Seq(
     "org.scala-js" %%% "scalajs-dom" % "0.9.0",
     "be.doeraene" %%% "scalajs-jquery" % "0.9.0",
-    "com.lihaoyi" %%% "upickle" % "0.4.1"
-  ),
-  jsDependencies +=
-      "org.webjars" % "jquery" % "2.1.3" / "2.1.3/jquery.js",
-  resolvers += Resolver.url(
+    "com.lihaoyi" %%% "upickle" % "0.4.1",
+    "org.scala-exercises" %%% "evaluator-client" % "0.1.0-SNAPSHOT"),
+  resolvers ++= Seq(Resolver.url(
     "bintray-sbt-plugin-releases",
-    url("https://dl.bintray.com/content/sbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns)
+    url("https://dl.bintray.com/content/sbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns),
+    Resolver.sonatypeRepo("snapshots"))
 )
 
 lazy val testSettings =
