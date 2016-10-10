@@ -38,8 +38,6 @@ lazy val micrositeSettings = Seq(
   includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
 )
 
-val circeVersion = "0.5.2"
-
 lazy val jsSettings = Seq(
   scalaVersion := "2.11.8",
   scalaJSStage in Global := FastOptStage,
