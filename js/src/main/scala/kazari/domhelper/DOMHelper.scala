@@ -10,6 +10,11 @@ import scalacss.ScalatagsCss._
 import scalacss.Defaults._
 
 trait DOMHelper {
+  val codeModalClass = "modalDialog"
+  val codeModalCloseButtonClass = "closeButton"
+  val codeModalInternalTextArea = "modalInternalTextArea"
+  val codeModalButtonContainer = "modalButton"
+
   def appendButton[T](targetNode: dom.Node, title: String, onClickFunction: Function[_, T], id: Option[String] = None): dom.Node = {
     val btnNode = document.createElement("button")
     btnNode.appendChild(document.createTextNode(title))
