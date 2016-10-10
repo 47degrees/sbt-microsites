@@ -26,10 +26,6 @@ object KazariPlugin extends JSApp with DOMHelper {
   lazy val codeSnippets = document.querySelectorAll(s"code.language-scala:not(.$codeExcludeClass)")
   val dependenciesMetaName = "evaluator-dependencies"
   val resolversMetaName = "evaluator-resolvers"
-  val codeModalClass = "modalDialog"
-  val codeModalCloseButtonClass = "closeButton"
-  val codeModalInternalTextArea = "modalInternalTextArea"
-  val codeModalButtonContainer = "modalButton"
 
   @JSExport
   def main(): Unit = { }
