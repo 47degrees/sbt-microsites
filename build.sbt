@@ -51,7 +51,7 @@ lazy val jsSettings = Seq(
     "org.scala-js" %%% "scalajs-dom" % "0.9.0",
     "be.doeraene" %%% "scalajs-jquery" % "0.9.0",
     "com.lihaoyi" %%% "upickle" % "0.4.1",
-    "org.scala-exercises" %%% "evaluator-client" % "0.1.0-SNAPSHOT"),
+    "org.scala-exercises" %%% "evaluator-client" % "0.1.1-SNAPSHOT"),
   resolvers ++= Seq(Resolver.url(
     "bintray-sbt-plugin-releases",
     url("https://dl.bintray.com/content/sbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns),

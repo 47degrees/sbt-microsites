@@ -20,8 +20,8 @@ import scala.util.{Failure, Success}
 object KazariPlugin extends JSApp with DOMHelper {
   val codeExcludeClass = "code-exclude"
   lazy val codeSnippets = document.querySelectorAll(s"code.language-scala:not(.$codeExcludeClass)")
-  val dependenciesMetaName = "scala-dependencies"
-  val resolversMetaName = "scala-resolvers"
+  val dependenciesMetaName = "evaluator-dependencies"
+  val resolversMetaName = "evaluator-resolvers"
 
   @JSExport
   def main(): Unit = { }
@@ -38,18 +38,20 @@ object KazariPlugin extends JSApp with DOMHelper {
           config.url,
           config.authToken)
 
-        val evalResponse: Future[EvaluationResponse[EvalResponse]] =
-          client.api.evaluates(
-            dependencies = getDependenciesList(),
-            resolvers = getResolversList(),
-            code = snippet.getOrElse("")).exec
+        snippet.foreach((s: String) => {
+          val evalResponse: Future[EvaluationResponse[EvalResponse]] =
+            client.api.evaluates(
+              dependencies = getDependenciesList(),
+              resolvers = getResolversList(),
+              code = snippet.getOrElse("")).exec
 
-        evalResponse onComplete  {
-          case Success(r) ⇒
-            println(s"Connection to evaluator established: $r")
-          case Failure(f) ⇒
-            println(s"Error while connecting with remote evaluator: $f")
-        }
+          evalResponse onComplete  {
+            case Success(r) ⇒
+              println(s"Connection to evaluator established: $r")
+            case Failure(f) ⇒
+              println(s"Error while connecting with remote evaluator: $f")
+          }
+        })
       })
     }
   }
@@ -59,8 +61,14 @@ object KazariPlugin extends JSApp with DOMHelper {
         .scanLeft("")((currentItem, result) => currentItem + result)
   }
 
-  def getMetaContent(metaTag: String): String =
-    document.querySelector(s"meta[property=" + """"""" + s"$metaTag" + """"""" + "]").getAttribute("content")
+  def getMetaContent(metaTagName: String): String = {
+    val metaTag = document.querySelector(s"meta[property=" + """"""" + s"$metaTagName" + """"""" + "]")
+    if (metaTag != null) {
+      metaTag.getAttribute("content")
+    } else {
+      ""
+    }
+  }
 
   def getDependenciesList(): List[Dependency] = {
     val content = getMetaContent(dependenciesMetaName)
