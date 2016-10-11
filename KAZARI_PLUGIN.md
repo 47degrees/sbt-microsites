@@ -20,7 +20,7 @@ Those files can be downloaded from the [CodeMirror official site](http://codemir
 
 Once you get all your scripts and stylesheets ready, you just need to include them in your project like this:
 
-```
+```html
 <body>
 
 <script type="text/javascript" src="../../../target/scala-2.11/sbt-microsites-js-jsdeps.js"></script>
@@ -49,12 +49,10 @@ After including the scripts and stylesheets, we wait for the DOM to be ready, an
 Once you got your scripts and stylesheets in your documentation, Kazari will take all your Scala code snippets (all those under <code class="language-scala"> tags) and decorate them with two buttons. One of them allows users to **run** each code snippets, and the other one will show a modal window that lets users **edit** your examples so they can play with them. You just need to take into account a couple of things about this:
 
 * Snippets of code will be run in an **incremental basis**. That is, we assume that your snippets are more or less related to each other. So for instance, when users run the third snippet in your code, the plugin will send the contents of the first three snippets to the evaluator. This way, if your code depends on previously declared imports/instanced values, you won't have to specify them on every part of your documentation.
-
 * It's usual that you use part of your documentation to show code that's not meant to run (i.e.: sbt commands, execution results...). Those snippets of code can be **excluded** from decoration by including the `code-exclude` class in your tags (i.e: <code class="language-scala code-exclude" data-lang="scala">). This is an important thing to do, as those pieces of code will also be included in the following ones as we explained in the previous point, and could make the code unable to compile or not to behave as expected.
-
 * If you're creating a documentation for a library, or for almost any kind of Scala project, it's more than probable that your code needs some **dependencies** to rely on. The remote Scala evaluator needs to know those in order to compile your code. Both dependencies and resolvers can be made visible to Kazari by using the following meta tags:
 
-```
+```html
 <meta property="evaluator-dependencies" content="groupId_1;artifactId_1;version_1,groupId_2;artifactId_2;version_2,...">
 <!-- i.e.: "com.fortysevendeg;fetch_2.11;0.3.0-SNAPSHOT,com.fortysevendeg;mvessel-android;0.1" -->
 <meta property="evaluator-resolvers" content="resolverUrl_1,resolverUrl_2,resolverUrl_3,...">
@@ -68,11 +66,9 @@ Kazari is a Scala.JS application. Even if it's part of the `sbt-microsites` proj
 * lib/codemirror.js
 * mode/javascript.js
 
-Put these in the `resources` folder inside the `js` project of `sbt-microsites` (`sbt-microsites/js/src/main/scala/resources`) and you're good to go!
+Put these in the `resources` folder inside the `js` project of `sbt-microsites` (`sbt-microsites/js/src/main/scala/resources`) and you're good to go! In order to generate the scripts, please follow the next steps while in a sbt session inside the `sbt-microsites` project:
 
-In order to generate the scripts, please follow the next steps while in a sbt session inside the `sbt-microsites` project:
-
-```
+```scala
 sbt-microsites> project js
 
 js> fullOptJS
