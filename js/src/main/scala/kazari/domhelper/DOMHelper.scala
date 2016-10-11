@@ -15,7 +15,11 @@ trait DOMHelper {
   val codeModalInternalTextArea = "modalInternalTextArea"
   val codeModalButtonContainer = "modalButton"
 
-  def appendButton[T](targetNode: dom.Node, title: String, onClickFunction: Function[_, T], id: Option[String] = None): dom.Node = {
+  def appendButton[T](targetNode: dom.Node,
+      title: String,
+      onClickFunction: Function[_, T],
+      id: Option[String] = None): dom.Node = {
+
     val btnNode = document.createElement("button")
     btnNode.appendChild(document.createTextNode(title))
     btnNode.setAttribute("type", "button")

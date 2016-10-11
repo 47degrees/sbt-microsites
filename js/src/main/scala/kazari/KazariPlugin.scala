@@ -88,10 +88,8 @@ object KazariPlugin extends JSApp with DOMHelper {
     appendButton(targetNode, "Evaluate", onClickFunction = (e: dom.MouseEvent) => {
       val evalResponse = sendEvaluatorRequest(evalClient, snippetToEvaluate())
       evalResponse onComplete  {
-        case Success(r) ⇒
-          onSuccess(r)
-        case Failure(f) ⇒
-          onFailure(f)
+        case Success(r) ⇒ onSuccess(r)
+        case Failure(f) ⇒ onFailure(f)
       }
     })
   }
