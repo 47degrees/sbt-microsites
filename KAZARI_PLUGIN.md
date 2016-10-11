@@ -16,7 +16,7 @@ To allow users to edit code interactively, Kazari relies on a Javascript code ed
 * `codemirror.css`, the main stylesheet used by CodeMirror.
 * Theme CSS: CodeMirror can be configured with different themes, as you'll see in just a minute. In order for the themes to work, you'll need to provide its associated stylesheet too (i.e.: `monokai.css` for the Monokai theme).
 
-Those files can be downloaded from the current [CodeMirror release](http://codemirror.net/codemirror.zip).
+Those files can be downloaded from the [CodeMirror official site](http://codemirror.net/doc/releases.html). Note that Kazari is compatible with CodeMirror version 5.19.0.
 
 Once you get all your scripts and stylesheets ready, you just need to include them in your project like this:
 
@@ -63,7 +63,14 @@ Once you got your scripts and stylesheets in your documentation, Kazari will tak
 
 # Building the plugin
 
-Kazari is a Scala.JS application. Even if it's part of the `sbt-microsites` project, it exists in its own independent module called `js`. In order to generate the scripts, please follow the next steps while in a sbt session inside the `sbt-microsites` project:
+Kazari is a Scala.JS application. Even if it's part of the `sbt-microsites` project, it exists in its own independent module called `js`. Before being able to build it, you'll need to include the CodeMirror scripts that Kazari relies on. You can download the CodeMirror release from their [official site](http://codemirror.net/doc/releases.html), noting that Kazari is compatible with version 5.19.0. Once you download the package, you'll be able to find the needed scripts in the following locations:
+
+* lib/codemirror.js
+* mode/javascript.js
+
+Put these in the `resources` folder inside the `js` project of `sbt-microsites` (`sbt-microsites/js/src/main/scala/resources`) and you're good to go!
+
+In order to generate the scripts, please follow the next steps while in a sbt session inside the `sbt-microsites` project:
 
 ```
 sbt-microsites> project js
