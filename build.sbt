@@ -38,6 +38,36 @@ lazy val micrositeSettings = Seq(
   includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
 )
 
+lazy val jsSettings = Seq(
+  scalaVersion := "2.11.8",
+  scalaJSStage in Global := FastOptStage,
+  parallelExecution := false,
+  scalaJSUseRhino := false,
+  requiresDOM := false,
+  jsEnv := NodeJSEnv().value,
+  libraryDependencies ++= Seq(
+    "org.scala-js" %%% "scalajs-dom" % "0.9.0",
+    "be.doeraene" %%% "scalajs-jquery" % "0.9.0",
+    "com.lihaoyi" %%% "upickle" % "0.4.1",
+    "org.scala-exercises" %%% "evaluator-client" % "0.1.1-SNAPSHOT",
+    "com.lihaoyi" %%% "scalatags"  % "0.6.0",
+    "com.github.japgolly.scalacss" %%% "core" % "0.5.0",
+    "com.github.japgolly.scalacss" %%% "ext-scalatags" % "0.5.0",
+    "org.querki" %%% "jquery-facade" % "1.0-RC6",
+    "org.denigma" %%% "codemirror-facade" % "5.11-0.7"
+  ),
+  jsDependencies ++= Seq(
+    "org.webjars" % "jquery" % "2.1.3" / "2.1.3/jquery.js",
+    ProvidedJS / "codemirror.js",
+    ProvidedJS / "javascript.js" dependsOn "codemirror.js"
+  ),
+  resolvers ++= Seq(Resolver.url(
+    "bintray-sbt-plugin-releases",
+    url("https://dl.bintray.com/content/sbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns),
+    Resolver.sonatypeRepo("snapshots"),
+    Resolver.bintrayRepo("denigma", "denigma-releases"))
+)
+
 lazy val testSettings =
   ScriptedPlugin.scriptedSettings ++ Seq(
     scriptedDependencies <<= (compile in Test) map { (analysis) =>
@@ -99,3 +129,9 @@ lazy val docs = (project in file("docs"))
   .settings(moduleName := "docs")
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(BuildInfoPlugin)
+
+lazy val js = (project in file("js"))
+  .settings(moduleName := "sbt-microsites-js")
+  .settings(commonSettings:_*)
+  .settings(jsSettings:_*)
+  .enablePlugins(ScalaJSPlugin)
