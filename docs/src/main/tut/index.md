@@ -15,7 +15,7 @@ technologies:
 A microsite is an instance of Jekyll that's ready to publish a static web page for your new library. Some of the benefits of having these auto-generated web pages are:
 
 - You can write documentation easily in markdown format.
-- Templates, layouts, styles and other resources will be able through the plugin at compile time.
+- Templates, layouts, styles and other resources will be available through the plugin at compile time.
 - You don't have to deal with the styling.
 
 
