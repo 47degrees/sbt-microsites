@@ -1,0 +1,74 @@
+# Kazari
+
+Kazari is a JavaScript plugin developed on Scala.Js that allows to turn your projects' already existing documentation into interactive Scala worksheets. Basically it decorates your code snippets with extra functionality that allows users to run them in a [remote Scala evaluator](https://github.com/scala-exercises/evaluator) and modify it, by just including the script and some CSS files to your site.
+
+# Installation
+
+In order to use Kazari, you first need to include two scripts:
+
+* `sbt-microsites-js-opt.js`, containing the main code of the decorator plugin.
+* `sbt-microsites-js-jsdeps.js`, containing its javascript dependencies.
+
+Kazari is still in a WIP state so we haven't officially distributed it yet, but you can generate development versions following the steps you'll find in ???.
+
+To allow users to edit code interactively, Kazari relies on a Javascript code editor called [CodeMirror](http://codemirror.net). CodeMirror comes integrated with the scripts you just added to your documentation, but you'll need to add the following CSS files to your site:
+
+* `codemirror.css`, the main stylesheet used by CodeMirror.
+* Theme CSS: CodeMirror can be configured with different themes, as you'll see in just a minute. In order for the themes to work, you'll need to provide its associated stylesheet too (i.e.: `monokai.css` for the Monokai theme).
+
+Those files can be downloaded from the current [CodeMirror release](http://codemirror.net/codemirror.zip).
+
+Once you get all your scripts and stylesheets ready, you just need to include them in your project like this:
+
+```
+<body>
+
+<script type="text/javascript" src="../../../target/scala-2.11/sbt-microsites-js-jsdeps.js"></script>
+<script type="text/javascript" src="../../../target/scala-2.11/sbt-microsites-js-opt.js"></script>
+<link rel="stylesheet" href="codemirror.css">
+<link rel="stylesheet" href="monokai.css">
+
+<script type="text/javascript">
+	var config = kazari.model.PluginConfig("http://localhost:8080/eval", "auth_token_string", "monokai")
+	$(document).ready(function() {
+		kazari.KazariPlugin().decorateCode(config)
+	})	
+</script>
+
+<!-- Website contents -->
+```
+
+After including the scripts and stylesheets, we wait for the DOM to be ready, and we make a call to `decorateCode`. This function is the one handling the decoration process, and it takes a configuration object of type `PluginConfig`. This object carries the following information:
+
+* Remote Scala evaluator URL: it contains the URL of the [remote Scala evaluator](https://github.com/scala-exercises/evaluator) we want to connect to. In this case we're using a local instance by executing the project in our machine.
+* Auth token: a security token needed to make requests to the evaluator. You can generate your own by following the steps in the "Authentication" section of the [evaluator](https://github.com/scala-exercises/evaluator documentation).
+* CodeMirror theme: name of the CodeMirror theme to use when showing the interactive edit window.
+
+# Using Kazari
+
+Once you got your scripts and stylesheets in your documentation, Kazari will take all your Scala code snippets (all those under <code class="language-scala"> tags) and decorate them with two buttons. One of them allows users to run each code snippets, and the other one will show a modal window that lets users edit your examples so they can play with them. You just need to take into account a couple of things about this:
+
+* Snippets of code will be run in an incremental basis. That is, we assume that your snippets are more or less related to each other. So for instance, when users run the third snippet in your code, the plugin will send the contents of the first three snippets to the evaluator. This way, if your code depends on previously declared imports/instanced values, you won't have to specify them on every part of your documentation.
+
+* It's usual that you use part of your documentation to show code that's not meant to run (i.e.: sbt commands, execution results...). Those snippets of code can be excluded from decoration by including the `code-exclude` class in your tags (i.e: <code class="language-scala code-exclude" data-lang="scala">). This is an important thing to do, as those pieces of code will also be included in the following ones as we explained in the previous point, and could make the code unable to compile or not to behave as expected.
+
+* If you're creating a documentation for a library, or for almost any kind of Scala project, it's more than probable that your code needs some dependencies to rely on. The remote Scala evaluator needs to know those in order to compile your code. Both dependencies and resolvers can be made visible to Kazari by using the following meta tags:
+
+```
+<meta property="evaluator-dependencies" content="groupId_1;artifactId_1;version_1,groupId_2;artifactId_2;version_2,...">
+<!-- i.e.: "com.fortysevendeg;fetch_2.11;0.3.0-SNAPSHOT,com.fortysevendeg;mvessel-android;0.1" -->
+<meta property="evaluator-resolvers" content="resolverUrl_1,resolverUrl_2,resolverUrl_3,...">
+<!-- i.e.: "https://oss.sonatype.org/content/repositories/snapshots,https://dl.bintray.com/content/sbt/sbt-plugin-releases" -->
+```
+
+# Building the plugin
+
+Kazari is a Scala.JS application. Even if it's part of the `sbt-microsites` project, it exists in its own independent module called `js`. In order to generate the scripts, please follow the next steps while in a sbt session inside the `sbt-microsites` project:
+
+```
+sbt-microsites> project js
+
+js> fullOptJS
+```
+
+The `fullOptJS` command will compile the project, and then generate and optimize Kazari's scripts. `fullOptJS` is a slow command, if you're planning to contribute to Kazari, please try the `fastOptJS` on your development process. It will produce much larger scripts, but with more suitable build times. You'll be able to find the generated scripts in the `target/scala-2.11` folder in the `js` project.
