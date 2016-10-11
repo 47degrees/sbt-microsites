@@ -1,20 +1,24 @@
 package kazari
 
-import org.scalajs.dom
-import org.scalajs.dom._
-
-import scala.scalajs.js.JSApp
-import scala.scalajs.js.annotation.JSExport
-import dom.ext.PimpedNodeList
-import kazari.model.EvaluatorConfig
-import org.scalaexercises.evaluator.Dependency
-import org.scalaexercises.evaluator.{EvalResponse, EvaluatorClient}
-import org.scalaexercises.evaluator.EvaluatorClient._
-import org.scalaexercises.evaluator.implicits._
-import org.scalaexercises.evaluator.EvaluatorResponses.EvaluationResponse
+import kazari.model.PluginConfig
+import kazari.domhelper.DOMHelper
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.util.{Failure, Success}
+import org.scalajs.dom._
+import scala.scalajs.js.JSApp
+import scala.scalajs.js.annotation.JSExport
+import org.denigma.codemirror.{CodeMirror, EditorConfiguration}
+import org.denigma.codemirror.extensions.EditorConfig
+import org.scalaexercises.evaluator.{Dependency, EvalResponse, EvaluatorClient}
+import org.scalaexercises.evaluator.EvaluatorClient._
+import org.scalaexercises.evaluator.implicits._
+import org.scalaexercises.evaluator.EvaluatorResponses
+import org.scalaexercises.evaluator.EvaluatorResponses._
+import org.scalajs.dom
+import org.scalajs.dom.ext.PimpedNodeList
+import org.scalajs.dom.raw.HTMLTextAreaElement
+import org.querki.jquery._
 
 @JSExport
 object KazariPlugin extends JSApp with DOMHelper {
@@ -27,47 +31,72 @@ object KazariPlugin extends JSApp with DOMHelper {
   def main(): Unit = { }
 
   @JSExport
-  def decorateCode(config: EvaluatorConfig): Unit = {
+  def decorateCode(config: PluginConfig): Unit = {
     val textSnippets = generateCodeTextSnippets()
+    lazy val evalClient = new EvaluatorClient(
+      config.url,
+      config.authToken)
+
+    val modalDiv = createModalDiv(codeModalClass)
+    document.body.appendChild(modalDiv)
+    document
+        .querySelector("." + codeModalCloseButtonClass)
+        .addEventListener("click", { (e: dom.MouseEvent) =>
+          $("#" + codeModalClass).toggleClass("ModalStyles-default").toggleClass("ModalStyles-active")
+    })
+    val cmParams: EditorConfiguration = EditorConfig
+        .mode("javascript")
+        .lineNumbers(true)
+        .theme(config.theme)
+
+    document.querySelector("#" + codeModalInternalTextArea) match {
+      case el: HTMLTextAreaElement =>
+        val m = CodeMirror.fromTextArea(el, cmParams)
+        m.getDoc().setValue(textSnippets.last)
+        val containerDiv = document.querySelector("#" + codeModalButtonContainer)
+        createButtonEvaluate(evalClient,
+          containerDiv,
+          () => { m.getDoc().getValue() },
+          (r) => println(s"Connection to evaluator established: $r"),
+          (f) => println(s"Error connecting to evaluator: $f")
+        )
+      case _ => console.error("Couldn't find text area to embed CodeMirror instance!")
+    }
 
     codeSnippets.zipWithIndex foreach { case (node, i) =>
-      appendButton(node, "Evaluate", onClickFunction = (e: dom.MouseEvent) => {
-        val snippet = textSnippets.lift(i + 1)
+      val snippet = textSnippets.lift(i + 1)
+      snippet.foreach((s: String) => {
+        createButtonEvaluate(evalClient,
+          node,
+          () => { s },
+          (r) => println(s"Connection to evaluator established: $r"),
+          (f) => println(s"Error connecting to evaluator: $f")
+        )
+      })
 
-        val client = new EvaluatorClient(
-          config.url,
-          config.authToken)
-
-        snippet.foreach((s: String) => {
-          val evalResponse: Future[EvaluationResponse[EvalResponse]] =
-            client.api.evaluates(
-              dependencies = getDependenciesList(),
-              resolvers = getResolversList(),
-              code = snippet.getOrElse("")).exec
-
-          evalResponse onComplete  {
-            case Success(r) ⇒
-              println(s"Connection to evaluator established: $r")
-            case Failure(f) ⇒
-              println(s"Error while connecting with remote evaluator: $f")
-          }
-        })
+      appendButton(node, "Edit", onClickFunction = (e: dom.MouseEvent) => {
+        $("#" + codeModalClass).toggleClass("ModalStyles-default").toggleClass("ModalStyles-active")
       })
     }
   }
 
-  def generateCodeTextSnippets() = {
-    codeSnippets.map(_.textContent)
-        .scanLeft("")((currentItem, result) => currentItem + result)
+  def createButtonEvaluate(evalClient: EvaluatorClient,
+      targetNode: Node,
+      snippetToEvaluate: () => String,
+      onSuccess: EvaluatorResponses.EvaluationResponse[EvalResponse] => Unit,
+      onFailure: Throwable => Unit) = {
+    appendButton(targetNode, "Evaluate", onClickFunction = (e: dom.MouseEvent) => {
+      val evalResponse = sendEvaluatorRequest(evalClient, snippetToEvaluate())
+      evalResponse onComplete  {
+        case Success(r) ⇒ onSuccess(r)
+        case Failure(f) ⇒ onFailure(f)
+      }
+    })
   }
 
-  def getMetaContent(metaTagName: String): String = {
-    val metaTag = document.querySelector(s"meta[property=" + """"""" + s"$metaTagName" + """"""" + "]")
-    if (metaTag != null) {
-      metaTag.getAttribute("content")
-    } else {
-      ""
-    }
+  def generateCodeTextSnippets() = {
+    codeSnippets.map(_.textContent)
+        .scanLeft("")((currentItem, result) => currentItem + "\n" + result)
   }
 
   def getDependenciesList(): List[Dependency] = {
@@ -88,15 +117,10 @@ object KazariPlugin extends JSApp with DOMHelper {
     val content = getMetaContent(resolversMetaName)
     content.split(",").toList
   }
-}
 
-trait DOMHelper {
-  def appendButton[T](targetNode: dom.Node, title: String, onClickFunction: Function[_, T], id: Option[String] = None): dom.Node = {
-    val btnNode = document.createElement("button")
-    btnNode.appendChild(document.createTextNode(title))
-    btnNode.setAttribute("type", "button")
-    btnNode.setAttribute("id", id.getOrElse(""))
-    btnNode.addEventListener("click", onClickFunction)
-    targetNode.appendChild(btnNode)
-  }
+  def sendEvaluatorRequest(evaluator: EvaluatorClient, codeSnippet: String): Future[EvaluationResponse[EvalResponse]] =
+    evaluator.api.evaluates(
+        dependencies = getDependenciesList(),
+        resolvers = getResolversList(),
+        code = codeSnippet).exec
 }
