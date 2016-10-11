@@ -3,7 +3,6 @@ package kazari.styles
 import scalacss.defaults.Exports.StyleSheet
 import scalacss.internal.{FontFace, NonEmptyVector}
 import scalacss.Defaults._
-import scalacss.ScalatagsCss._
 
 object ModalStyles extends StyleSheet.Inline {
   import dsl._
