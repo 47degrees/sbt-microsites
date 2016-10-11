@@ -30,7 +30,7 @@ lazy val pluginSettings = Seq(
 
 lazy val micrositeSettings = Seq(
   micrositeName := "sbt-microsites",
-  micrositeDescription := "A sbt plugin to create awesome microsites for your project",
+  micrositeDescription := "An sbt plugin to create awesome microsites for your project",
   micrositeBaseUrl := "sbt-microsites",
   micrositeDocumentationUrl := "/sbt-microsites/docs/",
   micrositeGithubOwner := "47deg",

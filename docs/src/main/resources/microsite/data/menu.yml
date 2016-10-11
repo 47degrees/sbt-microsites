@@ -1,0 +1,15 @@
+options:
+  - title: Getting Started
+    url: index.html
+
+  - title: Configuring the Microsite
+    url: settings.html
+
+  - title: Layouts
+    url: layouts.html
+
+  - title: Customize
+    url: customize.html
+
+  - title: Build the microsite
+    url: build-the-microsite.html
