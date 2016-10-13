@@ -4,12 +4,7 @@ Kazari is a JavaScript plugin developed on **Scala.Js** that allows to turn your
 
 # Installation
 
-In order to use Kazari, you first need to include two scripts:
-
-* `sbt-microsites-js-opt.js`, containing the main code of the decorator plugin.
-* `sbt-microsites-js-jsdeps.js`, containing its javascript dependencies.
-
-Kazari is still in a WIP state so we haven't officially distributed it yet, but you can generate development versions following the steps you'll find in the "Building the plugin" section below.
+In order to use Kazari, you just need to include the main `kazari.js` script in your site. Kazari is still in a WIP state so we haven't officially distributed it yet, but you can generate development versions following the steps you'll find in the "Building the plugin" section below.
 
 To allow users to edit code interactively, Kazari relies on a Javascript code editor called [CodeMirror](http://codemirror.net). CodeMirror comes integrated with the scripts you add to your documentation, but you'll need to include the following CSS files to your site:
 
