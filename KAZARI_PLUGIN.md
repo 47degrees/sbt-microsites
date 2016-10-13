@@ -29,16 +29,15 @@ Once you get all your scripts and stylesheets ready, you just need to include th
 <link rel="stylesheet" href="monokai.css">
 
 <script type="text/javascript">
-	var config = kazari.model.PluginConfig("http://localhost:8080/eval", "auth_token_string", "monokai")
 	$(document).ready(function() {
-		kazari.KazariPlugin().decorateCode(config)
+		kazari.KazariPlugin().decorateCode("http://localhost:8080/eval", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eW91ciBpZGVudGl0eQ.cfH43Wa7k_w1i0W2pQhV1k21t2JqER9lw5EpJcENRMI", "monokai")
 	})	
 </script>
 
 <!-- Website contents -->
 ```
 
-After including the scripts and stylesheets, we wait for the DOM to be ready, and we make a call to `decorateCode`. This function is the one handling the decoration process, and it takes a configuration object of type `PluginConfig`. This object carries the following information:
+After including the scripts and stylesheets, we wait for the DOM to be ready, and we make a call to `decorateCode`. This function is the one handling the decoration process, and it takes several parameters:
 
 * **Remote Scala evaluator URL**: it contains the URL of the [remote Scala evaluator](https://github.com/scala-exercises/evaluator) we want to connect to. In this case we're using a local instance by executing the project in our machine.
 * **Auth token**: a security token needed to make requests to the evaluator. You can generate your own by following the steps in the "Authentication" section of the [evaluator documentation](https://github.com/scala-exercises/evaluator).
