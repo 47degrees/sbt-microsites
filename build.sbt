@@ -56,16 +56,16 @@ lazy val jsSettings = Seq(
     "org.querki" %%% "jquery-facade" % "1.0-RC6",
     "org.denigma" %%% "codemirror-facade" % "5.11-0.7"
   ),
-  jsDependencies ++= Seq(
-    "org.webjars" % "jquery" % "2.1.3" / "2.1.3/jquery.js",
-    ProvidedJS / "codemirror.js",
-    ProvidedJS / "javascript.js" dependsOn "codemirror.js"
-  ),
   resolvers ++= Seq(Resolver.url(
     "bintray-sbt-plugin-releases",
     url("https://dl.bintray.com/content/sbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns),
     Resolver.sonatypeRepo("snapshots"),
-    Resolver.bintrayRepo("denigma", "denigma-releases"))
+    Resolver.bintrayRepo("denigma", "denigma-releases")),
+  jsDependencies ++= Seq(
+    "org.webjars" % "jquery" % "2.1.3" / "2.1.3/jquery.js",
+    ProvidedJS / "codemirror.js",
+    ProvidedJS / "javascript.js" dependsOn "codemirror.js"
+  )
 )
 
 lazy val testSettings =
