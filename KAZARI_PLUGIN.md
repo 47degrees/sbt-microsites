@@ -4,12 +4,7 @@ Kazari is a JavaScript plugin developed on **Scala.Js** that allows to turn your
 
 # Installation
 
-In order to use Kazari, you first need to include two scripts:
-
-* `sbt-microsites-js-opt.js`, containing the main code of the decorator plugin.
-* `sbt-microsites-js-jsdeps.js`, containing its javascript dependencies.
-
-Kazari is still in a WIP state so we haven't officially distributed it yet, but you can generate development versions following the steps you'll find in the "Building the plugin" section below.
+In order to use Kazari, you just need to include the main `kazari.js` script in your site. Kazari is still in a WIP state so we haven't officially distributed it yet, but you can generate development versions following the steps you'll find in the "Building the plugin" section below.
 
 To allow users to edit code interactively, Kazari relies on a Javascript code editor called [CodeMirror](http://codemirror.net). CodeMirror comes integrated with the scripts you add to your documentation, but you'll need to include the following CSS files to your site:
 
@@ -29,16 +24,15 @@ Once you get all your scripts and stylesheets ready, you just need to include th
 <link rel="stylesheet" href="monokai.css">
 
 <script type="text/javascript">
-	var config = kazari.model.PluginConfig("http://localhost:8080/eval", "auth_token_string", "monokai")
 	$(document).ready(function() {
-		kazari.KazariPlugin().decorateCode(config)
+		kazari.KazariPlugin().decorateCode("http://localhost:8080/eval", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eW91ciBpZGVudGl0eQ.cfH43Wa7k_w1i0W2pQhV1k21t2JqER9lw5EpJcENRMI", "monokai")
 	})	
 </script>
 
 <!-- Website contents -->
 ```
 
-After including the scripts and stylesheets, we wait for the DOM to be ready, and we make a call to `decorateCode`. This function is the one handling the decoration process, and it takes a configuration object of type `PluginConfig`. This object carries the following information:
+After including the scripts and stylesheets, we wait for the DOM to be ready, and we make a call to `decorateCode`. This function is the one handling the decoration process, and it takes several parameters:
 
 * **Remote Scala evaluator URL**: it contains the URL of the [remote Scala evaluator](https://github.com/scala-exercises/evaluator) we want to connect to. In this case we're using a local instance by executing the project in our machine.
 * **Auth token**: a security token needed to make requests to the evaluator. You can generate your own by following the steps in the "Authentication" section of the [evaluator documentation](https://github.com/scala-exercises/evaluator).
@@ -71,7 +65,7 @@ Put these in the `resources` folder inside the `js` project of `sbt-microsites` 
 ```scala
 sbt-microsites> project js
 
-js> fullOptJS
+js> fastOptGenerate
 ```
 
-The `fullOptJS` command will compile the project, and then generate and optimize Kazari's scripts. `fullOptJS` is a slow command, if you're planning to contribute to Kazari, please use the `fastOptJS` on your development process. It will produce larger scripts, but in more suitable build times. You'll be able to find the generated scripts in the `target/scala-2.11` folder in the `js` project.
+The `fastOptGenerate` task will compile the project, then generate and optimize Kazari's scripts, and finally combine the resulting scripts into a single file. `fullOptGenerate` is a slow command (as the `fullOptJS` task from Scala.JS perform several optimizations), so if you're planning to contribute to Kazari, please use the `fastOptGenerate` task in your development process. It will produce a larger script, but in more suitable build times. You'll be able to find the generated script (`kazari.js`) in the `target/scala-2.11` folder in the `js` project.

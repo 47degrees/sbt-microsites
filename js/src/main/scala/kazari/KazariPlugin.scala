@@ -1,6 +1,5 @@
 package kazari
 
-import kazari.model.PluginConfig
 import kazari.domhelper.DOMHelper
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -31,11 +30,9 @@ object KazariPlugin extends JSApp with DOMHelper {
   def main(): Unit = { }
 
   @JSExport
-  def decorateCode(config: PluginConfig): Unit = {
+  def decorateCode(url: String, authToken: String, theme: String): Unit = {
     val textSnippets = generateCodeTextSnippets()
-    lazy val evalClient = new EvaluatorClient(
-      config.url,
-      config.authToken)
+    lazy val evalClient = new EvaluatorClient(url, authToken)
 
     val modalDiv = createModalDiv(codeModalClass)
     document.body.appendChild(modalDiv)
@@ -47,7 +44,7 @@ object KazariPlugin extends JSApp with DOMHelper {
     val cmParams: EditorConfiguration = EditorConfig
         .mode("javascript")
         .lineNumbers(true)
-        .theme(config.theme)
+        .theme(theme)
 
     document.querySelector("#" + codeModalInternalTextArea) match {
       case el: HTMLTextAreaElement =>
