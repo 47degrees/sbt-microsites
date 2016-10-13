@@ -71,7 +71,7 @@ Put these in the `resources` folder inside the `js` project of `sbt-microsites` 
 ```scala
 sbt-microsites> project js
 
-js> fullOptJS
+js> fastOptGenerate
 ```
 
-The `fullOptJS` command will compile the project, and then generate and optimize Kazari's scripts. `fullOptJS` is a slow command, if you're planning to contribute to Kazari, please use the `fastOptJS` on your development process. It will produce larger scripts, but in more suitable build times. You'll be able to find the generated scripts in the `target/scala-2.11` folder in the `js` project.
+The `fastOptGenerate` task will compile the project, then generate and optimize Kazari's scripts, and finally combine the resulting scripts into a single file. `fullOptGenerate` is a slow command (as the `fullOptJS` task from Scala.JS perform several optimizations), so if you're planning to contribute to Kazari, please use the `fastOptGenerate` task in your development process. It will produce a larger script, but in more suitable build times. You'll be able to find the generated script (`kazari.js`) in the `target/scala-2.11` folder in the `js` project.
