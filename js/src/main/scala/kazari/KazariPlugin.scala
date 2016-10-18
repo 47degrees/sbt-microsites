@@ -36,11 +36,8 @@ object KazariPlugin extends JSApp with DOMHelper {
 
     val modalDiv = createModalDiv(codeModalClass)
     document.body.appendChild(modalDiv)
-    document
-        .querySelector("." + codeModalCloseButtonClass)
-        .addEventListener("click", { (e: dom.MouseEvent) =>
-          $("#" + codeModalClass).toggleClass("ModalStyles-default").toggleClass("ModalStyles-active")
-    })
+    applyModalStyles()
+
     val cmParams: EditorConfiguration = EditorConfig
         .mode("javascript")
         .lineNumbers(true)
@@ -50,30 +47,38 @@ object KazariPlugin extends JSApp with DOMHelper {
       case el: HTMLTextAreaElement =>
         val m = CodeMirror.fromTextArea(el, cmParams)
         m.getDoc().setValue(textSnippets.last)
-        val containerDiv = document.querySelector("#" + codeModalButtonContainer)
-        createButtonEvaluate(evalClient,
-          containerDiv,
-          () => { m.getDoc().getValue() },
-          (r) => println(s"Connection to evaluator established: $r"),
-          (f) => println(s"Error connecting to evaluator: $f")
-        )
+//        val containerDiv = document.querySelector("#" + codeModalButtonContainer)
+//        createButtonEvaluate(evalClient,
+//          containerDiv,
+//          () => { m.getDoc().getValue() },
+//          (r) => println(s"Connection to evaluator established: $r"),
+//          (f) => println(s"Error connecting to evaluator: $f")
+//        )
       case _ => console.error("Couldn't find text area to embed CodeMirror instance!")
     }
 
     codeSnippets.zipWithIndex foreach { case (node, i) =>
+      val decoration = createDecoration(i)
+      node.appendChild(decoration)
+
       val snippet = textSnippets.lift(i + 1)
       snippet.foreach((s: String) => {
-        createButtonEvaluate(evalClient,
-          node,
-          () => { s },
-          (r) => println(s"Connection to evaluator established: $r"),
-          (f) => println(s"Error connecting to evaluator: $f")
-        )
+        val btnRun = document.querySelector(s"#${decoration.id} .$decoratorButtonRunClass")
+        if (btnRun != null) {
+          btnRun.addEventListener("click", { (e: dom.MouseEvent) =>
+            sendEvaluatorRequest(evalClient, s).onComplete {
+              case Success(r) => println(s"Success evaluating! $r")
+              case Failure(e) => println(s"Error evaluating! $e")
+            }
+          })
+        }
       })
-
-      appendButton(node, "Edit", onClickFunction = (e: dom.MouseEvent) => {
-        $("#" + codeModalClass).toggleClass("ModalStyles-default").toggleClass("ModalStyles-active")
-      })
+      val btnEdit = document.querySelector(s"#${decoration.id} .$decoratorButtonEditClass")
+      if (btnEdit != null) {
+        btnEdit.addEventListener("click", { (e: dom.MouseEvent) =>
+          $(".modal-state").prop("checked", true).change()
+        })
+      }
     }
   }
 

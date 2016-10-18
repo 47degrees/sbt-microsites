@@ -1,19 +1,19 @@
 package kazari.domhelper
 
-import kazari.KazariPlugin
-import kazari.styles.ModalStyles
 import org.scalajs.dom
 import org.scalajs.dom._
 import org.scalajs.dom.html.Div
-import org.scalajs.dom.raw.HTMLStyleElement
-import scalacss.ScalatagsCss._
-import scalacss.Defaults._
+import org.querki.jquery._
 
 trait DOMHelper {
-  val codeModalClass = "modalDialog"
-  val codeModalCloseButtonClass = "closeButton"
-  val codeModalInternalTextArea = "modalInternalTextArea"
+  val codeModalClass = "modal-fade-screen"
+  val codeModalCloseButtonClass = "modal-close"
+  val codeModalInternalTextArea = "modal-text-area"
   val codeModalButtonContainer = "modalButton"
+  val decoratorButtonRunClass = "kazari-decorator-run"
+  val decoratorButtonEditClass = "kazari-decorator-edit"
+  val decoratorButtonSaveGistClass = "kazari-decorator-gist"
+  val kazariUrl = "https://github.com/47deg/sbt-microsites"
 
   def appendButton[T](targetNode: dom.Node,
       title: String,
@@ -30,24 +30,104 @@ trait DOMHelper {
 
   def createModalDiv(cssClass: String): Div = {
     import scalatags.JsDom.all._
+
     div(
-      `id` := cssClass,
-      `class` := cssClass,
-      ModalStyles.render[scalatags.JsDom.TypedTag[HTMLStyleElement]],
-      ModalStyles.default,
-      div(
-        ModalStyles.internalDiv,
-        a(
-          title := "Close",
-          `class` := KazariPlugin.codeModalCloseButtonClass,
-          ModalStyles.closeButton,
-          "X"
-        ),
-        textarea(
-          `id` := KazariPlugin.codeModalInternalTextArea
-        ),
+      `class` := "modal",
+      label(
+        `for` := "modal-1",
         div(
-          `id` := KazariPlugin.codeModalButtonContainer
+          `class` := "modal-trigger",
+          "Modal example"
+        )
+      ),
+      input(
+        `id` := "modal-1",
+        `class` := "modal-state",
+        `type` := "checkbox"
+      ),
+      div(
+        `class` := "modal-fade-screen",
+        div(
+          `class` := "modal-inner",
+          div(
+            `class` := "modal-close",
+            `for` := "modal-1",
+            i(
+              `class` := "fa fa-close"
+            )
+          ),
+          div(
+            `class` := "modal-content",
+            textarea(
+              `id` := codeModalInternalTextArea
+            ),
+            div(
+              `class` := "compiler",
+              ul(
+                li(
+                  a(
+                    `class` := decoratorButtonRunClass,
+                    i(
+                      `class` := "fa fa-play-circle",
+                      "Run"
+                    )
+                  )
+                ),
+                li(
+                  a(
+                    `class` := decoratorButtonSaveGistClass,
+                    i(
+                      `class` := "fa fa-github-alt",
+                      "Save as Gist"
+                    )
+                  )
+                ),
+                li(
+                  a(
+                    href := kazariUrl,
+                    target := "_blank",
+                    "Kazari"
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    ).render
+  }
+
+  def createDecoration(index: Int): Div = {
+    import scalatags.JsDom.all._
+
+    div(
+      `id` := s"snippet-$index",
+      `class` := "compiler",
+      ul(
+        li(
+          a(
+            `class` := decoratorButtonRunClass,
+            i(
+              `class` := "fa fa-play-circle",
+              "Run"
+            )
+          )
+        ),
+        li(
+          a(
+            `class` := decoratorButtonEditClass,
+            i(
+              `class` := "fa fa-pencil",
+              "Edit"
+            )
+          )
+        ),
+        li(
+          a(
+            href := kazariUrl,
+            target := "_blank",
+            "Kazari"
+          )
         )
       )
     ).render
@@ -60,5 +140,23 @@ trait DOMHelper {
     } else {
       ""
     }
+  }
+
+  def applyModalStyles() = {
+    $("#modal-1").on("change", { (e: JQueryEventObject, a: Any) =>
+      if ($("#modal-1").is(":checked")) {
+        $("body").addClass("modal-open")
+      } else {
+        $("body").removeClass("modal-open")
+      }
+    })
+
+    $(".modal-fade-screen, .modal-close").on("click", { (e: JQueryEventObject, a: Any) =>
+      $(".modal-state:checked").prop("checked", false).change()
+    })
+
+    $(".modal-inner").on("click", { (e: JQueryEventObject, a: Any) =>
+      e.stopPropagation()
+    })
   }
 }

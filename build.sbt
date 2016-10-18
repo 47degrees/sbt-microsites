@@ -51,8 +51,6 @@ lazy val jsSettings = Seq(
     "com.lihaoyi" %%% "upickle" % "0.4.1",
     "org.scala-exercises" %%% "evaluator-client" % "0.1.1-SNAPSHOT",
     "com.lihaoyi" %%% "scalatags"  % "0.6.0",
-    "com.github.japgolly.scalacss" %%% "core" % "0.5.0",
-    "com.github.japgolly.scalacss" %%% "ext-scalatags" % "0.5.0",
     "org.querki" %%% "jquery-facade" % "1.0-RC6",
     "org.denigma" %%% "codemirror-facade" % "5.11-0.7"
   ),
