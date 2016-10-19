@@ -12,7 +12,6 @@ import org.denigma.codemirror.extensions.EditorConfig
 import org.scalaexercises.evaluator.{Dependency, EvalResponse, EvaluatorClient}
 import org.scalaexercises.evaluator.EvaluatorClient._
 import org.scalaexercises.evaluator.implicits._
-import org.scalaexercises.evaluator.EvaluatorResponses
 import org.scalaexercises.evaluator.EvaluatorResponses._
 import org.scalajs.dom
 import org.scalajs.dom.ext.PimpedNodeList
@@ -47,13 +46,13 @@ object KazariPlugin extends JSApp with DOMHelper {
       case el: HTMLTextAreaElement =>
         val m = CodeMirror.fromTextArea(el, cmParams)
         m.getDoc().setValue(textSnippets.last)
-//        val containerDiv = document.querySelector("#" + codeModalButtonContainer)
-//        createButtonEvaluate(evalClient,
-//          containerDiv,
-//          () => { m.getDoc().getValue() },
-//          (r) => println(s"Connection to evaluator established: $r"),
-//          (f) => println(s"Error connecting to evaluator: $f")
-//        )
+
+        addClickListenerToButton(s".$codeModalClass .$decoratorButtonRunClass", (e: dom.MouseEvent) => {
+          sendEvaluatorRequest(evalClient, m.getDoc().getValue()).onComplete {
+            case Success(r) => println(s"Connection to evaluator established: $r")
+            case Failure(e) => println(s"Error connecting to evaluator: $e")
+          }
+        })
       case _ => console.error("Couldn't find text area to embed CodeMirror instance!")
     }
 
@@ -63,37 +62,25 @@ object KazariPlugin extends JSApp with DOMHelper {
 
       val snippet = textSnippets.lift(i + 1)
       snippet.foreach((s: String) => {
-        val btnRun = document.querySelector(s"#${decoration.id} .$decoratorButtonRunClass")
-        if (btnRun != null) {
-          btnRun.addEventListener("click", { (e: dom.MouseEvent) =>
-            sendEvaluatorRequest(evalClient, s).onComplete {
-              case Success(r) => println(s"Success evaluating! $r")
-              case Failure(e) => println(s"Error evaluating! $e")
-            }
-          })
-        }
-      })
-      val btnEdit = document.querySelector(s"#${decoration.id} .$decoratorButtonEditClass")
-      if (btnEdit != null) {
-        btnEdit.addEventListener("click", { (e: dom.MouseEvent) =>
-          $(".modal-state").prop("checked", true).change()
+        addClickListenerToButton(s"#${decoration.id} .$decoratorButtonRunClass", (e: dom.MouseEvent) => {
+          sendEvaluatorRequest(evalClient, s).onComplete {
+            case Success(r) => println(s"Connection to evaluator established: $r")
+            case Failure(e) => println(s"Error connecting to evaluator: $e")
+          }
         })
-      }
+      })
+
+      addClickListenerToButton(s"#${decoration.id} .$decoratorButtonEditClass", (e: dom.MouseEvent) => {
+        $(".modal-state").prop("checked", true).change()
+      })
     }
   }
 
-  def createButtonEvaluate(evalClient: EvaluatorClient,
-      targetNode: Node,
-      snippetToEvaluate: () => String,
-      onSuccess: EvaluatorResponses.EvaluationResponse[EvalResponse] => Unit,
-      onFailure: Throwable => Unit) = {
-    appendButton(targetNode, "Evaluate", onClickFunction = (e: dom.MouseEvent) => {
-      val evalResponse = sendEvaluatorRequest(evalClient, snippetToEvaluate())
-      evalResponse onComplete  {
-        case Success(r) ⇒ onSuccess(r)
-        case Failure(f) ⇒ onFailure(f)
-      }
-    })
+  def addClickListenerToButton(selector: String, function: (dom.MouseEvent) => Any) = {
+    val btn = Option(document.querySelector(selector))
+    btn.foreach { b =>
+      b.addEventListener("click", function)
+    }
   }
 
   def generateCodeTextSnippets() = {
