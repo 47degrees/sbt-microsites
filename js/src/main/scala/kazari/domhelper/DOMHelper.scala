@@ -142,12 +142,10 @@ trait DOMHelper {
   }
 
   def getMetaContent(metaTagName: String): String = {
-    val metaTag = document.querySelector(s"meta[property=" + """"""" + s"$metaTagName" + """"""" + "]")
-    if (metaTag != null) {
-      metaTag.getAttribute("content")
-    } else {
-      ""
-    }
+    val metaTag = Option(document.querySelector(s"meta[property=" + """"""" + s"$metaTagName" + """"""" + "]"))
+    metaTag map { m =>
+      m.getAttribute("content")
+    } getOrElse ""
   }
 
   def applyModalStyles() = {
