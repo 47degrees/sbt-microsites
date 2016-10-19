@@ -1,10 +1,12 @@
 package kazari
 
 import kazari.domhelper.DOMHelper
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import scala.util.{Failure, Success}
+import scala.util.{Failure, Success, Try}
 import org.scalajs.dom._
+
 import scala.scalajs.js.JSApp
 import scala.scalajs.js.annotation.JSExport
 import org.denigma.codemirror.{CodeMirror, EditorConfiguration}
@@ -20,10 +22,7 @@ import org.querki.jquery._
 
 @JSExport
 object KazariPlugin extends JSApp with DOMHelper {
-  val codeExcludeClass = "code-exclude"
-  lazy val codeSnippets = document.querySelectorAll(s"code.language-scala:not(.$codeExcludeClass)")
-  val dependenciesMetaName = "evaluator-dependencies"
-  val resolversMetaName = "evaluator-resolvers"
+  lazy val codeSnippets = document.querySelectorAll(codeSnippetsSelector)
 
   @JSExport
   def main(): Unit = { }
@@ -46,14 +45,16 @@ object KazariPlugin extends JSApp with DOMHelper {
       case el: HTMLTextAreaElement =>
         val m = CodeMirror.fromTextArea(el, cmParams)
         m.getDoc().setValue(textSnippets.last)
+        m.setSize("100%", ($(window).height() * codeModalEditorMaxHeightPercent) / 100.0)
 
-        addClickListenerToButton(s".$codeModalClass .$decoratorButtonRunClass", (e: dom.MouseEvent) => {
-          sendEvaluatorRequest(evalClient, m.getDoc().getValue()).onComplete {
-            case Success(r) => println(s"Connection to evaluator established: $r")
-            case Failure(e) => println(s"Error connecting to evaluator: $e")
-          }
-        })
-      case _ => console.error("Couldn't find text area to embed CodeMirror instance!")
+        addRunButtonBehaviour(
+          s".$codeModalClass .$decoratorButtonRunClass",
+          evalClient,
+          () => m.getDoc().getValue(),
+          { r => println(s"Connection to evaluator established: $r") },
+          { e => println(s"Error connecting to evaluator: $e") }
+        )
+      case _ => console.error("Couldn't find text area to embed CodeMirror instance.")
     }
 
     codeSnippets.zipWithIndex foreach { case (node, i) =>
@@ -61,25 +62,19 @@ object KazariPlugin extends JSApp with DOMHelper {
       node.appendChild(decoration)
 
       val snippet = textSnippets.lift(i + 1)
-      snippet.foreach((s: String) => {
-        addClickListenerToButton(s"#${decoration.id} .$decoratorButtonRunClass", (e: dom.MouseEvent) => {
-          sendEvaluatorRequest(evalClient, s).onComplete {
-            case Success(r) => println(s"Connection to evaluator established: $r")
-            case Failure(e) => println(s"Error connecting to evaluator: $e")
-          }
-        })
+      snippet foreach((s: String) => {
+        addRunButtonBehaviour(
+          s"#${decoration.id} .$decoratorButtonRunClass",
+          evalClient,
+          () => s,
+          { r => println(s"Connection to evaluator established: $r") },
+          { e => println(s"Error connecting to evaluator: $e") }
+        )
       })
 
       addClickListenerToButton(s"#${decoration.id} .$decoratorButtonEditClass", (e: dom.MouseEvent) => {
         $(".modal-state").prop("checked", true).change()
       })
-    }
-  }
-
-  def addClickListenerToButton(selector: String, function: (dom.MouseEvent) => Any) = {
-    val btn = Option(document.querySelector(selector))
-    btn.foreach { b =>
-      b.addEventListener("click", function)
     }
   }
 
@@ -112,4 +107,28 @@ object KazariPlugin extends JSApp with DOMHelper {
         dependencies = getDependenciesList(),
         resolvers = getResolversList(),
         code = codeSnippet).exec
+
+  def addRunButtonBehaviour(btnSelector: String,
+      evalClient: EvaluatorClient,
+      codeSnippet: () => String,
+      onSuccess: (EvaluationResponse[EvalResponse]) => Unit,
+      onFailure: (Throwable) => Unit): Unit =
+
+    addClickListenerToButton(btnSelector, (e: dom.MouseEvent) => {
+      changeButtonIcon(btnSelector + " " + "i", decoratorButtonPlayClass, decoratorButtonSpinnerClass)
+      toggleButtonActiveState(btnSelector, true)
+
+      sendEvaluatorRequest(evalClient, codeSnippet()).onComplete {
+        case Success(r) => {
+          changeButtonIcon(btnSelector + " " + "i", decoratorButtonSpinnerClass, decoratorButtonPlayClass)
+          toggleButtonActiveState(btnSelector, false)
+          onSuccess(r)
+        }
+        case Failure(e) => {
+          changeButtonIcon(btnSelector + " " + "i", decoratorButtonSpinnerClass, decoratorButtonPlayClass)
+          toggleButtonActiveState(btnSelector, false)
+          onFailure(e)
+        }
+      }
+    })
 }

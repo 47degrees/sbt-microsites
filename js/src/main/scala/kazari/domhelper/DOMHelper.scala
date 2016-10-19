@@ -6,13 +6,21 @@ import org.scalajs.dom.html.Div
 import org.querki.jquery._
 
 trait DOMHelper {
+  val codeExcludeClass = "code-exclude"
+  val codeSnippetsSelector = s"code.language-scala:not(.$codeExcludeClass)"
+  val dependenciesMetaName = "evaluator-dependencies"
+  val resolversMetaName = "evaluator-resolvers"
   val codeModalClass = "modal-fade-screen"
   val codeModalCloseButtonClass = "modal-close"
   val codeModalInternalTextArea = "modal-text-area"
   val codeModalButtonContainer = "modalButton"
+  val codeModalEditorMaxHeightPercent = 80.0
   val decoratorButtonRunClass = "kazari-decorator-run"
   val decoratorButtonEditClass = "kazari-decorator-edit"
   val decoratorButtonSaveGistClass = "kazari-decorator-gist"
+  val decoratorButtonPlayClass = "fa-play-circle"
+  val decoratorButtonSpinnerClass = "fa-spinner fa-spin"
+  val decoratorButtonDisableClass = "compiling"
   val kazariUrl = "https://github.com/47deg/sbt-microsites"
 
   def appendButton[T](targetNode: dom.Node,
@@ -68,18 +76,18 @@ trait DOMHelper {
                   a(
                     `class` := decoratorButtonRunClass,
                     i(
-                      `class` := "fa fa-play-circle",
-                      "Run"
-                    )
+                      `class` := "fa fa-play-circle"
+                    ),
+                    "Run"
                   )
                 ),
                 li(
                   a(
                     `class` := decoratorButtonSaveGistClass,
                     i(
-                      `class` := "fa fa-github-alt",
-                      "Save as Gist"
-                    )
+                      `class` := "fa fa-github-alt"
+                    ),
+                    "Save as Gist"
                   )
                 ),
                 li(
@@ -108,18 +116,18 @@ trait DOMHelper {
           a(
             `class` := decoratorButtonRunClass,
             i(
-              `class` := "fa fa-play-circle",
-              "Run"
-            )
+              `class` := "fa fa-play-circle"
+            ),
+            "Run"
           )
         ),
         li(
           a(
             `class` := decoratorButtonEditClass,
             i(
-              `class` := "fa fa-pencil",
-              "Edit"
-            )
+              `class` := "fa fa-pencil"
+            ),
+            "Edit"
           )
         ),
         li(
@@ -158,5 +166,28 @@ trait DOMHelper {
     $(".modal-inner").on("click", { (e: JQueryEventObject, a: Any) =>
       e.stopPropagation()
     })
+  }
+
+  def addClickListenerToButton(selector: String, function: (dom.MouseEvent) => Any) = {
+    val btn = Option(document.querySelector(selector))
+    btn.foreach { b =>
+      b.addEventListener("click", function)
+    }
+  }
+
+  def changeButtonIcon(selector: String, currentClass: String, nextClass: String) = {
+    val btnImg = Option(document.querySelector(selector))
+    btnImg foreach { $(_).removeClass(currentClass).addClass(nextClass) }
+  }
+
+  def toggleButtonActiveState(selector: String, active: Boolean) = {
+    val btn = Option(document.querySelector(selector))
+    btn foreach { b =>
+      val _ = if (active) {
+        $(b).addClass(decoratorButtonDisableClass)
+      } else {
+        $(b).removeClass(decoratorButtonDisableClass)
+      }
+    }
   }
 }
