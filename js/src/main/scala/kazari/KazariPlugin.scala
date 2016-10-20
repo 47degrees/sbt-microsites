@@ -21,9 +21,11 @@ import org.scalajs.dom.raw.HTMLTextAreaElement
 import org.querki.jquery._
 
 @JSExport
-object KazariPlugin extends JSApp with DOMHelper {
-  val successMessagePrefix = "Compilation success: "
-  val errorMessagePrefix = "Compilation success: "
+object KazariPlugin extends JSApp {
+  import DOMHelper._
+
+  val successMessagePrefix = "Compilation success:"
+  val errorMessagePrefix = "Compilation error:"
   lazy val codeSnippets = document.querySelectorAll(codeSnippetsSelector)
 
   @JSExport
@@ -78,10 +80,11 @@ object KazariPlugin extends JSApp with DOMHelper {
     }
   }
 
-  def generateCodeTextSnippets() = {
+  def generateCodeTextSnippets() =
     codeSnippets.map(_.textContent)
-        .scanLeft("")((currentItem, result) => currentItem + "\n" + result)
-  }
+        .scanLeft("")((currentItem, result) =>
+            if (currentItem == "") { result } else { currentItem + "\n" + result })
+
 
   def getDependenciesList(): List[Dependency] = {
     val content = getMetaContent(dependenciesMetaName)
