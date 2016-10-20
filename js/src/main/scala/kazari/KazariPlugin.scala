@@ -24,7 +24,6 @@ import org.querki.jquery._
 object KazariPlugin extends JSApp {
   import DOMHelper._
 
-  val successMessagePrefix = "Compilation success:"
   val errorMessagePrefix = "Compilation error:"
   lazy val codeSnippets = document.querySelectorAll(codeSnippetsSelector)
 
@@ -119,6 +118,8 @@ object KazariPlugin extends JSApp {
       onFailure: (Throwable) => Unit = (_) => ()): Unit =
 
     addClickListenerToButton(btnSelector, (e: dom.MouseEvent) => {
+      def isEvaluationSuccessful(response: EvalResponse): Boolean = response.msg == EvalResponse.messages.ok
+
       changeButtonIcon(btnSelector + " " + "i", decoratorButtonPlayClass, decoratorButtonSpinnerClass)
       toggleButtonActiveState(btnSelector, true)
       hideAlertMessage(parentSelector)
@@ -128,9 +129,18 @@ object KazariPlugin extends JSApp {
           changeButtonIcon(btnSelector + " " + "i", decoratorButtonSpinnerClass, decoratorButtonPlayClass)
           toggleButtonActiveState(btnSelector, false)
           r.fold({ e =>
-            showAlertMessage(parentSelector, s"$errorMessagePrefix ${e.toString}", false)
-          }, { compilationResult =>
-            showAlertMessage(parentSelector, s"$successMessagePrefix ${compilationResult.result.msg}", true)
+            showAlertMessage(parentSelector, s"$errorMessagePrefix ${e.getCause.getMessage}", false)
+          }, { compilationResult => {
+            val isSuccess = isEvaluationSuccessful(compilationResult.result)
+            val resultMsg = compilationResult.result.value.map(r => s"- $r").getOrElse("")
+            val errorMsg = if (!compilationResult.result.compilationInfos.isEmpty) {
+              compilationResult.result.compilationInfos.mkString(" ")
+            } else {
+              resultMsg
+            }
+            val compilationValue = if (isSuccess) { resultMsg } else { errorMsg }
+            showAlertMessage(parentSelector, s"${compilationResult.result.msg} - $compilationValue", isSuccess)
+          }
           })
           onSuccess(r)
         }
