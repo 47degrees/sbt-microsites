@@ -132,7 +132,7 @@ object KazariPlugin extends JSApp {
             showAlertMessage(parentSelector, s"$errorMessagePrefix ${e.getCause.getMessage}", false)
           }, { compilationResult => {
             val isSuccess = isEvaluationSuccessful(compilationResult.result)
-            val resultMsg = compilationResult.result.value.map(r => s"- $r").getOrElse("")
+            val resultMsg = compilationResult.result.value.getOrElse("")
             val errorMsg = if (!compilationResult.result.compilationInfos.isEmpty) {
               compilationResult.result.compilationInfos.mkString(" ")
             } else {
