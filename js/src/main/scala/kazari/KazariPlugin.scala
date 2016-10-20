@@ -22,6 +22,8 @@ import org.querki.jquery._
 
 @JSExport
 object KazariPlugin extends JSApp with DOMHelper {
+  val successMessagePrefix = "Compilation success: "
+  val errorMessagePrefix = "Compilation success: "
   lazy val codeSnippets = document.querySelectorAll(codeSnippetsSelector)
 
   @JSExport
@@ -49,10 +51,9 @@ object KazariPlugin extends JSApp with DOMHelper {
 
         addRunButtonBehaviour(
           s".$codeModalClass .$decoratorButtonRunClass",
+          s".$codeModalClass",
           evalClient,
-          () => m.getDoc().getValue(),
-          { r => println(s"Connection to evaluator established: $r") },
-          { e => println(s"Error connecting to evaluator: $e") }
+          () => m.getDoc().getValue()
         )
       case _ => console.error("Couldn't find text area to embed CodeMirror instance.")
     }
@@ -65,10 +66,9 @@ object KazariPlugin extends JSApp with DOMHelper {
       snippet foreach((s: String) => {
         addRunButtonBehaviour(
           s"#${decoration.id} .$decoratorButtonRunClass",
+          s"#${decoration.id}",
           evalClient,
-          () => s,
-          { r => println(s"Connection to evaluator established: $r") },
-          { e => println(s"Error connecting to evaluator: $e") }
+          () => s
         )
       })
 
@@ -109,24 +109,32 @@ object KazariPlugin extends JSApp with DOMHelper {
         code = codeSnippet).exec
 
   def addRunButtonBehaviour(btnSelector: String,
+      parentSelector: String,
       evalClient: EvaluatorClient,
       codeSnippet: () => String,
-      onSuccess: (EvaluationResponse[EvalResponse]) => Unit,
-      onFailure: (Throwable) => Unit): Unit =
+      onSuccess: (EvaluationResponse[EvalResponse]) => Unit = (_) => (),
+      onFailure: (Throwable) => Unit = (_) => ()): Unit =
 
     addClickListenerToButton(btnSelector, (e: dom.MouseEvent) => {
       changeButtonIcon(btnSelector + " " + "i", decoratorButtonPlayClass, decoratorButtonSpinnerClass)
       toggleButtonActiveState(btnSelector, true)
+      hideAlertMessage(parentSelector)
 
       sendEvaluatorRequest(evalClient, codeSnippet()).onComplete {
         case Success(r) => {
           changeButtonIcon(btnSelector + " " + "i", decoratorButtonSpinnerClass, decoratorButtonPlayClass)
           toggleButtonActiveState(btnSelector, false)
+          r.fold({ e =>
+            showAlertMessage(parentSelector, s"$errorMessagePrefix ${e.toString}", false)
+          }, { compilationResult =>
+            showAlertMessage(parentSelector, s"$successMessagePrefix ${compilationResult.result.msg}", true)
+          })
           onSuccess(r)
         }
         case Failure(e) => {
           changeButtonIcon(btnSelector + " " + "i", decoratorButtonSpinnerClass, decoratorButtonPlayClass)
           toggleButtonActiveState(btnSelector, false)
+          showAlertMessage(parentSelector, "Error while connecting to the remote evaluator.", false)
           onFailure(e)
         }
       }

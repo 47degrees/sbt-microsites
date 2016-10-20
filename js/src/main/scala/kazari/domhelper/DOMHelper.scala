@@ -21,6 +21,10 @@ trait DOMHelper {
   val decoratorButtonPlayClass = "fa-play-circle"
   val decoratorButtonSpinnerClass = "fa-spinner fa-spin"
   val decoratorButtonDisableClass = "compiling"
+  val decoratorAlertBarClass = "alert"
+  val decoratorAlertBarHiddenClass = "alert-hidden"
+  val decoratorAlertBarSuccessClass = "alert-success"
+  val decoratorAlertBarErrorClass = "alert-error"
   val kazariUrl = "https://github.com/47deg/sbt-microsites"
 
   def appendButton[T](targetNode: dom.Node,
@@ -65,39 +69,44 @@ trait DOMHelper {
             )
           ),
           div(
-            `class` := "modal-content",
-            textarea(
-              `id` := codeModalInternalTextArea
-            ),
             div(
-              `class` := "compiler",
-              ul(
-                li(
-                  a(
-                    `class` := decoratorButtonRunClass,
-                    i(
-                      `class` := "fa fa-play-circle"
-                    ),
-                    "Run"
-                  )
-                ),
-                li(
-                  a(
-                    `class` := decoratorButtonSaveGistClass,
-                    i(
-                      `class` := "fa fa-github-alt"
-                    ),
-                    "Save as Gist"
-                  )
-                ),
-                li(
-                  a(
-                    href := kazariUrl,
-                    target := "_blank",
-                    "Kazari"
+              `class` := "modal-content",
+              textarea(
+                `id` := codeModalInternalTextArea
+              ),
+              div(
+                `class` := "compiler",
+                ul(
+                  li(
+                    a(
+                      `class` := decoratorButtonRunClass,
+                      i(
+                        `class` := "fa fa-play-circle"
+                      ),
+                      "Run"
+                    )
+                  ),
+                  li(
+                    a(
+                      `class` := decoratorButtonSaveGistClass,
+                      i(
+                        `class` := "fa fa-github-alt"
+                      ),
+                      "Save as Gist"
+                    )
+                  ),
+                  li(
+                    a(
+                      href := kazariUrl,
+                      target := "_blank",
+                      "Kazari"
+                    )
                   )
                 )
               )
+            ),
+            div(
+              `class` := s"$decoratorAlertBarClass $decoratorAlertBarHiddenClass"
             )
           )
         )
@@ -110,33 +119,38 @@ trait DOMHelper {
 
     div(
       `id` := s"snippet-$index",
-      `class` := "compiler",
-      ul(
-        li(
-          a(
-            `class` := decoratorButtonRunClass,
-            i(
-              `class` := "fa fa-play-circle"
-            ),
-            "Run"
-          )
-        ),
-        li(
-          a(
-            `class` := decoratorButtonEditClass,
-            i(
-              `class` := "fa fa-pencil"
-            ),
-            "Edit"
-          )
-        ),
-        li(
-          a(
-            href := kazariUrl,
-            target := "_blank",
-            "Kazari"
+      div(
+        `class` := "compiler",
+        ul(
+          li(
+            a(
+              `class` := decoratorButtonRunClass,
+              i(
+                `class` := "fa fa-play-circle"
+              ),
+              "Run"
+            )
+          ),
+          li(
+            a(
+              `class` := decoratorButtonEditClass,
+              i(
+                `class` := "fa fa-pencil"
+              ),
+              "Edit"
+            )
+          ),
+          li(
+            a(
+              href := kazariUrl,
+              target := "_blank",
+              "Kazari"
+            )
           )
         )
+      ),
+      div(
+        `class` := s"$decoratorAlertBarClass $decoratorAlertBarHiddenClass"
       )
     ).render
   }
@@ -166,26 +180,35 @@ trait DOMHelper {
     })
   }
 
-  def addClickListenerToButton(selector: String, function: (dom.MouseEvent) => Any) = {
-    val btn = Option(document.querySelector(selector))
-    btn.foreach { b =>
+  def addClickListenerToButton(selector: String, function: (dom.MouseEvent) => Any) =
+    Option(document.querySelector(selector)) foreach { b =>
       b.addEventListener("click", function)
     }
-  }
 
-  def changeButtonIcon(selector: String, currentClass: String, nextClass: String) = {
-    val btnImg = Option(document.querySelector(selector))
-    btnImg foreach { $(_).removeClass(currentClass).addClass(nextClass) }
-  }
+  def changeButtonIcon(selector: String, currentClass: String, nextClass: String) =
+    Option(document.querySelector(selector)) foreach { $(_).removeClass(currentClass).addClass(nextClass) }
 
-  def toggleButtonActiveState(selector: String, active: Boolean) = {
-    val btn = Option(document.querySelector(selector))
-    btn foreach { b =>
+  def toggleButtonActiveState(selector: String, active: Boolean) =
+    Option(document.querySelector(selector)).foreach { b =>
       val _ = if (active) {
         $(b).addClass(decoratorButtonDisableClass)
       } else {
         $(b).removeClass(decoratorButtonDisableClass)
       }
     }
-  }
+
+  def showAlertMessage(parentSelector: String, message: String, isSuccess: Boolean) =
+    Option(document.querySelector(s"$parentSelector .$decoratorAlertBarClass")) foreach { a =>
+      val classToApply = if (isSuccess) { decoratorAlertBarSuccessClass } else { decoratorAlertBarErrorClass }
+      $(a).removeClass(decoratorAlertBarHiddenClass).addClass(classToApply).text(message)
+    }
+
+  def hideAlertMessage(parentSelector: String) =
+    Option(document.querySelector(s"$parentSelector .$decoratorAlertBarClass")) foreach { a =>
+      $(a)
+          .removeClass(decoratorAlertBarSuccessClass)
+          .removeClass(decoratorAlertBarErrorClass)
+          .addClass(decoratorAlertBarHiddenClass)
+          .text("")
+    }
 }
