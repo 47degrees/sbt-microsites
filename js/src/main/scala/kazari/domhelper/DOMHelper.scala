@@ -6,7 +6,7 @@ import org.querki.jquery._
 
 object DOMHelper extends DOMTags {
   val codeExcludeClass = "code-exclude"
-  val codeSnippetsSelector = s"code.language-scala:not(.$codeExcludeClass)"
+  val codeSnippetsSelector = s".language-scala:not(.$codeExcludeClass)"
   val dependenciesMetaName = "evaluator-dependencies"
   val resolversMetaName = "evaluator-resolvers"
 
@@ -66,4 +66,18 @@ object DOMHelper extends DOMTags {
           .addClass(decoratorAlertBarHiddenClass)
           .text("")
     }
+
+  def decorationSnippetId(index: Int): String = s"snippet-$index"
+
+  def snippetIndexFromDecorationId(decorationId: String): Option[Int] = {
+    def parseInt(src: String): Option[Int] = try {
+      Some(src.toInt)
+    } catch {
+      case e: Throwable => None
+    }
+    parseInt(decorationId.split("-").toSeq.last)
+  }
+
+  def getHeightFromElement(selector: String): Option[Double] =
+    Option($($(selector)).height())
 }

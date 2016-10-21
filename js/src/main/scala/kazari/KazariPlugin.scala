@@ -1,5 +1,6 @@
 package kazari
 
+import kazari.codemirror.{CodeMirrorCharCords, PositionBuilder}
 import kazari.domhelper.DOMHelper
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -8,8 +9,8 @@ import scala.util.{Failure, Success, Try}
 import org.scalajs.dom._
 
 import scala.scalajs.js.JSApp
-import scala.scalajs.js.annotation.JSExport
-import org.denigma.codemirror.{CodeMirror, EditorConfiguration}
+import scala.scalajs.js.annotation.{JSExport, ScalaJSDefined}
+import org.denigma.codemirror.{CodeMirror, Editor, EditorConfiguration, PositionLike}
 import org.denigma.codemirror.extensions.EditorConfig
 import org.scalaexercises.evaluator.{Dependency, EvalResponse, EvaluatorClient}
 import org.scalaexercises.evaluator.EvaluatorClient._
@@ -44,7 +45,7 @@ object KazariPlugin extends JSApp {
         .lineNumbers(true)
         .theme(theme)
 
-    document.querySelector("#" + codeModalInternalTextArea) match {
+    val codeMirror = document.querySelector("#" + codeModalInternalTextArea) match {
       case el: HTMLTextAreaElement =>
         val m = CodeMirror.fromTextArea(el, cmParams)
         m.getDoc().setValue(textSnippets.last)
@@ -56,7 +57,8 @@ object KazariPlugin extends JSApp {
           evalClient,
           () => m.getDoc().getValue()
         )
-      case _ => console.error("Couldn't find text area to embed CodeMirror instance.")
+        Some(m)
+      case _ => console.error("Couldn't find text area to embed CodeMirror instance."); None
     }
 
     codeSnippets.zipWithIndex foreach { case (node, i) =>
@@ -74,6 +76,14 @@ object KazariPlugin extends JSApp {
       })
 
       addClickListenerToButton(s"#${decoration.id} .$decoratorButtonEditClass", (e: dom.MouseEvent) => {
+        val snippetStartLine = textSnippets.lift(snippetIndexFromDecorationId(decoration.id).getOrElse(0))
+            .getOrElse("")
+            .split("\n")
+            .size
+
+        codeMirror foreach { c =>
+          codeMirrorScrollToLine(c, snippetStartLine)
+        }
         $(".modal-state").prop("checked", true).change()
       })
     }
@@ -152,4 +162,10 @@ object KazariPlugin extends JSApp {
         }
       }
     })
+
+  def codeMirrorScrollToLine(editor: Editor, line: Int): Unit = {
+    val pos = PositionBuilder(0, line)
+    val scrollTop = editor.charCoords(pos, "local").asInstanceOf[CodeMirrorCharCords].top
+    editor.scrollTo(0, scrollTop)
+  }
 }
