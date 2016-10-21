@@ -84,17 +84,23 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
           div(cls := "brand-wrapper", style := "background:url('{{site.baseurl}}/img/sidebar_brand.png') no-repeat", span(config.name))
         )
       ),
+      "{% if site.data.menu.options %}",
       "{% assign items = site.data.menu.options %} {% for x in items %} ",
       li(
         a(href := s"$baseUrl{{x.url}}", cls := "{% if x.title == page.title %} active {% endif %}", "{{x.title}}"),
-      "{% if x.nested_options %} ",
-      ul(cls := "sub_section",
-        "{% for sub in x.nested_options %} ",
-        li(a(href := s"$baseUrl{{sub.url}}", cls := "{% if sub.title == page.title and x.section == page.section %} active {% endif %}", "{{sub.title}}")),
-        "{% endfor %}"
-      ),
-      "{% endif %} {% endfor %}"
-    ))
+        "{% if x.nested_options %} ",
+        ul(cls := "sub_section",
+          "{% for sub in x.nested_options %} ",
+          li(a(href := s"$baseUrl{{sub.url}}", cls := "{% if sub.title == page.title and x.section == page.section %} active {% endif %}", "{{sub.title}}")),
+          "{% endfor %}"
+        ),
+        "{% endif %} {% endfor %}",
+        "{% else %}",
+        "{% assign items = site.pages | sort: 'weight' %} {% for x in items %} {% if x.section == page.section %}",
+        li(a(href := "{{ site.baseurl }}{{x.url}}", cls := "{% if x.title == page.title %} active {% endif %}", "{{x.title}}")),
+        "{% endif %} {% endfor %}",
+        "{% endif %}"
+      ))
   }
 
   def scriptsDocs: List[TypedTag[String]] = scripts ++
