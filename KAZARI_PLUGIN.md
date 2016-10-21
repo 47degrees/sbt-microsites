@@ -4,7 +4,7 @@ Kazari is a JavaScript plugin developed on **Scala.Js** that allows to turn your
 
 # Installation
 
-In order to use Kazari, you just need to include the main `kazari.js` script in your site. Kazari is still in a WIP state so we haven't officially distributed it yet, but you can generate development versions following the steps you'll find in the "Building the plugin" section below.
+In order to use Kazari, you need to include the main `kazari.js` script in your site. Kazari is still in a WIP state so we haven't officially distributed it yet, but you can generate development versions following the steps you'll find in the "Building the plugin" section below. You'll also need to include one of the two Kazari CSS stylesheets (`style-dark.css` or `style-light.css`, depending on your color scheme preferences) which you will find bundled with our main JS script in our future releases, and in the resources folder of the project (`sbt-microsites/js/src/main/resources`).
 
 To allow users to edit code interactively, Kazari relies on a Javascript code editor called [CodeMirror](http://codemirror.net). CodeMirror comes integrated with the scripts you add to your documentation, but you'll need to include the following CSS files to your site:
 
@@ -18,14 +18,14 @@ Once you get all your scripts and stylesheets ready, you just need to include th
 ```html
 <body>
 
-<script type="text/javascript" src="../../../target/scala-2.11/sbt-microsites-js-jsdeps.js"></script>
-<script type="text/javascript" src="../../../target/scala-2.11/sbt-microsites-js-opt.js"></script>
+<script type="text/javascript" src="kazari.js"></script>
+<link rel="stylesheet" href="style-dark.css">
 <link rel="stylesheet" href="codemirror.css">
 <link rel="stylesheet" href="monokai.css">
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		kazari.KazariPlugin().decorateCode("http://localhost:8080/eval", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eW91ciBpZGVudGl0eQ.cfH43Wa7k_w1i0W2pQhV1k21t2JqER9lw5EpJcENRMI", "monokai")
+		kazari.KazariPlugin().decorateCode("http://localhost:8080/eval", "remote_evaluator_auth_token", "monokai")
 	})	
 </script>
 
@@ -55,7 +55,7 @@ Once you got your scripts and stylesheets in your documentation, Kazari will tak
 
 # Building the plugin
 
-Kazari is a Scala.JS application. Even if it's part of the `sbt-microsites` project, it exists in its own independent module called `js`. Before being able to build it, you'll need to include the CodeMirror scripts that Kazari relies on. You can download the CodeMirror release from their [official site](http://codemirror.net/doc/releases.html), noting that Kazari is compatible with version 5.19.0. Once you download the package, you'll be able to find the needed scripts in the following locations:
+Kazari is a **Scala.JS** application. Even if it's part of the `sbt-microsites` project, it exists in its own independent module called `js`. Before being able to build it, you'll need to include the CodeMirror scripts that Kazari relies on. You can download the CodeMirror release from their [official site](http://codemirror.net/doc/releases.html), noting that Kazari is compatible with version `5.19.0`. Once you download the package, you'll be able to find the needed scripts in the following locations:
 
 * lib/codemirror.js
 * mode/javascript.js
@@ -65,7 +65,7 @@ Put these in the `resources` folder inside the `js` project of `sbt-microsites` 
 ```scala
 sbt-microsites> project js
 
-js> fastOptGenerate
+js> fullOptGenerate
 ```
 
-The `fastOptGenerate` task will compile the project, then generate and optimize Kazari's scripts, and finally combine the resulting scripts into a single file. `fullOptGenerate` is a slow command (as the `fullOptJS` task from Scala.JS perform several optimizations), so if you're planning to contribute to Kazari, please use the `fastOptGenerate` task in your development process. It will produce a larger script, but in more suitable build times. You'll be able to find the generated script (`kazari.js`) in the `target/scala-2.11` folder in the `js` project.
+The `fullOptGenerate` task will compile the project, then generate and optimize Kazari's scripts, and finally combine the resulting scripts into a single file. `fullOptGenerate` is a slow command (as it relies on the `fullOptJS` task from Scala.JS, which perform several optimizations), so if you're planning to contribute to Kazari, please use the `fastOptGenerate` task in your development process instead. It will produce a larger script, but in more suitable build times. You'll be able to find the generated script (`kazari.js`) in the `target/scala-2.11` folder in the `js` project.

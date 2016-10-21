@@ -1,64 +1,69 @@
 package kazari.domhelper
 
-import kazari.KazariPlugin
-import kazari.styles.ModalStyles
 import org.scalajs.dom
 import org.scalajs.dom._
-import org.scalajs.dom.html.Div
-import org.scalajs.dom.raw.HTMLStyleElement
-import scalacss.ScalatagsCss._
-import scalacss.Defaults._
+import org.querki.jquery._
 
-trait DOMHelper {
-  val codeModalClass = "modalDialog"
-  val codeModalCloseButtonClass = "closeButton"
-  val codeModalInternalTextArea = "modalInternalTextArea"
-  val codeModalButtonContainer = "modalButton"
-
-  def appendButton[T](targetNode: dom.Node,
-      title: String,
-      onClickFunction: Function[_, T],
-      id: Option[String] = None): dom.Node = {
-
-    val btnNode = document.createElement("button")
-    btnNode.appendChild(document.createTextNode(title))
-    btnNode.setAttribute("type", "button")
-    btnNode.setAttribute("id", id.getOrElse(""))
-    btnNode.addEventListener("click", onClickFunction)
-    targetNode.appendChild(btnNode)
-  }
-
-  def createModalDiv(cssClass: String): Div = {
-    import scalatags.JsDom.all._
-    div(
-      `id` := cssClass,
-      `class` := cssClass,
-      ModalStyles.render[scalatags.JsDom.TypedTag[HTMLStyleElement]],
-      ModalStyles.default,
-      div(
-        ModalStyles.internalDiv,
-        a(
-          title := "Close",
-          `class` := KazariPlugin.codeModalCloseButtonClass,
-          ModalStyles.closeButton,
-          "X"
-        ),
-        textarea(
-          `id` := KazariPlugin.codeModalInternalTextArea
-        ),
-        div(
-          `id` := KazariPlugin.codeModalButtonContainer
-        )
-      )
-    ).render
-  }
+object DOMHelper extends DOMTags {
+  val codeExcludeClass = "code-exclude"
+  val codeSnippetsSelector = s"code.language-scala:not(.$codeExcludeClass)"
+  val dependenciesMetaName = "evaluator-dependencies"
+  val resolversMetaName = "evaluator-resolvers"
 
   def getMetaContent(metaTagName: String): String = {
-    val metaTag = document.querySelector(s"meta[property=" + """"""" + s"$metaTagName" + """"""" + "]")
-    if (metaTag != null) {
-      metaTag.getAttribute("content")
-    } else {
-      ""
-    }
+    val metaTag = Option(document.querySelector(s"meta[property=" + """"""" + s"$metaTagName" + """"""" + "]"))
+    metaTag map { m =>
+      m.getAttribute("content")
+    } getOrElse ""
   }
+
+  def applyModalStyles() = {
+    $("#modal-1").on("change", { (e: JQueryEventObject, a: Any) =>
+      if ($("#modal-1").is(":checked")) {
+        $("body").addClass("modal-open")
+      } else {
+        $("body").removeClass("modal-open")
+      }
+    })
+
+    $(".modal-fade-screen, .modal-close").on("click", { (e: JQueryEventObject, a: Any) =>
+      $(".modal-state:checked").prop("checked", false).change()
+    })
+
+    $(".modal-inner").on("click", { (e: JQueryEventObject, a: Any) =>
+      e.stopPropagation()
+    })
+  }
+
+  def addClickListenerToButton(selector: String, function: (dom.MouseEvent) => Any) =
+    Option(document.querySelector(selector)) foreach { b =>
+      b.addEventListener("click", function)
+    }
+
+  def changeButtonIcon(selector: String, currentClass: String, nextClass: String) =
+    Option(document.querySelector(selector)) foreach { $(_).removeClass(currentClass).addClass(nextClass) }
+
+  def toggleButtonActiveState(selector: String, active: Boolean) =
+    Option(document.querySelector(selector)).foreach { b =>
+      val _ = if (active) {
+        $(b).addClass(decoratorButtonDisableClass)
+      } else {
+        $(b).removeClass(decoratorButtonDisableClass)
+      }
+    }
+
+  def showAlertMessage(parentSelector: String, message: String, isSuccess: Boolean) =
+    Option(document.querySelector(s"$parentSelector .$decoratorAlertBarClass")) foreach { a =>
+      val classToApply = if (isSuccess) { decoratorAlertBarSuccessClass } else { decoratorAlertBarErrorClass }
+      $(a).removeClass(decoratorAlertBarHiddenClass).addClass(classToApply).text(message)
+    }
+
+  def hideAlertMessage(parentSelector: String) =
+    Option(document.querySelector(s"$parentSelector .$decoratorAlertBarClass")) foreach { a =>
+      $(a)
+          .removeClass(decoratorAlertBarSuccessClass)
+          .removeClass(decoratorAlertBarErrorClass)
+          .addClass(decoratorAlertBarHiddenClass)
+          .text("")
+    }
 }
