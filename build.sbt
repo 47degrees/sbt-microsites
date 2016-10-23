@@ -49,19 +49,19 @@ lazy val jsSettings = Seq(
   requiresDOM := false,
   jsEnv := NodeJSEnv().value,
   libraryDependencies ++= Seq(
-    "org.scala-js" %%% "scalajs-dom" % "0.9.0",
-    "be.doeraene" %%% "scalajs-jquery" % "0.9.0",
-    "com.lihaoyi" %%% "upickle" % "0.4.1",
-    "org.scala-exercises" %%% "evaluator-client" % "0.1.1-SNAPSHOT",
-    "com.lihaoyi" %%% "scalatags"  % "0.6.0",
-    "org.querki" %%% "jquery-facade" % "1.0-RC6",
-    "org.denigma" %%% "codemirror-facade" % "5.11-0.7"
+    "org.scala-js"        %%% "scalajs-dom"       % "0.9.0",
+    "be.doeraene"         %%% "scalajs-jquery"    % "0.9.0",
+    "com.lihaoyi"         %%% "upickle"           % "0.4.1",
+    "org.scala-exercises" %%% "evaluator-client"  % "0.1.1-SNAPSHOT",
+    "com.lihaoyi"         %%% "scalatags"         % "0.6.0",
+    "org.querki"          %%% "jquery-facade"     % "1.0-RC6",
+    "org.denigma"         %%% "codemirror-facade" % "5.11-0.7"
   ),
-  resolvers ++= Seq(Resolver.url(
-    "bintray-sbt-plugin-releases",
-    url("https://dl.bintray.com/content/sbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns),
-    Resolver.sonatypeRepo("snapshots"),
-    Resolver.bintrayRepo("denigma", "denigma-releases")),
+  resolvers ++= Seq(Resolver.url("bintray-sbt-plugin-releases",
+                                 url("https://dl.bintray.com/content/sbt/sbt-plugin-releases"))(
+                      Resolver.ivyStylePatterns),
+                    Resolver.sonatypeRepo("snapshots"),
+                    Resolver.bintrayRepo("denigma", "denigma-releases")),
   jsDependencies ++= Seq(
     "org.webjars" % "jquery" % "2.1.3" / "2.1.3/jquery.js",
     ProvidedJS / "codemirror.js",
@@ -104,7 +104,7 @@ lazy val docs = (project in file("docs"))
 
 lazy val js = (project in file("js"))
   .settings(moduleName := "sbt-microsites-js")
-  .settings(commonSettings:_*)
-  .settings(jsSettings:_*)
-  .settings(KazariBuild.kazariTasksSettings:_*)
+  .settings(commonSettings: _*)
+  .settings(jsSettings: _*)
+  .settings(KazariBuild.kazariTasksSettings: _*)
   .enablePlugins(ScalaJSPlugin)
