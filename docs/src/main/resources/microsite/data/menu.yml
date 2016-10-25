@@ -1,15 +1,15 @@
 options:
   - title: Getting Started
-    url: index.html
+    url: docs/index.html
 
   - title: Configuring the Microsite
-    url: settings.html
+    url: docs/settings.html
 
   - title: Layouts
-    url: layouts.html
+    url: docs/layouts.html
 
   - title: Customize
-    url: customize.html
+    url: docs/customize.html
 
   - title: Build the microsite
-    url: build-the-microsite.html
+    url: docs/build-the-microsite.html

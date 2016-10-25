@@ -69,7 +69,7 @@ abstract class Layout(config: MicrositeSettings) {
            href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"),
       link(
         rel := "stylesheet",
-        href := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/${config.highlightTheme}.min.css"),
+        href := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/${config.highlightTheme}.min.css"),
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/style.css"),
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/palette.css")
     ) ++ customCssList
@@ -79,9 +79,9 @@ abstract class Layout(config: MicrositeSettings) {
     script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"),
     script(
       src := "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),
-    script(src := "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"),
+    script(src := "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"),
     script(
-      src := "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/scala.min.js")
+      src := "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/languages/scala.min.js")
   )
 
   def globalFooter =
