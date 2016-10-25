@@ -38,6 +38,7 @@ lazy val micrositeSettings = Seq(
   micrositeDocumentationUrl := "/sbt-microsites/docs/",
   micrositeGithubOwner := "47deg",
   micrositeGithubRepo := "sbt-microsites",
+  micrositeHighlightTheme := "color-brewer",
   includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
 )
 
