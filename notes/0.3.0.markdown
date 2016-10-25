@@ -1,0 +1,44 @@
+* Menu Configuration:
+
+The docs Layout menu (https://47deg.github.io/sbt-microsites/docs/layouts.html) configuration, now it's slightly different respect to version `0.2.x`. In the previous version, it wasn't necessary to specify the docs folder where the different documents were placed.
+
+For instance:
+
+```
+options:
+  - title: Getting Started
+    url: index.html
+    section: intro
+
+  - title: Configuring the Microsite
+    url: settings.html
+```
+
+Internally the plugin considered that the links above were relative to the `micrositeDocumentationUrl` setting.
+
+However, in the new version: `0.3.0`, you have to specify the inner folder in every case. For example:
+
+```
+options:
+  - title: Getting Started
+    url: docs/index.html
+    section: intro
+
+  - title: Configuring the Microsite
+    url: docs/settings.html
+```
+
+In summary, now all the links are relative to the site base URL.
+
+* Ability to create complex menus like this:
+
+```
+  - title: Type Classes
+    url: typeclasses.html
+    menu_type: typeclasses
+    menu_section: typeclasses
+```
+
+`section` has been replaced by `menu_section`.
+
+In addition, a new field `menu_type` property has been included in order to define different menus inside the `menu.yml` file.
