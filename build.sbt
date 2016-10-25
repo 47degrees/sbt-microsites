@@ -17,6 +17,10 @@ lazy val artifactSettings = Seq(
   )
 )
 
+pgpPassphrase := Some(sys.env.getOrElse("PGP_PASSPHRASE", "").toCharArray)
+pgpPublicRing := file(s"${sys.env.getOrElse("PGP_FOLDER", ".")}/pubring.gpg")
+pgpSecretRing := file(s"${sys.env.getOrElse("PGP_FOLDER", ".")}/secring.gpg")
+
 lazy val pluginSettings = Seq(
     sbtPlugin := true,
     scalaVersion in ThisBuild := "2.10.6",
@@ -53,7 +57,6 @@ lazy val allSettings = pluginSettings ++
     tutSettings ++
     testScriptedSettings ++
     sharedReleaseProcess ++
-    pgpSettings ++
     credentialSettings ++
     sharedPublishSettings(gh, dev)
 
