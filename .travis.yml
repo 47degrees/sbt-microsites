@@ -3,8 +3,7 @@ scala:
 - 2.10.6
 before_install:
 - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then openssl aes-256-cbc -K $encrypted_0d40c3508e9d_key -iv $encrypted_0d40c3508e9d_iv
-  -in keys.tar.enc -out keys.tar -d; fi
-- tar xvf keys.tar
+  -in keys.tar.enc -out keys.tar -d; tar xvf keys.tar; fi
 - export PATH=${PATH}:./vendor/bundle
 - chmod 600 deploy_key
 - cp deploy_key ~/.ssh/id_rsa
