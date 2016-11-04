@@ -1,29 +1,22 @@
 language: scala
-
 scala:
 - 2.10.6
-
 before_install:
+- if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then openssl aes-256-cbc -K $encrypted_0d40c3508e9d_key -iv $encrypted_0d40c3508e9d_iv
+  -in keys.tar.enc -out keys.tar -d; tar xvf keys.tar; fi
 - export PATH=${PATH}:./vendor/bundle
-- openssl aes-256-cbc -K $encrypted_0d40c3508e9d_key -iv $encrypted_0d40c3508e9d_iv -in deploy_key.enc -out deploy_key -d
 - chmod 600 deploy_key
 - cp deploy_key ~/.ssh/id_rsa
-
 install:
-  - rvm use 2.2.3 --install --fuzzy
-  - gem update --system
-  - gem install sass
-  - gem install jekyll -v 3.2.1
-
+- rvm use 2.2.3 --install --fuzzy
+- gem update --system
+- gem install sass
+- gem install jekyll -v 3.2.1
 script:
 - sbt ++$TRAVIS_SCALA_VERSION publishLocal
 - sbt ++$TRAVIS_SCALA_VERSION test scripted
-
 after_success:
-- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
-    bash scripts/publishMicrosite.sh;
-    bash scripts/deploy.sh;
-  fi
-- if [ "$TRAVIS_PULL_REQUEST" = "true" ]; then
-    echo "Not in master branch, skipping deploy and release";
-  fi
+- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash
+  scripts/publishMicrosite.sh; bash scripts/deploy.sh; fi
+- if [ "$TRAVIS_PULL_REQUEST" = "true" ]; then echo "Not in master branch, skipping
+  deploy and release"; fi

@@ -42,3 +42,11 @@ That being said, you can personalize your microsite even further by using your o
 ## Colors
 
 Colors can be customized through the `micrositePalette` setting (take a look at the [Configuring the Microsite](settings.html) section for a deeper explanation).
+
+## Syntax Highlighting
+
+As we mentioned in the [Configuring the Microsite](settings.html) section, `micrositeHighlightTheme` sbt setting allows to specify the theme you want to use to highlight your code.
+
+It's important to mention that the theme name should match with the one located at https://cdnjs.com/libraries/highlight.js/.
+
+https://highlightjs.org/static/demo/ provides the ability to preview the different themes before setting up your Microsite.

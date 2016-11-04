@@ -66,34 +66,35 @@ Looking at the [Configuring the Microsite](settings.html) section, in the direct
 ```
 options:
   - title: Getting Started
-    url: index.html
+    url: docs/index.html
     section: intro
 
   - title: Configuring the Microsite
-    url: settings.html
+    url: docs/settings.html
 
   - title: Layouts
-    url: layouts.html
+    url: docs/layouts.html
     section: resources
 
   - title: Customize
-    url: customize.html
+    url: docs/customize.html
 
   - title: Build the microsite
-    url: build-the-microsite.html
+    url: docs/build-the-microsite.html
 ```
 
 * The `options` key is mandatory. It'll be the parent of all the options defined here. Each `option` or menu item will contain:
 * `title`: the menu title. It should be the same as defined in the meta-property associated with the file (`<Document Title>`, where the layout is defined).
-* `url`: relative path to the documentation file.
-* `section`: this key is mandatory only when you have a nested submenu. It'll be useful to distinguish between sub-items with the same name in different menu options.
+* `url`: relative path to the site URL.
+* `menu_section`: this key is mandatory only when you have a nested submenu. It'll be useful to distinguish between sub-items with the same name in different menu options.
+* `menu_type`: optional parameter. It brings the ability to configure different menus for different set of documents, defining all the menu options in the same `menu.yml` file. For example, you might want to define two different places in your microsite where the menu might be different. This is the setting you can use in order to group the set of menu options.
 * Optionally, we could define a second level of nested sub-items, thanks to the `nested_options` key, defined at the same level that `title` and `url` of the parent menu. For example:
 
 ```
 options:
   - title: Introduction
     url: index.html
-    section: intro
+    menu_section: intro
 
     nested_options:
      - title: Submenu 1

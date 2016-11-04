@@ -17,6 +17,10 @@ lazy val artifactSettings = Seq(
   )
 )
 
+pgpPassphrase := Some(sys.env.getOrElse("PGP_PASSPHRASE", "").toCharArray)
+pgpPublicRing := file(s"${sys.env.getOrElse("PGP_FOLDER", ".")}/pubring.gpg")
+pgpSecretRing := file(s"${sys.env.getOrElse("PGP_FOLDER", ".")}/secring.gpg")
+
 lazy val pluginSettings = Seq(
     sbtPlugin := true,
     scalaVersion in ThisBuild := "2.10.6",
@@ -38,6 +42,7 @@ lazy val micrositeSettings = Seq(
   micrositeDocumentationUrl := "/sbt-microsites/docs/",
   micrositeGithubOwner := "47deg",
   micrositeGithubRepo := "sbt-microsites",
+  micrositeHighlightTheme := "color-brewer",
   includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
 )
 
@@ -80,7 +85,6 @@ lazy val allSettings = pluginSettings ++
     tutSettings ++
     testScriptedSettings ++
     sharedReleaseProcess ++
-    pgpSettings ++
     credentialSettings ++
     sharedPublishSettings(gh, dev)
 
