@@ -14,6 +14,7 @@ trait DOMTags {
   val decoratorButtonSaveGistClass = "kazari-decorator-gist"
   val decoratorButtonPlayClass = "fa-play-circle"
   val decoratorButtonSpinnerClass = "fa-spinner fa-spin"
+  val decoratorButtonGithubClass = "fa-github-alt"
   val decoratorButtonDisableClass = "compiling"
   val decoratorAlertBarClass = "alert"
   val decoratorAlertBarHiddenClass = "alert-hidden"
@@ -68,14 +69,18 @@ trait DOMTags {
   }
 
   def createCompiler(isFromModal: Boolean) = {
-    val (secondaryBtnClass, secondaryBtnText) =
-      if (isFromModal) { ("fa fa-pencil", "Save as Gist") } else { ("fa fa-github-alt", "Edit") }
+    val (secondaryBtnClass, attrs, secondaryBtnText) =
+      if (isFromModal) {
+        (decoratorButtonSaveGistClass, "fa fa-github-alt", "Save as Gist")
+      } else {
+        (decoratorButtonEditClass, "fa fa-pencil", "Edit")
+      }
 
     div(
       `class` := "compiler",
       ul(
         createButton(decoratorButtonRunClass, "fa fa-play-circle", "Run"),
-        createButton(decoratorButtonEditClass, secondaryBtnClass, secondaryBtnText),
+        createButton(secondaryBtnClass, attrs, secondaryBtnText),
         li(
           a(
             href := kazariUrl,

@@ -57,13 +57,15 @@ lazy val jsSettings = Seq(
   requiresDOM := false,
   jsEnv := NodeJSEnv().value,
   libraryDependencies ++= Seq(
-    "org.scala-js"        %%% "scalajs-dom"       % "0.9.0",
-    "be.doeraene"         %%% "scalajs-jquery"    % "0.9.0",
-    "com.lihaoyi"         %%% "upickle"           % "0.4.1",
-    "org.scala-exercises" %%% "evaluator-client"  % "0.1.1-SNAPSHOT",
-    "com.lihaoyi"         %%% "scalatags"         % "0.6.0",
-    "org.querki"          %%% "jquery-facade"     % "1.0-RC6",
-    "org.denigma"         %%% "codemirror-facade" % "5.11-0.7"
+    "org.scala-js" %%% "scalajs-dom" % "0.9.0",
+    "be.doeraene" %%% "scalajs-jquery" % "0.9.0",
+    "com.lihaoyi" %%% "upickle" % "0.4.1",
+    "org.scala-exercises" %%% "evaluator-client" % "0.1.2-SNAPSHOT",
+    "com.lihaoyi" %%% "scalatags"  % "0.6.0",
+    "org.querki" %%% "jquery-facade" % "1.0-RC6",
+    "org.denigma" %%% "codemirror-facade" % "5.11-0.7",
+    "com.fortysevendeg" %%% "github4s" % "0.8.2-SNAPSHOT",
+    "fr.hmil" %%% "roshttp" % "2.0.0-RC1"
   ),
   resolvers ++= Seq(Resolver.url("bintray-sbt-plugin-releases",
                                  url("https://dl.bintray.com/content/sbt/sbt-plugin-releases"))(
@@ -115,3 +117,8 @@ lazy val js = (project in file("js"))
   .settings(jsSettings: _*)
   .settings(KazariBuild.kazariTasksSettings: _*)
   .enablePlugins(ScalaJSPlugin)
+  .enablePlugins(BuildInfoPlugin)
+  .settings(
+    buildInfoKeys := Seq[BuildInfoKey]("token" -> Option(sys.props("token")).getOrElse("")),
+    buildInfoPackage := "kazari"
+  )

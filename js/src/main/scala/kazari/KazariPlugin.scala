@@ -1,5 +1,6 @@
 package kazari
 
+import fr.hmil.roshttp.response.SimpleHttpResponse
 import kazari.codemirror.{CodeMirrorCharCords, PositionBuilder}
 import kazari.domhelper.DOMHelper
 
@@ -20,12 +21,19 @@ import org.scalajs.dom
 import org.scalajs.dom.ext.PimpedNodeList
 import org.scalajs.dom.raw.HTMLTextAreaElement
 import org.querki.jquery._
+import github4s.free.domain.GistFile
+import github4s.Github
+import Github._
+import github4s.js.Implicits._
 
 @JSExport
 object KazariPlugin extends JSApp {
   import DOMHelper._
 
   val errorMessagePrefix = "Compilation error:"
+  val newGistPrompt = "Choose a description for your Gist"
+  val newGistDefaultDescription = "Gist created from Kazari (https://github.com/47deg/sbt-microsites)"
+  val newGistFilename = "KazariGist.scala"
   lazy val codeSnippets = document.querySelectorAll(codeSnippetsSelector)
 
   @JSExport
@@ -51,12 +59,20 @@ object KazariPlugin extends JSApp {
         m.getDoc().setValue(textSnippets.last)
         m.setSize("100%", ($(window).height() * codeModalEditorMaxHeightPercent) / 100.0)
 
+        val codeSnippetsFromModal = () => m.getDoc().getValue()
+
         addRunButtonBehaviour(
           s".$codeModalClass .$decoratorButtonRunClass",
           s".$codeModalClass",
           evalClient,
-          () => m.getDoc().getValue()
+          codeSnippetsFromModal
         )
+
+        addGistButtonBehavior(s".$decoratorButtonSaveGistClass",
+          codeSnippetsFromModal,
+          kazari.BuildInfo.token
+        )
+
         Some(m)
       case _ => console.error("Couldn't find text area to embed CodeMirror instance."); None
     }
@@ -162,6 +178,39 @@ object KazariPlugin extends JSApp {
         }
       }
     })
+
+  def addGistButtonBehavior(btnSelector: String,
+      codeSnippet: () => String,
+      accessToken: String,
+      onSuccess: (EvaluationResponse[EvalResponse]) => Unit = (_) => (),
+      onFailure: (Throwable) => Unit = (_) => ()
+  ): Unit = {
+    addClickListenerToButton(btnSelector, (e: dom.MouseEvent) => {
+      changeButtonIcon(btnSelector + " " + "i", decoratorButtonGithubClass, decoratorButtonSpinnerClass)
+      toggleButtonActiveState(btnSelector, true)
+
+      val description = window.prompt(newGistPrompt)
+      val gistApi = Github(Some(accessToken)).gists
+      val files = Map(newGistFilename -> GistFile(codeSnippet()))
+      val request = gistApi.newGist(if (description.isEmpty) newGistDefaultDescription else description, true, files)
+
+      request.execFuture[SimpleHttpResponse]().onComplete { result =>
+        changeButtonIcon(btnSelector + " " + "i", decoratorButtonSpinnerClass, decoratorButtonGithubClass)
+        toggleButtonActiveState(btnSelector, false)
+
+        result match {
+          case Failure(e) => println("failure creating gist -> " + e)
+          case Success(r) => r.fold(
+            e => println("failure creating gist -> " + e),
+            r => {
+              println("Success creating gist -> " + r)
+              println("Status code -> " + r.statusCode)
+            }
+          )
+        }
+      }
+    })
+  }
 
   def codeMirrorScrollToLine(editor: Editor, line: Int): Unit = {
     val pos = PositionBuilder(0, line)
