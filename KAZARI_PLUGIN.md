@@ -25,7 +25,7 @@ Once you get all your scripts and stylesheets ready, you just need to include th
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		kazari.KazariPlugin().decorateCode("http://localhost:8080/eval", "remote_evaluator_auth_token", "monokai")
+		kazari.KazariPlugin().decorateCode("http://localhost:8080/eval", "remote_evaluator_auth_token", "github_auth_token", "monokai")
 	})	
 </script>
 
@@ -36,6 +36,7 @@ After including the scripts and stylesheets, we wait for the DOM to be ready, an
 
 * **Remote Scala evaluator URL**: it contains the URL of the [remote Scala evaluator](https://github.com/scala-exercises/evaluator) we want to connect to. In this case we're using a local instance by executing the project in our machine.
 * **Auth token**: a security token needed to make requests to the evaluator. You can generate your own by following the steps in the "Authentication" section of the [evaluator documentation](https://github.com/scala-exercises/evaluator).
+* **Github auth token**: a valid GitHub auth token with at least the following scopes: "user", "gist". This is required for Kazari to save edited snippets as Gists.
 * **CodeMirror theme**: name of the CodeMirror theme to use when showing the interactive edit window.
 
 # Using Kazari

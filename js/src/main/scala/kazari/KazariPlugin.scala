@@ -40,9 +40,9 @@ object KazariPlugin extends JSApp {
   def main(): Unit = { }
 
   @JSExport
-  def decorateCode(url: String, authToken: String, theme: String): Unit = {
+  def decorateCode(url: String, scalaEvalToken: String, githubToken: String, theme: String): Unit = {
     val textSnippets = generateCodeTextSnippets()
-    lazy val evalClient = new EvaluatorClient(url, authToken)
+    lazy val evalClient = new EvaluatorClient(url, scalaEvalToken)
 
     val modalDiv = createModalDiv(codeModalClass)
     document.body.appendChild(modalDiv)
@@ -70,7 +70,7 @@ object KazariPlugin extends JSApp {
 
         addGistButtonBehavior(s".$decoratorButtonSaveGistClass",
           codeSnippetsFromModal,
-          kazari.BuildInfo.token
+          githubToken
         )
 
         Some(m)
