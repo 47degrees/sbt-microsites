@@ -72,6 +72,7 @@ class MicrositeHelper(config: MicrositeSettings) {
           |docs: true
           |
           |markdown: kramdown
+          |highlighter: rouge
           |collections:
           |  tut:
           |    output: true

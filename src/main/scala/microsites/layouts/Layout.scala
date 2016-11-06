@@ -79,7 +79,11 @@ abstract class Layout(config: MicrositeSettings) {
     script(
       src := "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),
     script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js"),
-    script("hljs.initHighlightingOnLoad();")
+    script("""hljs.configure({
+        |languages:['scala','java','bash']
+        |});
+        |hljs.initHighlighting();
+      """.stripMargin)
   )
 
   def globalFooter =
