@@ -74,17 +74,24 @@ abstract class Layout(config: MicrositeSettings) {
     ) ++ customCssList
   }
 
-  def scripts: List[TypedTag[String]] = List(
-    script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"),
-    script(
-      src := "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),
-    script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js"),
-    script("""hljs.configure({
-        |languages:['scala','java','bash']
-        |});
-        |hljs.initHighlighting();
-      """.stripMargin)
-  )
+  def scripts: List[TypedTag[String]] = {
+
+    val customJsList = fetchFilesRecursively(config.micrositeJsDirectory, List("js")) map { js =>
+      script(src := s"{{site.url}}{{site.baseurl}}/js/${js.getName}")
+    }
+
+    List(
+      script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"),
+      script(
+        src := "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),
+      script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js"),
+      script("""hljs.configure({
+               |languages:['scala','java','bash']
+               |});
+               |hljs.initHighlighting();
+             """.stripMargin)
+    ) ++ customJsList
+  }
 
   def globalFooter =
     footer(
