@@ -106,6 +106,16 @@ micrositeGithubRepo := "sbt-microsites"
 </div>
 
 <ul>
+  <li><code class="highlighter-rouge">micrositeJsDirectory</code>: you can also introduce custom javascript files in the generated microsite through the <code class="highlighter-rouge">micrositeJsDirectory</code> setting, by using the same method. The javascript files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is <code class="highlighter-rouge">(resourceDirectory in Compile).value / "microsite" / "js"</code> but you can override it like this:</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>micrositeJsDirectory := (resourceDirectory in Compile).value / "site" / "scripts"
+</code></pre>
+</div>
+
+<p>There is a reserved filename that you cannot use in your personal microsite: <code class="highlighter-rouge">main.js</code>, which it’s provided by the plugin.</p>
+
+<ul>
   <li><code class="highlighter-rouge">micrositeDataDirectory</code>: in addition, you can provide new data to your jekyll site through the <code class="highlighter-rouge">micrositeDataDirectory</code> setting. It’s based on the idea of <a href="https://jekyllrb.com/docs/datafiles/">Jekyll Data Files</a>. It’s important to keep in mind that if you are defining documentation in your microsite, you have to configure the menu through this setting. The default value is <code class="highlighter-rouge">(resourceDirectory in Compile).value / "microsite" / "data"</code> but you can override it like this:</li>
 </ul>
 
