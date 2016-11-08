@@ -54,6 +54,7 @@ trait Arbitraries {
       micrositeImgDirectory     ← Arbitrary.arbitrary[File]
       micrositeCssDirectory     ← Arbitrary.arbitrary[File]
       micrositeJsDirectory      ← Arbitrary.arbitrary[File]
+      micrositeLayoutDirectory  ← Arbitrary.arbitrary[File]
       micrositeDataDirectory    ← Arbitrary.arbitrary[File]
       micrositeExtraMdFiles     ← markdownMapArbitrary.arbitrary
       micrositeBaseUrl          ← Arbitrary.arbitrary[String]
@@ -71,6 +72,7 @@ trait Arbitraries {
                         micrositeImgDirectory,
                         micrositeCssDirectory,
                         micrositeJsDirectory,
+                        micrositeLayoutDirectory,
                         micrositeDataDirectory,
                         micrositeExtraMdFiles,
                         micrositeBaseUrl,
