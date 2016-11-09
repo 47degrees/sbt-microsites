@@ -30,3 +30,14 @@ We recommend taking a look at the `Getting Started` section at the [documentatio
 # Documentation
 
 Microsites comes with a range of options to customize and configure your project's site. Please visit the [documentation](https://47deg.github.io/sbt-microsites/docs/) section for more information.
+
+# sbt-microsites in the wild
+
+Many Scala projects use sbt-microsites to display documentation and project notes. If you wish to add your library here please consider a PR to include it in the list below.
+
+★ | ★ | ★
+--- | --- | ---
+![Cats](http://typelevel.org/cats/img/navbar_brand.png) | [**Cats**](http://typelevel.org/cats/) | Lightweight, modular, and extensible library for functional programming
+
+
+
