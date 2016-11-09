@@ -1,0 +1,3 @@
+# Version 0.3.2
+
+- Fixes https://github.com/47deg/sbt-microsites/issues/82: Scala 2.12 supported. Thanks @julien-truffaut!
