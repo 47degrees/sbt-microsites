@@ -45,22 +45,24 @@ trait Arbitraries {
 
   implicit def settingsArbitrary: Arbitrary[MicrositeSettings] = Arbitrary {
     for {
-      name                      ← Arbitrary.arbitrary[String]
-      description               ← Arbitrary.arbitrary[String]
-      author                    ← Arbitrary.arbitrary[String]
-      homepage                  ← Arbitrary.arbitrary[String]
-      twitter                   ← Arbitrary.arbitrary[String]
-      highlightTheme            ← Arbitrary.arbitrary[String]
-      micrositeImgDirectory     ← Arbitrary.arbitrary[File]
-      micrositeCssDirectory     ← Arbitrary.arbitrary[File]
-      micrositeJsDirectory      ← Arbitrary.arbitrary[File]
-      micrositeDataDirectory    ← Arbitrary.arbitrary[File]
-      micrositeExtraMdFiles     ← markdownMapArbitrary.arbitrary
-      micrositeBaseUrl          ← Arbitrary.arbitrary[String]
-      micrositeDocumentationUrl ← Arbitrary.arbitrary[String]
-      palette                   ← paletteMapArbitrary.arbitrary
-      githubOwner               ← Arbitrary.arbitrary[String]
-      githubRepo                ← Arbitrary.arbitrary[String]
+      name                               ← Arbitrary.arbitrary[String]
+      description                        ← Arbitrary.arbitrary[String]
+      author                             ← Arbitrary.arbitrary[String]
+      homepage                           ← Arbitrary.arbitrary[String]
+      twitter                            ← Arbitrary.arbitrary[String]
+      highlightTheme                     ← Arbitrary.arbitrary[String]
+      micrositeImgDirectory              ← Arbitrary.arbitrary[File]
+      micrositeCssDirectory              ← Arbitrary.arbitrary[File]
+      micrositeJsDirectory               ← Arbitrary.arbitrary[File]
+      micrositeExternalLayoutsDirectory  ← Arbitrary.arbitrary[File]
+      micrositeExternalIncludesDirectory ← Arbitrary.arbitrary[File]
+      micrositeDataDirectory             ← Arbitrary.arbitrary[File]
+      micrositeExtraMdFiles              ← markdownMapArbitrary.arbitrary
+      micrositeBaseUrl                   ← Arbitrary.arbitrary[String]
+      micrositeDocumentationUrl          ← Arbitrary.arbitrary[String]
+      palette                            ← paletteMapArbitrary.arbitrary
+      githubOwner                        ← Arbitrary.arbitrary[String]
+      githubRepo                         ← Arbitrary.arbitrary[String]
     } yield
       MicrositeSettings(name,
                         description,
@@ -71,6 +73,8 @@ trait Arbitraries {
                         micrositeImgDirectory,
                         micrositeCssDirectory,
                         micrositeJsDirectory,
+                        micrositeExternalLayoutsDirectory,
+                        micrositeExternalIncludesDirectory,
                         micrositeDataDirectory,
                         micrositeExtraMdFiles,
                         micrositeBaseUrl,

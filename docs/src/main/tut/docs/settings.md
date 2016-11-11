@@ -96,6 +96,31 @@ micrositeJsDirectory := (resourceDirectory in Compile).value / "site" / "scripts
 
 There is a reserved filename that you cannot use in your personal microsite: `main.js`, which it's provided by the plugin.
 
+- `micrositeExternalLayoutsDirectory`: you can also introduce custom html layouts in the generated microsite through the `micrositeExternalLayoutsDirectory` setting. The layout files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "layout"` but you can override it like this:
+
+```
+micrositeExternalLayoutsDirectory := (resourceDirectory in Compile).value / "site" / "layout"
+```
+
+These will be available to your pages by using the `layout` keyword in the YAML front matter block in each of your docs' markdown files. i.e. having included a `extra-layout.html` external layout file:
+
+```
+---
+title: Foo Bar
+layout: extra-layout
+---
+```
+
+- `micrositeExternalIncludesDirectory`: you can also introduce custom html partial layouts in the generated microsite through the `micrositeExternalIncludesDirectory` setting. The layout files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "includes"` but you can override it like this:
+
+```
+micrositeExternalIncludesDirectory := (resourceDirectory in Compile).value / "site" / "includes"
+```
+
+These will be available to your pages by using the `{% include <partial_filename> %}` keyword in your layouts.
+
+```
+
 - `micrositeDataDirectory`: in addition, you can provide new data to your jekyll site through the `micrositeDataDirectory` setting. It's based on the idea of [Jekyll Data Files](https://jekyllrb.com/docs/datafiles/). It's important to keep in mind that if you are defining documentation in your microsite, you have to configure the menu through this setting. The default value is `(resourceDirectory in Compile).value / "microsite" / "data"` but you can override it like this:
 
 ```
