@@ -46,8 +46,10 @@ class MicrositeHelper(config: MicrositeSettings) {
     copyFilesRecursively(config.micrositeCssDirectory.getAbsolutePath,
                          s"$targetDir$jekyllDir/css/")
     copyFilesRecursively(config.micrositeJsDirectory.getAbsolutePath, s"$targetDir$jekyllDir/js/")
-    copyFilesRecursively(config.micrositeLayoutDirectory.getAbsolutePath,
-                         s"$targetDir$jekyllDir/layout/")
+    copyFilesRecursively(config.micrositeExternalLayoutsDirectory.getAbsolutePath,
+                         s"$targetDir$jekyllDir/_layouts/")
+    copyFilesRecursively(config.micrositeExternalIncludesDirectory.getAbsolutePath,
+                         s"$targetDir$jekyllDir/_includes/")
     copyFilesRecursively(config.micrositeDataDirectory.getAbsolutePath,
                          s"$targetDir$jekyllDir/_data/")
 

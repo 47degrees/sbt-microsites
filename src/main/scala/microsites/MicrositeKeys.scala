@@ -38,8 +38,10 @@ trait MicrositeKeys {
     "Optional. Microsite CSS directory. By default, it'll be the resourcesDirectory + '/microsite/css'")
   val micrositeJsDirectory = settingKey[File](
     "Optional. Microsite Javascript directory. By default, it'll be the resourcesDirectory + '/microsite/js'")
-  val micrositeLayoutDirectory = settingKey[File](
-    "Optional. Microsite layouts directory. By default, it'll be the resourcesDirectory + '/microsite/layout'")
+  val micrositeExternalLayoutsDirectory = settingKey[File](
+    "Optional. Microsite external layouts directory. By default, it'll be the resourcesDirectory + '/microsite/layout'")
+  val micrositeExternalIncludesDirectory = settingKey[File](
+    "Optional. Microsite external includes (partial layouts) directory. By default, it'll be the resourcesDirectory + '/microsite/includes'")
   val micrositeDataDirectory = settingKey[File](
     "Optional. Microsite Data directory, useful to define the microsite data files " +
       "(https://jekyllrb.com/docs/datafiles/). By default, it'll be the resourcesDirectory + '/microsite/data'")
