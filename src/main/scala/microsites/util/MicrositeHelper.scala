@@ -38,7 +38,6 @@ class MicrositeHelper(config: MicrositeSettings) {
     copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "css")
     copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "img")
     copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "js")
-    copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "layout")
     copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "highlight")
 
     copyFilesRecursively(config.micrositeImgDirectory.getAbsolutePath,
