@@ -41,6 +41,7 @@ Many Scala projects use sbt-microsites to display documentation and project note
 ![Tuco](https://tpolecat.github.io/tuco/img/navbar_brand.png) | [**Tuco**](https://tpolecat.github.io/tuco/) | Tuco is a reasonable telnet server for Scala
 ![Atto](https://tpolecat.github.io/atto/img/navbar_brand.png) | [**Atto**](https://tpolecat.github.io/atto/) | Everyday parsers.
 ![Typelevel Scala](http://typelevel.org/scala/img/navbar_brand.png) | [**Typelevel Scala**](http://typelevel.org/scala/) | Our fork of the Scala compiler
+![Monocle](http://julien-truffaut.github.io/Monocle/img/navbar_brand.png) | [**Monocle**](http://julien-truffaut.github.io/Monocle/) | Optics library for Scala
 
 
 
