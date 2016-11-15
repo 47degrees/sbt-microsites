@@ -116,38 +116,61 @@ micrositeGithubRepo := "sbt-microsites"
 <p>There is a reserved filename that you cannot use in your personal microsite: <code class="highlighter-rouge">main.js</code>, which it’s provided by the plugin.</p>
 
 <ul>
-  <li><code class="highlighter-rouge">micrositeDataDirectory</code>: in addition, you can provide new data to your jekyll site through the <code class="highlighter-rouge">micrositeDataDirectory</code> setting. It’s based on the idea of <a href="https://jekyllrb.com/docs/datafiles/">Jekyll Data Files</a>. It’s important to keep in mind that if you are defining documentation in your microsite, you have to configure the menu through this setting. The default value is <code class="highlighter-rouge">(resourceDirectory in Compile).value / "microsite" / "data"</code> but you can override it like this:</li>
+  <li><code class="highlighter-rouge">micrositeExternalLayoutsDirectory</code>: you can also introduce custom html layouts in the generated microsite through the <code class="highlighter-rouge">micrositeExternalLayoutsDirectory</code> setting. The layout files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is <code class="highlighter-rouge">(resourceDirectory in Compile).value / "microsite" / "layout"</code> but you can override it like this:</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>micrositeDataDirectory := (resourceDirectory in Compile).value / "site" / "mydatafiles"
+<div class="highlighter-rouge"><pre class="highlight"><code>micrositeExternalLayoutsDirectory := (resourceDirectory in Compile).value / "site" / "layout"
 </code></pre>
 </div>
 
-<p>In the Documentation <strong>Menu</strong> case, as you can see in the <a href="layouts.html">layouts</a> section, you need to create a file named as <code class="highlighter-rouge">menu.yml</code> under the <code class="highlighter-rouge">micrositeDataDirectory</code> setting.</p>
+<p>These will be available to your pages by using the <code class="highlighter-rouge">layout</code> keyword in the YAML front matter block in each of your docs’ markdown files. i.e. having included a <code class="highlighter-rouge">extra-layout.html</code> external layout file:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>---
+title: Foo Bar
+layout: extra-layout
+---
+</code></pre>
+</div>
 
 <ul>
-  <li><code class="highlighter-rouge">micrositeExtraMdFiles</code>: this setting can be handy if you want to include additional markdown files in your site, and these files are not located in the same place in your <code class="highlighter-rouge">tut</code> directory. By default, the setting is set up as an empty map. You can override it, in this way:</li>
+  <li><code class="highlighter-rouge">micrositeExternalIncludesDirectory</code>: you can also introduce custom html partial layouts in the generated microsite through the <code class="highlighter-rouge">micrositeExternalIncludesDirectory</code> setting. The layout files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is <code class="highlighter-rouge">(resourceDirectory in Compile).value / "microsite" / "includes"</code> but you can override it like this:</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>micrositeExtraMdFiles := Map(file("README.md") -&gt; "index.md", file("CONTRIBUTING.md") -&gt; "contributing.md")
+<div class="highlighter-rouge"><pre class="highlight"><code>micrositeExternalIncludesDirectory := (resourceDirectory in Compile).value / "site" / "includes"
 </code></pre>
 </div>
 
-<ul>
-  <li><code class="highlighter-rouge">micrositePalette</code>: the default microsite style essentially uses eight colors. You can configure all of them, as seen below:</li>
-</ul>
+<p>These will be available to your pages by using <code class="highlighter-rouge">Jekyll</code>’s <a href="https://jekyllrb.com/docs/templates/#includes">include</a> keyword in your layouts.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>micrositePalette := Map(
-        "brand-primary"     -&gt; "#E05236",
-        "brand-secondary"   -&gt; "#3F3242",
-        "brand-tertiary"    -&gt; "#2D232F",
-        "gray-dark"         -&gt; "#453E46",
-        "gray"              -&gt; "#837F84",
-        "gray-light"        -&gt; "#E3E2E3",
-        "gray-lighter"      -&gt; "#F4F3F4",
-        "white-color"       -&gt; "#FFFFFF")
+<div class="highlighter-rouge"><pre class="highlight"><code>
+- `micrositeDataDirectory`: in addition, you can provide new data to your jekyll site through the `micrositeDataDirectory` setting. It's based on the idea of [Jekyll Data Files](https://jekyllrb.com/docs/datafiles/). It's important to keep in mind that if you are defining documentation in your microsite, you have to configure the menu through this setting. The default value is `(resourceDirectory in Compile).value / "microsite" / "data"` but you can override it like this:
+
 </code></pre>
 </div>
+<p>micrositeDataDirectory := (resourceDirectory in Compile).value / “site” / “mydatafiles”</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>
+In the Documentation **Menu** case, as you can see in the [layouts](layouts.html) section, you need to create a file named as `menu.yml` under the `micrositeDataDirectory` setting.
+
+- `micrositeExtraMdFiles`: this setting can be handy if you want to include additional markdown files in your site, and these files are not located in the same place in your `tut` directory. By default, the setting is set up as an empty map. You can override it, in this way:
+
+</code></pre>
+</div>
+<p>micrositeExtraMdFiles := Map(file(“README.md”) -&gt; “index.md”, file(“CONTRIBUTING.md”) -&gt; “contributing.md”)</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>
+- `micrositePalette`: the default microsite style essentially uses eight colors. You can configure all of them, as seen below:
+
+</code></pre>
+</div>
+<p>micrositePalette := Map(
+        “brand-primary”     -&gt; “#E05236”,
+        “brand-secondary”   -&gt; “#3F3242”,
+        “brand-tertiary”    -&gt; “#2D232F”,
+        “gray-dark”         -&gt; “#453E46”,
+        “gray”              -&gt; “#837F84”,
+        “gray-light”        -&gt; “#E3E2E3”,
+        “gray-lighter”      -&gt; “#F4F3F4”,
+        “white-color”       -&gt; “#FFFFFF”)
+```</p>
 </section></div></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script><script src="/sbt-microsites/highlight/highlight.pack.js"></script><script>hljs.configure({
 languages:['scala','java','bash']
 });
