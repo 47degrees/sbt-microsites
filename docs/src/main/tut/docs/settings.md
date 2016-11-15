@@ -117,7 +117,7 @@ layout: extra-layout
 micrositeExternalIncludesDirectory := (resourceDirectory in Compile).value / "site" / "includes"
 ```
 
-These will be available to your pages by using `liquid`'s `include` keyword in your layouts.
+These will be available to your pages by using `Jekyll`'s [include](https://jekyllrb.com/docs/templates/#includes) keyword in your layouts.
 
 ```
 
