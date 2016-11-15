@@ -37,32 +37,26 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
   }
 
   def homeHeader: TypedTag[String] =
-    header(
-      id := "site-header",
-      div(
-        cls := "navbar-wrapper",
-        div(
-          cls := "container",
-          div(
-            cls := "row",
-            div(cls := "col-xs-6",
-                a(href := "{{ site.baseurl }}/",
-                  cls := "brand",
-                  div(cls := "icon-wrapper",
-                      style := "background:url('{{site.baseurl}}/img/navbar_brand.png') no-repeat",
-                      span(config.name)))),
-            div(cls := "col-xs-6", buildCollapseMenu)))
-      ),
-      div(cls := "jumbotron",
-          style := "background-image:url('{{site.baseurl}}/img/jumbotron_pattern.png')",
-          div(cls := "container",
-              h1(cls := "text-center", config.description),
-              h2(),
-              p(cls := "text-center",
-                a(href := s"https://github.com/${config.githubOwner}/${config.githubRepo}",
-                  cls := "btn btn-outline-inverse",
-                  "View on GitHub")))),
-      "{% include menu.html %}")
+    header(id := "site-header",
+           div(
+             cls := "navbar-wrapper",
+             div(cls := "container",
+                 div(cls := "row",
+                     div(cls := "col-xs-6",
+                         a(href := "{{ site.baseurl }}/",
+                           cls := "brand",
+                           div(cls := "icon-wrapper", span(config.name)))),
+                     div(cls := "col-xs-6", buildCollapseMenu)))
+           ),
+           div(cls := "jumbotron",
+               div(cls := "container",
+                   h1(cls := "text-center", config.description),
+                   h2(),
+                   p(cls := "text-center",
+                     a(href := s"https://github.com/${config.githubOwner}/${config.githubRepo}",
+                       cls := "btn btn-outline-inverse",
+                       "View on GitHub")))),
+           "{% include menu.html %}")
 
   def homeMain: TypedTag[String] =
     main(id := "site-main",
