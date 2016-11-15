@@ -60,16 +60,4 @@ class HomeLayoutTest extends FunSuite with Checkers with Matchers with Arbitrari
 
     check(property)
   }
-
-  test("scriptsMain TypeTag list shouldn't be empty") {
-
-    val property = forAll { implicit settings: MicrositeSettings ⇒
-      val layout = new HomeLayout(settings)
-
-      layout.scriptsMain should not be empty
-      layout.scriptsMain.nonEmpty
-    }
-
-    check(property)
-  }
 }

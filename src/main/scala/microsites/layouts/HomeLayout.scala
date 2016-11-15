@@ -31,7 +31,7 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
         homeHeader,
         homeMain,
         globalFooter,
-        scriptsMain
+        scripts
       )
     )
   }
@@ -72,9 +72,5 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
                              p("{{ tech[1][1] }}")),
                          """{% endfor %}
           {% endfor %}"""))))
-
-  def scriptsMain: List[TypedTag[String]] =
-    scripts ++
-      List(script("jQuery(document).ready(function(){hljs.initHighlightingOnLoad();});"))
 
 }

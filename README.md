@@ -17,7 +17,7 @@ A microsite is an instance of Jekyll, ready to publish a static web page for you
 To Begin, add the following lines to the `project/plugins.sbt` file within your project or sbt module where you want to use the `sbt-microsites` plugin.
 
 ```
-addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "0.2.5")
+addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "0.3.2")
 ```
 
 Finally, to enable the plugin, add this to your `build.sbt` file:
@@ -30,3 +30,18 @@ We recommend taking a look at the `Getting Started` section at the [documentatio
 # Documentation
 
 Microsites comes with a range of options to customize and configure your project's site. Please visit the [documentation](https://47deg.github.io/sbt-microsites/docs/) section for more information.
+
+# sbt-microsites in the wild
+
+Many Scala projects use sbt-microsites to display documentation and project notes. If you wish to add your library here please consider a PR to include it in the list below.
+
+★ | ★ | ★
+--- | --- | ---
+![Cats](http://typelevel.org/cats/img/navbar_brand.png) | [**Cats**](http://typelevel.org/cats/) | Lightweight, modular, and extensible library for functional programming
+![Tuco](https://tpolecat.github.io/tuco/img/navbar_brand.png) | [**Tuco**](https://tpolecat.github.io/tuco/) | Tuco is a reasonable telnet server for Scala
+![Atto](https://tpolecat.github.io/atto/img/navbar_brand.png) | [**Atto**](https://tpolecat.github.io/atto/) | Everyday parsers.
+![Typelevel Scala](http://typelevel.org/scala/img/navbar_brand.png) | [**Typelevel Scala**](http://typelevel.org/scala/) | Our fork of the Scala compiler
+![Monocle](http://julien-truffaut.github.io/Monocle/img/navbar_brand.png) | [**Monocle**](http://julien-truffaut.github.io/Monocle/) | Optics library for Scala
+
+
+

@@ -1,0 +1,5 @@
+# Version 0.3.1
+
+- Fixes https://github.com/47deg/sbt-microsites/issues/84: Allow custom javascript in generated microsite
+- Fixes https://github.com/47deg/sbt-microsites/issues/70: Scala Code is not properly Highlighted
+- Fixes https://github.com/47deg/sbt-microsites/issues/76: Improve table style. Thanks @jvican !

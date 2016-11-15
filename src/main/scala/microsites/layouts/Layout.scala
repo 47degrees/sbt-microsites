@@ -57,8 +57,9 @@ abstract class Layout(config: MicrositeSettings) {
 
   def styles: List[TypedTag[String]] = {
 
-    val customCssList = fetchFilesRecursively(config.micrositeCssDirectory) map { css =>
-      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${css.getName}")
+    val customCssList = fetchFilesRecursively(config.micrositeCssDirectory, List("css")) map {
+      css =>
+        link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${css.getName}")
     }
 
     List(
@@ -66,22 +67,31 @@ abstract class Layout(config: MicrositeSettings) {
            href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
       link(rel := "stylesheet",
            href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"),
-      link(
-        rel := "stylesheet",
-        href := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/${config.highlightTheme}.min.css"),
+      link(rel := "stylesheet",
+           href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.highlightTheme}.css"),
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/style.css"),
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/palette.css")
     ) ++ customCssList
   }
 
-  def scripts: List[TypedTag[String]] = List(
-    script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"),
-    script(
-      src := "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),
-    script(src := "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"),
-    script(
-      src := "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/scala.min.js")
-  )
+  def scripts: List[TypedTag[String]] = {
+
+    val customJsList = fetchFilesRecursively(config.micrositeJsDirectory, List("js")) map { js =>
+      script(src := s"{{site.url}}{{site.baseurl}}/js/${js.getName}")
+    }
+
+    List(
+      script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"),
+      script(
+        src := "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),
+      script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js"),
+      script("""hljs.configure({
+               |languages:['scala','java','bash']
+               |});
+               |hljs.initHighlighting();
+             """.stripMargin)
+    ) ++ customJsList
+  }
 
   def globalFooter =
     footer(

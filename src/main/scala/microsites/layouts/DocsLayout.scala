@@ -27,14 +27,12 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
   override def render: TypedTag[String] = {
     html(
       commonHead,
-      body(cls := "docs",
-        sideBarAndContent,
-        scriptsDocs
-      )
+      body(cls := "docs", sideBarAndContent, scriptsDocs)
     )
   }
 
   def sideBarAndContent: TypedTag[String] = {
+    // format: off
     val text = s"${config.name} ${config.description}"
     div(id := "wrapper",
       div(id := "sidebar-wrapper", buildSidebar),
@@ -74,29 +72,59 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
         )
       )
     )
+    // format: on
   }
 
   def buildSidebar: TypedTag[String] = {
-    val baseUrl = s"${config.micrositeDocumentationUrl}"
+    // format: off
     ul(id := "sidebar", cls := "sidebar-nav",
       li(cls := "sidebar-brand",
         a(href := "{{ site.baseurl }}/", cls := "brand",
           div(cls := "brand-wrapper", style := "background:url('{{site.baseurl}}/img/sidebar_brand.png') no-repeat", span(config.name))
         )
       ),
-      "{% assign items = site.data.menu.options %} {% for x in items %} ",
-      li(
-        a(href := s"$baseUrl{{x.url}}", cls := "{% if x.title == page.title %} active {% endif %}", "{{x.title}}"),
-      "{% if x.nested_options %} ",
-      ul(cls := "sub_section",
-        "{% for sub in x.nested_options %} ",
-        li(a(href := s"$baseUrl{{sub.url}}", cls := "{% if sub.title == page.title and x.section == page.section %} active {% endif %}", "{{sub.title}}")),
-        "{% endfor %}"
-      ),
-      "{% endif %} {% endfor %}"
-    ))
+      "{% if site.data.menu.options %}",
+        "{% assign items = site.data.menu.options %}",
+        "{% for x in items %} ",
+          "{% if x.menu_type.size == false or x.menu_type == page.section %}",
+            li(
+              a(href := "{{ site.baseurl }}/{{ x.url }}",
+                cls := "{% if x.title == page.title %} active {% endif %}", "{{x.title}}"),
+                "{% if x.nested_options %} ",
+                  ul(
+                    cls := "sub_section",
+                    "{% for sub in x.nested_options %} ",
+                    li(
+                      a(href := "{{ site.baseurl }}/{{ sub.url }}",
+                        cls := "{% if sub.title == page.title and x.section == sub.section %} active {% endif %}",
+                        "{{sub.title}}"
+                      )
+                    ),
+                    "{% endfor %}"
+                  ),
+                "{% endif %}"
+            ),
+          "{% endif %}",
+        "{% endfor %}",
+      "{% else %}",
+        "{% assign items = site.pages | sort: 'weight' %}",
+        "{% for x in items %}",
+          "{% if x.section == page.section %}",
+            li(
+              a(
+                href := "{{ site.baseurl }}{{x.url}}",
+                cls := "{% if x.title == page.title %} active {% endif %}",
+                "{{x.title}}"
+              )
+            ),
+          "{% endif %}",
+        "{% endfor %}",
+      "{% endif %}"
+    )
+    // format: on
   }
 
-  def scriptsDocs: List[TypedTag[String]] = scripts ++
-    List(script(src := "{{ site.baseurl }}/js/main.js"))
+  def scriptsDocs: List[TypedTag[String]] =
+    scripts ++
+      List(script(src := "{{ site.baseurl }}/js/main.js"))
 }
