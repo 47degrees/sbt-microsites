@@ -119,8 +119,6 @@ micrositeExternalIncludesDirectory := (resourceDirectory in Compile).value / "si
 
 These will be available to your pages by using `Jekyll`'s [include](https://jekyllrb.com/docs/templates/#includes) keyword in your layouts.
 
-```
-
 - `micrositeDataDirectory`: in addition, you can provide new data to your jekyll site through the `micrositeDataDirectory` setting. It's based on the idea of [Jekyll Data Files](https://jekyllrb.com/docs/datafiles/). It's important to keep in mind that if you are defining documentation in your microsite, you have to configure the menu through this setting. The default value is `(resourceDirectory in Compile).value / "microsite" / "data"` but you can override it like this:
 
 ```
