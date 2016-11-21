@@ -44,4 +44,5 @@ Many Scala projects use sbt-microsites to display documentation and project note
 ![Monocle](http://julien-truffaut.github.io/Monocle/img/navbar_brand.png) | [**Monocle**](http://julien-truffaut.github.io/Monocle/) | Optics library for Scala
 ![scalacheck-datetime](https://47deg.github.io/scalacheck-datetime/img/navbar_brand.png) | [**scalacheck-datetime**](https://47deg.github.io/scalacheck-datetime/) | Sensible dates and times in ScalaCheck
 ![Algebird](https://twitter.github.io/algebird/img/navbar_brand.png) | [**Algebird**](https://twitter.github.io/algebird/) | Algebraic typeclasses and data structures for big data
+![Scalding](https://twitter.github.io/scalding/img/navbar_brand.png) | [**Scalding**](https://twitter.github.io/scalding/) | Scala API for Hadoop and Cascading
 
