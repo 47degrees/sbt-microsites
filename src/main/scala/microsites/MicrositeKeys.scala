@@ -17,7 +17,6 @@
 package microsites
 
 import sbt._
-import microsites.domain.ExtraMdFileConfig
 
 trait MicrositeKeys {
   val makeMicrosite = taskKey[Unit]("Main Task to build a Microsite")
@@ -33,6 +32,13 @@ trait MicrositeKeys {
   val micrositeBaseUrl          = settingKey[String]("Microsite site base url")
   val micrositeDocumentationUrl = settingKey[String]("Microsite site documentation url")
   val micrositeHighlightTheme   = settingKey[String]("Microsite Highlight Theme")
+
+  val micrositeYamlDefaults = settingKey[List[DefaultItem]](
+    "Microsite 'defaults' site variables. A list of all the defaults. See https://jekyllrb.com/docs/variables/ for more information.")
+  val micrositeYamlCollections = settingKey[Map[String, CollectionItem]](
+    "Microsite 'collections' site variables. A map of all the collections. See https://jekyllrb.com/docs/variables/ for more information.")
+  val micrositeYamlCustom = settingKey[String](
+    "This setting key allows to specify the _config.yml file, as a stripMargin string, or just a customized piece of the _config.yml file, outside the other options provided by the plugin, in order to cover all the cases.")
   val micrositeImgDirectory = settingKey[File](
     "Optional. Microsite images directory. By default, it'll be the resourcesDirectory + '/microsite/img'")
   val micrositeCssDirectory = settingKey[File](
@@ -49,7 +55,6 @@ trait MicrositeKeys {
 
   val micrositeExtraMdFiles = settingKey[Map[File, ExtraMdFileConfig]](
     "Optional. This key is useful when you want to include automatically markdown documents as a part of your microsite, and these files are located in different places from the tutSourceDirectory. The map key is related with the source file, the map value corresponds with the target relative file path and the document meta-information configuration. By default, the map is empty.")
-
   val micrositePalette     = settingKey[Map[String, String]]("Microsite palette")
   val micrositeGithubOwner = settingKey[String]("Microsite Github owner")
   val micrositeGithubRepo  = settingKey[String]("Microsite Github repo")

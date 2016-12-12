@@ -16,7 +16,7 @@
 
 package microsites.layouts
 
-import microsites.domain.MicrositeSettings
+import microsites.MicrositeSettings
 import microsites.util.FileHelper._
 
 import scalatags.Text.TypedTag

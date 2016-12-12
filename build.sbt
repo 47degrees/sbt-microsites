@@ -29,10 +29,11 @@ lazy val pluginSettings = Seq(
       "jgit-repo" at "http://download.eclipse.org/jgit/maven"
     ),
     libraryDependencies ++= Seq(
-      "com.lihaoyi"   %% "scalatags" % "0.6.0",
-      "org.scalactic" %% "scalactic" % "3.0.0",
-      "org.scalatest"  %% "scalatest"  % versions("scalatest")  % "test",
-      "org.scalacheck" %% "scalacheck" % versions("scalacheck") % "test"
+      "com.lihaoyi"    %% "scalatags"    % "0.6.0",
+      "org.scalactic"  %% "scalactic"    % "3.0.0",
+      "net.jcazevedo"  %% "moultingyaml" % "0.4.0",
+      "org.scalatest"  %% "scalatest"    % versions("scalatest") % "test",
+      "org.scalacheck" %% "scalacheck"   % versions("scalacheck") % "test"
     ),
     scalafmtConfig in ThisBuild := Some(file(".scalafmt"))
   ) ++ reformatOnCompileSettings

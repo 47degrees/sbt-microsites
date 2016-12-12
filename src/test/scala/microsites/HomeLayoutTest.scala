@@ -16,7 +16,6 @@
 
 package microsites
 
-import microsites.domain.MicrositeSettings
 import microsites.layouts.HomeLayout
 import microsites.util.Arbitraries
 import org.scalacheck.Prop._

@@ -18,7 +18,7 @@ package microsites.util
 
 import java.io.File
 
-import microsites.domain._
+import microsites._
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen._
 
@@ -33,6 +33,60 @@ trait Arbitraries {
       stringList <- listOfN[String](6, Arbitrary.arbitrary[String])
       map        <- (stringList map (s => s -> s"value of $s")).toMap
     } yield map
+  }
+
+  implicit def defaultItemArbitrary: Arbitrary[DefaultItem] = Arbitrary {
+    for {
+      scope  ← paletteMapArbitrary.arbitrary
+      values ← paletteMapArbitrary.arbitrary
+    } yield DefaultItem(scope, values)
+  }
+
+  implicit def listDefaultsArbitrary: Arbitrary[List[DefaultItem]] = Arbitrary {
+    for {
+      n    ← oneOf(0, 100)
+      list ← listOfN[DefaultItem](n, defaultItemArbitrary.arbitrary)
+    } yield list
+  }
+
+  implicit def collectionItemArbitrary: Arbitrary[CollectionItem] = Arbitrary {
+    for {
+      output ← Arbitrary.arbitrary[Boolean]
+      values ← paletteMapArbitrary.arbitrary
+    } yield CollectionItem(output, values)
+  }
+
+  implicit def collectionMapArbitrary: Arbitrary[Map[String, CollectionItem]] = Arbitrary {
+    for {
+      stringList <- listOfN[String](6, Arbitrary.arbitrary[String])
+      colItem    <- collectionItemArbitrary.arbitrary
+      map        <- (stringList map (s => s -> colItem)).toMap
+    } yield map
+  }
+
+  implicit def configYamlArbitrary: Arbitrary[ConfigYaml] = Arbitrary {
+    for {
+      name        ← Arbitrary.arbitrary[String]
+      description ← Arbitrary.arbitrary[String]
+      version     ← Arbitrary.arbitrary[String]
+      org         ← Arbitrary.arbitrary[String]
+      baseurl     ← Arbitrary.arbitrary[String]
+      docs        ← Arbitrary.arbitrary[Boolean]
+      markdown    ← Arbitrary.arbitrary[String]
+      highlighter ← Arbitrary.arbitrary[String]
+      defaults    ← listDefaultsArbitrary.arbitrary
+      collections ← collectionMapArbitrary.arbitrary
+    } yield
+      ConfigYaml(name,
+                 description,
+                 version,
+                 org,
+                 baseurl,
+                 docs,
+                 markdown,
+                 highlighter,
+                 defaults,
+                 collections)
   }
 
   implicit def extraMdConfigArbitrary: Arbitrary[ExtraMdFileConfig] = Arbitrary {
@@ -60,6 +114,8 @@ trait Arbitraries {
       homepage                           ← Arbitrary.arbitrary[String]
       twitter                            ← Arbitrary.arbitrary[String]
       highlightTheme                     ← Arbitrary.arbitrary[String]
+      micrositeConfigYaml                ← configYamlArbitrary.arbitrary
+      micrositeYamlCustom                ← Arbitrary.arbitrary[String]
       micrositeImgDirectory              ← Arbitrary.arbitrary[File]
       micrositeCssDirectory              ← Arbitrary.arbitrary[File]
       micrositeJsDirectory               ← Arbitrary.arbitrary[File]
@@ -79,6 +135,8 @@ trait Arbitraries {
                         homepage,
                         twitter,
                         highlightTheme,
+                        micrositeConfigYaml,
+                        micrositeYamlCustom,
                         micrositeImgDirectory,
                         micrositeCssDirectory,
                         micrositeJsDirectory,

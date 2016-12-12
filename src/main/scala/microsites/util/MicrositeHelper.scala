@@ -18,10 +18,13 @@ package microsites.util
 
 import java.io.File
 
-import microsites.domain._
+import microsites._
+import net.jcazevedo.moultingyaml.{YamlObject, _}
+import ConfigYamlProtocol._
 import microsites.layouts._
 import microsites.util.FileHelper._
 import sbt._
+
 import scala.io.Source
 
 class MicrositeHelper(config: MicrositeSettings) {
@@ -76,23 +79,10 @@ class MicrositeHelper(config: MicrositeSettings) {
   def createConfigYML(targetDir: String): File = {
     val targetFile = createFilePathIfNotExists(s"$targetDir$jekyllDir/_config.yml")
 
-    val baseUrl =
-      if (!config.micrositeBaseUrl.isEmpty && !config.micrositeBaseUrl.startsWith("/"))
-        s"/${config.micrositeBaseUrl}"
-      else config.micrositeBaseUrl
+    val configYaml    = config.micrositeConfigYaml.toYaml.asYamlObject.fields
+    val customYamlAst = config.micrositeYamlCustom.parseYaml.asYamlObject.fields
 
-    IO.write(targetFile,
-             s"""name: ${config.name}
-          |description: "${config.description}"
-          |baseurl: $baseUrl
-          |docs: true
-          |
-          |markdown: kramdown
-          |highlighter: rouge
-          |collections:
-          |  tut:
-          |    output: true
-          |""".stripMargin)
+    IO.write(targetFile, YamlObject(configYaml ++ customYamlAst).prettyPrint)
 
     targetFile
   }
