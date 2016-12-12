@@ -18,10 +18,11 @@ package microsites.util
 
 import java.io.File
 
-import microsites.domain.MicrositeSettings
+import microsites.domain._
 import microsites.layouts._
 import microsites.util.FileHelper._
 import sbt._
+import scala.io.Source
 
 class MicrositeHelper(config: MicrositeSettings) {
   implicitly(config)
@@ -53,9 +54,19 @@ class MicrositeHelper(config: MicrositeSettings) {
                          s"$targetDir$jekyllDir/_data/")
 
     config.micrositeExtraMdFiles foreach {
-      case (sourceFile, relativeTargetFile) =>
-        println(s"Copying from ${sourceFile.getAbsolutePath} to $tutSourceDir$relativeTargetFile")
-        copyFilesRecursively(sourceFile.getAbsolutePath, s"$tutSourceDir$relativeTargetFile")
+      case (sourceFile, targetFileConfig) =>
+        println(s"Copying from ${sourceFile.getAbsolutePath} to $tutSourceDir$targetFileConfig")
+
+        val targetFileContent = s"""---
+          |layout: ${targetFileConfig.layout}
+          |${targetFileConfig.metaProperties map {
+                                     case (key, value) => "%s: %s" format (key, value)
+                                   } mkString ("", "\n", "")}
+          |---
+          |${Source.fromFile(sourceFile.getAbsolutePath).mkString}
+          |""".stripMargin
+
+        IO.write(s"$tutSourceDir${targetFileConfig.fileName}".toFile, targetFileContent)
     }
 
     List(createConfigYML(targetDir), createPalette(targetDir)) ++

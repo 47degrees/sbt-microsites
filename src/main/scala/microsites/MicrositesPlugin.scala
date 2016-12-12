@@ -21,7 +21,7 @@ import com.typesafe.sbt.SbtGhPages.ghpages
 import com.typesafe.sbt.SbtGit.git
 import com.typesafe.sbt.site.SitePlugin.autoImport._
 import com.typesafe.sbt.site.jekyll.JekyllPlugin
-import microsites.domain.MicrositeSettings
+import microsites.domain._
 import microsites.util.MicrositeHelper
 import sbt.Keys._
 import sbt._
