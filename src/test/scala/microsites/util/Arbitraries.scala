@@ -18,7 +18,7 @@ package microsites.util
 
 import java.io.File
 
-import microsites.domain.MicrositeSettings
+import microsites.domain._
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen._
 
@@ -28,18 +28,27 @@ trait Arbitraries {
     uuid map (randomFileName => new File(randomFileName.toString))
   }
 
-  implicit def markdownMapArbitrary: Arbitrary[Map[File, String]] = Arbitrary {
-    for {
-      n        ← choose(1, 100)
-      fileList <- listOfN[File](n, Arbitrary.arbitrary[File])
-      map      <- (fileList map (f => f -> f.getName)).toMap
-    } yield map
-  }
-
   implicit def paletteMapArbitrary: Arbitrary[Map[String, String]] = Arbitrary {
     for {
       stringList <- listOfN[String](6, Arbitrary.arbitrary[String])
       map        <- (stringList map (s => s -> s"value of $s")).toMap
+    } yield map
+  }
+
+  implicit def extraMdConfigArbitrary: Arbitrary[ExtraMdFileConfig] = Arbitrary {
+    for {
+      file        ← Arbitrary.arbitrary[String]
+      target      ← Arbitrary.arbitrary[String]
+      mapArbValue ← paletteMapArbitrary.arbitrary
+    } yield ExtraMdFileConfig(file, target, mapArbValue)
+  }
+
+  implicit def markdownMapArbitrary: Arbitrary[Map[File, ExtraMdFileConfig]] = Arbitrary {
+    for {
+      n        ← choose(1, 100)
+      fileList <- listOfN[File](n, Arbitrary.arbitrary[File])
+      config   ← extraMdConfigArbitrary.arbitrary
+      map      <- (fileList map (f => f -> config)).toMap
     } yield map
   }
 
