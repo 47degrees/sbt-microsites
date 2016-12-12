@@ -30,9 +30,13 @@ case class MicrositeSettings(name: String,
                              micrositeExternalLayoutsDirectory: File,
                              micrositeExternalIncludesDirectory: File,
                              micrositeDataDirectory: File,
-                             micrositeExtraMdFiles: Map[File, String],
+                             micrositeExtraMdFiles: Map[File, ExtraMdFileConfig],
                              micrositeBaseUrl: String,
                              micrositeDocumentationUrl: String,
                              palette: Map[String, String],
                              githubOwner: String,
                              githubRepo: String)
+
+case class ExtraMdFileConfig(fileName: String,
+                             layout: String,
+                             metaProperties: Map[String, String] = Map.empty)
