@@ -35,58 +35,12 @@ trait Arbitraries {
     } yield map
   }
 
-  implicit def defaultItemArbitrary: Arbitrary[DefaultItem] = Arbitrary {
+  implicit def configYamlArbitrary: Arbitrary[ConfigYml] = Arbitrary {
     for {
-      scope  ← paletteMapArbitrary.arbitrary
-      values ← paletteMapArbitrary.arbitrary
-    } yield DefaultItem(scope, values)
-  }
-
-  implicit def listDefaultsArbitrary: Arbitrary[List[DefaultItem]] = Arbitrary {
-    for {
-      n    ← oneOf(0, 100)
-      list ← listOfN[DefaultItem](n, defaultItemArbitrary.arbitrary)
-    } yield list
-  }
-
-  implicit def collectionItemArbitrary: Arbitrary[CollectionItem] = Arbitrary {
-    for {
-      output ← Arbitrary.arbitrary[Boolean]
-      values ← paletteMapArbitrary.arbitrary
-    } yield CollectionItem(output, values)
-  }
-
-  implicit def collectionMapArbitrary: Arbitrary[Map[String, CollectionItem]] = Arbitrary {
-    for {
-      stringList <- listOfN[String](6, Arbitrary.arbitrary[String])
-      colItem    <- collectionItemArbitrary.arbitrary
-      map        <- (stringList map (s => s -> colItem)).toMap
-    } yield map
-  }
-
-  implicit def configYamlArbitrary: Arbitrary[ConfigYaml] = Arbitrary {
-    for {
-      name        ← Arbitrary.arbitrary[String]
-      description ← Arbitrary.arbitrary[String]
-      version     ← Arbitrary.arbitrary[String]
-      org         ← Arbitrary.arbitrary[String]
-      baseurl     ← Arbitrary.arbitrary[String]
-      docs        ← Arbitrary.arbitrary[Boolean]
-      markdown    ← Arbitrary.arbitrary[String]
-      highlighter ← Arbitrary.arbitrary[String]
-      defaults    ← listDefaultsArbitrary.arbitrary
-      collections ← collectionMapArbitrary.arbitrary
-    } yield
-      ConfigYaml(name,
-                 description,
-                 version,
-                 org,
-                 baseurl,
-                 docs,
-                 markdown,
-                 highlighter,
-                 defaults,
-                 collections)
+      yamlCustomProperties ← paletteMapArbitrary.arbitrary
+      yamlPath             ← Arbitrary.arbitrary[Option[File]]
+      yamlInline           ← Arbitrary.arbitrary[String]
+    } yield ConfigYml(yamlCustomProperties, yamlPath, yamlInline)
   }
 
   implicit def extraMdConfigArbitrary: Arbitrary[ExtraMdFileConfig] = Arbitrary {
@@ -115,7 +69,6 @@ trait Arbitraries {
       twitter                            ← Arbitrary.arbitrary[String]
       highlightTheme                     ← Arbitrary.arbitrary[String]
       micrositeConfigYaml                ← configYamlArbitrary.arbitrary
-      micrositeYamlCustom                ← Arbitrary.arbitrary[String]
       micrositeImgDirectory              ← Arbitrary.arbitrary[File]
       micrositeCssDirectory              ← Arbitrary.arbitrary[File]
       micrositeJsDirectory               ← Arbitrary.arbitrary[File]
@@ -136,7 +89,6 @@ trait Arbitraries {
                         twitter,
                         highlightTheme,
                         micrositeConfigYaml,
-                        micrositeYamlCustom,
                         micrositeImgDirectory,
                         micrositeCssDirectory,
                         micrositeJsDirectory,

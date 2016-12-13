@@ -32,13 +32,7 @@ trait MicrositeKeys {
   val micrositeBaseUrl          = settingKey[String]("Microsite site base url")
   val micrositeDocumentationUrl = settingKey[String]("Microsite site documentation url")
   val micrositeHighlightTheme   = settingKey[String]("Microsite Highlight Theme")
-
-  val micrositeYamlDefaults = settingKey[List[DefaultItem]](
-    "Microsite 'defaults' site variables. A list of all the defaults. See https://jekyllrb.com/docs/variables/ for more information.")
-  val micrositeYamlCollections = settingKey[Map[String, CollectionItem]](
-    "Microsite 'collections' site variables. A map of all the collections. See https://jekyllrb.com/docs/variables/ for more information.")
-  val micrositeYamlCustom = settingKey[String](
-    "This setting key allows to specify the _config.yml file, as a stripMargin string, or just a customized piece of the _config.yml file, outside the other options provided by the plugin, in order to cover all the cases.")
+  val micrositeConfigYaml       = settingKey[ConfigYml]("Microsite _config.yml file configuration.")
   val micrositeImgDirectory = settingKey[File](
     "Optional. Microsite images directory. By default, it'll be the resourcesDirectory + '/microsite/img'")
   val micrositeCssDirectory = settingKey[File](

@@ -60,14 +60,15 @@ class MicrositeHelper(config: MicrositeSettings) {
       case (sourceFile, targetFileConfig) =>
         println(s"Copying from ${sourceFile.getAbsolutePath} to $tutSourceDir$targetFileConfig")
 
-        val targetFileContent = s"""---
-          |layout: ${targetFileConfig.layout}
-          |${targetFileConfig.metaProperties map {
-                                     case (key, value) => "%s: %s" format (key, value)
-                                   } mkString ("", "\n", "")}
-          |---
-          |${Source.fromFile(sourceFile.getAbsolutePath).mkString}
-          |""".stripMargin
+        val targetFileContent =
+          s"""---
+             |layout: ${targetFileConfig.layout}
+             |${targetFileConfig.metaProperties map {
+               case (key, value) => "%s: %s" format (key, value)
+             } mkString ("", "\n", "")}
+             |---
+             |${Source.fromFile(sourceFile.getAbsolutePath).mkString}
+             |""".stripMargin
 
         IO.write(s"$tutSourceDir${targetFileConfig.fileName}".toFile, targetFileContent)
     }
@@ -79,10 +80,18 @@ class MicrositeHelper(config: MicrositeSettings) {
   def createConfigYML(targetDir: String): File = {
     val targetFile = createFilePathIfNotExists(s"$targetDir$jekyllDir/_config.yml")
 
-    val configYaml    = config.micrositeConfigYaml.toYaml.asYamlObject.fields
-    val customYamlAst = config.micrositeYamlCustom.parseYaml.asYamlObject.fields
+    val yaml             = config.micrositeConfigYaml
+    val customProperties = yaml.yamlCustomProperties.toYaml.asYamlObject.fields
+    val inlineYaml =
+      if (yaml.yamlInline.nonEmpty)
+        yaml.yamlInline.parseYaml.asYamlObject.fields
+      else Map.empty[YamlValue, YamlValue]
+    val fileYaml = yaml.yamlPath.fold(Map.empty[YamlValue, YamlValue])(f =>
+      if (f.exists()) {
+        Source.fromFile(f.getAbsolutePath).mkString.parseYaml.asYamlObject.fields
+      } else Map.empty[YamlValue, YamlValue])
 
-    IO.write(targetFile, YamlObject(configYaml ++ customYamlAst).prettyPrint)
+    IO.write(targetFile, YamlObject(customProperties ++ fileYaml ++ inlineYaml).prettyPrint)
 
     targetFile
   }
@@ -117,7 +126,7 @@ class MicrositeHelper(config: MicrositeSettings) {
         targetFile
     }
 
-  def copyConfigurationFile(sourceDir: File, targetDir: File) = {
+  def copyConfigurationFile(sourceDir: File, targetDir: File): Unit = {
 
     val targetFile = createFilePathIfNotExists(s"$targetDir/_config.yml")
 

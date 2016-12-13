@@ -17,7 +17,7 @@
 import net.jcazevedo.moultingyaml._
 import sbt._
 
-import scala.language.postfixOps
+import scala.language.{postfixOps, reflectiveCalls}
 
 package object microsites {
 
@@ -27,8 +27,7 @@ package object microsites {
                                homepage: String,
                                twitter: String,
                                highlightTheme: String,
-                               micrositeConfigYaml: ConfigYaml,
-                               micrositeYamlCustom: String,
+                               micrositeConfigYaml: ConfigYml,
                                micrositeImgDirectory: File,
                                micrositeCssDirectory: File,
                                micrositeJsDirectory: File,
@@ -46,58 +45,37 @@ package object microsites {
                                layout: String,
                                metaProperties: Map[String, String] = Map.empty)
 
-  case class DefaultItem(scope: Map[String, String], values: Map[String, String])
-
-  case class CollectionItem(output: Boolean, values: Map[String, String])
-
-  case class ConfigYaml(name: String,
-                        description: String,
-                        version: String,
-                        org: String,
-                        baseurl: String,
-                        docs: Boolean = true,
-                        markdown: String = "kramdown",
-                        highlighter: String = "rouge",
-                        defaults: List[DefaultItem] = List.empty,
-                        collections: Map[String, CollectionItem] = Map.empty)
+  case class ConfigYml(
+      yamlCustomProperties: Map[String, Any] = Map.empty,
+      yamlPath: Option[File] = None,
+      yamlInline: String = ""
+  )
 
   object ConfigYamlProtocol extends DefaultYamlProtocol {
 
-    implicit def defaultItemFormat: YamlFormat[DefaultItem] = yamlFormat2(DefaultItem)
-
-    implicit class RichYamlValue(value: YamlValue) {
-      def toStr: String = value.convertTo[String]
-    }
-
-    implicit object CollectionItemFormat extends YamlFormat[CollectionItem] {
-      def write(c: CollectionItem): YamlValue = {
-        val outputYamlValue: (YamlString, YamlBoolean) = YamlString("output") -> YamlBoolean(
-            c.output)
-        val dynamicValues: Map[YamlValue, YamlValue] = c.values.map {
-          case (k, v) => k.toYaml -> v.toYaml
-        }
-        YamlObject(dynamicValues + outputYamlValue)
+    implicit object AnyYamlFormat extends YamlFormat[Any] {
+      def write(x: Any): YamlValue = x match {
+        case n: Int            => YamlNumber(n)
+        case n: Long           => YamlNumber(n)
+        case n: Double         => YamlNumber(n)
+        case s: String         => YamlString(s)
+        case b: Boolean        => YamlBoolean(b)
+        case x: Seq[_]         => seqFormat[Any].write(x)
+        case m: Map[String, _] => mapFormat[String, Any].write(m)
+        case t =>
+          serializationError("Serialization Error - Non expected type " + t.getClass.getName)
       }
 
-      def read(value: YamlValue): CollectionItem = {
-        val valueAsObject                        = value.asYamlObject
-        val fieldsMap: Map[YamlValue, YamlValue] = valueAsObject.fields
-
-        val outputValue: Boolean = valueAsObject.getFields(YamlString("output")) match {
-          case Seq(YamlBoolean(outputBool)) => outputBool
-          case _                            => deserializationError("output boolean value expected")
-        }
-
-        val dynamicValues: Map[String, String] =
-          fieldsMap.keys.filterNot(_.toStr == "output") map { key =>
-            (key.toStr, fieldsMap.get(key).fold("")(_.toStr))
-          } toMap
-
-        CollectionItem(outputValue, dynamicValues)
+      def read(value: YamlValue): Any = value match {
+        case YamlNumber(n)  => n.intValue()
+        case YamlString(s)  => s
+        case YamlBoolean(b) => b
+        case _: YamlArray   => listFormat[Any].read(value)
+        case _: YamlObject  => mapFormat[String, Any].read(value)
+        case x =>
+          deserializationError("Deserialization Error - it failed the deserialization of " + x)
       }
     }
-
-    implicit def configYamlFormat: YamlFormat[ConfigYaml] = yamlFormat10(ConfigYaml)
   }
 
 }

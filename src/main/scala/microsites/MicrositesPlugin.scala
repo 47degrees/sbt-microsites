@@ -60,9 +60,8 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeDocumentationUrl := "",
     micrositeTwitter := "",
     micrositeHighlightTheme := "default",
-    micrositeYamlDefaults := List.empty,
-    micrositeYamlCollections := Map.empty,
-    micrositeYamlCustom := "",
+    micrositeConfigYaml := ConfigYml(
+      yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "_config.yml")),
     micrositeImgDirectory := (resourceDirectory in Compile).value / "microsite" / "img",
     micrositeCssDirectory := (resourceDirectory in Compile).value / "microsite" / "css",
     micrositeJsDirectory := (resourceDirectory in Compile).value / "microsite" / "js",
@@ -87,8 +86,21 @@ object MicrositesPlugin extends AutoPlugin {
         s"/${micrositeBaseUrl.value}"
       else micrositeBaseUrl.value
 
-    val defaultCollection =
-      Map("tut" -> CollectionItem(output = true, values = Map.empty[String, String]))
+    val defaultYamlCustomVariables = Map(
+      "name"        -> micrositeName.value,
+      "description" -> micrositeDescription.value,
+      "version"     -> version.value,
+      "org"         -> organizationName.value,
+      "baseurl"     -> baseUrl,
+      "docs"        -> true,
+      "markdown"    -> "kramdown",
+      "highlighter" -> "rouge",
+      "collections" -> Map("tut" -> Map("output" -> true))
+    )
+
+    val userCustomVariables = micrositeConfigYaml.value
+    val configWithAllCustomVariables = userCustomVariables.copy(
+      yamlCustomProperties = defaultYamlCustomVariables ++ userCustomVariables.yamlCustomProperties)
 
     new MicrositeHelper(
       MicrositeSettings(
@@ -98,16 +110,7 @@ object MicrositesPlugin extends AutoPlugin {
         homepage = micrositeHomepage.value,
         twitter = micrositeTwitter.value,
         highlightTheme = micrositeHighlightTheme.value,
-        micrositeConfigYaml = ConfigYaml(
-          name = micrositeName.value,
-          description = micrositeDescription.value,
-          version = version.value,
-          org = organizationName.value,
-          baseurl = baseUrl,
-          defaults = micrositeYamlDefaults.value,
-          collections = defaultCollection ++ micrositeYamlCollections.value
-        ),
-        micrositeYamlCustom = micrositeYamlCustom.value,
+        micrositeConfigYaml = configWithAllCustomVariables,
         micrositeImgDirectory = micrositeImgDirectory.value,
         micrositeCssDirectory = micrositeCssDirectory.value,
         micrositeJsDirectory = micrositeJsDirectory.value,
