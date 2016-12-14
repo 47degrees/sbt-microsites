@@ -1,0 +1,31 @@
+name: 47 Degrees
+
+exclude: ['/raw/']
+
+description: Dummy Test
+
+author: 47 Degrees
+
+# Your email if you want it to be linked on the contact page
+author_email: hola@47deg.com
+
+markdown: kramdown
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+highlighter: rouge
+
+permalink: pretty
+
+gems: ['kramdown']
+
+# Collections
+collections:
+  company_team:
+    output: true
+  tut:
+    output: true
+
+future: true

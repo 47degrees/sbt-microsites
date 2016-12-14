@@ -1,4 +1,4 @@
-import microsites.domain._
+import microsites._
 
 enablePlugins(MicrositesPlugin)
 scalaVersion := "2.11.8"

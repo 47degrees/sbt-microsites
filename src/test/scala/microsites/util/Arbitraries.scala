@@ -18,7 +18,7 @@ package microsites.util
 
 import java.io.File
 
-import microsites.domain._
+import microsites._
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen._
 
@@ -33,6 +33,14 @@ trait Arbitraries {
       stringList <- listOfN[String](6, Arbitrary.arbitrary[String])
       map        <- (stringList map (s => s -> s"value of $s")).toMap
     } yield map
+  }
+
+  implicit def configYamlArbitrary: Arbitrary[ConfigYml] = Arbitrary {
+    for {
+      yamlCustomProperties ← paletteMapArbitrary.arbitrary
+      yamlPath             ← Arbitrary.arbitrary[Option[File]]
+      yamlInline           ← Arbitrary.arbitrary[String]
+    } yield ConfigYml(yamlCustomProperties, yamlPath, yamlInline)
   }
 
   implicit def extraMdConfigArbitrary: Arbitrary[ExtraMdFileConfig] = Arbitrary {
@@ -60,6 +68,7 @@ trait Arbitraries {
       homepage                           ← Arbitrary.arbitrary[String]
       twitter                            ← Arbitrary.arbitrary[String]
       highlightTheme                     ← Arbitrary.arbitrary[String]
+      micrositeConfigYaml                ← configYamlArbitrary.arbitrary
       micrositeImgDirectory              ← Arbitrary.arbitrary[File]
       micrositeCssDirectory              ← Arbitrary.arbitrary[File]
       micrositeJsDirectory               ← Arbitrary.arbitrary[File]
@@ -79,6 +88,7 @@ trait Arbitraries {
                         homepage,
                         twitter,
                         highlightTheme,
+                        micrositeConfigYaml,
                         micrositeImgDirectory,
                         micrositeCssDirectory,
                         micrositeJsDirectory,

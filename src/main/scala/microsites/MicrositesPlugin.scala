@@ -21,7 +21,6 @@ import com.typesafe.sbt.SbtGhPages.ghpages
 import com.typesafe.sbt.SbtGit.git
 import com.typesafe.sbt.site.SitePlugin.autoImport._
 import com.typesafe.sbt.site.jekyll.JekyllPlugin
-import microsites.domain._
 import microsites.util.MicrositeHelper
 import sbt.Keys._
 import sbt._
@@ -35,9 +34,9 @@ object MicrositesPlugin extends AutoPlugin {
   import MicrositesPlugin.autoImport._
   import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport._
 
-  override def requires = IvyPlugin && JekyllPlugin
+  override def requires: Plugins = IvyPlugin && JekyllPlugin
 
-  override def trigger = allRequirements
+  override def trigger: PluginTrigger = allRequirements
 
   override def projectSettings: Seq[Def.Setting[_]] =
     tutSettings ++
@@ -61,6 +60,8 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeDocumentationUrl := "",
     micrositeTwitter := "",
     micrositeHighlightTheme := "default",
+    micrositeConfigYaml := ConfigYml(
+      yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "_config.yml")),
     micrositeImgDirectory := (resourceDirectory in Compile).value / "microsite" / "img",
     micrositeCssDirectory := (resourceDirectory in Compile).value / "microsite" / "css",
     micrositeJsDirectory := (resourceDirectory in Compile).value / "microsite" / "js",
@@ -79,7 +80,28 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeGithubOwner := "47deg",
     micrositeGithubRepo := "sbt-microsites")
 
-  lazy val micrositeHelper = Def.setting {
+  lazy val micrositeHelper: Def.Initialize[MicrositeHelper] = Def.setting {
+    val baseUrl =
+      if (!micrositeBaseUrl.value.isEmpty && !micrositeBaseUrl.value.startsWith("/"))
+        s"/${micrositeBaseUrl.value}"
+      else micrositeBaseUrl.value
+
+    val defaultYamlCustomVariables = Map(
+      "name"        -> micrositeName.value,
+      "description" -> micrositeDescription.value,
+      "version"     -> version.value,
+      "org"         -> organizationName.value,
+      "baseurl"     -> baseUrl,
+      "docs"        -> true,
+      "markdown"    -> "kramdown",
+      "highlighter" -> "rouge",
+      "collections" -> Map("tut" -> Map("output" -> true))
+    )
+
+    val userCustomVariables = micrositeConfigYaml.value
+    val configWithAllCustomVariables = userCustomVariables.copy(
+      yamlCustomProperties = defaultYamlCustomVariables ++ userCustomVariables.yamlCustomProperties)
+
     new MicrositeHelper(
       MicrositeSettings(
         name = micrositeName.value,
@@ -88,6 +110,7 @@ object MicrositesPlugin extends AutoPlugin {
         homepage = micrositeHomepage.value,
         twitter = micrositeTwitter.value,
         highlightTheme = micrositeHighlightTheme.value,
+        micrositeConfigYaml = configWithAllCustomVariables,
         micrositeImgDirectory = micrositeImgDirectory.value,
         micrositeCssDirectory = micrositeCssDirectory.value,
         micrositeJsDirectory = micrositeJsDirectory.value,
