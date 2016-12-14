@@ -31,6 +31,7 @@ package object microsites {
                                micrositeImgDirectory: File,
                                micrositeCssDirectory: File,
                                micrositeJsDirectory: File,
+                               micrositeCDNDirectives: CdnDirectives,
                                micrositeExternalLayoutsDirectory: File,
                                micrositeExternalIncludesDirectory: File,
                                micrositeDataDirectory: File,
@@ -44,6 +45,8 @@ package object microsites {
   case class ExtraMdFileConfig(fileName: String,
                                layout: String,
                                metaProperties: Map[String, String] = Map.empty)
+
+  case class CdnDirectives(jsList: List[String] = Nil, cssList: List[String] = Nil)
 
   case class ConfigYml(
       yamlCustomProperties: Map[String, Any] = Map.empty,

@@ -51,6 +51,13 @@ trait Arbitraries {
     } yield ExtraMdFileConfig(file, target, mapArbValue)
   }
 
+  implicit def cdnDirectivesArbitrary: Arbitrary[CdnDirectives] = Arbitrary {
+    for {
+      jsList  <- listOf[String](Arbitrary.arbitrary[String])
+      cssList <- listOf[String](Arbitrary.arbitrary[String])
+    } yield CdnDirectives(jsList, cssList)
+  }
+
   implicit def markdownMapArbitrary: Arbitrary[Map[File, ExtraMdFileConfig]] = Arbitrary {
     for {
       n        ← choose(1, 100)
@@ -72,6 +79,7 @@ trait Arbitraries {
       micrositeImgDirectory              ← Arbitrary.arbitrary[File]
       micrositeCssDirectory              ← Arbitrary.arbitrary[File]
       micrositeJsDirectory               ← Arbitrary.arbitrary[File]
+      micrositeCDNDirectives             <- cdnDirectivesArbitrary.arbitrary
       micrositeExternalLayoutsDirectory  ← Arbitrary.arbitrary[File]
       micrositeExternalIncludesDirectory ← Arbitrary.arbitrary[File]
       micrositeDataDirectory             ← Arbitrary.arbitrary[File]
@@ -92,6 +100,7 @@ trait Arbitraries {
                         micrositeImgDirectory,
                         micrositeCssDirectory,
                         micrositeJsDirectory,
+                        micrositeCDNDirectives,
                         micrositeExternalLayoutsDirectory,
                         micrositeExternalIncludesDirectory,
                         micrositeDataDirectory,
