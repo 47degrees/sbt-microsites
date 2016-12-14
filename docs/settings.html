@@ -2,7 +2,7 @@
 
 <p>The following are the <code class="highlighter-rouge">sbt</code> settings that you can use to make adjustments to your microsite regarding deployment, configuration, and appearance. Not all of these settings are mandatory, since most of them have default values, as we’ll see briefly.</p>
 
-<p>Before beginning to detail the settings, the <strong>sbt-microsites</strong> plugin will use regular sbt configurations from your <code class="highlighter-rouge">build.sbt</code> file. In order to set the microsite up in a minimal manner, all of the configurations are used as default values:</p>
+<p>Before you begin to detail the settings, the <strong>sbt-microsites</strong> plugin will use regular sbt configurations from your <code class="highlighter-rouge">build.sbt</code> file. In order to setup the microsite with minimal effort, all of the configurations are used as default values:</p>
 
 <h2 id="regular-sbt-settings">Regular SBT Settings</h2>
 
@@ -17,7 +17,7 @@
 
 <h2 id="microsite-sbt-settings">Microsite SBT Settings</h2>
 
-<p>We tried to bring all of the parameters that are potentially needed to configure any microsite. If you think that something additional could be added, please let us know as we are open to suggestions and contributions.</p>
+<p>We tried to provide all of the parameters that are potentially needed to configure any microsite. If you think that something additional needs adding, please let us know! We’re open to suggestions and contributions.</p>
 
 <ul>
   <li><code class="highlighter-rouge">micrositeName</code>: the microsite name. As we mentioned previously, by default, it’s taken from the sbt setting <code class="highlighter-rouge">name</code>. Sometimes, it isn’t the default behavior so you can override it like this:</li>
@@ -116,6 +116,24 @@ micrositeGithubRepo := "sbt-microsites"
 <p>There is a reserved filename that you cannot use in your personal microsite: <code class="highlighter-rouge">main.js</code>, which it’s provided by the plugin.</p>
 
 <ul>
+  <li><code class="highlighter-rouge">micrositeCDNDirectives</code>: this setting provides the ability to include CDN imports (for js and css files) along the different layouts in this way:</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>micrositeCDNDirectives := CdnDirectives(
+  jsList = List(
+    "https://cdnjs.cloudflare.com/ajax/libs/ag-grid/7.0.2/ag-grid.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/ajaxify/6.6.0/ajaxify.min.js"
+  ),
+  cssList = List(
+    "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.12/1977.min.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.12/brooklyn.css"
+  )
+)
+</code></pre>
+</div>
+
+<ul>
   <li><code class="highlighter-rouge">micrositeExternalLayoutsDirectory</code>: you can also introduce custom html layouts in the generated microsite through the <code class="highlighter-rouge">micrositeExternalLayoutsDirectory</code> setting. The layout files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is <code class="highlighter-rouge">(resourceDirectory in Compile).value / "microsite" / "layout"</code> but you can override it like this:</li>
 </ul>
 
@@ -156,9 +174,27 @@ layout: extra-layout
   <li><code class="highlighter-rouge">micrositeExtraMdFiles</code>: this setting can be handy if you want to include additional markdown files in your site, and these files are not located in the same place in your <code class="highlighter-rouge">tut</code> directory. By default, the setting is set up as an empty map. You can override it, in this way:</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>micrositeExtraMdFiles := Map(file("README.md") -&gt; "index.md", file("CONTRIBUTING.md") -&gt; "contributing.md")
+<div class="highlighter-rouge"><pre class="highlight"><code>micrositeExtraMdFiles := Map(
+  file("README.md") -&gt; ExtraMdFileConfig(
+    "readme.md",
+    "home"
+  ),
+  file("CONSEQUAT.md") -&gt; ExtraMdFileConfig(
+    "consequat.md",
+    "page",
+    Map("title" -&gt; "Consequat", "section" -&gt; "consequat", "position" -&gt; "5")
+  )
+)
 </code></pre>
 </div>
+
+<p>Each file (the map key) can be related to a specific configuration through the <code class="highlighter-rouge">ExtraMdFileConfig</code> case class. This class allows you to specify three additional configurations:</p>
+
+<ol>
+  <li>The target file name. The plugin will copy the file and it will put it in tut directory each time you build the microsite. Therefore you might want to include this auto-copied file in the list of ignored files at the <code class="highlighter-rouge">.gitignore</code> file.</li>
+  <li>Jekyll <code class="highlighter-rouge">layout</code> property.</li>
+  <li>Other custom Jekyll properties that you might want to include in your document.</li>
+</ol>
 
 <ul>
   <li><code class="highlighter-rouge">micrositePalette</code>: the default microsite style essentially uses eight colors. You can configure all of them, as seen below:</li>
@@ -173,6 +209,38 @@ layout: extra-layout
         "gray-light"        -&gt; "#E3E2E3",
         "gray-lighter"      -&gt; "#F4F3F4",
         "white-color"       -&gt; "#FFFFFF")
+</code></pre>
+</div>
+
+<ul>
+  <li><code class="highlighter-rouge">micrositeConfigYaml</code>: this setting brings the capability to customize the Jekyll <code class="highlighter-rouge">_config.yml</code> file in three different ways (not exclusive to each other):</li>
+</ul>
+
+<ol>
+  <li>Specifying a provided <code class="highlighter-rouge">_config.yml</code> as a part of your library resources.</li>
+  <li>Specifying a YAML string inline in the sbt configuration (you might want to consider the use of <code class="highlighter-rouge">stripMargin</code>).</li>
+  <li>Through custom liquid variables.</li>
+</ol>
+
+<p>These three ways will be merged in order to generate the final and single <code class="highlighter-rouge">_config.yml</code> file.
+This is possible thanks to the <code class="highlighter-rouge">ConfigYml</code> case class, which looks like the following:</p>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">case</span> <span class="k">class</span> <span class="nc">ConfigYml</span><span class="o">(</span>
+      <span class="n">yamlCustomProperties</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Any</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">.</span><span class="n">empty</span><span class="o">,</span>
+      <span class="n">yamlPath</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">File</span><span class="o">]</span> <span class="k">=</span> <span class="nc">None</span><span class="o">,</span>
+      <span class="n">yamlInline</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span>
+  <span class="o">)</span>
+</code></pre>
+</div>
+
+<p>Therefore, the next snippet represents an example that combines these three ways:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>micrositeConfigYaml := ConfigYml(
+  yamlCustomProperties = Map("org" -&gt; "My Org"),
+  yamlInline = """exclude: [package.json, grunt.js, Gruntfile.js, node_modules]
+|""".stripMargin,
+  yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "myconfig.yml")
+)
 </code></pre>
 </div>
 </section></div></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script><script src="/sbt-microsites/highlight/highlight.pack.js"></script><script>hljs.configure({
