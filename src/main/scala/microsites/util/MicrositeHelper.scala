@@ -18,10 +18,14 @@ package microsites.util
 
 import java.io.File
 
-import microsites.domain.MicrositeSettings
+import microsites._
+import net.jcazevedo.moultingyaml.{YamlObject, _}
+import ConfigYamlProtocol._
 import microsites.layouts._
 import microsites.util.FileHelper._
 import sbt._
+
+import scala.io.Source
 
 class MicrositeHelper(config: MicrositeSettings) {
   implicitly(config)
@@ -38,18 +42,35 @@ class MicrositeHelper(config: MicrositeSettings) {
     copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "css")
     copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "img")
     copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "js")
+    copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "highlight")
 
     copyFilesRecursively(config.micrositeImgDirectory.getAbsolutePath,
                          s"$targetDir$jekyllDir/img/")
     copyFilesRecursively(config.micrositeCssDirectory.getAbsolutePath,
                          s"$targetDir$jekyllDir/css/")
+    copyFilesRecursively(config.micrositeJsDirectory.getAbsolutePath, s"$targetDir$jekyllDir/js/")
+    copyFilesRecursively(config.micrositeExternalLayoutsDirectory.getAbsolutePath,
+                         s"$targetDir$jekyllDir/_layouts/")
+    copyFilesRecursively(config.micrositeExternalIncludesDirectory.getAbsolutePath,
+                         s"$targetDir$jekyllDir/_includes/")
     copyFilesRecursively(config.micrositeDataDirectory.getAbsolutePath,
                          s"$targetDir$jekyllDir/_data/")
 
     config.micrositeExtraMdFiles foreach {
-      case (sourceFile, relativeTargetFile) =>
-        println(s"Copying from ${sourceFile.getAbsolutePath} to $tutSourceDir$relativeTargetFile")
-        copyFilesRecursively(sourceFile.getAbsolutePath, s"$tutSourceDir$relativeTargetFile")
+      case (sourceFile, targetFileConfig) =>
+        println(s"Copying from ${sourceFile.getAbsolutePath} to $tutSourceDir$targetFileConfig")
+
+        val targetFileContent =
+          s"""---
+             |layout: ${targetFileConfig.layout}
+             |${targetFileConfig.metaProperties map {
+               case (key, value) => "%s: %s" format (key, value)
+             } mkString ("", "\n", "")}
+             |---
+             |${Source.fromFile(sourceFile.getAbsolutePath).mkString}
+             |""".stripMargin
+
+        IO.write(s"$tutSourceDir${targetFileConfig.fileName}".toFile, targetFileContent)
     }
 
     List(createConfigYML(targetDir), createPalette(targetDir)) ++
@@ -59,22 +80,18 @@ class MicrositeHelper(config: MicrositeSettings) {
   def createConfigYML(targetDir: String): File = {
     val targetFile = createFilePathIfNotExists(s"$targetDir$jekyllDir/_config.yml")
 
-    val baseUrl =
-      if (!config.micrositeBaseUrl.isEmpty && !config.micrositeBaseUrl.startsWith("/"))
-        s"/${config.micrositeBaseUrl}"
-      else config.micrositeBaseUrl
+    val yaml             = config.micrositeConfigYaml
+    val customProperties = yaml.yamlCustomProperties.toYaml.asYamlObject.fields
+    val inlineYaml =
+      if (yaml.yamlInline.nonEmpty)
+        yaml.yamlInline.parseYaml.asYamlObject.fields
+      else Map.empty[YamlValue, YamlValue]
+    val fileYaml = yaml.yamlPath.fold(Map.empty[YamlValue, YamlValue])(f =>
+      if (f.exists()) {
+        Source.fromFile(f.getAbsolutePath).mkString.parseYaml.asYamlObject.fields
+      } else Map.empty[YamlValue, YamlValue])
 
-    IO.write(targetFile,
-             s"""name: ${config.name}
-          |description: "${config.description}"
-          |baseurl: $baseUrl
-          |docs: true
-          |
-          |markdown: kramdown
-          |collections:
-          |  tut:
-          |    output: true
-          |""".stripMargin)
+    IO.write(targetFile, YamlObject(customProperties ++ fileYaml ++ inlineYaml).prettyPrint)
 
     targetFile
   }
@@ -109,7 +126,7 @@ class MicrositeHelper(config: MicrositeSettings) {
         targetFile
     }
 
-  def copyConfigurationFile(sourceDir: File, targetDir: File) = {
+  def copyConfigurationFile(sourceDir: File, targetDir: File): Unit = {
 
     val targetFile = createFilePathIfNotExists(s"$targetDir/_config.yml")
 

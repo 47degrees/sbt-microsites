@@ -16,7 +16,6 @@
 
 package microsites
 
-import microsites.domain.MicrositeSettings
 import microsites.layouts.PageLayout
 import microsites.util.Arbitraries
 import org.scalacheck.Prop._
@@ -56,18 +55,6 @@ class PageLayoutTest extends FunSuite with Checkers with Matchers with Arbitrari
 
       layout.pageMain.tag shouldBe "main"
       !layout.pageMain.void
-    }
-
-    check(property)
-  }
-
-  test("scriptsMain TypeTag list shouldn't be empty") {
-
-    val property = forAll { implicit settings: MicrositeSettings ⇒
-      val layout = new PageLayout(settings)
-
-      layout.scriptsMain should not be empty
-      layout.scriptsMain.nonEmpty
     }
 
     check(property)

@@ -16,7 +16,7 @@
 
 package microsites.layouts
 
-import microsites.domain.MicrositeSettings
+import microsites.MicrositeSettings
 
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
@@ -31,7 +31,7 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
         pageHeader,
         pageMain,
         globalFooter,
-        scriptsMain
+        scripts
       )
     )
   }
@@ -65,9 +65,5 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
   def pageMain: TypedTag[String] =
     main(id := "site-main",
          section(cls := "use", div(cls := "container", div(id := "content", "{{ content }}"))))
-
-  def scriptsMain: List[TypedTag[String]] =
-    scripts ++
-      List(script("jQuery(document).ready(function(){hljs.initHighlightingOnLoad();});"))
 
 }

@@ -1,0 +1,9 @@
+# check that the sbt-microsites plugin works customizing the _config.yml file from sbt
+
+> makeMicrosite
+
+$ exists target/scala-2.12/resource_managed/main/jekyll
+
+# check the _config.yml file
+
+> check

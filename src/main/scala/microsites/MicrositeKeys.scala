@@ -32,17 +32,25 @@ trait MicrositeKeys {
   val micrositeBaseUrl          = settingKey[String]("Microsite site base url")
   val micrositeDocumentationUrl = settingKey[String]("Microsite site documentation url")
   val micrositeHighlightTheme   = settingKey[String]("Microsite Highlight Theme")
+  val micrositeConfigYaml       = settingKey[ConfigYml]("Microsite _config.yml file configuration.")
   val micrositeImgDirectory = settingKey[File](
     "Optional. Microsite images directory. By default, it'll be the resourcesDirectory + '/microsite/img'")
   val micrositeCssDirectory = settingKey[File](
     "Optional. Microsite CSS directory. By default, it'll be the resourcesDirectory + '/microsite/css'")
+  val micrositeJsDirectory = settingKey[File](
+    "Optional. Microsite Javascript directory. By default, it'll be the resourcesDirectory + '/microsite/js'")
+  val micrositeCDNDirectives = settingKey[CdnDirectives](
+    "Optional. Microsite CDN directives lists (for css and js imports). By default, both lists are empty.")
+  val micrositeExternalLayoutsDirectory = settingKey[File](
+    "Optional. Microsite external layouts directory. By default, it'll be the resourcesDirectory + '/microsite/layout'")
+  val micrositeExternalIncludesDirectory = settingKey[File](
+    "Optional. Microsite external includes (partial layouts) directory. By default, it'll be the resourcesDirectory + '/microsite/includes'")
   val micrositeDataDirectory = settingKey[File](
     "Optional. Microsite Data directory, useful to define the microsite data files " +
       "(https://jekyllrb.com/docs/datafiles/). By default, it'll be the resourcesDirectory + '/microsite/data'")
-  val micrositeExtraMdFiles = settingKey[Map[File, String]](
-    "Optional. The key is related with the source file, the map value corresponds with the target relative file path. " +
-      "This keys is useful for those document files that are located in a different places from the tutSourceDirectory. " +
-      "By default, it's empty")
+
+  val micrositeExtraMdFiles = settingKey[Map[File, ExtraMdFileConfig]](
+    "Optional. This key is useful when you want to include automatically markdown documents as a part of your microsite, and these files are located in different places from the tutSourceDirectory. The map key is related with the source file, the map value corresponds with the target relative file path and the document meta-information configuration. By default, the map is empty.")
   val micrositePalette     = settingKey[Map[String, String]]("Microsite palette")
   val micrositeGithubOwner = settingKey[String]("Microsite Github owner")
   val micrositeGithubRepo  = settingKey[String]("Microsite Github repo")

@@ -7,7 +7,7 @@ title: Build the Microsite
 
 Once you have written your documents, you can build the microsite running this sbt task:
 
-```
+```bash
 sbt> makeMicrosite
 ```
 
@@ -32,7 +32,7 @@ Before publishing, a couple of requirements should be satisfied:
 
 Once both requirements are satisfied, you can just run:
 
-```
+```bash
 sbt> publishMicrosite
 ```
 

@@ -28,14 +28,14 @@ If you have enabled [Travis](https://travis-ci.org/) for your project, you might
 
 Potentially, your project is a Scala project (`language: scala`), therefore you need to add the bundle gems vendor path in the `PATH` environment variable:
 
-```
+```bash
 before_install:
  - export PATH=${PATH}:./vendor/bundle
 ```
 
 This is needed in order to install and be able to use the `jekyll` gem from other parts of your travis descriptor file. Once we have the `/vendor/bundle` path in the Travis `PATH` env variable, we have to install the gem in the `install` travis section:
 
-```
+```bash
 install:
   - rvm use 2.2.3 --install --fuzzy
   - gem update --system
@@ -49,8 +49,8 @@ To begin, add the following lines to the `project/plugins.sbt` file within your 
 
 Latest release:
 
-```
-addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "0.3.0")
+```bash
+addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "0.4.0")
 ```
 
 Latest snapshot built from the `master` branch code:
@@ -61,6 +61,6 @@ println(s"""addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "${microsites
 ```
 
 Finally, to enable the plugin, add this to your `build.sbt` file:
-```
+```bash
 enablePlugins(MicrositesPlugin)
 ```

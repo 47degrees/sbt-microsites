@@ -16,7 +16,6 @@
 
 package microsites
 
-import microsites.domain.MicrositeSettings
 import microsites.layouts.Layout
 import microsites.util.Arbitraries
 import org.scalatest.prop.Checkers

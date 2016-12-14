@@ -29,11 +29,14 @@ lazy val pluginSettings = Seq(
       "jgit-repo" at "http://download.eclipse.org/jgit/maven"
     ),
     libraryDependencies ++= Seq(
-      "com.lihaoyi"   %% "scalatags" % "0.6.0",
-      "org.scalactic" %% "scalactic" % "3.0.0"
+      "com.lihaoyi"    %% "scalatags"    % "0.6.0",
+      "org.scalactic"  %% "scalactic"    % "3.0.0",
+      "net.jcazevedo"  %% "moultingyaml" % "0.4.0",
+      "org.scalatest"  %% "scalatest"    % versions("scalatest") % "test",
+      "org.scalacheck" %% "scalacheck"   % versions("scalacheck") % "test"
     ),
     scalafmtConfig in ThisBuild := Some(file(".scalafmt"))
-  ) ++ reformatOnCompileSettings ++ addTestLibs(vAll, "scalatest", "scalacheck")
+  ) ++ reformatOnCompileSettings
 
 lazy val micrositeSettings = Seq(
   micrositeName := "sbt-microsites",
@@ -92,7 +95,7 @@ lazy val `sbt-microsites` = (project in file("."))
   .settings(moduleName := "sbt-microsites")
   .settings(allSettings: _*)
   .settings(addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.0.3"))
-  .settings(addSbtPlugin("org.tpolecat" % "tut-plugin" % "0.4.5"))
+  .settings(addSbtPlugin("org.tpolecat" % "tut-plugin" % "0.4.7"))
   .settings(addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "1.0.0"))
   .settings(addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.5.4"))
   .enablePlugins(JekyllPlugin, AutomateHeaderPlugin)
