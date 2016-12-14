@@ -62,6 +62,10 @@ abstract class Layout(config: MicrositeSettings) {
         link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${css.getName}")
     }
 
+    val customCDNList = config.micrositeCDNDirectives.cssList map { css =>
+      link(rel := "stylesheet", href := css)
+    }
+
     List(
       link(rel := "stylesheet",
            href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
@@ -71,13 +75,17 @@ abstract class Layout(config: MicrositeSettings) {
            href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.highlightTheme}.css"),
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/style.css"),
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/palette.css")
-    ) ++ customCssList
+    ) ++ customCssList ++ customCDNList
   }
 
   def scripts: List[TypedTag[String]] = {
 
     val customJsList = fetchFilesRecursively(config.micrositeJsDirectory, List("js")) map { js =>
       script(src := s"{{site.url}}{{site.baseurl}}/js/${js.getName}")
+    }
+
+    val customCDNList = config.micrositeCDNDirectives.jsList map { js =>
+      script(src := js)
     }
 
     List(
@@ -90,7 +98,7 @@ abstract class Layout(config: MicrositeSettings) {
                |});
                |hljs.initHighlighting();
              """.stripMargin)
-    ) ++ customJsList
+    ) ++ customJsList ++ customCDNList
   }
 
   def globalFooter =
