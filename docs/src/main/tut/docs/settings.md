@@ -7,7 +7,7 @@ title: Configuring the Microsite
 
 The following are the `sbt` settings that you can use to make adjustments to your microsite regarding deployment, configuration, and appearance. Not all of these settings are mandatory, since most of them have default values, as we'll see briefly.
 
-Before beginning to detail the settings, the **sbt-microsites** plugin will use regular sbt configurations from your `build.sbt` file. In order to set the microsite up in a minimal manner, all of the configurations are used as default values:
+Before you begin to detail the settings, the **sbt-microsites** plugin will use regular sbt configurations from your `build.sbt` file. In order to setup the microsite with minimal effort, all of the configurations are used as default values: 
    
 ## Regular SBT Settings
    
@@ -20,7 +20,7 @@ However, you can override these default settings by using the ones provided by t
 
 ## Microsite SBT Settings
 
-We tried to bring all of the parameters that are potentially needed to configure any microsite. If you think that something additional could be added, please let us know as we are open to suggestions and contributions.  
+We tried to provide all of the parameters that are potentially needed to configure any microsite. If you think that something additional needs adding, please let us know! We're open to suggestions and contributions. 
 
 - `micrositeName`: the microsite name. As we mentioned previously, by default, it's taken from the sbt setting `name`. Sometimes, it isn't the default behavior so you can override it like this:
 
@@ -159,11 +159,11 @@ micrositeExtraMdFiles := Map(
 )
 ```
 
-Each file (the map key) can be related to an specific configuration through the `ExtraMdFileConfig` case class. This class allows you to specify three additional configurations:
+Each file (the map key) can be related to a specific configuration through the `ExtraMdFileConfig` case class. This class allows you to specify three additional configurations:
 
 1. The target file name. The plugin will copy the file and it will put it in tut directory each time you build the microsite. Therefore you might want to include this auto-copied file in the list of ignored files at the `.gitignore` file.
 2. Jekyll `layout` property.
-3. Rest of custom Jekyll properties you want to include in your site.
+3. Other custom Jekyll properties that you might want to include in your document.
 
 - `micrositePalette`: the default microsite style essentially uses eight colors. You can configure all of them, as seen below:
 
@@ -179,14 +179,14 @@ micrositePalette := Map(
         "white-color"       -> "#FFFFFF")
 ```
 
-- `micrositeConfigYaml`: this setting brings the capability to customize the Jekyll `_config.yml` file in three different ways (not exclusive each other):
+- `micrositeConfigYaml`: this setting brings the capability to customize the Jekyll `_config.yml` file in three different ways (not exclusive to each other):
 
 1. Specifying a provided `_config.yml` as a part of your library resources.
 2. Specifying a YAML string inline in the sbt configuration (you might want to consider the use of `stripMargin`).
 3. Through custom liquid variables.
 
 These three ways will be merged in order to generate the final and single `_config.yml` file.
-This is possible thanks to the `ConfigYml` case class, which looks like follows:
+This is possible thanks to the `ConfigYml` case class, which looks like the following:
 
 ```scala
 case class ConfigYml(
@@ -196,7 +196,7 @@ case class ConfigYml(
   )
 ```
 
-Therefore, the next snippet represents an example combining these three ways:
+Therefore, the next snippet represents an example that combines these three ways:
 
 ```
 micrositeConfigYaml := ConfigYml(
