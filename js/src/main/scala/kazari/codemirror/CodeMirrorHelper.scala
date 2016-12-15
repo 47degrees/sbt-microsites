@@ -6,10 +6,12 @@ import scala.scalajs.js.annotation.ScalaJSDefined
 
 object PositionBuilder {
   def apply(_ch: Int, _line: Int): Position = {
-    scalajs.js.Dynamic.literal(
-      ch = _ch,
-      line = _line
-    ).asInstanceOf[Position]
+    scalajs.js.Dynamic
+      .literal(
+        ch = _ch,
+        line = _line
+      )
+      .asInstanceOf[Position]
   }
 }
 

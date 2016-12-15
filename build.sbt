@@ -22,21 +22,20 @@ pgpPublicRing := file(s"${sys.env.getOrElse("PGP_FOLDER", ".")}/pubring.gpg")
 pgpSecretRing := file(s"${sys.env.getOrElse("PGP_FOLDER", ".")}/secring.gpg")
 
 lazy val pluginSettings = Seq(
-    sbtPlugin := true,
-    scalaVersion in ThisBuild := "2.10.6",
-    resolvers ++= Seq(
-      Resolver.sonatypeRepo("releases"),
-      "jgit-repo" at "http://download.eclipse.org/jgit/maven"
-    ),
-    libraryDependencies ++= Seq(
-      "com.lihaoyi"    %% "scalatags"    % "0.6.0",
-      "org.scalactic"  %% "scalactic"    % "3.0.0",
-      "net.jcazevedo"  %% "moultingyaml" % "0.4.0",
-      "org.scalatest"  %% "scalatest"    % versions("scalatest") % "test",
-      "org.scalacheck" %% "scalacheck"   % versions("scalacheck") % "test"
-    ),
-    scalafmtConfig in ThisBuild := Some(file(".scalafmt"))
-  ) ++ reformatOnCompileSettings
+  sbtPlugin := true,
+  scalaVersion in ThisBuild := "2.10.6",
+  resolvers ++= Seq(
+    Resolver.sonatypeRepo("releases"),
+    "jgit-repo" at "http://download.eclipse.org/jgit/maven"
+  ),
+  libraryDependencies ++= Seq(
+    "com.lihaoyi"    %% "scalatags"    % "0.6.0",
+    "org.scalactic"  %% "scalactic"    % "3.0.0",
+    "net.jcazevedo"  %% "moultingyaml" % "0.4.0",
+    "org.scalatest"  %% "scalatest"    % versions("scalatest") % "test",
+    "org.scalacheck" %% "scalacheck"   % versions("scalacheck") % "test"
+  )
+)
 
 lazy val micrositeSettings = Seq(
   micrositeName := "sbt-microsites",
@@ -57,15 +56,15 @@ lazy val jsSettings = Seq(
   requiresDOM := false,
   jsEnv := NodeJSEnv().value,
   libraryDependencies ++= Seq(
-    "org.scala-js" %%% "scalajs-dom" % "0.9.0",
-    "be.doeraene" %%% "scalajs-jquery" % "0.9.0",
-    "com.lihaoyi" %%% "upickle" % "0.4.1",
-    "org.scala-exercises" %%% "evaluator-client" % "0.1.2-SNAPSHOT",
-    "com.lihaoyi" %%% "scalatags"  % "0.6.0",
-    "org.querki" %%% "jquery-facade" % "1.0-RC6",
-    "org.denigma" %%% "codemirror-facade" % "5.11-0.7",
-    "com.fortysevendeg" %%% "github4s" % "0.8.2-SNAPSHOT",
-    "fr.hmil" %%% "roshttp" % "2.0.0-RC1"
+    "org.scala-js"        %%% "scalajs-dom"       % "0.9.0",
+    "be.doeraene"         %%% "scalajs-jquery"    % "0.9.0",
+    "com.lihaoyi"         %%% "upickle"           % "0.4.1",
+    "org.scala-exercises" %%% "evaluator-client"  % "0.1.2-SNAPSHOT",
+    "com.lihaoyi"         %%% "scalatags"         % "0.6.0",
+    "org.querki"          %%% "jquery-facade"     % "1.0-RC6",
+    "org.denigma"         %%% "codemirror-facade" % "5.11-0.7",
+    "com.fortysevendeg"   %%% "github4s"          % "0.9.0",
+    "fr.hmil"             %%% "roshttp"           % "2.0.0-RC1"
   ),
   resolvers ++= Seq(Resolver.url("bintray-sbt-plugin-releases",
                                  url("https://dl.bintray.com/content/sbt/sbt-plugin-releases"))(
@@ -84,7 +83,10 @@ lazy val buildInfoSettings = Seq(
   buildInfoPackage := "microsites"
 )
 
-lazy val commonSettings = artifactSettings ++ miscSettings
+lazy val commonSettings = artifactSettings ++ miscSettings ++ reformatOnCompileSettings ++ Seq(
+    scalafmtConfig in ThisBuild := Some(file(".scalafmt"))
+  )
+
 lazy val allSettings = pluginSettings ++
     commonSettings ++
     tutSettings ++

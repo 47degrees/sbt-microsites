@@ -4,27 +4,27 @@ import org.scalajs.dom.html._
 import scalatags.JsDom.all._
 
 trait DOMTags {
-  val codeModalClass = "modal-fade-screen"
-  val codeModalCloseButtonClass = "modal-close"
-  val codeModalInternalTextArea = "modal-text-area"
-  val codeModalButtonContainer = "modalButton"
+  val codeModalClass                  = "modal-fade-screen"
+  val codeModalCloseButtonClass       = "modal-close"
+  val codeModalInternalTextArea       = "modal-text-area"
+  val codeModalButtonContainer        = "modalButton"
   val codeModalEditorMaxHeightPercent = 80.0
-  val decoratorButtonRunClass = "kazari-decorator-run"
-  val decoratorButtonEditClass = "kazari-decorator-edit"
-  val decoratorButtonSaveGistClass = "kazari-decorator-gist"
-  val decoratorButtonPlayClass = "fa-play-circle"
-  val decoratorButtonSpinnerClass = "fa-spinner fa-spin"
-  val decoratorButtonGithubClass = "fa-github-alt"
-  val decoratorButtonDisableClass = "compiling"
-  val decoratorAlertBarClass = "alert"
-  val decoratorAlertBarHiddenClass = "alert-hidden"
-  val decoratorAlertBarSuccessClass = "alert-success"
-  val decoratorAlertBarErrorClass = "alert-error"
-  val kazariUrl = "https://github.com/47deg/sbt-microsites"
+  val decoratorButtonRunClass         = "kazari-decorator-run"
+  val decoratorButtonEditClass        = "kazari-decorator-edit"
+  val decoratorButtonSaveGistClass    = "kazari-decorator-gist"
+  val decoratorButtonPlayClass        = "fa-play-circle"
+  val decoratorButtonSpinnerClass     = "fa-spinner fa-spin"
+  val decoratorButtonGithubClass      = "fa-github-alt"
+  val decoratorButtonDisableClass     = "compiling"
+  val decoratorAlertBarClass          = "alert"
+  val decoratorAlertBarHiddenClass    = "alert-hidden"
+  val decoratorAlertBarSuccessClass   = "alert-success"
+  val decoratorAlertBarErrorClass     = "alert-error"
+  val kazariUrl                       = "https://github.com/47deg/sbt-microsites"
 
   def createModalDiv(cssClass: String): Div = {
     div(
-      `class` := "modal",
+      `class` := "kazari-modal",
       input(
         `id` := "modal-1",
         `class` := "modal-state",
