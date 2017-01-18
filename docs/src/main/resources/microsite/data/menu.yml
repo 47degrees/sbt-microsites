@@ -13,3 +13,6 @@ options:
 
   - title: Build the microsite
     url: docs/build-the-microsite.html
+
+  - title: Publish with Travis
+    url: docs/publish-with-travis.html
