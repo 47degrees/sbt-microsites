@@ -5,10 +5,12 @@ import org.scalajs.dom._
 import org.querki.jquery._
 
 object DOMHelper extends DOMTags {
-  val codeExcludeClass     = "code-exclude"
-  val codeSnippetsSelector = s".language-scala:not(.$codeExcludeClass)"
-  val dependenciesMetaName = "evaluator-dependencies"
-  val resolversMetaName    = "evaluator-resolvers"
+  val codeExcludeClass         = "kazari-exclude"
+  val codeSnippetsSelectorAll  = s".language-scala:not(.$codeExcludeClass)"
+  val snippetsWithId           = "kazari-id-"
+  val codeSnippetsSelectorById = s"div[id^='$snippetsWithId']"
+  val dependenciesMetaName     = "evaluator-dependencies"
+  val resolversMetaName        = "evaluator-resolvers"
 
   def getMetaContent(metaTagName: String): String = {
     val metaTag = Option(

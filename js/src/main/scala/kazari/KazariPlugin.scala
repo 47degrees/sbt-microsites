@@ -35,7 +35,7 @@ object KazariPlugin extends JSApp {
   val newGistDefaultDescription =
     "Gist created from Kazari (https://github.com/47deg/sbt-microsites)"
   val newGistFilename   = "KazariGist.scala"
-  lazy val codeSnippets = document.querySelectorAll(codeSnippetsSelector)
+  lazy val codeSnippets = document.querySelectorAll(codeSnippetsSelectorAll)
 
   @JSExport
   def main(): Unit = {}
