@@ -40,7 +40,24 @@ package object microsites {
                                micrositeDocumentationUrl: String,
                                palette: Map[String, String],
                                githubOwner: String,
-                               githubRepo: String)
+                               githubRepo: String,
+                               gitHostingService: String,
+                               gitHostingUrl: String) {
+
+    def gitSiteUrl: String = {
+      if (gitHostingUrl.nonEmpty) gitHostingUrl
+      else s"https://github.com/$githubOwner/$githubRepo"
+    }
+
+    def gitHostingIconClass: String = {
+      gitHostingService.trim.toLowerCase match {
+        case "github"    => "fa-github"
+        case "gitlab"    => "fa-gitlab"
+        case "bitbucket" => "fa-bitbucket"
+        case _           => "fa-git"
+      }
+    }
+  }
 
   case class ExtraMdFileConfig(fileName: String,
                                layout: String,

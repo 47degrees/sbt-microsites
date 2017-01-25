@@ -46,13 +46,13 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
                 ),
                 ul(cls := "pull-right",
                   li(cls := "hidden-xs",
-                    a(href := s"https://github.com/${config.githubOwner}/${config.githubRepo}",
+                    a(href := config.gitSiteUrl,
                       i(cls := "fa fa-eye"),
                       span("WATCH", span(id := "eyes", cls := "label label-default", "--"))
                     )
                   ),
                   li(cls := "hidden-xs",
-                    a(href := s"https://github.com/${config.githubOwner}/${config.githubRepo}",
+                    a(href := config.gitSiteUrl,
                       i(cls := "fa fa-star-o"),
                       span("STARS", span(id := "stars", cls := "label label-default", "--"))
                     )

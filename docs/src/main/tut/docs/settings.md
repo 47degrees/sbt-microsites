@@ -69,6 +69,15 @@ micrositeGithubOwner := "47deg"
 micrositeGithubRepo := "sbt-microsites"
 ```
 
+- `micrositeGitHostingService` and `micrositeGitHostingUrl`: in order to specify a hosting service other than `GitHub`. For these to take effect, you'll also need to set `micrositeGithubOwner` and `micrositeGithubRepo` to empty strings:
+
+```
+micrositeGitHostingService := "GitLab"
+micrositeGitHostingUrl := "https://gitlab.com/gitlab-org/gitlab-ce"
+micrositeGithubOwner := ""
+micrositeGithubRepo  := ""
+```
+
 - `micrositeHighlightTheme`: by default, the theme of Highlight.js is [default](https://highlightjs.org/static/demo/), however, you can configure it to a different theme thanks to this setting:
 
 ```
