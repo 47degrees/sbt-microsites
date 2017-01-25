@@ -50,3 +50,38 @@ As we mentioned in the [Configuring the Microsite](settings.html) section, `micr
 It's important to mention that the theme name should match with the one located at https://cdnjs.com/libraries/highlight.js/.
 
 https://highlightjs.org/static/demo/ provides the ability to preview the different themes before setting up your Microsite.
+
+## Permalinks and Github integration
+
+Users may want to navigate through your site docs but also they may just use Github's to do so. 
+In order to achieve linkable documents that work both in Jekyll and Github you may accomplish that by following a few
+simple steps:
+
+1. Follow a directory structure where each section corresponds with a folder and a README.md file inside.
+
+```
+README.md
+/content/README.md
+/content/whatever/README.md
+```
+
+This will make Github to render `README.MD` files as if they were the index on each section when accesing them trough the Github website.
+
+2. Add a permalink directive on each of your `README.md` files so that jekyll understands that you want those to be served at the path of each folder.
+
+For example:
+
+```
+/content/whatever/README.md
+---
+layout: docs
+title: Whatever
+permalink: /docs/whatever/
+---
+```
+
+3. Link to content normally by using Markdown relative links that point to the folder
+
+```
+[Link to Whatever Content](/content/whatever)
+```
