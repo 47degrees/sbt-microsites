@@ -48,11 +48,14 @@ trait MicrositeKeys {
   val micrositeDataDirectory = settingKey[File](
     "Optional. Microsite Data directory, useful to define the microsite data files " +
       "(https://jekyllrb.com/docs/datafiles/). By default, it'll be the resourcesDirectory + '/microsite/data'")
-
   val micrositeExtraMdFiles = settingKey[Map[File, ExtraMdFileConfig]](
     "Optional. This key is useful when you want to include automatically markdown documents as a part of your microsite, and these files are located in different places from the tutSourceDirectory. The map key is related with the source file, the map value corresponds with the target relative file path and the document meta-information configuration. By default, the map is empty.")
   val micrositePalette     = settingKey[Map[String, String]]("Microsite palette")
   val micrositeGithubOwner = settingKey[String]("Microsite Github owner")
   val micrositeGithubRepo  = settingKey[String]("Microsite Github repo")
+  val micrositeEnableKazari = settingKey[Boolean](
+    "Optional. Set to true integrates the resulting microsite with the Kazari code decorator.")
+  val micrositeKazariStyle = settingKey[String](
+    "Optional. Sets the name of the stylesheet that provides the color scheme to Kazari. Default: style-dark")
 }
 object MicrositeKeys extends MicrositeKeys

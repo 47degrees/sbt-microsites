@@ -40,7 +40,9 @@ package object microsites {
                                micrositeDocumentationUrl: String,
                                palette: Map[String, String],
                                githubOwner: String,
-                               githubRepo: String)
+                               githubRepo: String,
+                               micrositeEnableKazari: Boolean,
+                               micrositeKazariStyle: String)
 
   case class ExtraMdFileConfig(fileName: String,
                                layout: String,

@@ -79,7 +79,9 @@ object MicrositesPlugin extends AutoPlugin {
                             "gray-lighter"    -> "#F4F3F4",
                             "white-color"     -> "#FFFFFF"),
     micrositeGithubOwner := "47deg",
-    micrositeGithubRepo := "sbt-microsites")
+    micrositeGithubRepo := "sbt-microsites",
+    micrositeEnableKazari := false,
+    micrositeKazariStyle := "style-dark")
 
   lazy val micrositeHelper: Def.Initialize[MicrositeHelper] = Def.setting {
     val baseUrl =
@@ -124,7 +126,9 @@ object MicrositesPlugin extends AutoPlugin {
         micrositeDocumentationUrl = micrositeDocumentationUrl.value,
         palette = micrositePalette.value,
         githubOwner = micrositeGithubOwner.value,
-        githubRepo = micrositeGithubRepo.value
+        githubRepo = micrositeGithubRepo.value,
+        micrositeEnableKazari = micrositeEnableKazari.value,
+        micrositeKazariStyle = micrositeKazariStyle.value
       ))
   }
 
