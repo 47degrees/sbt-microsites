@@ -25,25 +25,6 @@ object DOMHelper extends DOMTags {
   def classesFromNode(node: dom.Node): Seq[String] =
     node.attributes.getNamedItem("class").textContent.split(" ").toSeq
 
-  def applyModalStyles() = {
-    $("#modal-1").on("change", { (e: JQueryEventObject, a: Any) =>
-      if ($("#modal-1").is(":checked")) {
-        $("body").addClass("modal-kazari-open")
-      } else {
-        $("body").removeClass("modal-kazari-open")
-      }
-    })
-
-    $(".modal-kazari-fade-screen, .modal-kazari-close").on("click", {
-      (e: JQueryEventObject, a: Any) =>
-        $(".modal-kazari-state:checked").prop("checked", false).change()
-    })
-
-    $(".modal-kazari-inner").on("click", { (e: JQueryEventObject, a: Any) =>
-      e.stopPropagation()
-    })
-  }
-
   def addClickListenerToButton(selector: String, function: (dom.MouseEvent) => Any) =
     Option(document.querySelector(selector)) foreach { b =>
       b.addEventListener("click", function)

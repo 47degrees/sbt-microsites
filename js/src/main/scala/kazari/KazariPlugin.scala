@@ -34,22 +34,22 @@ object KazariPlugin extends JSApp {
   val newGistPrompt      = "Choose a description for your Gist"
   val newGistDefaultDescription =
     "Gist created from Kazari (https://github.com/47deg/sbt-microsites)"
-  val newGistFilename           = "KazariGist.scala"
-  lazy val codeSnippets         = document.querySelectorAll(codeSnippetsSelectorAll)
-  lazy val codeSnippetsSingle   = document.querySelectorAll(codeSingleSnippetSelector)
-  lazy val codeSnippetsSequence = document.querySelectorAll(codeSnippetsSelectorById)
+  val newGistFilename               = "KazariGist.scala"
+  val kazariIdOriginalSnippetSuffix = "-original"
+  val kazariModalCurrentSnippetKey  = "kazari-modal-current-snippet"
+  lazy val codeSnippets             = document.querySelectorAll(codeSnippetsSelectorAll)
+  lazy val codeSnippetsSingle       = document.querySelectorAll(codeSingleSnippetSelector)
+  lazy val codeSnippetsSequence     = document.querySelectorAll(codeSnippetsSelectorById)
 
   @JSExport
   def main(): Unit = {}
 
   @JSExport
   def decorateCode(url: String, scalaEvalToken: String, githubToken: String, theme: String): Unit = {
-    val textSnippets    = generateCodeTextSnippets()
     lazy val evalClient = new EvaluatorClient(url, scalaEvalToken)
 
     val modalDiv = createModalDiv(codeModalClass)
     document.body.appendChild(modalDiv)
-    applyModalStyles()
 
     val cmParams: EditorConfiguration =
       EditorConfig.mode("javascript").lineNumbers(true).theme(theme)
@@ -57,7 +57,6 @@ object KazariPlugin extends JSApp {
     val codeMirror = document.querySelector("#" + codeModalInternalTextArea) match {
       case el: HTMLTextAreaElement =>
         val m = CodeMirror.fromTextArea(el, cmParams)
-        m.getDoc().setValue(textSnippets.last)
         m.setSize("100%", ($(window).height() * codeModalEditorMaxHeightPercent) / 100.0)
 
         val codeSnippetsFromModal = () => m.getDoc().getValue()
@@ -69,9 +68,13 @@ object KazariPlugin extends JSApp {
           codeSnippetsFromModal
         )
 
+        addResetButtonBehavior(s".$decoratorButtonResetClass", m)
+
         addGistButtonBehavior(s".$decoratorButtonSaveGistClass",
                               codeSnippetsFromModal,
                               githubToken)
+
+        addModalFunctionality(m)
 
         Some(m)
       case _ => console.error("Couldn't find text area to embed CodeMirror instance."); None
@@ -110,6 +113,8 @@ object KazariPlugin extends JSApp {
             val decoration   = createDecorationWithId(decorationId)
             node.appendChild(decoration)
 
+            createInitialState(decorationId, snippet)
+
             addRunButtonBehaviour(
               s"#$decorationId .$decoratorButtonRunClass",
               s"#${decorationId}",
@@ -120,6 +125,8 @@ object KazariPlugin extends JSApp {
             addClickListenerToButton(
               s"#$decorationId .$decoratorButtonEditClass",
               (e: dom.MouseEvent) => {
+
+                window.sessionStorage.setItem(kazariModalCurrentSnippetKey, decorationId)
 
                 val snippetStartLine = joinedSnippets.lift(i - 1).getOrElse("").split("\n").size
                 val modalSnippet =
@@ -137,11 +144,11 @@ object KazariPlugin extends JSApp {
     }
   }
 
-  def generateCodeTextSnippets() =
-    codeSnippets
-      .map(_.textContent)
-      .scanLeft("")((currentItem, result) =>
-        if (currentItem == "") { result } else { currentItem + "\n" + result })
+  def createInitialState(decorationId: String, originalSnippet: String) = {
+    window.sessionStorage.setItem(kazariModalCurrentSnippetKey, "")
+    window.sessionStorage.setItem(decorationId, originalSnippet)
+    window.sessionStorage.setItem(s"decorationId-$kazariIdOriginalSnippetSuffix", originalSnippet)
+  }
 
   def getDependenciesList(): List[Dependency] = {
     val content  = getMetaContent(dependenciesMetaName)
@@ -230,6 +237,19 @@ object KazariPlugin extends JSApp {
       }
     })
 
+  def addResetButtonBehavior(btnSelector: String, codeMirrorEditor: Editor): Unit = {
+    addClickListenerToButton(btnSelector, (e: dom.MouseEvent) => {
+      (for {
+        snippetId <- Option(window.sessionStorage.getItem(kazariModalCurrentSnippetKey))
+        snippet   <- Option(window.sessionStorage.getItem(snippetId))
+      } yield (snippet)).foreach {
+        case s =>
+          codeMirrorEditor.getDoc().clearHistory()
+          codeMirrorEditor.getDoc().setValue(s)
+      }
+    })
+  }
+
   def addGistButtonBehavior(btnSelector: String,
                             codeSnippet: () => String,
                             accessToken: String,
@@ -273,5 +293,33 @@ object KazariPlugin extends JSApp {
     val pos       = PositionBuilder(0, line)
     val scrollTop = editor.charCoords(pos, "local").asInstanceOf[CodeMirrorCharCords].top
     editor.scrollTo(0, scrollTop)
+  }
+
+  def addModalFunctionality(codeMirror: Editor) = {
+    $("#modal-1").on("change", { (e: JQueryEventObject, a: Any) =>
+      if ($("#modal-1").is(":checked")) {
+        $("body").addClass("modal-kazari-open")
+      } else {
+        $("body").removeClass("modal-kazari-open")
+      }
+    })
+
+    $(".modal-kazari-fade-screen, .modal-kazari-close").on("click", {
+      (e: JQueryEventObject, a: Any) =>
+        {
+          $(".modal-kazari-state:checked").prop("checked", false).change()
+          val currentModalSnippet =
+            Option(window.sessionStorage.getItem(kazariModalCurrentSnippetKey))
+
+          console.log(
+            s"Storing session status for snippet: ${currentModalSnippet.getOrElse("vemooos")}")
+          currentModalSnippet.foreach(s =>
+            window.sessionStorage.setItem(s, codeMirror.getDoc().getValue()))
+        }
+    })
+
+    $(".modal-kazari-inner").on("click", { (e: JQueryEventObject, a: Any) =>
+      e.stopPropagation()
+    })
   }
 }

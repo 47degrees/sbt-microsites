@@ -12,9 +12,11 @@ trait DOMTags {
   val decoratorButtonRunClass         = "kazari-decorator-run"
   val decoratorButtonEditClass        = "kazari-decorator-edit"
   val decoratorButtonSaveGistClass    = "kazari-decorator-gist"
+  val decoratorButtonResetClass       = "kazari-decorator-reset"
   val decoratorButtonPlayClass        = "fa-play-circle"
   val decoratorButtonSpinnerClass     = "fa-spinner fa-spin"
   val decoratorButtonGithubClass      = "fa-github-alt"
+  val decoratorButtonReloadIconClass  = "fa-refresh"
   val decoratorButtonDisableClass     = "compiling"
   val decoratorAlertBarClass          = "alert"
   val decoratorAlertBarHiddenClass    = "alert-hidden"
@@ -75,7 +77,9 @@ trait DOMTags {
   def createCompiler(isFromModal: Boolean) = {
     val (secondaryBtnClass, attrs, secondaryBtnText) =
       if (isFromModal) {
-        (decoratorButtonSaveGistClass, "fa fa-github-alt", "Save as Gist")
+        // TODO: Removing Gist functionality for now until it's ready for launch
+        //(decoratorButtonSaveGistClass, "fa fa-github-alt", "Save as Gist")
+        (decoratorButtonResetClass, s"fa $decoratorButtonReloadIconClass", "Reset")
       } else {
         (decoratorButtonEditClass, "fa fa-pencil", "Edit")
       }
