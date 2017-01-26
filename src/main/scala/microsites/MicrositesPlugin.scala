@@ -80,7 +80,7 @@ object MicrositesPlugin extends AutoPlugin {
                             "white-color"     -> "#FFFFFF"),
     micrositeGithubOwner := "47deg",
     micrositeGithubRepo := "sbt-microsites",
-    micrositeGitHostingService := "GitHub",
+    micrositeGitHostingService := GitHub,
     micrositeGitHostingUrl := "")
 
   lazy val micrositeHelper: Def.Initialize[MicrositeHelper] = Def.setting {
@@ -125,9 +125,15 @@ object MicrositesPlugin extends AutoPlugin {
         micrositeBaseUrl = micrositeBaseUrl.value,
         micrositeDocumentationUrl = micrositeDocumentationUrl.value,
         palette = micrositePalette.value,
-        githubOwner = micrositeGithubOwner.value,
-        githubRepo = micrositeGithubRepo.value,
-        gitHostingService = micrositeGitHostingService.value,
+        githubOwner = micrositeGitHostingService.value match {
+          case GitHub => micrositeGithubOwner.value
+          case _      => ""
+        },
+        githubRepo = micrositeGitHostingService.value match {
+          case GitHub => micrositeGithubRepo.value
+          case _      => ""
+        },
+        gitHostingService = micrositeGitHostingService.value.name,
         gitHostingUrl = micrositeGitHostingUrl.value
       ))
   }

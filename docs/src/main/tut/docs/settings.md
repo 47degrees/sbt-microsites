@@ -7,20 +7,20 @@ title: Configuring the Microsite
 
 The following are the `sbt` settings that you can use to make adjustments to your microsite regarding deployment, configuration, and appearance. Not all of these settings are mandatory, since most of them have default values, as we'll see briefly.
 
-Before you begin to detail the settings, the **sbt-microsites** plugin will use regular sbt configurations from your `build.sbt` file. In order to setup the microsite with minimal effort, all of the configurations are used as default values: 
-   
+Before you begin to detail the settings, the **sbt-microsites** plugin will use regular sbt configurations from your `build.sbt` file. In order to setup the microsite with minimal effort, all of the configurations are used as default values:
+
 ## Regular SBT Settings
-   
+
 - `name`: default value for the microsite name.
 - `description`: value by default used for the microsite description.
 - `organizationName`: used as the microsite author by default.
 - `homepage`: used as the default microsite homepage.
 
-However, you can override these default settings by using the ones provided by the plugin, which we will describe in detail in the next section. 
+However, you can override these default settings by using the ones provided by the plugin, which we will describe in detail in the next section.
 
 ## Microsite SBT Settings
 
-We tried to provide all of the parameters that are potentially needed to configure any microsite. If you think that something additional needs adding, please let us know! We're open to suggestions and contributions. 
+We tried to provide all of the parameters that are potentially needed to configure any microsite. If you think that something additional needs adding, please let us know! We're open to suggestions and contributions.
 
 - `micrositeName`: the microsite name. As we mentioned previously, by default, it's taken from the sbt setting `name`. Sometimes, it isn't the default behavior so you can override it like this:
 
@@ -69,13 +69,11 @@ micrositeGithubOwner := "47deg"
 micrositeGithubRepo := "sbt-microsites"
 ```
 
-- `micrositeGitHostingService` and `micrositeGitHostingUrl`: in order to specify a hosting service other than `GitHub`. For these to take effect, you'll also need to set `micrositeGithubOwner` and `micrositeGithubRepo` to empty strings:
+- `micrositeGitHostingService` and `micrositeGitHostingUrl`: in order to specify a hosting service other than `GitHub`:
 
 ```
-micrositeGitHostingService := "GitLab"
+micrositeGitHostingService := GitLab
 micrositeGitHostingUrl := "https://gitlab.com/gitlab-org/gitlab-ce"
-micrositeGithubOwner := ""
-micrositeGithubRepo  := ""
 ```
 
 - `micrositeHighlightTheme`: by default, the theme of Highlight.js is [default](https://highlightjs.org/static/demo/), however, you can configure it to a different theme thanks to this setting:

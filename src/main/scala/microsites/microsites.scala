@@ -41,20 +41,22 @@ package object microsites {
                                palette: Map[String, String],
                                githubOwner: String,
                                githubRepo: String,
-                               gitHostingService: String,
+                               gitHostingService: MicrositeKeys.GitHostingService,
                                gitHostingUrl: String) {
 
     def gitSiteUrl: String = {
-      if (gitHostingUrl.nonEmpty) gitHostingUrl
-      else s"https://github.com/$githubOwner/$githubRepo"
+      gitHostingService match {
+        case MicrositeKeys.GitHub => s"https://github.com/$githubOwner/$githubRepo"
+        case _                    => gitHostingUrl
+      }
     }
 
     def gitHostingIconClass: String = {
-      gitHostingService.trim.toLowerCase match {
-        case "github"    => "fa-github"
-        case "gitlab"    => "fa-gitlab"
-        case "bitbucket" => "fa-bitbucket"
-        case _           => "fa-git"
+      gitHostingService match {
+        case MicrositeKeys.GitHub    => "fa-github"
+        case MicrositeKeys.GitLab    => "fa-gitlab"
+        case MicrositeKeys.Bitbucket => "fa-bitbucket"
+        case _                       => "fa-git"
       }
     }
   }

@@ -45,13 +45,13 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
                   a(href := "#menu-toggle", id := "menu-toggle", i(cls := "fa fa-bars", aria.hidden := "true"))
                 ),
                 ul(cls := "pull-right",
-                  li(cls := "hidden-xs",
+                  li(id := "gh-eyes-item", cls := "hidden-xs",
                     a(href := config.gitSiteUrl,
                       i(cls := "fa fa-eye"),
                       span("WATCH", span(id := "eyes", cls := "label label-default", "--"))
                     )
                   ),
-                  li(cls := "hidden-xs",
+                  li(id := "gh-stars-item", cls := "hidden-xs",
                     a(href := config.gitSiteUrl,
                       i(cls := "fa fa-star-o"),
                       span("STARS", span(id := "stars", cls := "label label-default", "--"))

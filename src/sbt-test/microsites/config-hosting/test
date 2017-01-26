@@ -1,0 +1,9 @@
+# check that the sbt-microsites plugin works customizing which git hosting is used from sbt
+
+> makeMicrosite
+
+$ exists target/scala-2.11/resource_managed/main/jekyll
+
+# check the index.html file
+
+> check

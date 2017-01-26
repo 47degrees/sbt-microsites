@@ -121,7 +121,7 @@ abstract class Layout(config: MicrositeSettings) {
            li(
              a(href := config.gitSiteUrl,
                i(cls := s"fa ${config.gitHostingIconClass}"),
-               span(cls := "hidden-xs", config.gitHostingService))
+               span(cls := "hidden-xs", config.gitHostingService.name))
            ),
            if (!config.micrositeDocumentationUrl.isEmpty)
              li(
