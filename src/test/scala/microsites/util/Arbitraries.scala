@@ -89,6 +89,8 @@ trait Arbitraries {
       palette                            ← paletteMapArbitrary.arbitrary
       githubOwner                        ← Arbitrary.arbitrary[String]
       githubRepo                         ← Arbitrary.arbitrary[String]
+      micrositeEnableKazari              ← Arbitrary.arbitrary[Boolean]
+      micrositeKazariStyle               ← Arbitrary.arbitrary[String]
     } yield
       MicrositeSettings(name,
                         description,
@@ -109,6 +111,8 @@ trait Arbitraries {
                         micrositeDocumentationUrl,
                         palette,
                         githubOwner,
-                        githubRepo)
+                        githubRepo,
+                        micrositeEnableKazari,
+                        micrositeKazariStyle)
   }
 }

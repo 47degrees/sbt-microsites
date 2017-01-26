@@ -56,17 +56,17 @@ Once you got your scripts and stylesheets in your documentation, Kazari will tak
 
 # Building the plugin
 
-Kazari is a **Scala.JS** application. Even if it's part of the `sbt-microsites` project, it exists in its own independent module called `js`. Before being able to build it, you'll need to include the CodeMirror scripts that Kazari relies on. You can download the CodeMirror release from their [official site](http://codemirror.net/doc/releases.html), noting that Kazari is compatible with version `5.19.0`. Once you download the package, you'll be able to find the needed scripts in the following locations:
+Kazari is a **Scala.JS** application. Even if it's part of the `sbt-microsites` project, it exists in its own independent module called `kazari`. Before being able to build it, you'll need to include the CodeMirror scripts that Kazari relies on. You can download the CodeMirror release from their [official site](http://codemirror.net/doc/releases.html), noting that Kazari is compatible with version `5.19.0`. Once you download the package, you'll be able to find the needed scripts in the following locations:
 
 * lib/codemirror.js
 * mode/javascript.js
 
-Put these in the `resources` folder inside the `js` project of `sbt-microsites` (`sbt-microsites/js/src/main/scala/resources`) and you're good to go! In order to generate the scripts, please follow the next steps while in a sbt session inside the `sbt-microsites` project:
+Put these in the `resources` folder inside the `kazari` project of `sbt-microsites` (`sbt-microsites/kazari/src/main/scala/resources`) and you're good to go! In order to generate the scripts, please follow the next steps while in a sbt session inside the `sbt-microsites` project:
 
 ```scala
-sbt-microsites> project js
+sbt-microsites> project kazari
 
 js> fullOptGenerate
 ```
 
-The `fullOptGenerate` task will compile the project, then generate and optimize Kazari's scripts, and finally combine the resulting scripts into a single file. `fullOptGenerate` is a slow command (as it relies on the `fullOptJS` task from Scala.JS, which perform several optimizations), so if you're planning to contribute to Kazari, please use the `fastOptGenerate` task in your development process instead. It will produce a larger script, but in more suitable build times. You'll be able to find the generated script (`kazari.js`) in the `target/scala-2.11` folder in the `js` project.
+The `fullOptGenerate` task will compile the project, then generate and optimize Kazari's scripts, and finally combine the resulting scripts into a single file. `fullOptGenerate` is a slow command (as it relies on the `fullOptJS` task from Scala.JS, which perform several optimizations), so if you're planning to contribute to Kazari, please use the `fastOptGenerate` task in your development process instead. It will produce a larger script, but in more suitable build times. You'll be able to find the generated script (`kazari.js`) in the `target/scala-2.11` folder in the `kazari` project.
