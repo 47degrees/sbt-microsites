@@ -72,6 +72,6 @@ trait MicrositeKeys {
   val micrositeGitHostingService =
     settingKey[GitHostingService]("Service used for git hosting. By default, it'll be GitHub.")
   val micrositeGitHostingUrl = settingKey[String](
-    "In the case where your project isn't hosted on Github, use this setting to point users to git host (e.g. 'https://internal.gitlab.com/<user>/<project>'). You'll need to set 'micrositeGithubOwner' and 'micrositeGithubRepo' to empty strings for this to take effect.")
+    "In the case where your project isn't hosted on Github, use this setting to point users to git host (e.g. 'https://internal.gitlab.com/<user>/<project>').")
 }
 object MicrositeKeys extends MicrositeKeys
