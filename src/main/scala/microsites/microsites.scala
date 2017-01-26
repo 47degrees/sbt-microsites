@@ -56,7 +56,7 @@ package object microsites {
         case MicrositeKeys.GitHub    => "fa-github"
         case MicrositeKeys.GitLab    => "fa-gitlab"
         case MicrositeKeys.Bitbucket => "fa-bitbucket"
-        case _                       => "fa-git"
+        case o: MicrositeKeys.Other  => "fa-git"
       }
     }
   }

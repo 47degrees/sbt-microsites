@@ -44,9 +44,6 @@ function loadGitHubStats() {
       $('#eyes').text(data.data.subscribers_count);
       $('#stars').text(data.data.stargazers_count);
     });
-  } else {
-    $('#gh-eyes-item').hide()
-    $('#gh-stars-item').hide()
   }
 
 }
