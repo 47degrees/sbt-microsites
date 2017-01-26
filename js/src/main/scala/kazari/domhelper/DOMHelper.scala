@@ -5,12 +5,14 @@ import org.scalajs.dom._
 import org.querki.jquery._
 
 object DOMHelper extends DOMTags {
-  val codeExcludeClass         = "kazari-exclude"
-  val codeSnippetsSelectorAll  = s".language-scala:not(.$codeExcludeClass)"
-  val snippetsWithId           = "kazari-id-"
-  val codeSnippetsSelectorById = s"div[id^='$snippetsWithId']"
-  val dependenciesMetaName     = "evaluator-dependencies"
-  val resolversMetaName        = "evaluator-resolvers"
+  val codeExcludeClass          = "kazari-exclude"
+  val codeSnippetsSelectorAll   = s".language-scala:not(.$codeExcludeClass)"
+  val snippetsWithId            = "kazari-id-"
+  val singleSnippets            = "kazari-single code"
+  val codeSnippetsSelectorById  = s"div[class*='$snippetsWithId']"
+  val codeSingleSnippetSelector = s"div .$singleSnippets"
+  val dependenciesMetaName      = "evaluator-dependencies"
+  val resolversMetaName         = "evaluator-resolvers"
 
   def getMetaContent(metaTagName: String): String = {
     val metaTag = Option(
@@ -20,20 +22,24 @@ object DOMHelper extends DOMTags {
     } getOrElse ""
   }
 
+  def classesFromNode(node: dom.Node): Seq[String] =
+    node.attributes.getNamedItem("class").textContent.split(" ").toSeq
+
   def applyModalStyles() = {
     $("#modal-1").on("change", { (e: JQueryEventObject, a: Any) =>
       if ($("#modal-1").is(":checked")) {
-        $("body").addClass("modal-open")
+        $("body").addClass("modal-kazari-open")
       } else {
-        $("body").removeClass("modal-open")
+        $("body").removeClass("modal-kazari-open")
       }
     })
 
-    $(".modal-fade-screen, .modal-close").on("click", { (e: JQueryEventObject, a: Any) =>
-      $(".modal-state:checked").prop("checked", false).change()
+    $(".modal-kazari-fade-screen, .modal-kazari-close").on("click", {
+      (e: JQueryEventObject, a: Any) =>
+        $(".modal-kazari-state:checked").prop("checked", false).change()
     })
 
-    $(".modal-inner").on("click", { (e: JQueryEventObject, a: Any) =>
+    $(".modal-kazari-inner").on("click", { (e: JQueryEventObject, a: Any) =>
       e.stopPropagation()
     })
   }

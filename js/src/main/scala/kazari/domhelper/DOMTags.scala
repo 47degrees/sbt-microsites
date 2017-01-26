@@ -4,9 +4,9 @@ import org.scalajs.dom.html._
 import scalatags.JsDom.all._
 
 trait DOMTags {
-  val codeModalClass                  = "modal-fade-screen"
-  val codeModalCloseButtonClass       = "modal-close"
-  val codeModalInternalTextArea       = "modal-text-area"
+  val codeModalClass                  = "modal-kazari-fade-screen"
+  val codeModalCloseButtonClass       = "modal-kazari-close"
+  val codeModalInternalTextArea       = "modal-kazari-text-area"
   val codeModalButtonContainer        = "modalButton"
   val codeModalEditorMaxHeightPercent = 80.0
   val decoratorButtonRunClass         = "kazari-decorator-run"
@@ -24,18 +24,18 @@ trait DOMTags {
 
   def createModalDiv(cssClass: String): Div = {
     div(
-      `class` := "kazari-modal",
+      `class` := "modal-kazari",
       input(
         `id` := "modal-1",
-        `class` := "modal-state",
+        `class` := "modal-kazari-state",
         `type` := "checkbox"
       ),
       div(
-        `class` := "modal-fade-screen",
+        `class` := "modal-kazari-fade-screen",
         div(
-          `class` := "modal-inner",
+          `class` := "modal-kazari-inner",
           div(
-            `class` := "modal-close",
+            `class` := "modal-kazari-close",
             `for` := "modal-1",
             i(
               `class` := "fa fa-close"
@@ -43,7 +43,7 @@ trait DOMTags {
           ),
           div(
             div(
-              `class` := "modal-content",
+              `class` := "modal-kazari-content",
               textarea(
                 `id` := codeModalInternalTextArea
               ),
@@ -58,9 +58,13 @@ trait DOMTags {
     ).render
   }
 
-  def createDecoration(index: Int): Div = {
+  def createDecoration(index: Int): Div = createDecorationWithId(s"snippet-$index")
+
+  def createDecorationSingle(index: Int): Div = createDecorationWithId(s"snippet-single-$index")
+
+  def createDecorationWithId(decorationId: String): Div = {
     div(
-      `id` := s"snippet-$index",
+      `id` := decorationId,
       createCompiler(isFromModal = false),
       div(
         `class` := s"$decoratorAlertBarClass $decoratorAlertBarHiddenClass"

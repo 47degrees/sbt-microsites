@@ -34,8 +34,10 @@ object KazariPlugin extends JSApp {
   val newGistPrompt      = "Choose a description for your Gist"
   val newGistDefaultDescription =
     "Gist created from Kazari (https://github.com/47deg/sbt-microsites)"
-  val newGistFilename   = "KazariGist.scala"
-  lazy val codeSnippets = document.querySelectorAll(codeSnippetsSelectorAll)
+  val newGistFilename           = "KazariGist.scala"
+  lazy val codeSnippets         = document.querySelectorAll(codeSnippetsSelectorAll)
+  lazy val codeSnippetsSingle   = document.querySelectorAll(codeSingleSnippetSelector)
+  lazy val codeSnippetsSequence = document.querySelectorAll(codeSnippetsSelectorById)
 
   @JSExport
   def main(): Unit = {}
@@ -75,35 +77,63 @@ object KazariPlugin extends JSApp {
       case _ => console.error("Couldn't find text area to embed CodeMirror instance."); None
     }
 
-    codeSnippets.zipWithIndex foreach {
+    codeSnippetsSingle.zipWithIndex foreach {
       case (node, i) =>
-        val decoration = createDecoration(i)
-        node.appendChild(decoration)
+        val decoration = createDecorationSingle(i)
+        node.parentNode.appendChild(decoration)
+        val snippet = node.textContent
 
-        val snippet = textSnippets.lift(i + 1)
-        snippet foreach ((s: String) => {
-                           addRunButtonBehaviour(
-                             s"#${decoration.id} .$decoratorButtonRunClass",
-                             s"#${decoration.id}",
-                             evalClient,
-                             () => s
-                           )
-                         })
+        addRunButtonBehaviour(
+          s"#${decoration.id} .$decoratorButtonRunClass",
+          s"#${decoration.id}",
+          evalClient,
+          () => snippet
+        )
+    }
 
-        addClickListenerToButton(
-          s"#${decoration.id} .$decoratorButtonEditClass",
-          (e: dom.MouseEvent) => {
-            val snippetStartLine = textSnippets
-              .lift(snippetIndexFromDecorationId(decoration.id).getOrElse(0))
-              .getOrElse("")
-              .split("\n")
-              .size
+    val snippetsGroupedById = codeSnippetsSequence.groupBy { node =>
+      classesFromNode(node).find(_.contains(snippetsWithId))
+    }
 
-            codeMirror foreach { c =>
-              codeMirrorScrollToLine(c, snippetStartLine)
-            }
-            $(".modal-state").prop("checked", true).change()
-          })
+    snippetsGroupedById.foreach {
+      case (key, snippetNodes) =>
+        val kazariId = key.getOrElse("")
+        val joinedSnippets = snippetNodes
+          .map(_.textContent)
+          .scanLeft("")((currentItem, result) =>
+            if (currentItem == "") { result } else { currentItem + "\n" + result })
+          .tail
+
+        (snippetNodes zip joinedSnippets).zipWithIndex.foreach {
+          case ((node, snippet), i) =>
+            val decorationId = s"$kazariId-$i"
+            val decoration   = createDecorationWithId(decorationId)
+            node.appendChild(decoration)
+
+            addRunButtonBehaviour(
+              s"#$decorationId .$decoratorButtonRunClass",
+              s"#${decorationId}",
+              evalClient,
+              () => snippet
+            )
+
+            addClickListenerToButton(
+              s"#$decorationId .$decoratorButtonEditClass",
+              (e: dom.MouseEvent) => {
+
+                val snippetStartLine = joinedSnippets.lift(i - 1).getOrElse("").split("\n").size
+                val modalSnippet =
+                  Option(window.sessionStorage.getItem(decorationId)).getOrElse(snippet)
+
+                codeMirror foreach { c =>
+                  c.getDoc().setValue(modalSnippet)
+                  codeMirrorScrollToLine(c, snippetStartLine)
+                }
+                hideAlertMessage(s".$codeModalClass")
+                $(".modal-kazari-state").prop("checked", true).change()
+              })
+
+        }
     }
   }
 
@@ -174,7 +204,7 @@ object KazariPlugin extends JSApp {
               {
                 val isSuccess = isEvaluationSuccessful(compilationResult.result)
                 val resultMsg = compilationResult.result.value.getOrElse("")
-                val errorMsg = if (!compilationResult.result.compilationInfos.isEmpty) {
+                val errorMsg = if (compilationResult.result.compilationInfos.nonEmpty) {
                   compilationResult.result.compilationInfos.mkString(" ")
                 } else {
                   resultMsg
