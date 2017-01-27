@@ -21,6 +21,15 @@ import scala.language.{postfixOps, reflectiveCalls}
 
 package object microsites {
 
+  case class KazariDependency(groupId: String, artifactId: String, version: String)
+
+  case class KazariSettings(micrositeKazariStyle: String,
+                            micrositeKazariEvaluatorToken: String,
+                            micrositeKazariGithubToken: String,
+                            micrositeKazariCodeMirrorTheme: String,
+                            micrositeKazariDependencies: Seq[KazariDependency],
+                            micrositeKazariResolvers: Seq[String])
+
   case class MicrositeSettings(name: String,
                                description: String,
                                author: String,
@@ -42,7 +51,7 @@ package object microsites {
                                githubOwner: String,
                                githubRepo: String,
                                micrositeEnableKazari: Boolean,
-                               micrositeKazariStyle: String)
+                               micrositeKazariSettings: KazariSettings)
 
   case class ExtraMdFileConfig(fileName: String,
                                layout: String,

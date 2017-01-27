@@ -128,7 +128,14 @@ object MicrositesPlugin extends AutoPlugin {
         githubOwner = micrositeGithubOwner.value,
         githubRepo = micrositeGithubRepo.value,
         micrositeEnableKazari = micrositeEnableKazari.value,
-        micrositeKazariStyle = micrositeKazariStyle.value
+        micrositeKazariSettings = KazariSettings(
+          micrositeKazariStyle.value,
+          micrositeKazariEvaluatorToken.value,
+          micrositeKazariGithubToken.value,
+          micrositeKazariCodeMirrorTheme.value,
+          micrositeKazariDependencies.value,
+          micrositeKazariResolvers.value
+        )
       ))
   }
 

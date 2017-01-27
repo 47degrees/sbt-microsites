@@ -57,5 +57,15 @@ trait MicrositeKeys {
     "Optional. Set to true integrates the resulting microsite with the Kazari code decorator.")
   val micrositeKazariStyle = settingKey[String](
     "Optional. Sets the name of the stylesheet that provides the color scheme to Kazari. Default: style-dark")
+  val micrositeKazariEvaluatorToken = settingKey[String](
+    "Remote Scala Evaluator token to be used by Kazari. Required for Kazari to work. Default: empty string")
+  val micrositeKazariGithubToken = settingKey[String](
+    "GitHub token to be used by Kazari. Required for Kazari to perform certain actions (i.e. save Gists). Default: empty string")
+  val micrositeKazariCodeMirrorTheme = settingKey[String](
+    "Optional. CodeMirror theme to be used by Kazari in its modal editor. Default: monokai")
+  val micrositeKazariDependencies = settingKey[Seq[KazariDependency]](
+    "Optional. List of dependencies needed to compile the code to be evaluated by Kazari (set of groupId, artifactId, and versionId). Default: empty list")
+  val micrositeKazariResolvers = settingKey[Seq[String]](
+    "Optional. List of resolver urls needed for the provided dependencies to be fetched by Kazari. Default: empty list")
 }
 object MicrositeKeys extends MicrositeKeys
