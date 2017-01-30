@@ -70,7 +70,7 @@ abstract class Layout(config: MicrositeSettings) {
       link(rel := "stylesheet",
            href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
       link(rel := "stylesheet",
-           href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"),
+           href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"),
       link(rel := "stylesheet",
            href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.highlightTheme}.css"),
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/style.css"),
@@ -111,17 +111,17 @@ abstract class Layout(config: MicrositeSettings) {
                     a(href := s"${config.homepage}", target := "_blank", s"${config.author}"))),
               div(cls := "col-xs-6",
                   p(cls := "text-right",
-                    a(href := s"https://github.com/${config.githubOwner}/${config.githubRepo}",
-                      span(cls := "fa fa-github"),
-                      "View on Github"))))))
+                    a(href := config.gitSiteUrl,
+                      span(cls := s"fa ${config.gitHostingIconClass}"),
+                      s"View on ${config.gitHostingService}"))))))
 
   def buildCollapseMenu: TypedTag[String] =
     nav(cls := "text-right",
         ul(cls := "",
            li(
-             a(href := s"https://github.com/${config.githubOwner}/${config.githubRepo}",
-               i(cls := "fa fa-github"),
-               span(cls := "hidden-xs", "GitHub"))
+             a(href := config.gitSiteUrl,
+               i(cls := s"fa ${config.gitHostingIconClass}"),
+               span(cls := "hidden-xs", config.gitHostingService.name))
            ),
            if (!config.micrositeDocumentationUrl.isEmpty)
              li(

@@ -53,9 +53,9 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
                    h1(cls := "text-center", config.description),
                    h2(),
                    p(cls := "text-center",
-                     a(href := s"https://github.com/${config.githubOwner}/${config.githubRepo}",
+                     a(href := config.gitSiteUrl,
                        cls := "btn btn-outline-inverse",
-                       "View on GitHub")))),
+                       s"View on ${config.gitHostingService}")))),
            "{% include menu.html %}")
 
   def homeMain: TypedTag[String] =

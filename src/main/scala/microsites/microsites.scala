@@ -40,7 +40,26 @@ package object microsites {
                                micrositeDocumentationUrl: String,
                                palette: Map[String, String],
                                githubOwner: String,
-                               githubRepo: String)
+                               githubRepo: String,
+                               gitHostingService: MicrositeKeys.GitHostingService,
+                               gitHostingUrl: String) {
+
+    def gitSiteUrl: String = {
+      gitHostingService match {
+        case MicrositeKeys.GitHub => s"https://github.com/$githubOwner/$githubRepo"
+        case _                    => gitHostingUrl
+      }
+    }
+
+    def gitHostingIconClass: String = {
+      gitHostingService match {
+        case MicrositeKeys.GitHub    => "fa-github"
+        case MicrositeKeys.GitLab    => "fa-gitlab"
+        case MicrositeKeys.Bitbucket => "fa-bitbucket"
+        case o: MicrositeKeys.Other  => "fa-git"
+      }
+    }
+  }
 
   case class ExtraMdFileConfig(fileName: String,
                                layout: String,

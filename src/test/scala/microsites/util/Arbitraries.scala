@@ -19,6 +19,7 @@ package microsites.util
 import java.io.File
 
 import microsites._
+import microsites.MicrositeKeys._
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen._
 
@@ -67,6 +68,13 @@ trait Arbitraries {
     } yield map
   }
 
+  implicit def hostingServiceArbitrary: Arbitrary[GitHostingService] = Arbitrary {
+    oneOf(
+      oneOf(GitHub, GitLab, Bitbucket),
+      Arbitrary.arbitrary[String].map(Other(_))
+    )
+  }
+
   implicit def settingsArbitrary: Arbitrary[MicrositeSettings] = Arbitrary {
     for {
       name                               ← Arbitrary.arbitrary[String]
@@ -89,6 +97,8 @@ trait Arbitraries {
       palette                            ← paletteMapArbitrary.arbitrary
       githubOwner                        ← Arbitrary.arbitrary[String]
       githubRepo                         ← Arbitrary.arbitrary[String]
+      gitHostingService                  ← Arbitrary.arbitrary[GitHostingService]
+      gitHostingUrl                      ← Arbitrary.arbitrary[String]
     } yield
       MicrositeSettings(name,
                         description,
@@ -109,6 +119,8 @@ trait Arbitraries {
                         micrositeDocumentationUrl,
                         palette,
                         githubOwner,
-                        githubRepo)
+                        githubRepo,
+                        gitHostingService,
+                        gitHostingUrl)
   }
 }
