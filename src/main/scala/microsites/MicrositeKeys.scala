@@ -53,8 +53,6 @@ trait MicrositeKeys {
   val micrositePalette     = settingKey[Map[String, String]]("Microsite palette")
   val micrositeGithubOwner = settingKey[String]("Microsite Github owner")
   val micrositeGithubRepo  = settingKey[String]("Microsite Github repo")
-  val micrositeEnableKazari = settingKey[Boolean](
-    "Optional. Set to true integrates the resulting microsite with the Kazari code decorator.")
   val micrositeKazariStyle = settingKey[String](
     "Optional. Sets the name of the stylesheet file that provides the color scheme to Kazari. Default: kazari-style-dark")
   val micrositeKazariEvaluatorUrl = settingKey[String](

@@ -103,7 +103,6 @@ trait Arbitraries {
       palette                            ← paletteMapArbitrary.arbitrary
       githubOwner                        ← Arbitrary.arbitrary[String]
       githubRepo                         ← Arbitrary.arbitrary[String]
-      micrositeEnableKazari              ← Arbitrary.arbitrary[Boolean]
       micrositeKazariStyle               ← Arbitrary.arbitrary[String]
       micrositeKazariEvaluatorUrl        ← Arbitrary.arbitrary[String]
       micrositeKazariEvaluatorToken      ← Arbitrary.arbitrary[String]
@@ -132,7 +131,6 @@ trait Arbitraries {
                         palette,
                         githubOwner,
                         githubRepo,
-                        micrositeEnableKazari,
                         KazariSettings(
                           micrositeKazariStyle,
                           micrositeKazariEvaluatorUrl,

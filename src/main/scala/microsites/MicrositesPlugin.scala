@@ -80,7 +80,6 @@ object MicrositesPlugin extends AutoPlugin {
                             "white-color"     -> "#FFFFFF"),
     micrositeGithubOwner := "47deg",
     micrositeGithubRepo := "sbt-microsites",
-    micrositeEnableKazari := false,
     micrositeKazariStyle := "kazari-style-dark",
     micrositeKazariEvaluatorUrl := "https://scala-evaluator-212.herokuapp.com",
     micrositeKazariEvaluatorToken := "",
@@ -133,7 +132,6 @@ object MicrositesPlugin extends AutoPlugin {
         palette = micrositePalette.value,
         githubOwner = micrositeGithubOwner.value,
         githubRepo = micrositeGithubRepo.value,
-        micrositeEnableKazari = micrositeEnableKazari.value,
         micrositeKazariSettings = KazariSettings(
           micrositeKazariStyle.value,
           micrositeKazariEvaluatorUrl.value,

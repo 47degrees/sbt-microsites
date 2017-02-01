@@ -51,7 +51,6 @@ package object microsites {
                                palette: Map[String, String],
                                githubOwner: String,
                                githubRepo: String,
-                               micrositeEnableKazari: Boolean,
                                micrositeKazariSettings: KazariSettings)
 
   case class ExtraMdFileConfig(fileName: String,
