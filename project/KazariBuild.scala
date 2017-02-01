@@ -2,7 +2,7 @@ import org.scalajs.sbtplugin.ScalaJSPlugin.AutoImport._
 import sbt._
 import sbt.Keys._
 
-object KazariBuild extends AutoPlugin {
+object KazariBuild {
   def concatFiles(path: String, filesToConcat: Seq[String], fileResult: String): Unit = {
     val concatFile = new File(path + "/" + fileResult)
     IO.delete(concatFile)

@@ -56,7 +56,9 @@ trait MicrositeKeys {
   val micrositeEnableKazari = settingKey[Boolean](
     "Optional. Set to true integrates the resulting microsite with the Kazari code decorator.")
   val micrositeKazariStyle = settingKey[String](
-    "Optional. Sets the name of the stylesheet that provides the color scheme to Kazari. Default: style-dark")
+    "Optional. Sets the name of the stylesheet file that provides the color scheme to Kazari. Default: kazari-style-dark")
+  val micrositeKazariEvaluatorUrl = settingKey[String](
+    "URL of the remote Scala Evaluator to be used by Kazari. Required for Kazari to work. Default: https://scala-evaluator-212.herokuapp.com")
   val micrositeKazariEvaluatorToken = settingKey[String](
     "Remote Scala Evaluator token to be used by Kazari. Required for Kazari to work. Default: empty string")
   val micrositeKazariGithubToken = settingKey[String](

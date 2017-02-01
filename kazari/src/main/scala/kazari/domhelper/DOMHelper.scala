@@ -8,21 +8,18 @@ object DOMHelper extends DOMTags {
   val codeExcludeClass          = "kazari-exclude"
   val codeSnippetsSelectorAll   = s".language-scala:not(.$codeExcludeClass)"
   val snippetsWithId            = "kazari-id-"
-  val singleSnippets            = "kazari-single code"
-  val codeSnippetsSelectorById  = s"div[class*='$snippetsWithId']"
-  val codeSingleSnippetSelector = s"div .$singleSnippets"
-  val dependenciesMetaName      = "evaluator-dependencies"
-  val resolversMetaName         = "evaluator-resolvers"
+  val singleSnippets            = "kazari-single"
+  val codeSnippetsSelectorById  = codeBlocksInDivsWithClass(snippetsWithId)
+  val codeSingleSnippetSelector = codeBlocksInDivsWithClass(singleSnippets)
+  val dependenciesMetaName      = "kazari-dependencies"
+  val resolversMetaName         = "kazari-resolvers"
 
-  def getMetaContent(metaTagName: String): String = {
-    val metaTag = Option(
-      document.querySelector(s"meta[property=" + """"""" + s"$metaTagName" + """"""" + "]"))
-    metaTag map { m =>
-      m.getAttribute("content")
-    } getOrElse ""
-  }
+  def codeBlocksInDivsWithClass(className: String) = s"div[class*='$className'] code"
 
-  def classesFromNode(node: dom.Node): Seq[String] =
+  def getMetaContent(metaTagName: String): String =
+    Option($(s"meta[name=$metaTagName]").attr("content").get).getOrElse("")
+
+  def classesFromElement(node: dom.Element): Seq[String] =
     node.attributes.getNamedItem("class").textContent.split(" ").toSeq
 
   def addClickListenerToButton(selector: String, function: (dom.MouseEvent) => Any) =
@@ -74,4 +71,6 @@ object DOMHelper extends DOMTags {
 
   def getHeightFromElement(selector: String): Option[Double] =
     Option($($(selector)).height())
+
+  def closestParentDiv(node: dom.Node): JQuery = $(node).parents("div").first()
 }

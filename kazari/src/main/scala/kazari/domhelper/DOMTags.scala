@@ -23,6 +23,14 @@ trait DOMTags {
   val decoratorAlertBarSuccessClass   = "alert-success"
   val decoratorAlertBarErrorClass     = "alert-error"
   val kazariUrl                       = "https://github.com/47deg/sbt-microsites"
+  val kazariSingleSnippetPrefix       = "snippet-single"
+  val kazariModalClass                = "modal-kazari"
+  val kazariModalId                   = "modal-1"
+  val kazariModalStateClass           = "modal-kazari-state"
+  val kazariModalFadeScreenClass      = "modal-kazari-fade-screen"
+  val kazariModalCloseClass           = "modal-kazari-close"
+  val kazariModalContentClass         = "modal-kazari-content"
+  val kazariModalInnerClass           = "modal-kazari-inner"
 
   def createModalDiv(cssClass: String): Div = {
     div(
@@ -62,7 +70,8 @@ trait DOMTags {
 
   def createDecoration(index: Int): Div = createDecorationWithId(s"snippet-$index")
 
-  def createDecorationSingle(index: Int): Div = createDecorationWithId(s"snippet-single-$index")
+  def createDecorationSingle(index: Int): Div =
+    createDecorationWithId(s"$kazariSingleSnippetPrefix-$index")
 
   def createDecorationWithId(decorationId: String): Div = {
     div(

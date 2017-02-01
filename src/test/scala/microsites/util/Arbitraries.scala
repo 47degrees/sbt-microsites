@@ -105,6 +105,7 @@ trait Arbitraries {
       githubRepo                         ← Arbitrary.arbitrary[String]
       micrositeEnableKazari              ← Arbitrary.arbitrary[Boolean]
       micrositeKazariStyle               ← Arbitrary.arbitrary[String]
+      micrositeKazariEvaluatorUrl        ← Arbitrary.arbitrary[String]
       micrositeKazariEvaluatorToken      ← Arbitrary.arbitrary[String]
       micrositeKazariGithubToken         ← Arbitrary.arbitrary[String]
       micrositeKazariCodeMirrorTheme     ← Arbitrary.arbitrary[String]
@@ -134,6 +135,7 @@ trait Arbitraries {
                         micrositeEnableKazari,
                         KazariSettings(
                           micrositeKazariStyle,
+                          micrositeKazariEvaluatorUrl,
                           micrositeKazariEvaluatorToken,
                           micrositeKazariGithubToken,
                           micrositeKazariCodeMirrorTheme,

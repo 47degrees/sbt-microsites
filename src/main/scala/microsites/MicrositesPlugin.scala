@@ -81,7 +81,13 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeGithubOwner := "47deg",
     micrositeGithubRepo := "sbt-microsites",
     micrositeEnableKazari := false,
-    micrositeKazariStyle := "style-dark")
+    micrositeKazariStyle := "kazari-style-dark",
+    micrositeKazariEvaluatorUrl := "https://scala-evaluator-212.herokuapp.com",
+    micrositeKazariEvaluatorToken := "",
+    micrositeKazariGithubToken := "",
+    micrositeKazariCodeMirrorTheme := "monokai",
+    micrositeKazariDependencies := Seq(),
+    micrositeKazariResolvers := Seq())
 
   lazy val micrositeHelper: Def.Initialize[MicrositeHelper] = Def.setting {
     val baseUrl =
@@ -130,6 +136,7 @@ object MicrositesPlugin extends AutoPlugin {
         micrositeEnableKazari = micrositeEnableKazari.value,
         micrositeKazariSettings = KazariSettings(
           micrositeKazariStyle.value,
+          micrositeKazariEvaluatorUrl.value,
           micrositeKazariEvaluatorToken.value,
           micrositeKazariGithubToken.value,
           micrositeKazariCodeMirrorTheme.value,

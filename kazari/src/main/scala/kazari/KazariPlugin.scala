@@ -35,7 +35,7 @@ object KazariPlugin extends JSApp {
   val newGistDefaultDescription =
     "Gist created from Kazari (https://github.com/47deg/sbt-microsites)"
   val newGistFilename               = "KazariGist.scala"
-  val kazariIdOriginalSnippetSuffix = "-original"
+  val kazariIdOriginalSnippetSuffix = "original"
   val kazariModalCurrentSnippetKey  = "kazari-modal-current-snippet"
   lazy val codeSnippets             = document.querySelectorAll(codeSnippetsSelectorAll)
   lazy val codeSnippetsSingle       = document.querySelectorAll(codeSingleSnippetSelector)
@@ -83,7 +83,7 @@ object KazariPlugin extends JSApp {
     codeSnippetsSingle.zipWithIndex foreach {
       case (node, i) =>
         val decoration = createDecorationSingle(i)
-        node.parentNode.appendChild(decoration)
+        closestParentDiv(node).append(decoration)
         val snippet = node.textContent
 
         addRunButtonBehaviour(
@@ -92,10 +92,17 @@ object KazariPlugin extends JSApp {
           evalClient,
           () => snippet
         )
+
+        addEditButtonBehaviour(kazariSingleSnippetPrefix, i, codeMirror, () => snippet)
     }
 
     val snippetsGroupedById = codeSnippetsSequence.groupBy { node =>
-      classesFromNode(node).find(_.contains(snippetsWithId))
+      closestParentDiv(node)
+        .get(0)
+        .toOption
+        .flatMap(
+          classesFromElement(_).find(_.contains(snippetsWithId))
+        )
     }
 
     snippetsGroupedById.foreach {
@@ -111,9 +118,7 @@ object KazariPlugin extends JSApp {
           case ((node, snippet), i) =>
             val decorationId = s"$kazariId-$i"
             val decoration   = createDecorationWithId(decorationId)
-            node.appendChild(decoration)
-
-            createInitialState(decorationId, snippet)
+            closestParentDiv(node).append(decoration)
 
             addRunButtonBehaviour(
               s"#$decorationId .$decoratorButtonRunClass",
@@ -121,25 +126,7 @@ object KazariPlugin extends JSApp {
               evalClient,
               () => snippet
             )
-
-            addClickListenerToButton(
-              s"#$decorationId .$decoratorButtonEditClass",
-              (e: dom.MouseEvent) => {
-
-                window.sessionStorage.setItem(kazariModalCurrentSnippetKey, decorationId)
-
-                val snippetStartLine = joinedSnippets.lift(i - 1).getOrElse("").split("\n").size
-                val modalSnippet =
-                  Option(window.sessionStorage.getItem(decorationId)).getOrElse(snippet)
-
-                codeMirror foreach { c =>
-                  c.getDoc().setValue(modalSnippet)
-                  codeMirrorScrollToLine(c, snippetStartLine)
-                }
-                hideAlertMessage(s".$codeModalClass")
-                $(".modal-kazari-state").prop("checked", true).change()
-              })
-
+            addEditButtonBehaviour(kazariId, i, codeMirror, () => snippet)
         }
     }
   }
@@ -147,7 +134,7 @@ object KazariPlugin extends JSApp {
   def createInitialState(decorationId: String, originalSnippet: String) = {
     window.sessionStorage.setItem(kazariModalCurrentSnippetKey, "")
     window.sessionStorage.setItem(decorationId, originalSnippet)
-    window.sessionStorage.setItem(s"decorationId-$kazariIdOriginalSnippetSuffix", originalSnippet)
+    window.sessionStorage.setItem(s"$decorationId-$kazariIdOriginalSnippetSuffix", originalSnippet)
   }
 
   def getDependenciesList(): List[Dependency] = {
@@ -169,7 +156,11 @@ object KazariPlugin extends JSApp {
 
   def getResolversList(): List[String] = {
     val content = getMetaContent(resolversMetaName)
-    content.split(",").toList
+    if (content == "") {
+      List()
+    } else {
+      content.split(",").toList
+    }
   }
 
   def sendEvaluatorRequest(evaluator: EvaluatorClient,
@@ -237,11 +228,43 @@ object KazariPlugin extends JSApp {
       }
     })
 
+  def addEditButtonBehaviour(idPrefix: String,
+                             id: Int,
+                             codeMirror: Option[Editor],
+                             snippet: () => String): Unit = {
+    val decorationId = s"$idPrefix-${id.toString}"
+
+    createInitialState(decorationId, snippet())
+
+    addClickListenerToButton(
+      s"#${decorationId} .$decoratorButtonEditClass",
+      (e: dom.MouseEvent) => {
+        window.sessionStorage.setItem(kazariModalCurrentSnippetKey, decorationId)
+        codeMirror.foreach(
+          m =>
+            m.setSize(
+              "100%",
+              ($(s".$kazariModalInnerClass").height() * codeModalEditorMaxHeightPercent) / 100.0)
+        )
+
+        val modalSnippet =
+          Option(window.sessionStorage.getItem(decorationId)).getOrElse(snippet())
+
+        codeMirror foreach { c =>
+          c.getDoc().setValue(modalSnippet)
+          codeMirrorScrollToLine(c, 0)
+        }
+        hideAlertMessage(s".$codeModalClass")
+        $(".modal-kazari-state").prop("checked", true).change()
+      })
+  }
+
   def addResetButtonBehavior(btnSelector: String, codeMirrorEditor: Editor): Unit = {
     addClickListenerToButton(btnSelector, (e: dom.MouseEvent) => {
       (for {
         snippetId <- Option(window.sessionStorage.getItem(kazariModalCurrentSnippetKey))
-        snippet   <- Option(window.sessionStorage.getItem(snippetId))
+        snippet <- Option(
+          window.sessionStorage.getItem(s"$snippetId-$kazariIdOriginalSnippetSuffix"))
       } yield (snippet)).foreach {
         case s =>
           codeMirrorEditor.getDoc().clearHistory()
@@ -311,8 +334,6 @@ object KazariPlugin extends JSApp {
           val currentModalSnippet =
             Option(window.sessionStorage.getItem(kazariModalCurrentSnippetKey))
 
-          console.log(
-            s"Storing session status for snippet: ${currentModalSnippet.getOrElse("vemooos")}")
           currentModalSnippet.foreach(s =>
             window.sessionStorage.setItem(s, codeMirror.getDoc().getValue()))
         }
