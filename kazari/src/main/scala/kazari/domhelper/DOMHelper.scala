@@ -3,10 +3,10 @@ package kazari.domhelper
 import org.scalajs.dom
 import org.scalajs.dom._
 import org.querki.jquery._
+import org.scalaexercises.evaluator.Dependency
 
 object DOMHelper extends DOMTags {
   val codeExcludeClass          = "kazari-exclude"
-  val codeSnippetsSelectorAll   = s".language-scala:not(.$codeExcludeClass)"
   val snippetsWithId            = "kazari-id-"
   val singleSnippets            = "kazari-single"
   val codeSnippetsSelectorById  = codeBlocksInDivsWithClass(snippetsWithId)
@@ -73,4 +73,30 @@ object DOMHelper extends DOMTags {
     Option($($(selector)).height())
 
   def closestParentDiv(node: dom.Node): JQuery = $(node).parents("div").first()
+
+  def getDependenciesList(): List[Dependency] = {
+    val content  = getMetaContent(dependenciesMetaName)
+    val elements = content.split(",")
+
+    elements
+      .foldRight(Seq[Dependency]()) {
+        case (e, l) =>
+          val split = e.split(";")
+          if (split.length == 3) {
+            l ++ Seq(Dependency(split(0), split(1), split(2)))
+          } else {
+            l
+          }
+      }
+      .toList
+  }
+
+  def getResolversList(): List[String] = {
+    val content = getMetaContent(resolversMetaName)
+    if (content == "") {
+      List()
+    } else {
+      content.split(",").toList
+    }
+  }
 }
