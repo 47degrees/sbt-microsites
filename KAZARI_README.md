@@ -68,7 +68,7 @@ After including the scripts and stylesheets, we wait for the DOM to be ready, an
 
 Kazari expects your code to be set in `code` tags under `div` tags. These `div` tags should include the CSS class we aforementioned in the **Using Kazari without sbt-microsites** section.
 
-Also note that f you're creating a documentation for a library, or for almost any kind of Scala project, it's more than probable that your code needs some **dependencies** to rely on. The remote Scala evaluator needs to know those in order to compile your code. Both dependencies and resolvers can be made visible to Kazari by using the following meta tags:
+Also note that if you're creating a documentation for a library, or for almost any kind of Scala project, it's more than probable that your code needs some **dependencies** to rely on. The remote Scala evaluator needs to know those in order to compile your code. Both dependencies and resolvers can be made visible to Kazari by using the following meta tags:
 
 ```html
 <meta property="kazari-dependencies" content="groupId_1;artifactId_1;version_1,groupId_2;artifactId_2;version_2,...">
