@@ -31,7 +31,7 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
         homeHeader,
         homeMain,
         globalFooter,
-        scripts
+        scriptsKazari
       )
     )
   }
@@ -72,5 +72,8 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
                              p("{{ tech[1][1] }}")),
                          """{% endfor %}
           {% endfor %}"""))))
+
+  def scriptsKazari: List[TypedTag[String]] =
+    scripts ++ List(script(src := "{{ site.baseurl }}/js/kazari.js"), script(kazariEnableScript))
 
 }

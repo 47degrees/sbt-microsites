@@ -51,6 +51,15 @@ abstract class Layout(config: MicrositeSettings) {
          meta(name := "twitter:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
          meta(name := "twitter:card", content := "summary_large_image"),
          meta(name := "twitter:site", content := config.twitter),
+         meta(name := "kazari-dependencies",
+              content :=
+                config.micrositeKazariSettings.micrositeKazariDependencies
+                  .map(dependency =>
+                    s"${dependency.groupId};${dependency.artifactId};${dependency.version}")
+                  .mkString(",")),
+         meta(name := "kazari-resolvers",
+              content :=
+                config.micrositeKazariSettings.micrositeKazariResolvers.mkString(",")),
          link(rel := "icon",
               `type` := "image/png",
               href := "{{site.url}}{{site.baseurl}}/img/favicon.png"))
@@ -74,13 +83,21 @@ abstract class Layout(config: MicrositeSettings) {
       link(rel := "stylesheet",
            href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.highlightTheme}.css"),
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/style.css"),
-      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/palette.css")
+      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/palette.css"),
+      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css"),
+      link(
+        rel := "stylesheet",
+        href := s"{{site.baseurl}}/css/${config.micrositeKazariSettings.micrositeKazariStyle}.css"),
+      link(
+        rel := "stylesheet",
+        href := s"{{site.baseurl}}/css/${config.micrositeKazariSettings.micrositeKazariCodeMirrorTheme}.css")
     ) ++ customCssList ++ customCDNList
   }
 
   def scripts: List[TypedTag[String]] = {
 
     val customJsList = fetchFilesRecursively(config.micrositeJsDirectory, List("js")) map { js =>
+      println(s"Including script JS: ${js.getPath} for directory: ${config.micrositeJsDirectory}")
       script(src := s"{{site.url}}{{site.baseurl}}/js/${js.getName}")
     }
 
@@ -100,6 +117,12 @@ abstract class Layout(config: MicrositeSettings) {
              """.stripMargin)
     ) ++ customJsList ++ customCDNList
   }
+
+  def kazariEnableScript: TypedTag[String] = script(s"""
+      |$$(document).ready(function() {
+      |	kazari.KazariPlugin().decorateCode('${config.micrositeKazariSettings.micrositeKazariEvaluatorUrl}/eval', '${config.micrositeKazariSettings.micrositeKazariEvaluatorToken}', '${config.micrositeKazariSettings.micrositeKazariGithubToken}', '${config.micrositeKazariSettings.micrositeKazariCodeMirrorTheme}')
+      |})
+    """.stripMargin)
 
   def globalFooter =
     footer(

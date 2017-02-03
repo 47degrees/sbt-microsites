@@ -48,11 +48,24 @@ trait MicrositeKeys {
   val micrositeDataDirectory = settingKey[File](
     "Optional. Microsite Data directory, useful to define the microsite data files " +
       "(https://jekyllrb.com/docs/datafiles/). By default, it'll be the resourcesDirectory + '/microsite/data'")
-
   val micrositeExtraMdFiles = settingKey[Map[File, ExtraMdFileConfig]](
     "Optional. This key is useful when you want to include automatically markdown documents as a part of your microsite, and these files are located in different places from the tutSourceDirectory. The map key is related with the source file, the map value corresponds with the target relative file path and the document meta-information configuration. By default, the map is empty.")
   val micrositePalette     = settingKey[Map[String, String]]("Microsite palette")
   val micrositeGithubOwner = settingKey[String]("Microsite Github owner")
   val micrositeGithubRepo  = settingKey[String]("Microsite Github repo")
+  val micrositeKazariStyle = settingKey[String](
+    "Optional. Sets the name of the stylesheet file that provides the color scheme to Kazari. Default: kazari-style-dark")
+  val micrositeKazariEvaluatorUrl = settingKey[String](
+    "URL of the remote Scala Evaluator to be used by Kazari. Required for Kazari to work. Default: https://scala-evaluator-212.herokuapp.com")
+  val micrositeKazariEvaluatorToken = settingKey[String](
+    "Remote Scala Evaluator token to be used by Kazari. Required for Kazari to work. Default: token compatible with the Scala Exercises remote evaluator.")
+  val micrositeKazariGithubToken = settingKey[String](
+    "GitHub token to be used by Kazari. Required for Kazari to perform certain actions (i.e. save Gists). Default: empty string")
+  val micrositeKazariCodeMirrorTheme = settingKey[String](
+    "Optional. CodeMirror theme to be used by Kazari in its modal editor. Default: monokai")
+  val micrositeKazariDependencies = settingKey[Seq[KazariDependency]](
+    "Optional. List of dependencies needed to compile the code to be evaluated by Kazari (set of groupId, artifactId, and versionId). Default: empty list")
+  val micrositeKazariResolvers = settingKey[Seq[String]](
+    "Optional. List of resolver urls needed for the provided dependencies to be fetched by Kazari. Default: empty list")
 }
 object MicrositeKeys extends MicrositeKeys

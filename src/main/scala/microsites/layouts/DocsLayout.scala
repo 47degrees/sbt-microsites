@@ -27,7 +27,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
   override def render: TypedTag[String] = {
     html(
       commonHead,
-      body(cls := "docs", sideBarAndContent, scriptsDocs)
+      body(cls := "docs", sideBarAndContent, scriptsDocs, kazariEnableScript)
     )
   }
 
@@ -126,5 +126,8 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
 
   def scriptsDocs: List[TypedTag[String]] =
     scripts ++
-      List(script(src := "{{ site.baseurl }}/js/main.js"))
+      List(
+        script(src := "{{ site.baseurl }}/js/main.js"),
+        script(src := "{{ site.baseurl }}/js/kazari.js")
+      )
 }

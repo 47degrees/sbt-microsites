@@ -79,7 +79,14 @@ object MicrositesPlugin extends AutoPlugin {
                             "gray-lighter"    -> "#F4F3F4",
                             "white-color"     -> "#FFFFFF"),
     micrositeGithubOwner := "47deg",
-    micrositeGithubRepo := "sbt-microsites")
+    micrositeGithubRepo := "sbt-microsites",
+    micrositeKazariStyle := "kazari-style-dark",
+    micrositeKazariEvaluatorUrl := "https://scala-evaluator-212.herokuapp.com",
+    micrositeKazariEvaluatorToken := "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.S2F6YXJp.Jl2eqMfw8IakJF93PjxTbrf-8YUJgX5OoOfy5JHE8Yw",
+    micrositeKazariGithubToken := "",
+    micrositeKazariCodeMirrorTheme := "monokai",
+    micrositeKazariDependencies := Seq(),
+    micrositeKazariResolvers := Seq())
 
   lazy val micrositeHelper: Def.Initialize[MicrositeHelper] = Def.setting {
     val baseUrl =
@@ -124,7 +131,16 @@ object MicrositesPlugin extends AutoPlugin {
         micrositeDocumentationUrl = micrositeDocumentationUrl.value,
         palette = micrositePalette.value,
         githubOwner = micrositeGithubOwner.value,
-        githubRepo = micrositeGithubRepo.value
+        githubRepo = micrositeGithubRepo.value,
+        micrositeKazariSettings = KazariSettings(
+          micrositeKazariStyle.value,
+          micrositeKazariEvaluatorUrl.value,
+          micrositeKazariEvaluatorToken.value,
+          micrositeKazariGithubToken.value,
+          micrositeKazariCodeMirrorTheme.value,
+          micrositeKazariDependencies.value,
+          micrositeKazariResolvers.value
+        )
       ))
   }
 

@@ -67,6 +67,20 @@ trait Arbitraries {
     } yield map
   }
 
+  implicit def dependencyArbitrary: Arbitrary[KazariDependency] = Arbitrary {
+    for {
+      dependencyGroup    ← Arbitrary.arbitrary[String]
+      dependencyArtifact ← Arbitrary.arbitrary[String]
+      dependencyVersion  ← Arbitrary.arbitrary[String]
+    } yield KazariDependency(dependencyGroup, dependencyArtifact, dependencyVersion)
+  }
+
+  implicit def dependenciesListArbitrary: Arbitrary[Seq[KazariDependency]] = Arbitrary {
+    for {
+      list <- listOf[KazariDependency](dependencyArbitrary.arbitrary)
+    } yield list
+  }
+
   implicit def settingsArbitrary: Arbitrary[MicrositeSettings] = Arbitrary {
     for {
       name                               ← Arbitrary.arbitrary[String]
@@ -89,6 +103,13 @@ trait Arbitraries {
       palette                            ← paletteMapArbitrary.arbitrary
       githubOwner                        ← Arbitrary.arbitrary[String]
       githubRepo                         ← Arbitrary.arbitrary[String]
+      micrositeKazariStyle               ← Arbitrary.arbitrary[String]
+      micrositeKazariEvaluatorUrl        ← Arbitrary.arbitrary[String]
+      micrositeKazariEvaluatorToken      ← Arbitrary.arbitrary[String]
+      micrositeKazariGithubToken         ← Arbitrary.arbitrary[String]
+      micrositeKazariCodeMirrorTheme     ← Arbitrary.arbitrary[String]
+      micrositeKazariDependencies        ← dependenciesListArbitrary.arbitrary
+      micrositeKazariResolvers           ← Arbitrary.arbitrary[Seq[String]]
     } yield
       MicrositeSettings(name,
                         description,
@@ -109,6 +130,15 @@ trait Arbitraries {
                         micrositeDocumentationUrl,
                         palette,
                         githubOwner,
-                        githubRepo)
+                        githubRepo,
+                        KazariSettings(
+                          micrositeKazariStyle,
+                          micrositeKazariEvaluatorUrl,
+                          micrositeKazariEvaluatorToken,
+                          micrositeKazariGithubToken,
+                          micrositeKazariCodeMirrorTheme,
+                          micrositeKazariDependencies,
+                          micrositeKazariResolvers
+                        ))
   }
 }
