@@ -58,7 +58,7 @@ trait MicrositeKeys {
   val micrositeKazariEvaluatorUrl = settingKey[String](
     "URL of the remote Scala Evaluator to be used by Kazari. Required for Kazari to work. Default: https://scala-evaluator-212.herokuapp.com")
   val micrositeKazariEvaluatorToken = settingKey[String](
-    "Remote Scala Evaluator token to be used by Kazari. Required for Kazari to work. Default: empty string")
+    "Remote Scala Evaluator token to be used by Kazari. Required for Kazari to work. Default: token compatible with the Scala Exercises remote evaluator.")
   val micrositeKazariGithubToken = settingKey[String](
     "GitHub token to be used by Kazari. Required for Kazari to perform certain actions (i.e. save Gists). Default: empty string")
   val micrositeKazariCodeMirrorTheme = settingKey[String](

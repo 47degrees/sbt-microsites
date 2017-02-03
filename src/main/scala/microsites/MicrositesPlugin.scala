@@ -82,7 +82,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeGithubRepo := "sbt-microsites",
     micrositeKazariStyle := "kazari-style-dark",
     micrositeKazariEvaluatorUrl := "https://scala-evaluator-212.herokuapp.com",
-    micrositeKazariEvaluatorToken := "",
+    micrositeKazariEvaluatorToken := "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.S2F6YXJp.Jl2eqMfw8IakJF93PjxTbrf-8YUJgX5OoOfy5JHE8Yw",
     micrositeKazariGithubToken := "",
     micrositeKazariCodeMirrorTheme := "monokai",
     micrositeKazariDependencies := Seq(),
