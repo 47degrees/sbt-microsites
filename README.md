@@ -48,3 +48,4 @@ Many Scala projects use sbt-microsites to display documentation and project note
 ![fetch](https://47deg.github.io/fetch/img/navbar_brand.png) | [**fetch**](https://47deg.github.io/fetch/) | Simple & Efficient data access for Scala and Scala.js
 ![github4s](https://47deg.github.io/github4s/img/navbar_brand.png) | [**github4s**](https://47deg.github.io/github4s/) | A GitHub API wrapper written in Scala
 ![hammock](https://pepegar.github.io/hammock/img/navbar_brand.png) | [**hammock**](https://pepegar.github.io/hammock/) | A purely functional HTTP client for Scala
+![cron4s](https://alonsodomin.github.io/cron4s/img/navbar_brand.png) | [**cron4s**](https://alonsodomin.github.io/cron4s) | A CRON expression parser and AST for Scala
