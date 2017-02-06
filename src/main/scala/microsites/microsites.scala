@@ -43,7 +43,9 @@ package object microsites {
 
   case class MicrositeUrlSettings(micrositeBaseUrl: String, micrositeDocumentationUrl: String)
 
-  case class MicrositeVisualSettings(highlightTheme: String, palette: Map[String, String])
+  case class MicrositeVisualSettings(highlightTheme: String,
+                                     palette: Map[String, String],
+                                     faviconFilename: Option[String])
 
   case class MicrositeSettings(identity: MicrositeIdentitySettings,
                                visualSettings: MicrositeVisualSettings,

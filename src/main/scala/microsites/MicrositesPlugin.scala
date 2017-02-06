@@ -78,6 +78,7 @@ object MicrositesPlugin extends AutoPlugin {
                             "gray-light"      -> "#E3E2E3",
                             "gray-lighter"    -> "#F4F3F4",
                             "white-color"     -> "#FFFFFF"),
+    micrositeFaviconFilename := None,
     micrositeGithubOwner := "47deg",
     micrositeGithubRepo := "sbt-microsites",
     micrositeGitHostingService := GitHub,
@@ -116,7 +117,8 @@ object MicrositesPlugin extends AutoPlugin {
         ),
         visualSettings = MicrositeVisualSettings(
           highlightTheme = micrositeHighlightTheme.value,
-          palette = micrositePalette.value
+          palette = micrositePalette.value,
+          faviconFilename = micrositeFaviconFilename.value
         ),
         configYaml = configWithAllCustomVariables,
         fileLocations = MicrositeFileLocations(

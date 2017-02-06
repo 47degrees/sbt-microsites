@@ -2,8 +2,9 @@ import sbt.Keys._
 import de.heikoseeberger.sbtheader.license.Apache2_0
 import catext.Dependencies._
 
-val dev  = Seq(Dev("47 Degrees (twitter: @47deg)", "47 Degrees"))
-val gh   = GitHubSettings("com.fortysevendeg", "sbt-microsites", "47 Degrees", apache)
+val dev = Seq(Dev("47 Degrees (twitter: @47deg)", "47 Degrees"))
+val gh =
+  GitHubSettings("com.fortysevendeg", "sbt-microsites", "47 Degrees", apache)
 val vAll = Versions(versions, libraries, scalacPlugins)
 
 lazy val artifactSettings = Seq(

@@ -95,35 +95,26 @@ trait Arbitraries {
       micrositeBaseUrl                   ← Arbitrary.arbitrary[String]
       micrositeDocumentationUrl          ← Arbitrary.arbitrary[String]
       palette                            ← paletteMapArbitrary.arbitrary
+      favicon                            ← Arbitrary.arbitrary[Option[String]]
       githubOwner                        ← Arbitrary.arbitrary[String]
       githubRepo                         ← Arbitrary.arbitrary[String]
       gitHostingService                  ← Arbitrary.arbitrary[GitHostingService]
       gitHostingUrl                      ← Arbitrary.arbitrary[String]
     } yield
-    MicrositeSettings(
-      MicrositeIdentitySettings(name,
-        description,
-        author,
-        homepage,
-        twitter,
-        highlightTheme),
-      MicrositeVisualSettings(highlightTheme,
-        palette),
-      micrositeConfigYaml,
-      MicrositeFileLocations(micrositeImgDirectory,
-        micrositeCssDirectory,
-        micrositeJsDirectory,
-        micrositeCDNDirectives,
-        micrositeExternalLayoutsDirectory,
-        micrositeExternalIncludesDirectory,
-        micrositeDataDirectory,
-        micrositeExtraMdFiles),
-      MicrositeUrlSettings(micrositeBaseUrl,
-        micrositeDocumentationUrl),
-      MicrositeGitSettings(githubOwner,
-        githubRepo,
-        gitHostingService,
-        gitHostingUrl)
-    )
+      MicrositeSettings(
+        MicrositeIdentitySettings(name, description, author, homepage, twitter),
+        MicrositeVisualSettings(highlightTheme, palette, favicon),
+        micrositeConfigYaml,
+        MicrositeFileLocations(micrositeImgDirectory,
+                               micrositeCssDirectory,
+                               micrositeJsDirectory,
+                               micrositeCDNDirectives,
+                               micrositeExternalLayoutsDirectory,
+                               micrositeExternalIncludesDirectory,
+                               micrositeDataDirectory,
+                               micrositeExtraMdFiles),
+        MicrositeUrlSettings(micrositeBaseUrl, micrositeDocumentationUrl),
+        MicrositeGitSettings(githubOwner, githubRepo, gitHostingService, gitHostingUrl)
+      )
   }
 }
