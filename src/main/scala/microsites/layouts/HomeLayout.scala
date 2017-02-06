@@ -45,17 +45,17 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
                      div(cls := "col-xs-6",
                          a(href := "{{ site.baseurl }}/",
                            cls := "brand",
-                           div(cls := "icon-wrapper", span(config.name)))),
+                           div(cls := "icon-wrapper", span(config.identity.name)))),
                      div(cls := "col-xs-6", buildCollapseMenu)))
            ),
            div(cls := "jumbotron",
                div(cls := "container",
-                   h1(cls := "text-center", config.description),
+                   h1(cls := "text-center", config.identity.description),
                    h2(),
                    p(cls := "text-center",
                      a(href := config.gitSiteUrl,
                        cls := "btn btn-outline-inverse",
-                       s"View on ${config.gitHostingService}")))),
+                       s"View on ${config.gitSettings.gitHostingService}")))),
            "{% include menu.html %}")
 
   def homeMain: TypedTag[String] =

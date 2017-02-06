@@ -33,7 +33,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
 
   def sideBarAndContent: TypedTag[String] = {
     // format: off
-    val text = s"${config.name} ${config.description}"
+    val text = s"${config.identity.name} ${config.identity.description}"
     div(id := "wrapper",
       div(id := "sidebar-wrapper", buildSidebar),
       div(id := "page-content-wrapper",
@@ -65,7 +65,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
             )
           )
         ),
-        div(id := "content", data("github-owner") := config.githubOwner, data("github-repo") := config.githubRepo,
+        div(id := "content", data("github-owner") := config.gitSettings.githubOwner, data("github-repo") := config.gitSettings.githubRepo,
           div(cls := "content-wrapper",
             section("{{ content }}")
           )
@@ -80,7 +80,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
     ul(id := "sidebar", cls := "sidebar-nav",
       li(cls := "sidebar-brand",
         a(href := "{{ site.baseurl }}/", cls := "brand",
-          div(cls := "brand-wrapper", style := "background:url('{{site.baseurl}}/img/sidebar_brand.png') no-repeat", span(config.name))
+          div(cls := "brand-wrapper", style := "background:url('{{site.baseurl}}/img/sidebar_brand.png') no-repeat", span(config.identity.name))
         )
       ),
       "{% if site.data.menu.options %}",

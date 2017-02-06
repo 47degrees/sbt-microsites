@@ -21,38 +21,49 @@ import scala.language.{postfixOps, reflectiveCalls}
 
 package object microsites {
 
-  case class MicrositeSettings(name: String,
-                               description: String,
-                               author: String,
-                               homepage: String,
-                               twitter: String,
-                               highlightTheme: String,
-                               micrositeConfigYaml: ConfigYml,
-                               micrositeImgDirectory: File,
-                               micrositeCssDirectory: File,
-                               micrositeJsDirectory: File,
-                               micrositeCDNDirectives: CdnDirectives,
-                               micrositeExternalLayoutsDirectory: File,
-                               micrositeExternalIncludesDirectory: File,
-                               micrositeDataDirectory: File,
-                               micrositeExtraMdFiles: Map[File, ExtraMdFileConfig],
-                               micrositeBaseUrl: String,
-                               micrositeDocumentationUrl: String,
-                               palette: Map[String, String],
-                               githubOwner: String,
-                               githubRepo: String,
-                               gitHostingService: MicrositeKeys.GitHostingService,
-                               gitHostingUrl: String) {
+  case class MicrositeIdentitySettings(name: String,
+                                       description: String,
+                                       author: String,
+                                       homepage: String,
+                                       twitter: String)
+
+  case class MicrositeFileLocations(micrositeImgDirectory: File,
+                                    micrositeCssDirectory: File,
+                                    micrositeJsDirectory: File,
+                                    micrositeCDNDirectives: CdnDirectives,
+                                    micrositeExternalLayoutsDirectory: File,
+                                    micrositeExternalIncludesDirectory: File,
+                                    micrositeDataDirectory: File,
+                                    micrositeExtraMdFiles: Map[File, ExtraMdFileConfig])
+
+  case class MicrositeGitSettings(githubOwner: String,
+                                  githubRepo: String,
+                                  gitHostingService: MicrositeKeys.GitHostingService,
+                                  gitHostingUrl: String)
+
+  case class MicrositeUrlSettings(micrositeBaseUrl: String, micrositeDocumentationUrl: String)
+
+  case class MicrositeVisualSettings(highlightTheme: String,
+                                     palette: Map[String, String],
+                                     faviconFilename: Option[String])
+
+  case class MicrositeSettings(identity: MicrositeIdentitySettings,
+                               visualSettings: MicrositeVisualSettings,
+                               configYaml: ConfigYml,
+                               fileLocations: MicrositeFileLocations,
+                               urlSettings: MicrositeUrlSettings,
+                               gitSettings: MicrositeGitSettings) {
 
     def gitSiteUrl: String = {
-      gitHostingService match {
-        case MicrositeKeys.GitHub => s"https://github.com/$githubOwner/$githubRepo"
-        case _                    => gitHostingUrl
+      gitSettings.gitHostingService match {
+        case MicrositeKeys.GitHub =>
+          s"https://github.com/${gitSettings.githubOwner}/${gitSettings.githubRepo}"
+        case _ => gitSettings.gitHostingUrl
       }
     }
 
     def gitHostingIconClass: String = {
-      gitHostingService match {
+      gitSettings.gitHostingService match {
         case MicrositeKeys.GitHub    => "fa-github"
         case MicrositeKeys.GitLab    => "fa-gitlab"
         case MicrositeKeys.Bitbucket => "fa-bitbucket"

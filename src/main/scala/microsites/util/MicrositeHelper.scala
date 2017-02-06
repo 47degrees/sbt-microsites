@@ -44,19 +44,20 @@ class MicrositeHelper(config: MicrositeSettings) {
     copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "js")
     copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "highlight")
 
-    copyFilesRecursively(config.micrositeImgDirectory.getAbsolutePath,
+    copyFilesRecursively(config.fileLocations.micrositeImgDirectory.getAbsolutePath,
                          s"$targetDir$jekyllDir/img/")
-    copyFilesRecursively(config.micrositeCssDirectory.getAbsolutePath,
+    copyFilesRecursively(config.fileLocations.micrositeCssDirectory.getAbsolutePath,
                          s"$targetDir$jekyllDir/css/")
-    copyFilesRecursively(config.micrositeJsDirectory.getAbsolutePath, s"$targetDir$jekyllDir/js/")
-    copyFilesRecursively(config.micrositeExternalLayoutsDirectory.getAbsolutePath,
+    copyFilesRecursively(config.fileLocations.micrositeJsDirectory.getAbsolutePath,
+                         s"$targetDir$jekyllDir/js/")
+    copyFilesRecursively(config.fileLocations.micrositeExternalLayoutsDirectory.getAbsolutePath,
                          s"$targetDir$jekyllDir/_layouts/")
-    copyFilesRecursively(config.micrositeExternalIncludesDirectory.getAbsolutePath,
+    copyFilesRecursively(config.fileLocations.micrositeExternalIncludesDirectory.getAbsolutePath,
                          s"$targetDir$jekyllDir/_includes/")
-    copyFilesRecursively(config.micrositeDataDirectory.getAbsolutePath,
+    copyFilesRecursively(config.fileLocations.micrositeDataDirectory.getAbsolutePath,
                          s"$targetDir$jekyllDir/_data/")
 
-    config.micrositeExtraMdFiles foreach {
+    config.fileLocations.micrositeExtraMdFiles foreach {
       case (sourceFile, targetFileConfig) =>
         println(s"Copying from ${sourceFile.getAbsolutePath} to $tutSourceDir$targetFileConfig")
 
@@ -80,7 +81,7 @@ class MicrositeHelper(config: MicrositeSettings) {
   def createConfigYML(targetDir: String): File = {
     val targetFile = createFilePathIfNotExists(s"$targetDir$jekyllDir/_config.yml")
 
-    val yaml             = config.micrositeConfigYaml
+    val yaml             = config.configYaml
     val customProperties = yaml.yamlCustomProperties.toYaml.asYamlObject.fields
     val inlineYaml =
       if (yaml.yamlInline.nonEmpty)
@@ -99,7 +100,9 @@ class MicrositeHelper(config: MicrositeSettings) {
   def createPalette(targetDir: String): File = {
     val targetFile = createFilePathIfNotExists(
       s"$targetDir$jekyllDir/_sass/_variables_palette.scss")
-    val content = config.palette.map { case (key, value) => s"""$$$key: $value;""" }.mkString("\n")
+    val content = config.visualSettings.palette.map {
+      case (key, value) => s"""$$$key: $value;"""
+    }.mkString("\n")
     IO.write(targetFile, content)
     targetFile
   }
