@@ -107,34 +107,44 @@ object MicrositesPlugin extends AutoPlugin {
 
     new MicrositeHelper(
       MicrositeSettings(
-        name = micrositeName.value,
-        description = micrositeDescription.value,
-        author = micrositeAuthor.value,
-        homepage = micrositeHomepage.value,
-        twitter = micrositeTwitter.value,
-        highlightTheme = micrositeHighlightTheme.value,
-        micrositeConfigYaml = configWithAllCustomVariables,
-        micrositeImgDirectory = micrositeImgDirectory.value,
-        micrositeCssDirectory = micrositeCssDirectory.value,
-        micrositeJsDirectory = micrositeJsDirectory.value,
-        micrositeCDNDirectives = micrositeCDNDirectives.value,
-        micrositeExternalLayoutsDirectory = micrositeExternalLayoutsDirectory.value,
-        micrositeExternalIncludesDirectory = micrositeExternalIncludesDirectory.value,
-        micrositeDataDirectory = micrositeDataDirectory.value,
-        micrositeExtraMdFiles = micrositeExtraMdFiles.value,
-        micrositeBaseUrl = micrositeBaseUrl.value,
-        micrositeDocumentationUrl = micrositeDocumentationUrl.value,
-        palette = micrositePalette.value,
-        githubOwner = micrositeGitHostingService.value match {
-          case GitHub => micrositeGithubOwner.value
-          case _      => ""
-        },
-        githubRepo = micrositeGitHostingService.value match {
-          case GitHub => micrositeGithubRepo.value
-          case _      => ""
-        },
-        gitHostingService = micrositeGitHostingService.value.name,
-        gitHostingUrl = micrositeGitHostingUrl.value
+        identity = MicrositeIdentitySettings(
+          name = micrositeName.value,
+          description = micrositeDescription.value,
+          author = micrositeAuthor.value,
+          homepage = micrositeHomepage.value,
+          twitter = micrositeTwitter.value
+        ),
+        visualSettings = MicrositeVisualSettings(
+          highlightTheme = micrositeHighlightTheme.value,
+          palette = micrositePalette.value
+        ),
+        configYaml = configWithAllCustomVariables,
+        fileLocations = MicrositeFileLocations(
+          micrositeImgDirectory = micrositeImgDirectory.value,
+          micrositeCssDirectory = micrositeCssDirectory.value,
+          micrositeJsDirectory = micrositeJsDirectory.value,
+          micrositeCDNDirectives = micrositeCDNDirectives.value,
+          micrositeExternalLayoutsDirectory = micrositeExternalLayoutsDirectory.value,
+          micrositeExternalIncludesDirectory = micrositeExternalIncludesDirectory.value,
+          micrositeDataDirectory = micrositeDataDirectory.value,
+          micrositeExtraMdFiles = micrositeExtraMdFiles.value
+        ),
+        urlSettings = MicrositeUrlSettings(
+          micrositeBaseUrl = micrositeBaseUrl.value,
+          micrositeDocumentationUrl = micrositeDocumentationUrl.value
+        ),
+        gitSettings = MicrositeGitSettings(
+          githubOwner = micrositeGitHostingService.value match {
+            case GitHub => micrositeGithubOwner.value
+            case _      => ""
+          },
+          githubRepo = micrositeGitHostingService.value match {
+            case GitHub => micrositeGithubRepo.value
+            case _      => ""
+          },
+          gitHostingService = micrositeGitHostingService.value.name,
+          gitHostingUrl = micrositeGitHostingUrl.value
+        )
       ))
   }
 

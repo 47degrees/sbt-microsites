@@ -100,27 +100,30 @@ trait Arbitraries {
       gitHostingService                  ← Arbitrary.arbitrary[GitHostingService]
       gitHostingUrl                      ← Arbitrary.arbitrary[String]
     } yield
-      MicrositeSettings(name,
-                        description,
-                        author,
-                        homepage,
-                        twitter,
-                        highlightTheme,
-                        micrositeConfigYaml,
-                        micrositeImgDirectory,
-                        micrositeCssDirectory,
-                        micrositeJsDirectory,
-                        micrositeCDNDirectives,
-                        micrositeExternalLayoutsDirectory,
-                        micrositeExternalIncludesDirectory,
-                        micrositeDataDirectory,
-                        micrositeExtraMdFiles,
-                        micrositeBaseUrl,
-                        micrositeDocumentationUrl,
-                        palette,
-                        githubOwner,
-                        githubRepo,
-                        gitHostingService,
-                        gitHostingUrl)
+    MicrositeSettings(
+      MicrositeIdentitySettings(name,
+        description,
+        author,
+        homepage,
+        twitter,
+        highlightTheme),
+      MicrositeVisualSettings(highlightTheme,
+        palette),
+      micrositeConfigYaml,
+      MicrositeFileLocations(micrositeImgDirectory,
+        micrositeCssDirectory,
+        micrositeJsDirectory,
+        micrositeCDNDirectives,
+        micrositeExternalLayoutsDirectory,
+        micrositeExternalIncludesDirectory,
+        micrositeDataDirectory,
+        micrositeExtraMdFiles),
+      MicrositeUrlSettings(micrositeBaseUrl,
+        micrositeDocumentationUrl),
+      MicrositeGitSettings(githubOwner,
+        githubRepo,
+        gitHostingService,
+        gitHostingUrl)
+    )
   }
 }
