@@ -18,47 +18,56 @@ package microsites.layouts
 
 import microsites.MicrositeSettings
 import microsites.util.FileHelper._
+import microsites.util.MicrositeHelper
 
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
-import scalatags.Text.tags2.{title, nav}
+import scalatags.Text.tags2.{nav, title}
 
 abstract class Layout(config: MicrositeSettings) {
   implicitly(config)
+
+  lazy val micrositeHelper = new MicrositeHelper(config)
 
   def render: TypedTag[String]
 
   def commonHead: TypedTag[String] = {
     head(
       metas,
+      favicons,
       styles
     )
   }
 
   def metas: List[TypedTag[String]] =
-    List(
-      meta(charset := "utf-8"),
-      meta(httpEquiv := "X-UA-Compatible", content := "IE=edge,chrome=1"),
-      title(config.identity.name),
-      meta(name := "viewport", content := "width=device-width, initial-scale=1.0"),
-      meta(name := "description", content := config.identity.description),
-      meta(name := "author", content := config.identity.author),
-      meta(name := "og:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
-      meta(name := "og:title", content := config.identity.name),
-      meta(name := "og:site_name", content := config.identity.name),
-      meta(name := "og:url", content := config.identity.homepage),
-      meta(name := "og:type", content := "website"),
-      meta(name := "og:description", content := config.identity.description),
-      meta(name := "twitter:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
-      meta(name := "twitter:card", content := "summary_large_image"),
-      meta(name := "twitter:site", content := config.identity.twitter)) ++ config.visualSettings.faviconFilename
-      .map(
-        icon =>
-          List(
-            link(rel := "icon",
-                 `type` := "image/png",
-                 href := s"{{site.url}}{{site.baseurl}}/img/$icon")))
-      .getOrElse(List())
+    List(meta(charset := "utf-8"),
+         meta(httpEquiv := "X-UA-Compatible", content := "IE=edge,chrome=1"),
+         title(config.identity.name),
+         meta(name := "viewport", content := "width=device-width, initial-scale=1.0"),
+         meta(name := "description", content := config.identity.description),
+         meta(name := "author", content := config.identity.author),
+         meta(name := "og:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
+         meta(name := "og:title", content := config.identity.name),
+         meta(name := "og:site_name", content := config.identity.name),
+         meta(name := "og:url", content := config.identity.homepage),
+         meta(name := "og:type", content := "website"),
+         meta(name := "og:description", content := config.identity.description),
+         meta(name := "twitter:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
+         meta(name := "twitter:card", content := "summary_large_image"),
+         meta(name := "twitter:site", content := config.identity.twitter))
+
+  def favicons: List[TypedTag[String]] =
+    (if (config.visualSettings.favicons.nonEmpty) {
+       config.visualSettings.favicons
+     } else {
+       micrositeHelper.faviconDescriptions
+     }).map {
+      case icon =>
+        link(rel := "icon",
+             `type` := "image/png",
+             attr("sizes") := s"${icon.sizeDescription}",
+             href := s"{{site.url}}{{site.baseurl}}/img/${icon.filename}")
+    }.toList
 
   def styles: List[TypedTag[String]] = {
 
