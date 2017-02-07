@@ -80,7 +80,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
     ul(id := "sidebar", cls := "sidebar-nav",
       li(cls := "sidebar-brand",
         a(href := "{{ site.baseurl }}/", cls := "brand",
-          div(cls := "brand-wrapper", style := "background:url('{{site.baseurl}}/img/sidebar_brand.png') no-repeat", span(config.identity.name))
+          div(cls := "brand-wrapper", span(config.identity.name))
         )
       ),
       "{% if site.data.menu.options %}",

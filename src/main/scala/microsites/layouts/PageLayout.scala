@@ -55,7 +55,6 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
                 a(href := "{{ site.baseurl }}/",
                   cls := "brand",
                   div(cls := "icon-wrapper",
-                      style := "background:url('{{site.baseurl}}/img/navbar_brand.png') no-repeat",
                       span(config.identity.name)))),
             buildCollapseMenu)),
       div(cls := "jumbotron",
