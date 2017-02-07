@@ -75,6 +75,13 @@ trait Arbitraries {
     )
   }
 
+  implicit def micrositeFaviconArbitrary: Arbitrary[MicrositeFavicon] = Arbitrary {
+    for {
+      filename <- Arbitrary.arbitrary[String]
+      size     <- Arbitrary.arbitrary[String]
+    } yield MicrositeFavicon(filename, size)
+  }
+
   implicit def settingsArbitrary: Arbitrary[MicrositeSettings] = Arbitrary {
     for {
       name                               ← Arbitrary.arbitrary[String]
@@ -95,7 +102,7 @@ trait Arbitraries {
       micrositeBaseUrl                   ← Arbitrary.arbitrary[String]
       micrositeDocumentationUrl          ← Arbitrary.arbitrary[String]
       palette                            ← paletteMapArbitrary.arbitrary
-      favicon                            ← Arbitrary.arbitrary[Option[String]]
+      favicon                            ← listOf[MicrositeFavicon](micrositeFaviconArbitrary.arbitrary)
       githubOwner                        ← Arbitrary.arbitrary[String]
       githubRepo                         ← Arbitrary.arbitrary[String]
       gitHostingService                  ← Arbitrary.arbitrary[GitHostingService]

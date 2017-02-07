@@ -26,11 +26,28 @@ import microsites.util.FileHelper._
 import sbt._
 
 import scala.io.Source
+import com.sksamuel.scrimage._
 
 class MicrositeHelper(config: MicrositeSettings) {
   implicitly(config)
 
   val jekyllDir = "jekyll"
+
+  // format: OFF
+  val faviconHeights = Seq(16, 24, 32, 48, 57, 60, 64, 70, 72, 76, 96,
+                           114, 120, 128, 144, 150, 152, 196, 310)
+  val faviconSizes = (faviconHeights zip faviconHeights) ++ Seq((310, 150))
+  // format: ON
+
+  lazy val faviconFilenames = faviconSizes.foldLeft(Seq[String]())((list, size) => {
+    val (width, height) = size
+    list :+ s"favicon${width}x${height}.png"
+  })
+
+  lazy val faviconDescriptions = (faviconFilenames zip faviconSizes).map {
+    case (filename, (width, height)) =>
+      MicrositeFavicon(filename, s"${width}x${height}")
+  }
 
   def createResources(resourceManagedDir: File, tutSourceDirectory: File): List[File] = {
 
@@ -75,7 +92,7 @@ class MicrositeHelper(config: MicrositeSettings) {
     }
 
     List(createConfigYML(targetDir), createPalette(targetDir)) ++
-      createLayouts(targetDir) ++ createPartialLayout(targetDir)
+      createLayouts(targetDir) ++ createPartialLayout(targetDir) ++ createFavicons(targetDir)
   }
 
   def createConfigYML(targetDir: String): File = {
@@ -128,6 +145,18 @@ class MicrositeHelper(config: MicrositeSettings) {
         IO.write(targetFile, layout.render.toString())
         targetFile
     }
+
+  def createFavicons(targetDir: String): List[File] = {
+    val sourceFile = createFilePathIfNotExists(s"$targetDir$jekyllDir/img/navbar_brand2x.png")
+
+    (faviconFilenames zip faviconSizes).map {
+      case (name, size) =>
+        (new File(s"$targetDir$jekyllDir/img/$name"), size)
+    }.map {
+      case (file, (width, height)) =>
+        Image.fromFile(sourceFile).scaleTo(width, height).output(file)
+    }.toList
+  }
 
   def copyConfigurationFile(sourceDir: File, targetDir: File): Unit = {
 
