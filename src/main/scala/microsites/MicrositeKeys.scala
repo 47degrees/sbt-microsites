@@ -67,7 +67,7 @@ trait MicrositeKeys {
     "Optional. This key is useful when you want to include automatically markdown documents as a part of your microsite, and these files are located in different places from the tutSourceDirectory. The map key is related with the source file, the map value corresponds with the target relative file path and the document meta-information configuration. By default, the map is empty.")
   val micrositePalette = settingKey[Map[String, String]]("Microsite palette")
   val micrositeFavicons = settingKey[Seq[MicrositeFavicon]](
-    "Optional. Filename and size for the PNG/ICO file to be used as favicon for the generated site, located in '/microsite/img'. The size should be described with a string (i.e.: \"16x16\"). By default, favicons with different sizes will be generated from the navbar_brand2x.jpg file.")
+    "Optional. List of filenames and sizes for the PNG/ICO files to be used as favicon for the generated site, located in '/microsite/img'. The sizes should be described with a string (i.e.: \"16x16\"). By default, favicons with different sizes will be generated from the navbar_brand2x.jpg file.")
   val micrositeGithubOwner = settingKey[String]("Microsite Github owner")
   val micrositeGithubRepo  = settingKey[String]("Microsite Github repo")
   val micrositeGitHostingService =

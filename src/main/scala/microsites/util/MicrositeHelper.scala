@@ -32,27 +32,12 @@ class MicrositeHelper(config: MicrositeSettings) {
   implicitly(config)
 
   val jekyllDir = "jekyll"
-  val faviconSizes = Seq(16,
-                         24,
-                         32,
-                         48,
-                         57,
-                         60,
-                         64,
-                         70,
-                         72,
-                         76,
-                         96,
-                         114,
-                         120,
-                         128,
-                         144,
-                         150,
-                         152,
-                         196,
-                         310).map { w =>
-    (w, w)
-  } ++ Seq((310, 150))
+
+  // format: OFF
+  val faviconHeights = Seq(16, 24, 32, 48, 57, 60, 64, 70, 72, 76, 96,
+                           114, 120, 128, 144, 150, 152, 196, 310)
+  val faviconSizes = (faviconHeights zip faviconHeights) ++ Seq((310, 150))
+  // format: ON
 
   lazy val faviconFilenames = faviconSizes.foldLeft(Seq[String]())((list, size) => {
     val (width, height) = size
