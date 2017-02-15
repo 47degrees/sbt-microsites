@@ -26,6 +26,12 @@ Once you have added these CSS classes to your code, just build your microsite as
 * **micrositeKazariDependencies**: optional list of dependencies needed to compile the code to be evaluated by Kazari (set of groupId, artifactId, and versionId).
 * **micrositeKazariResolvers**: optional list of resolver urls needed for the provided dependencies to be fetched by Kazari.
 
+Kazari will try to match its color scheme to the Microsite's highlight color theme. If the default colors don't quite match or you want to change them, we provide a few class for you to customize:
+
+* **compiler-kazari-background**: background color of the button bar.
+* **compiler-kazari-border**: foreground color of the button borders.
+* **compiler-kazari-color**: foreground color of the button texts and icons.
+
 # Using Kazari without sbt-microsites
 
 Kazari comes integrated with `sbt-microsites` (and in fact is a part of the project), but you don't need to create your site with the plugin in order to use it.
@@ -45,7 +51,7 @@ Once you get all your scripts and stylesheets ready, you just need to include th
 <body>
 
 <script type="text/javascript" src="kazari.js"></script>
-<link rel="stylesheet" href="style-dark.css">
+<link rel="stylesheet" href="kazari-style.css">
 <link rel="stylesheet" href="codemirror.css">
 <link rel="stylesheet" href="monokai.css">
 

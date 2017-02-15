@@ -258,11 +258,13 @@ object KazariUIBehavior {
   }
 
   def applyColorThemes(): Unit = {
-    val hlBackgroundColor = $("pre.highlight").first().css("background-color")
-    val hlForegroundColor = $("hljs.scala").first().css("color")
+    val hlBackgroundColor = $("pre").first().css("background-color")
+    val hlForegroundColor = $(".hljs-string").first().css("color")
     $(s".$compilerKazariBackgroundClass").css("background-color", hlBackgroundColor)
+    $(s".$codeMirrorLinesClass").css("background-color", hlBackgroundColor)
     $(s".$compilerKazariColorClass").css("color", hlForegroundColor)
     $(s".$compilingKazariClass").css("color", hlForegroundColor)
+    $(s".$compilerKazariLinkColorClass").css("color", hlForegroundColor)
   }
 
 }

@@ -36,6 +36,8 @@ trait DOMTags {
   val compilerKazariBorderClass       = "compiler-kazari-border"
   val compilingKazariClass            = "compiling-kazari"
   val compilerKazariColorClass        = "compiler-kazari-color"
+  val compilerKazariLinkColorClass    = "compiler-kazari-link-color"
+  val codeMirrorLinesClass            = "CodeMirror-line"
 
   def createModalDiv(cssClass: String): Div = {
     div(
@@ -105,6 +107,7 @@ trait DOMTags {
         createButton(secondaryBtnClass, attrs, secondaryBtnText),
         li(
           a(
+            `class` := compilerKazariLinkColorClass,
             href := kazariUrl,
             target := "_blank",
             "Kazari"
