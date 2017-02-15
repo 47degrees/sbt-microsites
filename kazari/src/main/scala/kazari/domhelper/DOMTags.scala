@@ -18,10 +18,10 @@ trait DOMTags {
   val decoratorButtonGithubClass      = "fa-github-alt"
   val decoratorButtonReloadIconClass  = "fa-refresh"
   val decoratorButtonDisableClass     = "compiling"
-  val decoratorAlertBarClass          = "alert"
-  val decoratorAlertBarHiddenClass    = "alert-hidden"
-  val decoratorAlertBarSuccessClass   = "alert-success"
-  val decoratorAlertBarErrorClass     = "alert-error"
+  val decoratorAlertBarClass          = "alert-kazari"
+  val decoratorAlertBarHiddenClass    = "alert-hidden-kazari"
+  val decoratorAlertBarSuccessClass   = "alert-success-kazari"
+  val decoratorAlertBarErrorClass     = "alert-error-kazari"
   val kazariUrl                       = "https://github.com/47deg/sbt-microsites"
   val kazariSingleSnippetPrefix       = "snippet-single"
   val kazariModalClass                = "modal-kazari"
@@ -31,6 +31,11 @@ trait DOMTags {
   val kazariModalCloseClass           = "modal-kazari-close"
   val kazariModalContentClass         = "modal-kazari-content"
   val kazariModalInnerClass           = "modal-kazari-inner"
+  val compilerKazariClass             = "compiler-kazari"
+  val compilerKazariBackgroundClass   = "compiler-kazari-background"
+  val compilerKazariBorderClass       = "compiler-kazari-border"
+  val compilingKazariClass            = "compiling-kazari"
+  val compilerKazariColorClass        = "compiler-kazari-color"
 
   def createModalDiv(cssClass: String): Div = {
     div(
@@ -94,7 +99,7 @@ trait DOMTags {
       }
 
     div(
-      `class` := "compiler",
+      `class` := s"$compilerKazariClass $compilerKazariBackgroundClass",
       ul(
         createButton(decoratorButtonRunClass, "fa fa-play-circle", "Run"),
         createButton(secondaryBtnClass, attrs, secondaryBtnText),
@@ -111,8 +116,9 @@ trait DOMTags {
 
   def createButton(anchorClass: String, imgClass: String, text: String) = {
     li(
+      `class` := s"$compilerKazariBorderClass",
       a(
-        `class` := anchorClass,
+        `class` := s"$anchorClass $compilerKazariColorClass",
         i(
           `class` := imgClass
         ),

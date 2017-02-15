@@ -53,8 +53,6 @@ trait MicrositeKeys {
   val micrositePalette     = settingKey[Map[String, String]]("Microsite palette")
   val micrositeGithubOwner = settingKey[String]("Microsite Github owner")
   val micrositeGithubRepo  = settingKey[String]("Microsite Github repo")
-  val micrositeKazariStyle = settingKey[String](
-    "Optional. Sets the name of the stylesheet file that provides the color scheme to Kazari. Default: kazari-style-dark")
   val micrositeKazariEvaluatorUrl = settingKey[String](
     "URL of the remote Scala Evaluator to be used by Kazari. Required for Kazari to work. Default: https://scala-evaluator-212.herokuapp.com")
   val micrositeKazariEvaluatorToken = settingKey[String](

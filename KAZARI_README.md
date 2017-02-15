@@ -19,7 +19,6 @@ Once you have added these CSS classes to your code, just build your microsite as
 
 `sbt-microsites` includes sbt settings to configure Kazari to suit your needs. Here's a list of those settings:
 
-* **micrositeKazariStyle**: sets the name of the stylesheet file that provides the color scheme to Kazari. (Default: kazari-style-dark")
 * **micrositeKazariEvaluatorUrl**: URL of the remote Scala Evaluator to be used by Kazari. Defaults to the [remote evaluator](https://github.com/scala-exercises/evaluator) used in [Scala Exercises](https://github.com/scala-exercises/scala-exercises).
 * **micrositeKazariEvaluatorToken**: remote Scala Evaluator token to be used by Kazari. Check out the [README of the evaluator](https://github.com/scala-exercises/evaluator) for information on how to generate it.
 * **micrositeKazariGithubToken**: optional GitHub token to be used by Kazari. Required for Kazari to perform certain actions (i.e. save Gists), which are still experimental.

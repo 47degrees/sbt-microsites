@@ -74,7 +74,7 @@ lazy val jsSettings = Seq(
   jsDependencies ++= Seq(
     "org.webjars" % "jquery" % "2.1.3" / "2.1.3/jquery.js",
     ProvidedJS / "codemirror.js",
-    ProvidedJS / "javascript.js" dependsOn "codemirror.js"
+    ProvidedJS / "clike.js" dependsOn "codemirror.js"
   )
 )
 
