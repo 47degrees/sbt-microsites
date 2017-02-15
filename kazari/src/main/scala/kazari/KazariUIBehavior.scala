@@ -257,4 +257,12 @@ object KazariUIBehavior {
     })
   }
 
+  def applyColorThemes(): Unit = {
+    val hlBackgroundColor = $("pre.highlight").first().css("background-color")
+    val hlForegroundColor = $("hljs.scala").first().css("color")
+    $(s".$compilerKazariBackgroundClass").css("background-color", hlBackgroundColor)
+    $(s".$compilerKazariColorClass").css("color", hlForegroundColor)
+    $(s".$compilingKazariClass").css("color", hlForegroundColor)
+  }
+
 }

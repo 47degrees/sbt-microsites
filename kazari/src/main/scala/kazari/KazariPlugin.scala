@@ -72,5 +72,7 @@ object KazariPlugin extends JSApp {
             addEditButtonBehaviour(kazariId, i, codeMirror, () => snippet)
         }
     }
+
+    applyColorThemes()
   }
 }
