@@ -23,8 +23,7 @@ package object microsites {
 
   case class KazariDependency(groupId: String, artifactId: String, version: String)
 
-  case class KazariSettings(micrositeKazariStyle: String,
-                            micrositeKazariEvaluatorUrl: String,
+  case class KazariSettings(micrositeKazariEvaluatorUrl: String,
                             micrositeKazariEvaluatorToken: String,
                             micrositeKazariGithubToken: String,
                             micrositeKazariCodeMirrorTheme: String,

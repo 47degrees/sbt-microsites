@@ -65,7 +65,7 @@ object KazariUIBehavior {
     document.body.appendChild(modalDiv)
 
     val cmParams: EditorConfiguration =
-      EditorConfig.mode("javascript").lineNumbers(true).theme(theme)
+      EditorConfig.mode("text/x-scala").lineNumbers(true).theme(theme)
 
     document.querySelector("#" + codeModalInternalTextArea) match {
       case el: HTMLTextAreaElement =>
@@ -127,6 +127,7 @@ object KazariUIBehavior {
       changeButtonIcon(btnSelector + " " + "i",
                        decoratorButtonPlayClass,
                        decoratorButtonSpinnerClass)
+      $(btnSelector).addClass(compilingKazariClass).removeClass(compilerKazariColorClass)
       toggleButtonActiveState(btnSelector, true)
       hideAlertMessage(parentSelector)
 
@@ -135,6 +136,7 @@ object KazariUIBehavior {
           changeButtonIcon(btnSelector + " " + "i",
                            decoratorButtonSpinnerClass,
                            decoratorButtonPlayClass)
+          $(btnSelector).removeClass(compilingKazariClass).addClass(compilerKazariColorClass)
           toggleButtonActiveState(btnSelector, false)
           r.fold({ e =>
             showAlertMessage(parentSelector,
@@ -253,6 +255,16 @@ object KazariUIBehavior {
           }
       }
     })
+  }
+
+  def applyColorThemes(): Unit = {
+    val hlBackgroundColor = $("pre").first().css("background-color")
+    val hlForegroundColor = $(".hljs-literal").first().css("color")
+    $(s".$compilerKazariBackgroundClass").css("background-color", hlBackgroundColor)
+    $(s".$codeMirrorLinesClass").css("background-color", hlBackgroundColor)
+    $(s".$compilerKazariColorClass").css("color", hlForegroundColor)
+    $(s".$compilingKazariClass").css("color", hlForegroundColor)
+    $(s".$compilerKazariLinkColorClass").css("color", hlForegroundColor)
   }
 
 }
