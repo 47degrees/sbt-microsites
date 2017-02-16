@@ -1,0 +1,61 @@
+// MODAL
+//------------------------------------------------
+//------------------------------------------------
+.modal-kazari {
+	margin-top: 40px;
+	label {
+		cursor: pointer;
+		margin-bottom: 0;
+	}
+	.modal-kazari-modal-state {
+		display: none;
+	}
+	.modal-kazari-fade-screen {
+		@include position(fixed, 0 0 0 0);
+		background-color: rgba($gray-darker, 0.90);
+		opacity: 0;
+		transition: opacity 0.25s ease;
+		visibility: hidden;
+		z-index: 99999;
+	}
+	.modal-kazari-bg {
+		@include position(absolute, 0 0 0 0);
+		cursor: pointer;
+	}
+	.modal-kazari-close {
+		cursor: pointer;
+		margin-bottom: 14px;
+		text-align: right;
+		i {
+			font-size: 24px;
+			color: rgba($gray-darker, 0.2);
+			transition: color $base-duration $base-timing;
+			&:hover {
+				color: $gray-darker;
+			}
+		}
+	}
+	.modal-kazari-inner {
+		box-sizing: border-box;
+		padding: 30px;
+		background-color: #fff;
+		margin: auto;
+		max-height: 95%;
+		overflow: auto;
+		position: relative;
+		transition: opacity 0.25s ease;
+		width: 100%;
+	}
+	.modal-kazari-state:checked + .modal-kazari-fade-screen {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+.modal-kazari-open {
+	overflow: hidden;
+}
+
+.modal-kazari-close {
+	overflow: auto;
+}
