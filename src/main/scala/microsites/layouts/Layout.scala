@@ -18,19 +18,23 @@ package microsites.layouts
 
 import microsites.MicrositeSettings
 import microsites.util.FileHelper._
+import microsites.util.MicrositeHelper
 
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
-import scalatags.Text.tags2.{title, nav}
+import scalatags.Text.tags2.{nav, title}
 
 abstract class Layout(config: MicrositeSettings) {
   implicitly(config)
+
+  lazy val micrositeHelper = new MicrositeHelper(config)
 
   def render: TypedTag[String]
 
   def commonHead: TypedTag[String] = {
     head(
       metas,
+      favicons,
       styles
     )
   }
@@ -38,31 +42,41 @@ abstract class Layout(config: MicrositeSettings) {
   def metas: List[TypedTag[String]] =
     List(meta(charset := "utf-8"),
          meta(httpEquiv := "X-UA-Compatible", content := "IE=edge,chrome=1"),
-         title(config.name),
+         title(config.identity.name),
          meta(name := "viewport", content := "width=device-width, initial-scale=1.0"),
-         meta(name := "description", content := config.description),
-         meta(name := "author", content := config.author),
+         meta(name := "description", content := config.identity.description),
+         meta(name := "author", content := config.identity.author),
          meta(name := "og:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
-         meta(name := "og:title", content := config.name),
-         meta(name := "og:site_name", content := config.name),
-         meta(name := "og:url", content := config.homepage),
+         meta(name := "og:title", content := config.identity.name),
+         meta(name := "og:site_name", content := config.identity.name),
+         meta(name := "og:url", content := config.identity.homepage),
          meta(name := "og:type", content := "website"),
-         meta(name := "og:description", content := config.description),
+         meta(name := "og:description", content := config.identity.description),
          meta(name := "twitter:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
          meta(name := "twitter:card", content := "summary_large_image"),
-         meta(name := "twitter:site", content := config.twitter),
-         link(rel := "icon",
-              `type` := "image/png",
-              href := "{{site.url}}{{site.baseurl}}/img/favicon.png"))
+         meta(name := "twitter:site", content := config.identity.twitter))
+
+  def favicons: List[TypedTag[String]] =
+    (if (config.visualSettings.favicons.nonEmpty) {
+       config.visualSettings.favicons
+     } else {
+       micrositeHelper.faviconDescriptions
+     }).map {
+      case icon =>
+        link(rel := "icon",
+             `type` := "image/png",
+             attr("sizes") := s"${icon.sizeDescription}",
+             href := s"{{site.url}}{{site.baseurl}}/img/${icon.filename}")
+    }.toList
 
   def styles: List[TypedTag[String]] = {
 
-    val customCssList = fetchFilesRecursively(config.micrositeCssDirectory, List("css")) map {
-      css =>
-        link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${css.getName}")
+    val customCssList = fetchFilesRecursively(config.fileLocations.micrositeCssDirectory,
+                                              List("css")) map { css =>
+      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${css.getName}")
     }
 
-    val customCDNList = config.micrositeCDNDirectives.cssList map { css =>
+    val customCDNList = config.fileLocations.micrositeCDNDirectives.cssList map { css =>
       link(rel := "stylesheet", href := css)
     }
 
@@ -70,9 +84,10 @@ abstract class Layout(config: MicrositeSettings) {
       link(rel := "stylesheet",
            href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
       link(rel := "stylesheet",
-           href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"),
-      link(rel := "stylesheet",
-           href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.highlightTheme}.css"),
+           href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"),
+      link(
+        rel := "stylesheet",
+        href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/style.css"),
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/palette.css")
     ) ++ customCssList ++ customCDNList
@@ -80,11 +95,12 @@ abstract class Layout(config: MicrositeSettings) {
 
   def scripts: List[TypedTag[String]] = {
 
-    val customJsList = fetchFilesRecursively(config.micrositeJsDirectory, List("js")) map { js =>
-      script(src := s"{{site.url}}{{site.baseurl}}/js/${js.getName}")
+    val customJsList = fetchFilesRecursively(config.fileLocations.micrositeJsDirectory, List("js")) map {
+      js =>
+        script(src := s"{{site.url}}{{site.baseurl}}/js/${js.getName}")
     }
 
-    val customCDNList = config.micrositeCDNDirectives.jsList map { js =>
+    val customCDNList = config.fileLocations.micrositeCDNDirectives.jsList map { js =>
       script(src := js)
     }
 
@@ -102,30 +118,31 @@ abstract class Layout(config: MicrositeSettings) {
   }
 
   def globalFooter =
-    footer(
-      id := "site-footer",
-      div(cls := "container",
-          div(cls := "row",
-              div(cls := "col-xs-6",
-                  p("{{ site.name }} is designed and developed by ",
-                    a(href := s"${config.homepage}", target := "_blank", s"${config.author}"))),
-              div(cls := "col-xs-6",
-                  p(cls := "text-right",
-                    a(href := s"https://github.com/${config.githubOwner}/${config.githubRepo}",
-                      span(cls := "fa fa-github"),
-                      "View on Github"))))))
+    footer(id := "site-footer",
+           div(cls := "container",
+               div(cls := "row",
+                   div(cls := "col-xs-6",
+                       p("{{ site.name }} is designed and developed by ",
+                         a(href := s"${config.identity.homepage}",
+                           target := "_blank",
+                           s"${config.identity.author}"))),
+                   div(cls := "col-xs-6",
+                       p(cls := "text-right",
+                         a(href := config.gitSiteUrl,
+                           span(cls := s"fa ${config.gitHostingIconClass}"),
+                           s"View on ${config.gitSettings.gitHostingService}"))))))
 
   def buildCollapseMenu: TypedTag[String] =
     nav(cls := "text-right",
         ul(cls := "",
            li(
-             a(href := s"https://github.com/${config.githubOwner}/${config.githubRepo}",
-               i(cls := "fa fa-github"),
-               span(cls := "hidden-xs", "GitHub"))
+             a(href := config.gitSiteUrl,
+               i(cls := s"fa ${config.gitHostingIconClass}"),
+               span(cls := "hidden-xs", config.gitSettings.gitHostingService.name))
            ),
-           if (!config.micrositeDocumentationUrl.isEmpty)
+           if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
              li(
-               a(href := s"${config.micrositeDocumentationUrl}",
+               a(href := s"${config.urlSettings.micrositeDocumentationUrl}",
                  i(cls := "fa fa-file-text"),
                  span(cls := "hidden-xs", "Documentation"))
              )

@@ -19,6 +19,21 @@ package microsites
 import sbt._
 
 trait MicrositeKeys {
+
+  sealed abstract class GitHostingService(val name: String) extends Product with Serializable
+  final case object GitHub                                  extends GitHostingService("GitHub")
+  final case object GitLab                                  extends GitHostingService("GitLab")
+  final case object Bitbucket                               extends GitHostingService("Bitbucket")
+  final case class Other(value: String)                     extends GitHostingService(value)
+
+  object GitHostingService {
+    implicit def string2GitHostingService(name: String) = {
+      List(GitHub, GitLab, Bitbucket)
+        .find(_.name.toLowerCase == name.toLowerCase)
+        .getOrElse(Other(name))
+    }
+  }
+
   val makeMicrosite = taskKey[Unit]("Main Task to build a Microsite")
   val publishMicrosite =
     taskKey[Unit]("Publish the microsite (using the pushSite task) after build it")
@@ -48,11 +63,16 @@ trait MicrositeKeys {
   val micrositeDataDirectory = settingKey[File](
     "Optional. Microsite Data directory, useful to define the microsite data files " +
       "(https://jekyllrb.com/docs/datafiles/). By default, it'll be the resourcesDirectory + '/microsite/data'")
-
   val micrositeExtraMdFiles = settingKey[Map[File, ExtraMdFileConfig]](
     "Optional. This key is useful when you want to include automatically markdown documents as a part of your microsite, and these files are located in different places from the tutSourceDirectory. The map key is related with the source file, the map value corresponds with the target relative file path and the document meta-information configuration. By default, the map is empty.")
-  val micrositePalette     = settingKey[Map[String, String]]("Microsite palette")
+  val micrositePalette = settingKey[Map[String, String]]("Microsite palette")
+  val micrositeFavicons = settingKey[Seq[MicrositeFavicon]](
+    "Optional. List of filenames and sizes for the PNG/ICO files to be used as favicon for the generated site, located in '/microsite/img'. The sizes should be described with a string (i.e.: \"16x16\"). By default, favicons with different sizes will be generated from the navbar_brand2x.jpg file.")
   val micrositeGithubOwner = settingKey[String]("Microsite Github owner")
   val micrositeGithubRepo  = settingKey[String]("Microsite Github repo")
+  val micrositeGitHostingService =
+    settingKey[GitHostingService]("Service used for git hosting. By default, it'll be GitHub.")
+  val micrositeGitHostingUrl = settingKey[String](
+    "In the case where your project isn't hosted on Github, use this setting to point users to git host (e.g. 'https://internal.gitlab.com/<user>/<project>').")
 }
 object MicrositeKeys extends MicrositeKeys

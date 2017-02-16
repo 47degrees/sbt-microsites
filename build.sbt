@@ -2,8 +2,9 @@ import sbt.Keys._
 import de.heikoseeberger.sbtheader.license.Apache2_0
 import catext.Dependencies._
 
-val dev  = Seq(Dev("47 Degrees (twitter: @47deg)", "47 Degrees"))
-val gh   = GitHubSettings("com.fortysevendeg", "sbt-microsites", "47 Degrees", apache)
+val dev = Seq(Dev("47 Degrees (twitter: @47deg)", "47 Degrees"))
+val gh =
+  GitHubSettings("com.fortysevendeg", "sbt-microsites", "47 Degrees", apache)
 val vAll = Versions(versions, libraries, scalacPlugins)
 
 lazy val artifactSettings = Seq(
@@ -29,11 +30,12 @@ lazy val pluginSettings = Seq(
       "jgit-repo" at "http://download.eclipse.org/jgit/maven"
     ),
     libraryDependencies ++= Seq(
-      "com.lihaoyi"    %% "scalatags"    % "0.6.0",
-      "org.scalactic"  %% "scalactic"    % "3.0.0",
-      "net.jcazevedo"  %% "moultingyaml" % "0.4.0",
-      "org.scalatest"  %% "scalatest"    % versions("scalatest") % "test",
-      "org.scalacheck" %% "scalacheck"   % versions("scalacheck") % "test"
+      "com.lihaoyi"           %% "scalatags"     % "0.6.0",
+      "org.scalactic"         %% "scalactic"     % "3.0.0",
+      "net.jcazevedo"         %% "moultingyaml"  % "0.4.0",
+      "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.7",
+      "org.scalatest"         %% "scalatest"     % versions("scalatest") % "test",
+      "org.scalacheck"        %% "scalacheck"    % versions("scalacheck") % "test"
     ),
     scalafmtConfig in ThisBuild := Some(file(".scalafmt"))
   ) ++ reformatOnCompileSettings
@@ -45,8 +47,7 @@ lazy val micrositeSettings = Seq(
   micrositeDocumentationUrl := "/sbt-microsites/docs/",
   micrositeGithubOwner := "47deg",
   micrositeGithubRepo := "sbt-microsites",
-  micrositeHighlightTheme := "color-brewer",
-  includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
+  micrositeHighlightTheme := "color-brewer"
 )
 
 lazy val jsSettings = Seq(

@@ -7,7 +7,7 @@ title: Configuring the Microsite
 
 The following are the `sbt` settings that you can use to make adjustments to your microsite regarding deployment, configuration, and appearance. Not all of these settings are mandatory, since most of them have default values, as we'll see briefly.
 
-Before beginning to detail the settings, the **sbt-microsites** plugin will use regular sbt configurations from your `build.sbt` file. In order to set the microsite up in a minimal manner, all of the configurations are used as default values:
+Before you begin to detail the settings, the **sbt-microsites** plugin will use regular sbt configurations from your `build.sbt` file. In order to setup the microsite with minimal effort, all of the configurations are used as default values: 
    
 ## Regular SBT Settings
    
@@ -20,7 +20,7 @@ However, you can override these default settings by using the ones provided by t
 
 ## Microsite SBT Settings
 
-We tried to bring all of the parameters that are potentially needed to configure any microsite. If you think that something additional could be added, please let us know as we are open to suggestions and contributions.  
+We tried to provide all of the parameters that are potentially needed to configure any microsite. If you think that something additional needs adding, please let us know! We're open to suggestions and contributions. 
 
 - `micrositeName`: the microsite name. As we mentioned previously, by default, it's taken from the sbt setting `name`. Sometimes, it isn't the default behavior so you can override it like this:
 
@@ -69,6 +69,13 @@ micrositeGithubOwner := "47deg"
 micrositeGithubRepo := "sbt-microsites"
 ```
 
+- `micrositeGitHostingService` and `micrositeGitHostingUrl`: in order to specify a hosting service other than `GitHub`:
+
+```
+micrositeGitHostingService := GitLab
+micrositeGitHostingUrl := "https://gitlab.com/gitlab-org/gitlab-ce"
+```
+
 - `micrositeHighlightTheme`: by default, the theme of Highlight.js is [default](https://highlightjs.org/static/demo/), however, you can configure it to a different theme thanks to this setting:
 
 ```
@@ -95,6 +102,22 @@ micrositeJsDirectory := (resourceDirectory in Compile).value / "site" / "scripts
 ```
 
 There is a reserved filename that you cannot use in your personal microsite: `main.js`, which it's provided by the plugin.
+
+- `micrositeCDNDirectives`: this setting provides the ability to include CDN imports (for js and css files) along the different layouts in this way:
+
+```
+micrositeCDNDirectives := CdnDirectives(
+  jsList = List(
+    "https://cdnjs.cloudflare.com/ajax/libs/ag-grid/7.0.2/ag-grid.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/ajaxify/6.6.0/ajaxify.min.js"
+  ),
+  cssList = List(
+    "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.12/1977.min.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.12/brooklyn.css"
+  )
+)
+```
 
 - `micrositeExternalLayoutsDirectory`: you can also introduce custom html layouts in the generated microsite through the `micrositeExternalLayoutsDirectory` setting. The layout files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "layout"` but you can override it like this:
 
@@ -130,8 +153,24 @@ In the Documentation **Menu** case, as you can see in the [layouts](layouts.html
 - `micrositeExtraMdFiles`: this setting can be handy if you want to include additional markdown files in your site, and these files are not located in the same place in your `tut` directory. By default, the setting is set up as an empty map. You can override it, in this way:
 
 ```
-micrositeExtraMdFiles := Map(file("README.md") -> "index.md", file("CONTRIBUTING.md") -> "contributing.md")
+micrositeExtraMdFiles := Map(
+  file("README.md") -> ExtraMdFileConfig(
+    "readme.md",
+    "home"
+  ),
+  file("CONSEQUAT.md") -> ExtraMdFileConfig(
+    "consequat.md",
+    "page",
+    Map("title" -> "Consequat", "section" -> "consequat", "position" -> "5")
+  )
+)
 ```
+
+Each file (the map key) can be related to a specific configuration through the `ExtraMdFileConfig` case class. This class allows you to specify three additional configurations:
+
+1. The target file name. The plugin will copy the file and it will put it in tut directory each time you build the microsite. Therefore you might want to include this auto-copied file in the list of ignored files at the `.gitignore` file.
+2. Jekyll `layout` property.
+3. Other custom Jekyll properties that you might want to include in your document.
 
 - `micrositePalette`: the default microsite style essentially uses eight colors. You can configure all of them, as seen below:
 
@@ -145,4 +184,37 @@ micrositePalette := Map(
         "gray-light"        -> "#E3E2E3",
         "gray-lighter"      -> "#F4F3F4",
         "white-color"       -> "#FFFFFF")
+```
+- `micrositeFavicons`: list of filenames and sizes for the PNG/ICO files to be used as favicons for the generated site, located in the default image directory. The sizes should be described with a string (i.e.: \"16x16\"). If not provided, favicons with different sizes will be generated from the navbar_brand2x.jpg file.
+
+```
+micrositeFavicons := Seq(MicrositeFavicon("favicon16x16.png", "16x16"), MicrositeFavicon("favicon32x32.png", "32x32"))
+```
+
+- `micrositeConfigYaml`: this setting brings the capability to customize the Jekyll `_config.yml` file in three different ways (not exclusive to each other):
+
+1. Specifying a provided `_config.yml` as a part of your library resources.
+2. Specifying a YAML string inline in the sbt configuration (you might want to consider the use of `stripMargin`).
+3. Through custom liquid variables.
+
+These three ways will be merged in order to generate the final and single `_config.yml` file.
+This is possible thanks to the `ConfigYml` case class, which looks like the following:
+
+```scala
+case class ConfigYml(
+      yamlCustomProperties: Map[String, Any] = Map.empty,
+      yamlPath: Option[File] = None,
+      yamlInline: String = ""
+  )
+```
+
+Therefore, the next snippet represents an example that combines these three ways:
+
+```
+micrositeConfigYaml := ConfigYml(
+  yamlCustomProperties = Map("org" -> "My Org"),
+  yamlInline = """exclude: [package.json, grunt.js, Gruntfile.js, node_modules]
+|""".stripMargin,
+  yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "myconfig.yml")
+)
 ```
