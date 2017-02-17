@@ -21,6 +21,15 @@ import scala.language.{postfixOps, reflectiveCalls}
 
 package object microsites {
 
+  case class KazariDependency(groupId: String, artifactId: String, version: String)
+
+  case class KazariSettings(micrositeKazariEvaluatorUrl: String,
+                            micrositeKazariEvaluatorToken: String,
+                            micrositeKazariGithubToken: String,
+                            micrositeKazariCodeMirrorTheme: String,
+                            micrositeKazariDependencies: Seq[KazariDependency],
+                            micrositeKazariResolvers: Seq[String])
+
   case class MicrositeIdentitySettings(name: String,
                                        description: String,
                                        author: String,
@@ -54,7 +63,8 @@ package object microsites {
                                configYaml: ConfigYml,
                                fileLocations: MicrositeFileLocations,
                                urlSettings: MicrositeUrlSettings,
-                               gitSettings: MicrositeGitSettings) {
+                               gitSettings: MicrositeGitSettings,
+                               micrositeKazariSettings: KazariSettings) {
 
     def gitSiteUrl: String = {
       gitSettings.gitHostingService match {

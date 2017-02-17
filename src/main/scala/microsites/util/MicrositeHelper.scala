@@ -39,10 +39,11 @@ class MicrositeHelper(config: MicrositeSettings) {
   val faviconSizes = (faviconHeights zip faviconHeights) ++ Seq((310, 150))
   // format: ON
 
-  lazy val faviconFilenames = faviconSizes.foldLeft(Seq[String]())((list, size) => {
-    val (width, height) = size
-    list :+ s"favicon${width}x${height}.png"
-  })
+  lazy val faviconFilenames =
+    faviconSizes.foldLeft(Seq[String]())((list, size) => {
+      val (width, height) = size
+      list :+ s"favicon${width}x${height}.png"
+    })
 
   lazy val faviconDescriptions = (faviconFilenames zip faviconSizes).map {
     case (filename, (width, height)) =>

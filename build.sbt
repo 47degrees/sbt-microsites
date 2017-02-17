@@ -2,9 +2,8 @@ import sbt.Keys._
 import de.heikoseeberger.sbtheader.license.Apache2_0
 import catext.Dependencies._
 
-val dev = Seq(Dev("47 Degrees (twitter: @47deg)", "47 Degrees"))
-val gh =
-  GitHubSettings("com.fortysevendeg", "sbt-microsites", "47 Degrees", apache)
+val dev  = Seq(Dev("47 Degrees (twitter: @47deg)", "47 Degrees"))
+val gh   = GitHubSettings("com.fortysevendeg", "sbt-microsites", "47 Degrees", apache)
 val vAll = Versions(versions, libraries, scalacPlugins)
 
 lazy val artifactSettings = Seq(
@@ -33,9 +32,9 @@ lazy val pluginSettings = Seq(
       "com.lihaoyi"           %% "scalatags"     % "0.6.0",
       "org.scalactic"         %% "scalactic"     % "3.0.0",
       "net.jcazevedo"         %% "moultingyaml"  % "0.4.0",
-      "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.7",
       "org.scalatest"         %% "scalatest"     % versions("scalatest") % "test",
-      "org.scalacheck"        %% "scalacheck"    % versions("scalacheck") % "test"
+      "org.scalacheck"        %% "scalacheck"    % versions("scalacheck") % "test",
+      "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.7"
     ),
     scalafmtConfig in ThisBuild := Some(file(".scalafmt"))
   ) ++ reformatOnCompileSettings
@@ -47,7 +46,39 @@ lazy val micrositeSettings = Seq(
   micrositeDocumentationUrl := "/sbt-microsites/docs/",
   micrositeGithubOwner := "47deg",
   micrositeGithubRepo := "sbt-microsites",
-  micrositeHighlightTheme := "color-brewer"
+  micrositeHighlightTheme := "color-brewer",
+  includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
+)
+
+lazy val jsSettings = Seq(
+  scalaVersion := "2.11.8",
+  scalaJSStage in Global := FastOptStage,
+  parallelExecution := false,
+  scalaJSUseRhino := false,
+  requiresDOM := false,
+  skip in packageJSDependencies := false,
+  jsEnv := NodeJSEnv().value,
+  libraryDependencies ++= Seq(
+    "org.scala-js"        %%% "scalajs-dom"       % "0.9.0",
+    "be.doeraene"         %%% "scalajs-jquery"    % "0.9.0",
+    "com.lihaoyi"         %%% "upickle"           % "0.4.1",
+    "org.scala-exercises" %%% "evaluator-client"  % "0.1.2-SNAPSHOT",
+    "com.lihaoyi"         %%% "scalatags"         % "0.6.0",
+    "org.querki"          %%% "jquery-facade"     % "1.0-RC6",
+    "org.denigma"         %%% "codemirror-facade" % "5.11-0.7",
+    "com.fortysevendeg"   %%% "github4s"          % "0.9.0",
+    "fr.hmil"             %%% "roshttp"           % "2.0.0-RC1"
+  ),
+  resolvers ++= Seq(Resolver.url("bintray-sbt-plugin-releases",
+                                 url("https://dl.bintray.com/content/sbt/sbt-plugin-releases"))(
+                      Resolver.ivyStylePatterns),
+                    Resolver.sonatypeRepo("snapshots"),
+                    Resolver.bintrayRepo("denigma", "denigma-releases")),
+  jsDependencies ++= Seq(
+    "org.webjars" % "jquery" % "2.1.3" / "2.1.3/jquery.js",
+    ProvidedJS / "codemirror.js",
+    ProvidedJS / "clike.js" dependsOn "codemirror.js"
+  )
 )
 
 lazy val buildInfoSettings = Seq(
@@ -55,7 +86,10 @@ lazy val buildInfoSettings = Seq(
   buildInfoPackage := "microsites"
 )
 
-lazy val commonSettings = artifactSettings ++ miscSettings
+lazy val commonSettings = artifactSettings ++ miscSettings ++ reformatOnCompileSettings ++ Seq(
+    scalafmtConfig in ThisBuild := Some(file(".scalafmt"))
+  )
+
 lazy val allSettings = pluginSettings ++
     commonSettings ++
     tutSettings ++
@@ -81,3 +115,10 @@ lazy val docs = (project in file("docs"))
   .settings(moduleName := "docs")
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(BuildInfoPlugin)
+
+lazy val kazari = (project in file("kazari"))
+  .settings(moduleName := "kazari")
+  .settings(commonSettings: _*)
+  .settings(jsSettings: _*)
+  .settings(KazariBuild.kazariTasksSettings: _*)
+  .enablePlugins(ScalaJSPlugin)

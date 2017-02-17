@@ -35,7 +35,8 @@ trait FileHelper {
   }
 
   def getPathWithSlash(f: File): String =
-    f.getAbsolutePath + (if (f.getAbsolutePath.endsWith(File.separator)) "" else File.separator)
+    f.getAbsolutePath + (if (f.getAbsolutePath.endsWith(File.separator)) ""
+                         else File.separator)
 
   def copyFilesRecursively(sourcePath: String, targetDirPath: String): Unit = {
 
