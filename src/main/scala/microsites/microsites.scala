@@ -30,27 +30,59 @@ package object microsites {
                             micrositeKazariDependencies: Seq[KazariDependency],
                             micrositeKazariResolvers: Seq[String])
 
-  case class MicrositeSettings(name: String,
-                               description: String,
-                               author: String,
-                               homepage: String,
-                               twitter: String,
-                               highlightTheme: String,
-                               micrositeConfigYaml: ConfigYml,
-                               micrositeImgDirectory: File,
-                               micrositeCssDirectory: File,
-                               micrositeJsDirectory: File,
-                               micrositeCDNDirectives: CdnDirectives,
-                               micrositeExternalLayoutsDirectory: File,
-                               micrositeExternalIncludesDirectory: File,
-                               micrositeDataDirectory: File,
-                               micrositeExtraMdFiles: Map[File, ExtraMdFileConfig],
-                               micrositeBaseUrl: String,
-                               micrositeDocumentationUrl: String,
-                               palette: Map[String, String],
-                               githubOwner: String,
-                               githubRepo: String,
-                               micrositeKazariSettings: KazariSettings)
+  case class MicrositeIdentitySettings(name: String,
+                                       description: String,
+                                       author: String,
+                                       homepage: String,
+                                       twitter: String)
+
+  case class MicrositeFileLocations(micrositeImgDirectory: File,
+                                    micrositeCssDirectory: File,
+                                    micrositeJsDirectory: File,
+                                    micrositeCDNDirectives: CdnDirectives,
+                                    micrositeExternalLayoutsDirectory: File,
+                                    micrositeExternalIncludesDirectory: File,
+                                    micrositeDataDirectory: File,
+                                    micrositeExtraMdFiles: Map[File, ExtraMdFileConfig])
+
+  case class MicrositeGitSettings(githubOwner: String,
+                                  githubRepo: String,
+                                  gitHostingService: MicrositeKeys.GitHostingService,
+                                  gitHostingUrl: String)
+
+  case class MicrositeUrlSettings(micrositeBaseUrl: String, micrositeDocumentationUrl: String)
+
+  case class MicrositeFavicon(filename: String, sizeDescription: String)
+
+  case class MicrositeVisualSettings(highlightTheme: String,
+                                     palette: Map[String, String],
+                                     favicons: Seq[MicrositeFavicon])
+
+  case class MicrositeSettings(identity: MicrositeIdentitySettings,
+                               visualSettings: MicrositeVisualSettings,
+                               configYaml: ConfigYml,
+                               fileLocations: MicrositeFileLocations,
+                               urlSettings: MicrositeUrlSettings,
+                               gitSettings: MicrositeGitSettings,
+                               micrositeKazariSettings: KazariSettings) {
+
+    def gitSiteUrl: String = {
+      gitSettings.gitHostingService match {
+        case MicrositeKeys.GitHub =>
+          s"https://github.com/${gitSettings.githubOwner}/${gitSettings.githubRepo}"
+        case _ => gitSettings.gitHostingUrl
+      }
+    }
+
+    def gitHostingIconClass: String = {
+      gitSettings.gitHostingService match {
+        case MicrositeKeys.GitHub    => "fa-github"
+        case MicrositeKeys.GitLab    => "fa-gitlab"
+        case MicrositeKeys.Bitbucket => "fa-bitbucket"
+        case o: MicrositeKeys.Other  => "fa-git"
+      }
+    }
+  }
 
   case class ExtraMdFileConfig(fileName: String,
                                layout: String,

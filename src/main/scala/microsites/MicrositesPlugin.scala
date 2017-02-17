@@ -78,6 +78,7 @@ object MicrositesPlugin extends AutoPlugin {
                             "gray-light"      -> "#E3E2E3",
                             "gray-lighter"    -> "#F4F3F4",
                             "white-color"     -> "#FFFFFF"),
+    micrositeFavicons := Seq(),
     micrositeGithubOwner := "47deg",
     micrositeGithubRepo := "sbt-microsites",
     micrositeKazariEvaluatorUrl := "https://scala-evaluator-212.herokuapp.com",
@@ -85,7 +86,10 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeKazariGithubToken := "",
     micrositeKazariCodeMirrorTheme := "solarized-dark",
     micrositeKazariDependencies := Seq(),
-    micrositeKazariResolvers := Seq())
+    micrositeKazariResolvers := Seq(),
+    micrositeGitHostingService := GitHub,
+    micrositeGitHostingUrl := "",
+    includeFilter in Jekyll := ("*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico"))
 
   lazy val micrositeHelper: Def.Initialize[MicrositeHelper] = Def.setting {
     val baseUrl =
@@ -111,26 +115,33 @@ object MicrositesPlugin extends AutoPlugin {
 
     new MicrositeHelper(
       MicrositeSettings(
-        name = micrositeName.value,
-        description = micrositeDescription.value,
-        author = micrositeAuthor.value,
-        homepage = micrositeHomepage.value,
-        twitter = micrositeTwitter.value,
-        highlightTheme = micrositeHighlightTheme.value,
-        micrositeConfigYaml = configWithAllCustomVariables,
-        micrositeImgDirectory = micrositeImgDirectory.value,
-        micrositeCssDirectory = micrositeCssDirectory.value,
-        micrositeJsDirectory = micrositeJsDirectory.value,
-        micrositeCDNDirectives = micrositeCDNDirectives.value,
-        micrositeExternalLayoutsDirectory = micrositeExternalLayoutsDirectory.value,
-        micrositeExternalIncludesDirectory = micrositeExternalIncludesDirectory.value,
-        micrositeDataDirectory = micrositeDataDirectory.value,
-        micrositeExtraMdFiles = micrositeExtraMdFiles.value,
-        micrositeBaseUrl = micrositeBaseUrl.value,
-        micrositeDocumentationUrl = micrositeDocumentationUrl.value,
-        palette = micrositePalette.value,
-        githubOwner = micrositeGithubOwner.value,
-        githubRepo = micrositeGithubRepo.value,
+        identity = MicrositeIdentitySettings(
+          name = micrositeName.value,
+          description = micrositeDescription.value,
+          author = micrositeAuthor.value,
+          homepage = micrositeHomepage.value,
+          twitter = micrositeTwitter.value
+        ),
+        visualSettings = MicrositeVisualSettings(
+          highlightTheme = micrositeHighlightTheme.value,
+          palette = micrositePalette.value,
+          favicons = micrositeFavicons.value
+        ),
+        configYaml = configWithAllCustomVariables,
+        fileLocations = MicrositeFileLocations(
+          micrositeImgDirectory = micrositeImgDirectory.value,
+          micrositeCssDirectory = micrositeCssDirectory.value,
+          micrositeJsDirectory = micrositeJsDirectory.value,
+          micrositeCDNDirectives = micrositeCDNDirectives.value,
+          micrositeExternalLayoutsDirectory = micrositeExternalLayoutsDirectory.value,
+          micrositeExternalIncludesDirectory = micrositeExternalIncludesDirectory.value,
+          micrositeDataDirectory = micrositeDataDirectory.value,
+          micrositeExtraMdFiles = micrositeExtraMdFiles.value
+        ),
+        urlSettings = MicrositeUrlSettings(
+          micrositeBaseUrl = micrositeBaseUrl.value,
+          micrositeDocumentationUrl = micrositeDocumentationUrl.value
+        ),
         micrositeKazariSettings = KazariSettings(
           micrositeKazariEvaluatorUrl.value,
           micrositeKazariEvaluatorToken.value,
@@ -138,8 +149,19 @@ object MicrositesPlugin extends AutoPlugin {
           micrositeKazariCodeMirrorTheme.value,
           micrositeKazariDependencies.value,
           micrositeKazariResolvers.value
-        )
-      ))
+        ),
+        gitSettings = MicrositeGitSettings(
+          githubOwner = micrositeGitHostingService.value match {
+            case GitHub => micrositeGithubOwner.value
+            case _      => ""
+          },
+          githubRepo = micrositeGitHostingService.value match {
+            case GitHub => micrositeGithubRepo.value
+            case _      => ""
+          },
+          gitHostingService = micrositeGitHostingService.value.name,
+          gitHostingUrl = micrositeGitHostingUrl.value
+        )))
   }
 
   lazy val micrositeTasksSettings = Seq(

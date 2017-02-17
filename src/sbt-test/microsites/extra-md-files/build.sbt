@@ -22,7 +22,8 @@ def getLines(fileName: String) = {
 lazy val checkReadme = TaskKey[Unit]("checkReadme")
 
 checkReadme := {
-  val lines = getLines("target/scala-2.12/resource_managed/main/jekyll/readme.md")
+  val lines =
+    getLines("target/scala-2.12/resource_managed/main/jekyll/readme.md")
 
   if (!lines(1).contains("home"))
     sys.error("Readme file has not layout home")
@@ -31,7 +32,8 @@ checkReadme := {
 lazy val checkConsequat = TaskKey[Unit]("checkConsequat")
 
 checkConsequat := {
-  val lines = getLines("target/scala-2.12/resource_managed/main/jekyll/consequat.md")
+  val lines =
+    getLines("target/scala-2.12/resource_managed/main/jekyll/consequat.md")
 
   if (!lines(1).contains("page"))
     sys.error("Consequat file has not layout page")

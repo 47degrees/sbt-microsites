@@ -22,20 +22,22 @@ pgpPublicRing := file(s"${sys.env.getOrElse("PGP_FOLDER", ".")}/pubring.gpg")
 pgpSecretRing := file(s"${sys.env.getOrElse("PGP_FOLDER", ".")}/secring.gpg")
 
 lazy val pluginSettings = Seq(
-  sbtPlugin := true,
-  scalaVersion in ThisBuild := "2.10.6",
-  resolvers ++= Seq(
-    Resolver.sonatypeRepo("releases"),
-    "jgit-repo" at "http://download.eclipse.org/jgit/maven"
-  ),
-  libraryDependencies ++= Seq(
-    "com.lihaoyi"    %% "scalatags"    % "0.6.0",
-    "org.scalactic"  %% "scalactic"    % "3.0.0",
-    "net.jcazevedo"  %% "moultingyaml" % "0.4.0",
-    "org.scalatest"  %% "scalatest"    % versions("scalatest") % "test",
-    "org.scalacheck" %% "scalacheck"   % versions("scalacheck") % "test"
-  )
-)
+    sbtPlugin := true,
+    scalaVersion in ThisBuild := "2.10.6",
+    resolvers ++= Seq(
+      Resolver.sonatypeRepo("releases"),
+      "jgit-repo" at "http://download.eclipse.org/jgit/maven"
+    ),
+    libraryDependencies ++= Seq(
+      "com.lihaoyi"           %% "scalatags"     % "0.6.0",
+      "org.scalactic"         %% "scalactic"     % "3.0.0",
+      "net.jcazevedo"         %% "moultingyaml"  % "0.4.0",
+      "org.scalatest"         %% "scalatest"     % versions("scalatest") % "test",
+      "org.scalacheck"        %% "scalacheck"    % versions("scalacheck") % "test",
+      "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.7"
+    ),
+    scalafmtConfig in ThisBuild := Some(file(".scalafmt"))
+  ) ++ reformatOnCompileSettings
 
 lazy val micrositeSettings = Seq(
   micrositeName := "sbt-microsites",
@@ -113,14 +115,9 @@ lazy val docs = (project in file("docs"))
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(BuildInfoPlugin)
 
-lazy val kazari = (project in file("kazari"))
-  .settings(moduleName := "sbt-microsites-kazari")
+lazy val js = (project in file("js"))
+  .settings(moduleName := "sbt-microsites-js")
   .settings(commonSettings: _*)
   .settings(jsSettings: _*)
   .settings(KazariBuild.kazariTasksSettings: _*)
   .enablePlugins(ScalaJSPlugin)
-  .enablePlugins(BuildInfoPlugin)
-  .settings(
-    buildInfoKeys := Seq[BuildInfoKey]("token" -> Option(sys.props("token")).getOrElse("")),
-    buildInfoPackage := "kazari"
-  )
