@@ -56,6 +56,7 @@ lazy val jsSettings = Seq(
   parallelExecution := false,
   scalaJSUseRhino := false,
   requiresDOM := false,
+  skip in packageJSDependencies := false,
   jsEnv := NodeJSEnv().value,
   libraryDependencies ++= Seq(
     "org.scala-js"        %%% "scalajs-dom"       % "0.9.0",
@@ -115,8 +116,8 @@ lazy val docs = (project in file("docs"))
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(BuildInfoPlugin)
 
-lazy val js = (project in file("js"))
-  .settings(moduleName := "sbt-microsites-js")
+lazy val kazari = (project in file("kazari"))
+  .settings(moduleName := "kazari")
   .settings(commonSettings: _*)
   .settings(jsSettings: _*)
   .settings(KazariBuild.kazariTasksSettings: _*)

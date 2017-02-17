@@ -36,7 +36,7 @@ Kazari will try to match its color scheme to the Microsite's highlight color the
 
 Kazari comes integrated with `sbt-microsites` (and in fact is a part of the project), but you don't need to create your site with the plugin in order to use it.
 
-To use Kazari in an existing documentation, you need to include the main `kazari.js` script in your site. You'll also need to include one of the two Kazari CSS stylesheets (`kazari-style-dark.css` or `kazari-style-light.css`, depending on the color scheme set with the `micrositeKazariStyle` sbt setting in `sbt-microsites`) which you will find in the resources folder of the project (`sbt-microsites/kazari/src/main/resources`).
+To use Kazari in an existing documentation, you need to include the main `kazari.js` script in your site. You'll also need to include the Kazari CSS stylesheet (`kazari-style.css`) which you will find in the resources folder of the project (`sbt-microsites/kazari/src/main/resources`).
 
 To allow users to edit code interactively, Kazari relies on a Javascript code editor called [CodeMirror](http://codemirror.net). CodeMirror comes integrated with the scripts you add to your documentation, but you'll need to include the following CSS files to your site:
 
@@ -87,7 +87,7 @@ Also note that if you're creating a documentation for a library, or for almost a
 Kazari is a **Scala.JS** application. Even if it's part of the `sbt-microsites` project, it exists in its own independent module called `kazari`. Before being able to build it, you'll need to include the CodeMirror scripts that Kazari relies on. You can download the CodeMirror release from their [official site](http://codemirror.net/doc/releases.html), noting that Kazari is built with version `5.19.0`. Once you download the package, you'll be able to find the needed scripts in the following locations:
 
 * lib/codemirror.js
-* mode/javascript.js
+* mode/clike.js
 
 Put these in the `resources` folder inside the `kazari` project of `sbt-microsites` (`sbt-microsites/kazari/src/main/scala/resources`) and you're good to go! In order to generate the scripts, please follow the next steps while in a sbt session inside the `sbt-microsites` project:
 
@@ -97,4 +97,4 @@ sbt-microsites> project kazari
 js> fullOptGenerate
 ```
 
-The `fullOptGenerate` task will compile the project, then generate and optimize Kazari's scripts, and finally combine the resulting scripts into a single file. `fullOptGenerate` is a slow command (as it relies on the `fullOptJS` task from Scala.JS, which perform several optimizations), so if you're planning to contribute to Kazari, please use the `fastOptGenerate` task in your development process instead. It will produce a larger script, but in more suitable build times. You'll be able to find the generated script (`kazari.js`) in the `target/scala-2.11` folder in the `kazari` project.
+The `fullOptGenerate` task will compile the project, then generate and optimize Kazari's scripts, and finally combine the resulting scripts into a single file. `fullOptGenerate` is a slow command (as it relies on the `fullOptJS` task from Scala.JS, which perform several optimizations), so if you're planning to contribute to Kazari, please use the `fastOptGenerate` task in your development process instead. It will produce a larger script, but in more suitable build times. You'll be able to find the generated script (`kazari.js`) in the `target/scala-2.11` folder in the `kazari` project. This file contains both the javascript dependencies and the compiled Kazari code. If you want to use both files separately, use the `kazari-opt.js` and `kazari-jsdeps.js` instead.
