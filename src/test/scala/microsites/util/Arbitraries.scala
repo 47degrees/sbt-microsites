@@ -68,6 +68,20 @@ trait Arbitraries {
     } yield map
   }
 
+  implicit def dependencyArbitrary: Arbitrary[KazariDependency] = Arbitrary {
+    for {
+      dependencyGroup    ← Arbitrary.arbitrary[String]
+      dependencyArtifact ← Arbitrary.arbitrary[String]
+      dependencyVersion  ← Arbitrary.arbitrary[String]
+    } yield KazariDependency(dependencyGroup, dependencyArtifact, dependencyVersion)
+  }
+
+  implicit def dependenciesListArbitrary: Arbitrary[Seq[KazariDependency]] = Arbitrary {
+    for {
+      list <- listOf[KazariDependency](dependencyArbitrary.arbitrary)
+    } yield list
+  }
+
   implicit def hostingServiceArbitrary: Arbitrary[GitHostingService] = Arbitrary {
     oneOf(
       oneOf(GitHub, GitLab, Bitbucket),
@@ -107,6 +121,12 @@ trait Arbitraries {
       githubRepo                         ← Arbitrary.arbitrary[String]
       gitHostingService                  ← Arbitrary.arbitrary[GitHostingService]
       gitHostingUrl                      ← Arbitrary.arbitrary[String]
+      micrositeKazariEvaluatorUrl        ← Arbitrary.arbitrary[String]
+      micrositeKazariEvaluatorToken      ← Arbitrary.arbitrary[String]
+      micrositeKazariGithubToken         ← Arbitrary.arbitrary[String]
+      micrositeKazariCodeMirrorTheme     ← Arbitrary.arbitrary[String]
+      micrositeKazariDependencies        ← dependenciesListArbitrary.arbitrary
+      micrositeKazariResolvers           ← Arbitrary.arbitrary[Seq[String]]
     } yield
       MicrositeSettings(
         MicrositeIdentitySettings(name, description, author, homepage, twitter),
@@ -121,7 +141,14 @@ trait Arbitraries {
                                micrositeDataDirectory,
                                micrositeExtraMdFiles),
         MicrositeUrlSettings(micrositeBaseUrl, micrositeDocumentationUrl),
-        MicrositeGitSettings(githubOwner, githubRepo, gitHostingService, gitHostingUrl)
-      )
+        MicrositeGitSettings(githubOwner, githubRepo, gitHostingService, gitHostingUrl),
+        KazariSettings(
+          micrositeKazariEvaluatorUrl,
+          micrositeKazariEvaluatorToken,
+          micrositeKazariGithubToken,
+          micrositeKazariCodeMirrorTheme,
+          micrositeKazariDependencies,
+          micrositeKazariResolvers
+        ))
   }
 }

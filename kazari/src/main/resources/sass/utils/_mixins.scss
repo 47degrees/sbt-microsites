@@ -1,0 +1,19 @@
+// MIXINS
+//------------------------------------------------
+//------------------------------------------------
+
+// Border Radius
+@mixin border-radius($topleft, $topright, $bottomright, $bottomleft) {
+	border-top-left-radius: $topleft;
+	border-top-right-radius: $topright;
+	border-bottom-right-radius: $bottomright;
+	border-bottom-left-radius: $bottomleft;
+	-webkit-border-top-left-radius: $topleft;
+	-webkit-border-top-right-radius: $topright;
+	-webkit-border-bottom-right-radius: $bottomright;
+	-webkit-border-bottom-left-radius: $bottomleft;
+	-moz-border-radius-topleft: $topleft;
+	-moz-border-radius-topright: $topright;
+	-moz-border-radius-bottomright: $bottomright;
+	-moz-border-radius-bottomleft: $bottomleft;
+}

@@ -37,17 +37,20 @@ trait MicrositeKeys {
   val makeMicrosite = taskKey[Unit]("Main Task to build a Microsite")
   val publishMicrosite =
     taskKey[Unit]("Publish the microsite (using the pushSite task) after build it")
-  val microsite                 = taskKey[Seq[File]]("Create microsite files")
-  val micrositeConfig           = taskKey[Unit]("Copy microsite config to the site folder")
-  val micrositeName             = settingKey[String]("Microsite name")
-  val micrositeDescription      = settingKey[String]("Microsite description")
-  val micrositeAuthor           = settingKey[String]("Microsite author")
-  val micrositeHomepage         = settingKey[String]("Microsite homepage")
-  val micrositeTwitter          = settingKey[String]("Microsite twitter")
-  val micrositeBaseUrl          = settingKey[String]("Microsite site base url")
-  val micrositeDocumentationUrl = settingKey[String]("Microsite site documentation url")
-  val micrositeHighlightTheme   = settingKey[String]("Microsite Highlight Theme")
-  val micrositeConfigYaml       = settingKey[ConfigYml]("Microsite _config.yml file configuration.")
+  val microsite = taskKey[Seq[File]]("Create microsite files")
+  val micrositeConfig =
+    taskKey[Unit]("Copy microsite config to the site folder")
+  val micrositeName        = settingKey[String]("Microsite name")
+  val micrositeDescription = settingKey[String]("Microsite description")
+  val micrositeAuthor      = settingKey[String]("Microsite author")
+  val micrositeHomepage    = settingKey[String]("Microsite homepage")
+  val micrositeTwitter     = settingKey[String]("Microsite twitter")
+  val micrositeBaseUrl     = settingKey[String]("Microsite site base url")
+  val micrositeDocumentationUrl =
+    settingKey[String]("Microsite site documentation url")
+  val micrositeHighlightTheme = settingKey[String]("Microsite Highlight Theme")
+  val micrositeConfigYaml =
+    settingKey[ConfigYml]("Microsite _config.yml file configuration.")
   val micrositeImgDirectory = settingKey[File](
     "Optional. Microsite images directory. By default, it'll be the resourcesDirectory + '/microsite/img'")
   val micrositeCssDirectory = settingKey[File](
@@ -70,6 +73,18 @@ trait MicrositeKeys {
     "Optional. List of filenames and sizes for the PNG/ICO files to be used as favicon for the generated site, located in '/microsite/img'. The sizes should be described with a string (i.e.: \"16x16\"). By default, favicons with different sizes will be generated from the navbar_brand2x.jpg file.")
   val micrositeGithubOwner = settingKey[String]("Microsite Github owner")
   val micrositeGithubRepo  = settingKey[String]("Microsite Github repo")
+  val micrositeKazariEvaluatorUrl = settingKey[String](
+    "URL of the remote Scala Evaluator to be used by Kazari. Required for Kazari to work. Default: https://scala-evaluator-212.herokuapp.com")
+  val micrositeKazariEvaluatorToken = settingKey[String](
+    "Remote Scala Evaluator token to be used by Kazari. Required for Kazari to work. Default: token compatible with the Scala Exercises remote evaluator.")
+  val micrositeKazariGithubToken = settingKey[String](
+    "GitHub token to be used by Kazari. Required for Kazari to perform certain actions (i.e. save Gists). Default: empty string")
+  val micrositeKazariCodeMirrorTheme = settingKey[String](
+    "Optional. CodeMirror theme to be used by Kazari in its modal editor. Default: monokai")
+  val micrositeKazariDependencies = settingKey[Seq[KazariDependency]](
+    "Optional. List of dependencies needed to compile the code to be evaluated by Kazari (set of groupId, artifactId, and versionId). Default: empty list")
+  val micrositeKazariResolvers = settingKey[Seq[String]](
+    "Optional. List of resolver urls needed for the provided dependencies to be fetched by Kazari. Default: empty list")
   val micrositeGitHostingService =
     settingKey[GitHostingService]("Service used for git hosting. By default, it'll be GitHub.")
   val micrositeGitHostingUrl = settingKey[String](
