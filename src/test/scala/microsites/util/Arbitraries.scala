@@ -18,10 +18,11 @@ package microsites.util
 
 import java.io.File
 
-import microsites._
 import microsites.MicrositeKeys._
+import microsites._
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen._
+import sbt.Resolver
 
 trait Arbitraries {
 
@@ -70,10 +71,11 @@ trait Arbitraries {
 
   implicit def dependencyArbitrary: Arbitrary[KazariDependency] = Arbitrary {
     for {
-      dependencyGroup    ← Arbitrary.arbitrary[String]
-      dependencyArtifact ← Arbitrary.arbitrary[String]
-      dependencyVersion  ← Arbitrary.arbitrary[String]
-    } yield KazariDependency(dependencyGroup, dependencyArtifact, dependencyVersion)
+      dependencyGroup         ← Arbitrary.arbitrary[String]
+      dependencyArtifact      ← Arbitrary.arbitrary[String]
+      dependencyScalaVersion  ← Arbitrary.arbitrary[String]
+      dependencyVersion       ← Arbitrary.arbitrary[String]
+    } yield KazariDependency(dependencyGroup, dependencyArtifact, dependencyScalaVersion, dependencyVersion)
   }
 
   implicit def dependenciesListArbitrary: Arbitrary[Seq[KazariDependency]] = Arbitrary {

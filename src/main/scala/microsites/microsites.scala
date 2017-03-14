@@ -21,7 +21,10 @@ import scala.language.{postfixOps, reflectiveCalls}
 
 package object microsites {
 
-  case class KazariDependency(groupId: String, artifactId: String, version: String)
+  case class KazariDependency(groupId: String,
+                              artifactId: String,
+                              scalaVersion: String,
+                              version: String)
 
   case class KazariSettings(micrositeKazariEvaluatorUrl: String,
                             micrositeKazariEvaluatorToken: String,

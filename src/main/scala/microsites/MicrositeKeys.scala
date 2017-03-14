@@ -82,7 +82,7 @@ trait MicrositeKeys {
   val micrositeKazariCodeMirrorTheme = settingKey[String](
     "Optional. CodeMirror theme to be used by Kazari in its modal editor. Default: monokai")
   val micrositeKazariDependencies = settingKey[Seq[KazariDependency]](
-    "Optional. List of dependencies needed to compile the code to be evaluated by Kazari (set of groupId, artifactId, and versionId). Default: empty list")
+    "Optional. List of dependencies needed to compile the code to be evaluated by Kazari (set of groupId, artifactId, scalaVersion and versionId). Default: empty list")
   val micrositeKazariResolvers = settingKey[Seq[String]](
     "Optional. List of resolver urls needed for the provided dependencies to be fetched by Kazari. Default: empty list")
   val micrositeGitHostingService =
