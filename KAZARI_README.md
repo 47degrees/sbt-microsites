@@ -23,8 +23,10 @@ Once you have added these CSS classes to your code, just build your microsite as
 * **micrositeKazariEvaluatorToken**: remote Scala Evaluator token to be used by Kazari. Check out the [README of the evaluator](https://github.com/scala-exercises/evaluator) for information on how to generate it.
 * **micrositeKazariGithubToken**: optional GitHub token to be used by Kazari. Required for Kazari to perform certain actions (i.e. save Gists), which are still experimental.
 * **micrositeKazariCodeMirrorTheme**: optional CodeMirror theme to be used by Kazari in its modal editor.
-* **micrositeKazariDependencies**: optional list of dependencies needed to compile the code to be evaluated by Kazari (set of groupId, artifactId, scalaVersion, onlyPrefix and versionId).
+* **micrositeKazariDependencies**: optional list of dependencies needed to compile the code to be evaluated by Kazari (set of groupId, artifactId, scalaVersion and versionId).
 * **micrositeKazariResolvers**: optional list of resolver urls needed for the provided dependencies to be fetched by Kazari.
+
+In case you need it to set up your `micrositeKazariDependencies`, a `buildWithoutSuffix(scalaVersion: String)` is provided by `sbt-microsites` just importing `microsites.util.BuildHelper._`. You can use the default implementation provided or override it creating your own.
 
 Kazari will try to match its color scheme to the Microsite's highlight color theme. If the default colors don't quite match or you want to change them, we provide a few class for you to customize:
 

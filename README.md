@@ -33,7 +33,7 @@ Microsites comes with a range of options to customize and configure your project
 
 # Kazari plugin
 
-If you already have some pre-existing documentation for your project, `sbt-microsites` also provides a Javascript plugin called [Kazari](KAZARI_PLUGIN.md) that decorates your code snippets with functionality that allows users to edit them live and run them in a remote Scala evaluator; making the learning process a whole lot easier.
+If you already have some pre-existing documentation for your project, `sbt-microsites` also provides a Javascript plugin called [Kazari](KAZARI_README.md) that decorates your code snippets with functionality that allows users to edit them live and run them in a remote Scala evaluator; making the learning process a whole lot easier.
 
 # sbt-microsites in the wild
 

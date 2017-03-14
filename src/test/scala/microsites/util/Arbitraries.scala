@@ -74,9 +74,8 @@ trait Arbitraries {
       dependencyGroup         ← Arbitrary.arbitrary[String]
       dependencyArtifact      ← Arbitrary.arbitrary[String]
       dependencyScalaVersion  ← Arbitrary.arbitrary[String]
-      dependencyOnlyPrefix    ← Arbitrary.arbitrary[Boolean]
       dependencyVersion       ← Arbitrary.arbitrary[String]
-    } yield KazariDependency(dependencyGroup, dependencyArtifact, dependencyScalaVersion, dependencyOnlyPrefix, dependencyVersion)
+    } yield KazariDependency(dependencyGroup, dependencyArtifact, dependencyScalaVersion, dependencyVersion)
   }
 
   implicit def dependenciesListArbitrary: Arbitrary[Seq[KazariDependency]] = Arbitrary {

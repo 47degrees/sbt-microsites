@@ -60,17 +60,8 @@ abstract class Layout(config: MicrositeSettings) {
         name := "kazari-dependencies",
         content :=
           config.micrositeKazariSettings.micrositeKazariDependencies
-            .map(dependency => {
-              val scalaVersion =
-                if (dependency.onlyPrefix) {
-                  dependency.scalaVersion match {
-                    case sv if sv.startsWith("2.12") => "2.12"
-                    case sv if sv.startsWith("2.11") => "2.11"
-                    case sv                          => sv
-                  }
-                } else dependency.scalaVersion
-              s"${dependency.groupId};${dependency.artifactId}_$scalaVersion;${dependency.version}"
-            })
+            .map(dependency =>
+              s"${dependency.groupId};${dependency.artifactId}_${dependency.scalaVersion};${dependency.version}")
             .mkString(",")),
       meta(name := "kazari-resolvers",
            content :=

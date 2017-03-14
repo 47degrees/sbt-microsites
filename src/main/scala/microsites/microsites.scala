@@ -24,7 +24,6 @@ package object microsites {
   case class KazariDependency(groupId: String,
                               artifactId: String,
                               scalaVersion: String,
-                              onlyPrefix: Boolean,
                               version: String)
 
   case class KazariSettings(micrositeKazariEvaluatorUrl: String,
