@@ -59,9 +59,10 @@ trait FileHelper {
     Stream.continually(zipIn.getNextEntry).takeWhile(_ != null).foreach { entry =>
       val newFile = new File(output + File.separator + entry.getName)
 
-      (entry.isDirectory,
-       !newFile.exists() &&
-         newFile.getAbsolutePath.startsWith(s"$output$filter")) match {
+      (
+        entry.isDirectory,
+        !newFile.exists() &&
+          newFile.getAbsolutePath.startsWith(s"$output$filter")) match {
         case (true, true) => newFile.mkdir()
         case (true, _)    =>
         case (false, true) =>
@@ -79,8 +80,9 @@ trait FileHelper {
     }
   }
 
-  def fetchFilesRecursively(directory: File,
-                            includeFilesExtension: List[String] = Nil): List[File] = {
+  def fetchFilesRecursively(
+      directory: File,
+      includeFilesExtension: List[String] = Nil): List[File] = {
 
     val listFiles = Option(directory.listFiles)
 

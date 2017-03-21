@@ -62,13 +62,17 @@ abstract class Layout(config: MicrositeSettings) {
           config.micrositeKazariSettings.micrositeKazariDependencies
             .map(dependency =>
               s"${dependency.groupId};${dependency.artifactId}_${dependency.scalaVersion};${dependency.version}")
-            .mkString(",")),
-      meta(name := "kazari-resolvers",
-           content :=
-             config.micrositeKazariSettings.micrositeKazariResolvers.mkString(",")),
-      link(rel := "icon",
-           `type` := "image/png",
-           href := "{{site.url}}{{site.baseurl}}/img/favicon.png"))
+            .mkString(",")
+      ),
+      meta(
+        name := "kazari-resolvers",
+        content :=
+          config.micrositeKazariSettings.micrositeKazariResolvers.mkString(",")),
+      link(
+        rel := "icon",
+        `type` := "image/png",
+        href := "{{site.url}}{{site.baseurl}}/img/favicon.png")
+    )
 
   def favicons: List[TypedTag[String]] =
     (if (config.visualSettings.favicons.nonEmpty) {
@@ -77,16 +81,18 @@ abstract class Layout(config: MicrositeSettings) {
        micrositeHelper.faviconDescriptions
      }).map {
       case icon =>
-        link(rel := "icon",
-             `type` := "image/png",
-             attr("sizes") := s"${icon.sizeDescription}",
-             href := s"{{site.url}}{{site.baseurl}}/img/${icon.filename}")
+        link(
+          rel := "icon",
+          `type` := "image/png",
+          attr("sizes") := s"${icon.sizeDescription}",
+          href := s"{{site.url}}{{site.baseurl}}/img/${icon.filename}")
     }.toList
 
   def styles: List[TypedTag[String]] = {
 
-    val customCssList = fetchFilesRecursively(config.fileLocations.micrositeCssDirectory,
-                                              List("css")) map { css =>
+    val customCssList = fetchFilesRecursively(
+      config.fileLocations.micrositeCssDirectory,
+      List("css")) map { css =>
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${css.getName}")
     }
 
@@ -95,10 +101,12 @@ abstract class Layout(config: MicrositeSettings) {
     }
 
     List(
-      link(rel := "stylesheet",
-           href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
-      link(rel := "stylesheet",
-           href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"),
+      link(
+        rel := "stylesheet",
+        href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
+      link(
+        rel := "stylesheet",
+        href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"),
       link(
         rel := "stylesheet",
         href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
@@ -143,33 +151,53 @@ abstract class Layout(config: MicrositeSettings) {
     """.stripMargin)
 
   def globalFooter =
-    footer(id := "site-footer",
-           div(cls := "container",
-               div(cls := "row",
-                   div(cls := "col-xs-6",
-                       p("{{ site.name }} is designed and developed by ",
-                         a(href := s"${config.identity.homepage}",
-                           target := "_blank",
-                           s"${config.identity.author}"))),
-                   div(cls := "col-xs-6",
-                       p(cls := "text-right",
-                         a(href := config.gitSiteUrl,
-                           span(cls := s"fa ${config.gitHostingIconClass}"),
-                           s"View on ${config.gitSettings.gitHostingService}"))))))
+    footer(
+      id := "site-footer",
+      div(
+        cls := "container",
+        div(
+          cls := "row",
+          div(
+            cls := "col-xs-6",
+            p(
+              "{{ site.name }} is designed and developed by ",
+              a(
+                href := s"${config.identity.homepage}",
+                target := "_blank",
+                s"${config.identity.author}"))
+          ),
+          div(
+            cls := "col-xs-6",
+            p(
+              cls := "text-right",
+              a(
+                href := config.gitSiteUrl,
+                span(cls := s"fa ${config.gitHostingIconClass}"),
+                s"View on ${config.gitSettings.gitHostingService}"))
+          )
+        )
+      )
+    )
 
   def buildCollapseMenu: TypedTag[String] =
-    nav(cls := "text-right",
-        ul(cls := "",
-           li(
-             a(href := config.gitSiteUrl,
-               i(cls := s"fa ${config.gitHostingIconClass}"),
-               span(cls := "hidden-xs", config.gitSettings.gitHostingService.name))
-           ),
-           if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
-             li(
-               a(href := s"${config.urlSettings.micrositeDocumentationUrl}",
-                 i(cls := "fa fa-file-text"),
-                 span(cls := "hidden-xs", "Documentation"))
-             )
-           else ()))
+    nav(
+      cls := "text-right",
+      ul(
+        cls := "",
+        li(
+          a(
+            href := config.gitSiteUrl,
+            i(cls := s"fa ${config.gitHostingIconClass}"),
+            span(cls := "hidden-xs", config.gitSettings.gitHostingService.name))
+        ),
+        if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
+          li(
+            a(
+              href := s"${config.urlSettings.micrositeDocumentationUrl}",
+              i(cls := "fa fa-file-text"),
+              span(cls := "hidden-xs", "Documentation"))
+          )
+        else ()
+      )
+    )
 }

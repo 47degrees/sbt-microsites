@@ -1,6 +1,4 @@
-addSbtPlugin("com.fortysevendeg"                   % "sbt-catalysts-extras" % "0.1.2")
-addSbtPlugin("com.geirsson"                        % "sbt-scalafmt"         % "0.4.10")
-addSbtPlugin("org.tpolecat"                        % "tut-plugin"           % "0.4.8")
-libraryDependencies <+= sbtVersion("org.scala-sbt" % "scripted-plugin"      % _)
-// Plugin inception dependency to be able to generate the sbt-microsites' microsite
-addSbtPlugin("com.fortysevendeg" % "sbt-microsites" % "0.4.0")
+libraryDependencies += "org.scala-sbt" % "scripted-plugin" % sbtVersion.value
+
+resolvers += Resolver.sonatypeRepo("snapshots")
+addSbtPlugin("com.47deg" % "sbt-org-policies" % "0.2.2-SNAPSHOT")

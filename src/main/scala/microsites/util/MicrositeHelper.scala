@@ -62,18 +62,24 @@ class MicrositeHelper(config: MicrositeSettings) {
     copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "js")
     copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "highlight")
 
-    copyFilesRecursively(config.fileLocations.micrositeImgDirectory.getAbsolutePath,
-                         s"$targetDir$jekyllDir/img/")
-    copyFilesRecursively(config.fileLocations.micrositeCssDirectory.getAbsolutePath,
-                         s"$targetDir$jekyllDir/css/")
-    copyFilesRecursively(config.fileLocations.micrositeJsDirectory.getAbsolutePath,
-                         s"$targetDir$jekyllDir/js/")
-    copyFilesRecursively(config.fileLocations.micrositeExternalLayoutsDirectory.getAbsolutePath,
-                         s"$targetDir$jekyllDir/_layouts/")
-    copyFilesRecursively(config.fileLocations.micrositeExternalIncludesDirectory.getAbsolutePath,
-                         s"$targetDir$jekyllDir/_includes/")
-    copyFilesRecursively(config.fileLocations.micrositeDataDirectory.getAbsolutePath,
-                         s"$targetDir$jekyllDir/_data/")
+    copyFilesRecursively(
+      config.fileLocations.micrositeImgDirectory.getAbsolutePath,
+      s"$targetDir$jekyllDir/img/")
+    copyFilesRecursively(
+      config.fileLocations.micrositeCssDirectory.getAbsolutePath,
+      s"$targetDir$jekyllDir/css/")
+    copyFilesRecursively(
+      config.fileLocations.micrositeJsDirectory.getAbsolutePath,
+      s"$targetDir$jekyllDir/js/")
+    copyFilesRecursively(
+      config.fileLocations.micrositeExternalLayoutsDirectory.getAbsolutePath,
+      s"$targetDir$jekyllDir/_layouts/")
+    copyFilesRecursively(
+      config.fileLocations.micrositeExternalIncludesDirectory.getAbsolutePath,
+      s"$targetDir$jekyllDir/_includes/")
+    copyFilesRecursively(
+      config.fileLocations.micrositeDataDirectory.getAbsolutePath,
+      s"$targetDir$jekyllDir/_data/")
 
     config.fileLocations.micrositeExtraMdFiles foreach {
       case (sourceFile, targetFileConfig) =>
@@ -118,9 +124,11 @@ class MicrositeHelper(config: MicrositeSettings) {
   def createPalette(targetDir: String): File = {
     val targetFile = createFilePathIfNotExists(
       s"$targetDir$jekyllDir/_sass/_variables_palette.scss")
-    val content = config.visualSettings.palette.map {
-      case (key, value) => s"""$$$key: $value;"""
-    }.mkString("\n")
+    val content = config.visualSettings.palette
+      .map {
+        case (key, value) => s"""$$$key: $value;"""
+      }
+      .mkString("\n")
     IO.write(targetFile, content)
     targetFile
   }
@@ -150,13 +158,16 @@ class MicrositeHelper(config: MicrositeSettings) {
   def createFavicons(targetDir: String): List[File] = {
     val sourceFile = createFilePathIfNotExists(s"$targetDir$jekyllDir/img/navbar_brand2x.png")
 
-    (faviconFilenames zip faviconSizes).map {
-      case (name, size) =>
-        (new File(s"$targetDir$jekyllDir/img/$name"), size)
-    }.map {
-      case (file, (width, height)) =>
-        Image.fromFile(sourceFile).scaleTo(width, height).output(file)
-    }.toList
+    (faviconFilenames zip faviconSizes)
+      .map {
+        case (name, size) =>
+          (new File(s"$targetDir$jekyllDir/img/$name"), size)
+      }
+      .map {
+        case (file, (width, height)) =>
+          Image.fromFile(sourceFile).scaleTo(width, height).output(file)
+      }
+      .toList
   }
 
   def copyConfigurationFile(sourceDir: File, targetDir: File): Unit = {

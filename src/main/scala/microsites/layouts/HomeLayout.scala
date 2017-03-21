@@ -37,41 +37,64 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
   }
 
   def homeHeader: TypedTag[String] =
-    header(id := "site-header",
-           div(
-             cls := "navbar-wrapper",
-             div(cls := "container",
-                 div(cls := "row",
-                     div(cls := "col-xs-6",
-                         a(href := "{{ site.baseurl }}/",
-                           cls := "brand",
-                           div(cls := "icon-wrapper", span(config.identity.name)))),
-                     div(cls := "col-xs-6", buildCollapseMenu)))
-           ),
-           div(cls := "jumbotron",
-               div(cls := "container",
-                   h1(cls := "text-center", config.identity.description),
-                   h2(),
-                   p(cls := "text-center",
-                     a(href := config.gitSiteUrl,
-                       cls := "btn btn-outline-inverse",
-                       s"View on ${config.gitSettings.gitHostingService}")))),
-           "{% include menu.html %}")
+    header(
+      id := "site-header",
+      div(
+        cls := "navbar-wrapper",
+        div(
+          cls := "container",
+          div(
+            cls := "row",
+            div(
+              cls := "col-xs-6",
+              a(
+                href := "{{ site.baseurl }}/",
+                cls := "brand",
+                div(cls := "icon-wrapper", span(config.identity.name)))),
+            div(cls := "col-xs-6", buildCollapseMenu)
+          )
+        )
+      ),
+      div(
+        cls := "jumbotron",
+        div(
+          cls := "container",
+          h1(cls := "text-center", config.identity.description),
+          h2(),
+          p(
+            cls := "text-center",
+            a(
+              href := config.gitSiteUrl,
+              cls := "btn btn-outline-inverse",
+              s"View on ${config.gitSettings.gitHostingService}"))
+        )
+      ),
+      "{% include menu.html %}"
+    )
 
   def homeMain: TypedTag[String] =
-    main(id := "site-main",
-         section(cls := "use", div(cls := "container", div(id := "content", "{{ content }}"))),
-         section(cls := "technologies",
-                 div(cls := "container",
-                     div(cls := "row",
-                         """{% for tech_hash in page.technologies %}
+    main(
+      id := "site-main",
+      section(cls := "use", div(cls := "container", div(id := "content", "{{ content }}"))),
+      section(
+        cls := "technologies",
+        div(
+          cls := "container",
+          div(
+            cls := "row",
+            """{% for tech_hash in page.technologies %}
             {% for tech in tech_hash %}""",
-                         div(cls := "col-md-4",
-                             div(cls := "{{ tech[0] }}-icon-wrapper"),
-                             h3("{{ tech[1][0] }}"),
-                             p("{{ tech[1][1] }}")),
-                         """{% endfor %}
-          {% endfor %}"""))))
+            div(
+              cls := "col-md-4",
+              div(cls := "{{ tech[0] }}-icon-wrapper"),
+              h3("{{ tech[1][0] }}"),
+              p("{{ tech[1][1] }}")),
+            """{% endfor %}
+          {% endfor %}"""
+          )
+        )
+      )
+    )
 
   def scriptsKazari: List[TypedTag[String]] =
     scripts ++ List(script(src := "{{ site.baseurl }}/js/kazari.js"), script(kazariEnableScript))
