@@ -33,16 +33,18 @@ object KazariUIBehavior {
   val kazariModalCurrentSnippetKey  = "kazari-modal-current-snippet"
 
   def addModalFunctionality(codeMirror: Editor) = {
-    $("#modal-1").on("change", { (e: JQueryEventObject, a: Any) =>
-      if ($("#modal-1").is(":checked")) {
-        $("body").addClass("modal-kazari-open")
-      } else {
-        $("body").removeClass("modal-kazari-open")
+    $("#modal-1").on(
+      "change", { (e: JQueryEventObject, a: Any) =>
+        if ($("#modal-1").is(":checked")) {
+          $("body").addClass("modal-kazari-open")
+        } else {
+          $("body").removeClass("modal-kazari-open")
+        }
       }
-    })
+    )
 
-    $(".modal-kazari-fade-screen, .modal-kazari-close").on("click", {
-      (e: JQueryEventObject, a: Any) =>
+    $(".modal-kazari-fade-screen, .modal-kazari-close").on(
+      "click", { (e: JQueryEventObject, a: Any) =>
         {
           $(".modal-kazari-state:checked").prop("checked", false).change()
           val currentModalSnippet =
@@ -51,16 +53,18 @@ object KazariUIBehavior {
           currentModalSnippet.foreach(s =>
             window.sessionStorage.setItem(s, codeMirror.getDoc().getValue()))
         }
-    })
+      }
+    )
 
     $(".modal-kazari-inner").on("click", { (e: JQueryEventObject, a: Any) =>
       e.stopPropagation()
     })
   }
 
-  def createModalWindow(evalClient: EvaluatorClient,
-                        githubToken: String,
-                        theme: String): Option[Editor] = {
+  def createModalWindow(
+      evalClient: EvaluatorClient,
+      githubToken: String,
+      theme: String): Option[Editor] = {
     val modalDiv = createModalDiv(codeModalClass)
     document.body.appendChild(modalDiv)
 
@@ -83,9 +87,10 @@ object KazariUIBehavior {
 
         addResetButtonBehavior(s".$decoratorButtonResetClass", m)
 
-        addGistButtonBehavior(s".$decoratorButtonSaveGistClass",
-                              codeSnippetsFromModal,
-                              githubToken)
+        addGistButtonBehavior(
+          s".$decoratorButtonSaveGistClass",
+          codeSnippetsFromModal,
+          githubToken)
 
         addModalFunctionality(m)
 
@@ -106,77 +111,92 @@ object KazariUIBehavior {
     window.sessionStorage.setItem(s"$decorationId-$kazariIdOriginalSnippetSuffix", originalSnippet)
   }
 
-  def sendEvaluatorRequest(evaluator: EvaluatorClient,
-                           codeSnippet: String): Future[EvaluationResponse[EvalResponse]] =
+  def sendEvaluatorRequest(
+      evaluator: EvaluatorClient,
+      codeSnippet: String): Future[EvaluationResponse[EvalResponse]] =
     evaluator.api
-      .evaluates(dependencies = getDependenciesList(),
-                 resolvers = getResolversList(),
-                 code = codeSnippet)
+      .evaluates(
+        dependencies = getDependenciesList(),
+        resolvers = getResolversList(),
+        code = codeSnippet)
       .exec
 
-  def addRunButtonBehaviour(btnSelector: String,
-                            parentSelector: String,
-                            evalClient: EvaluatorClient,
-                            codeSnippet: () => String,
-                            onSuccess: (EvaluationResponse[EvalResponse]) => Unit = (_) => (),
-                            onFailure: (Throwable) => Unit = (_) => ()): Unit =
-    addClickListenerToButton(btnSelector, (e: dom.MouseEvent) => {
-      def isEvaluationSuccessful(response: EvalResponse): Boolean =
-        response.msg == EvalResponse.messages.ok
+  def addRunButtonBehaviour(
+      btnSelector: String,
+      parentSelector: String,
+      evalClient: EvaluatorClient,
+      codeSnippet: () => String,
+      onSuccess: (EvaluationResponse[EvalResponse]) => Unit = (_) => (),
+      onFailure: (Throwable) => Unit = (_) => ()): Unit =
+    addClickListenerToButton(
+      btnSelector,
+      (e: dom.MouseEvent) => {
+        def isEvaluationSuccessful(response: EvalResponse): Boolean =
+          response.msg == EvalResponse.messages.ok
 
-      changeButtonIcon(btnSelector + " " + "i",
-                       decoratorButtonPlayClass,
-                       decoratorButtonSpinnerClass)
-      $(btnSelector).addClass(compilingKazariClass).removeClass(compilerKazariColorClass)
-      toggleButtonActiveState(btnSelector, true)
-      hideAlertMessage(parentSelector)
+        changeButtonIcon(
+          btnSelector + " " + "i",
+          decoratorButtonPlayClass,
+          decoratorButtonSpinnerClass)
+        $(btnSelector).addClass(compilingKazariClass).removeClass(compilerKazariColorClass)
+        toggleButtonActiveState(btnSelector, true)
+        hideAlertMessage(parentSelector)
 
-      sendEvaluatorRequest(evalClient, codeSnippet()).onComplete {
-        case Success(r) => {
-          changeButtonIcon(btnSelector + " " + "i",
-                           decoratorButtonSpinnerClass,
-                           decoratorButtonPlayClass)
-          $(btnSelector).removeClass(compilingKazariClass).addClass(compilerKazariColorClass)
-          toggleButtonActiveState(btnSelector, false)
-          r.fold({ e =>
-            showAlertMessage(parentSelector,
-                             s"$errorMessagePrefix ${e.getCause.getMessage}",
-                             false)
-          }, {
-            compilationResult =>
-              {
-                val isSuccess = isEvaluationSuccessful(compilationResult.result)
-                val resultMsg = compilationResult.result.value.getOrElse("")
-                val errorMsg = if (compilationResult.result.compilationInfos.nonEmpty) {
-                  compilationResult.result.compilationInfos.mkString(" ")
-                } else {
-                  resultMsg
-                }
-                val compilationValue = if (isSuccess) { resultMsg } else { errorMsg }
-                showAlertMessage(parentSelector,
-                                 s"${compilationResult.result.msg} - $compilationValue",
-                                 isSuccess)
+        sendEvaluatorRequest(evalClient, codeSnippet()).onComplete {
+          case Success(r) => {
+            changeButtonIcon(
+              btnSelector + " " + "i",
+              decoratorButtonSpinnerClass,
+              decoratorButtonPlayClass)
+            $(btnSelector).removeClass(compilingKazariClass).addClass(compilerKazariColorClass)
+            toggleButtonActiveState(btnSelector, false)
+            r.fold(
+              { e =>
+                showAlertMessage(
+                  parentSelector,
+                  s"$errorMessagePrefix ${e.getCause.getMessage}",
+                  false)
+              }, {
+                compilationResult =>
+                  {
+                    val isSuccess = isEvaluationSuccessful(compilationResult.result)
+                    val resultMsg = compilationResult.result.value.getOrElse("")
+                    val errorMsg = if (compilationResult.result.compilationInfos.nonEmpty) {
+                      compilationResult.result.compilationInfos.mkString(" ")
+                    } else {
+                      resultMsg
+                    }
+                    val compilationValue = if (isSuccess) { resultMsg } else { errorMsg }
+                    showAlertMessage(
+                      parentSelector,
+                      s"${compilationResult.result.msg} - $compilationValue",
+                      isSuccess)
+                  }
               }
-          })
-          onSuccess(r)
-        }
-        case Failure(e) => {
-          changeButtonIcon(btnSelector + " " + "i",
-                           decoratorButtonSpinnerClass,
-                           decoratorButtonPlayClass)
-          toggleButtonActiveState(btnSelector, false)
-          showAlertMessage(parentSelector,
-                           "Error while connecting to the remote evaluator.",
-                           false)
-          onFailure(e)
+            )
+            onSuccess(r)
+          }
+          case Failure(e) => {
+            changeButtonIcon(
+              btnSelector + " " + "i",
+              decoratorButtonSpinnerClass,
+              decoratorButtonPlayClass)
+            toggleButtonActiveState(btnSelector, false)
+            showAlertMessage(
+              parentSelector,
+              "Error while connecting to the remote evaluator.",
+              false)
+            onFailure(e)
+          }
         }
       }
-    })
+    )
 
-  def addEditButtonBehaviour(idPrefix: String,
-                             id: Int,
-                             codeMirror: Option[Editor],
-                             snippet: () => String): Unit = {
+  def addEditButtonBehaviour(
+      idPrefix: String,
+      id: Int,
+      codeMirror: Option[Editor],
+      snippet: () => String): Unit = {
     val decorationId = s"$idPrefix-${id.toString}"
 
     createInitialState(decorationId, snippet())
@@ -201,60 +221,73 @@ object KazariUIBehavior {
         }
         hideAlertMessage(s".$codeModalClass")
         $(".modal-kazari-state").prop("checked", true).change()
-      })
+      }
+    )
   }
 
   def addResetButtonBehavior(btnSelector: String, codeMirrorEditor: Editor): Unit = {
-    addClickListenerToButton(btnSelector, (e: dom.MouseEvent) => {
-      (for {
-        snippetId <- Option(window.sessionStorage.getItem(kazariModalCurrentSnippetKey))
-        snippet <- Option(
-          window.sessionStorage.getItem(s"$snippetId-$kazariIdOriginalSnippetSuffix"))
-      } yield (snippet)).foreach {
-        case s =>
-          codeMirrorEditor.getDoc().clearHistory()
-          codeMirrorEditor.getDoc().setValue(s)
+    addClickListenerToButton(
+      btnSelector,
+      (e: dom.MouseEvent) => {
+        (for {
+          snippetId <- Option(window.sessionStorage.getItem(kazariModalCurrentSnippetKey))
+          snippet <- Option(
+            window.sessionStorage.getItem(s"$snippetId-$kazariIdOriginalSnippetSuffix"))
+        } yield (snippet)).foreach {
+          case s =>
+            codeMirrorEditor.getDoc().clearHistory()
+            codeMirrorEditor.getDoc().setValue(s)
+        }
       }
-    })
+    )
   }
 
-  def addGistButtonBehavior(btnSelector: String,
-                            codeSnippet: () => String,
-                            accessToken: String,
-                            onSuccess: (EvaluationResponse[EvalResponse]) => Unit = (_) => (),
-                            onFailure: (Throwable) => Unit = (_) => ()): Unit = {
-    addClickListenerToButton(btnSelector, (e: dom.MouseEvent) => {
-      changeButtonIcon(btnSelector + " " + "i",
-                       decoratorButtonGithubClass,
-                       decoratorButtonSpinnerClass)
-      toggleButtonActiveState(btnSelector, true)
+  def addGistButtonBehavior(
+      btnSelector: String,
+      codeSnippet: () => String,
+      accessToken: String,
+      onSuccess: (EvaluationResponse[EvalResponse]) => Unit = (_) => (),
+      onFailure: (Throwable) => Unit = (_) => ()): Unit = {
+    addClickListenerToButton(
+      btnSelector,
+      (e: dom.MouseEvent) => {
+        changeButtonIcon(
+          btnSelector + " " + "i",
+          decoratorButtonGithubClass,
+          decoratorButtonSpinnerClass)
+        toggleButtonActiveState(btnSelector, true)
 
-      val description = window.prompt(newGistPrompt)
-      val gistApi     = Github(Some(accessToken)).gists
-      val files       = Map(newGistFilename -> GistFile(codeSnippet()))
-      val request = gistApi
-        .newGist(if (description.isEmpty) newGistDefaultDescription else description, true, files)
+        val description = window.prompt(newGistPrompt)
+        val gistApi     = Github(Some(accessToken)).gists
+        val files       = Map(newGistFilename -> GistFile(codeSnippet()))
+        val request = gistApi
+          .newGist(
+            if (description.isEmpty) newGistDefaultDescription else description,
+            true,
+            files)
 
-      request.execFuture[SimpleHttpResponse]().onComplete {
-        result =>
-          changeButtonIcon(btnSelector + " " + "i",
-                           decoratorButtonSpinnerClass,
-                           decoratorButtonGithubClass)
-          toggleButtonActiveState(btnSelector, false)
+        request.execFuture[SimpleHttpResponse]().onComplete {
+          result =>
+            changeButtonIcon(
+              btnSelector + " " + "i",
+              decoratorButtonSpinnerClass,
+              decoratorButtonGithubClass)
+            toggleButtonActiveState(btnSelector, false)
 
-          result match {
-            case Failure(e) => println("failure creating gist -> " + e)
-            case Success(r) =>
-              r.fold(
-                e => println("failure creating gist -> " + e),
-                r => {
-                  println("Success creating gist -> " + r)
-                  println("Status code -> " + r.statusCode)
-                }
-              )
-          }
+            result match {
+              case Failure(e) => println("failure creating gist -> " + e)
+              case Success(r) =>
+                r.fold(
+                  e => println("failure creating gist -> " + e),
+                  r => {
+                    println("Success creating gist -> " + r)
+                    println("Status code -> " + r.statusCode)
+                  }
+                )
+            }
+        }
       }
-    })
+    )
   }
 
   def applyColorThemes(): Unit = {

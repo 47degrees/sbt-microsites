@@ -71,11 +71,16 @@ trait Arbitraries {
 
   implicit def dependencyArbitrary: Arbitrary[KazariDependency] = Arbitrary {
     for {
-      dependencyGroup         ← Arbitrary.arbitrary[String]
-      dependencyArtifact      ← Arbitrary.arbitrary[String]
-      dependencyScalaVersion  ← Arbitrary.arbitrary[String]
-      dependencyVersion       ← Arbitrary.arbitrary[String]
-    } yield KazariDependency(dependencyGroup, dependencyArtifact, dependencyScalaVersion, dependencyVersion)
+      dependencyGroup        ← Arbitrary.arbitrary[String]
+      dependencyArtifact     ← Arbitrary.arbitrary[String]
+      dependencyScalaVersion ← Arbitrary.arbitrary[String]
+      dependencyVersion      ← Arbitrary.arbitrary[String]
+    } yield
+      KazariDependency(
+        dependencyGroup,
+        dependencyArtifact,
+        dependencyScalaVersion,
+        dependencyVersion)
   }
 
   implicit def dependenciesListArbitrary: Arbitrary[Seq[KazariDependency]] = Arbitrary {
@@ -134,14 +139,16 @@ trait Arbitraries {
         MicrositeIdentitySettings(name, description, author, homepage, twitter),
         MicrositeVisualSettings(highlightTheme, palette, favicon),
         micrositeConfigYaml,
-        MicrositeFileLocations(micrositeImgDirectory,
-                               micrositeCssDirectory,
-                               micrositeJsDirectory,
-                               micrositeCDNDirectives,
-                               micrositeExternalLayoutsDirectory,
-                               micrositeExternalIncludesDirectory,
-                               micrositeDataDirectory,
-                               micrositeExtraMdFiles),
+        MicrositeFileLocations(
+          micrositeImgDirectory,
+          micrositeCssDirectory,
+          micrositeJsDirectory,
+          micrositeCDNDirectives,
+          micrositeExternalLayoutsDirectory,
+          micrositeExternalIncludesDirectory,
+          micrositeDataDirectory,
+          micrositeExtraMdFiles
+        ),
         MicrositeUrlSettings(micrositeBaseUrl, micrositeDocumentationUrl),
         MicrositeGitSettings(githubOwner, githubRepo, gitHostingService, gitHostingUrl),
         KazariSettings(
@@ -151,6 +158,7 @@ trait Arbitraries {
           micrositeKazariCodeMirrorTheme,
           micrositeKazariDependencies,
           micrositeKazariResolvers
-        ))
+        )
+      )
   }
 }

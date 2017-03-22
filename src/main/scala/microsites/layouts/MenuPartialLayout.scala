@@ -24,14 +24,19 @@ import scalatags.Text.all._
 class MenuPartialLayout(config: MicrositeSettings) extends Layout(config) {
 
   override def render: TypedTag[String] =
-    div("{% assign pages = site.pages | sort:'position'  %}",
-        ul(cls := "horizontalNav",
-           "{% for p in pages %} {% if p.position != null %}",
-           li(
-             a(cls := "{% if p.url == page.url %} active {% endif %}",
-               href := "{{ site.baseurl }}{{ p.url }}",
-               "{{ p.title }}")
-           ),
-           "{% endif %} {% endfor %}"))
+    div(
+      "{% assign pages = site.pages | sort:'position'  %}",
+      ul(
+        cls := "horizontalNav",
+        "{% for p in pages %} {% if p.position != null %}",
+        li(
+          a(
+            cls := "{% if p.url == page.url %} active {% endif %}",
+            href := "{{ site.baseurl }}{{ p.url }}",
+            "{{ p.title }}")
+        ),
+        "{% endif %} {% endfor %}"
+      )
+    )
 
 }

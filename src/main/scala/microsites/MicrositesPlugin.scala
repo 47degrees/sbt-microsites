@@ -16,8 +16,7 @@
 
 package microsites
 
-import com.typesafe.sbt.SbtGhPages.GhPagesKeys._
-import com.typesafe.sbt.SbtGhPages.ghpages
+import com.typesafe.sbt.sbtghpages.GhpagesPlugin.autoImport._
 import com.typesafe.sbt.SbtGit.git
 import com.typesafe.sbt.site.SitePlugin.autoImport._
 import com.typesafe.sbt.site.jekyll.JekyllPlugin
@@ -42,7 +41,6 @@ object MicrositesPlugin extends AutoPlugin {
     tutSettings ++
       micrositeDefaultSettings ++
       micrositeTasksSettings ++
-      ghpages.settings ++
       Seq(
         git.remoteRepo := s"git@github.com:${micrositeGithubOwner.value}/${micrositeGithubRepo.value}.git",
         mappings in Jekyll ++= micrositeHelper.value.directory("src/main/resources/microsite"),
@@ -70,14 +68,16 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeExternalIncludesDirectory := (resourceDirectory in Compile).value / "microsite" / "includes",
     micrositeDataDirectory := (resourceDirectory in Compile).value / "microsite" / "data",
     micrositeExtraMdFiles := Map.empty,
-    micrositePalette := Map("brand-primary"   -> "#02B4E5",
-                            "brand-secondary" -> "#1C2C52",
-                            "brand-tertiary"  -> "#162341",
-                            "gray-dark"       -> "#453E46",
-                            "gray"            -> "#837F84",
-                            "gray-light"      -> "#E3E2E3",
-                            "gray-lighter"    -> "#F4F3F4",
-                            "white-color"     -> "#FFFFFF"),
+    micrositePalette := Map(
+      "brand-primary"   -> "#02B4E5",
+      "brand-secondary" -> "#1C2C52",
+      "brand-tertiary"  -> "#162341",
+      "gray-dark"       -> "#453E46",
+      "gray"            -> "#837F84",
+      "gray-light"      -> "#E3E2E3",
+      "gray-lighter"    -> "#F4F3F4",
+      "white-color"     -> "#FFFFFF"
+    ),
     micrositeFavicons := Seq(),
     micrositeGithubOwner := "47deg",
     micrositeGithubRepo := "sbt-microsites",
@@ -89,7 +89,8 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeKazariResolvers := Seq(),
     micrositeGitHostingService := GitHub,
     micrositeGitHostingUrl := "",
-    includeFilter in Jekyll := ("*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME"))
+    includeFilter in Jekyll := ("*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME")
+  )
 
   lazy val micrositeHelper: Def.Initialize[MicrositeHelper] = Def.setting {
     val baseUrl =
@@ -161,14 +162,14 @@ object MicrositesPlugin extends AutoPlugin {
           },
           gitHostingService = micrositeGitHostingService.value.name,
           gitHostingUrl = micrositeGitHostingUrl.value
-        )))
+        )
+      ))
   }
 
   lazy val micrositeTasksSettings = Seq(
-    microsite := micrositeHelper.value.createResources(resourceManagedDir =
-                                                         (resourceManaged in Compile).value,
-                                                       tutSourceDirectory =
-                                                         (tutSourceDirectory in Compile).value),
+    microsite := micrositeHelper.value.createResources(
+      resourceManagedDir = (resourceManaged in Compile).value,
+      tutSourceDirectory = (tutSourceDirectory in Compile).value),
     micrositeConfig := micrositeHelper.value
       .copyConfigurationFile((sourceDirectory in Jekyll).value, siteDirectory.value),
     makeMicrosite := Def
@@ -183,7 +184,7 @@ object MicrositesPlugin extends AutoPlugin {
       .sequential(
         clean,
         makeMicrosite,
-        pushSite
+        ghpagesPushSite
       )
       .value
   )

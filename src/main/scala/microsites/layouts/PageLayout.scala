@@ -37,29 +37,42 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
   }
 
   def pageHeader: TypedTag[String] =
-    header(id := "site-header",
-           div(cls := "navbar-wrapper navbar-inverse",
-               div(cls := "container",
-                   div(cls := "navbar-header",
-                       button(tpe := "button",
-                              cls := "navbar-toggle collapsed",
-                              data.toggle := "collapse",
-                              data.target := "#bs-example-navbar-collapse-1",
-                              aria.expanded := "false",
-                              span(cls := "sr-only", "Toggle navigation"),
-                              span(cls := "icon-bar"),
-                              span(cls := "icon-bar"),
-                              span(cls := "icon-bar")),
-                       a(href := "{{ site.baseurl }}/",
-                         cls := "brand",
-                         div(cls := "icon-wrapper", span(config.identity.name)))),
-                   buildCollapseMenu)),
-           div(cls := "jumbotron",
-               style := "background-image:url('{{site.baseurl}}/img/jumbotron_pattern.png')"),
-           "{% include menu.html %}")
+    header(
+      id := "site-header",
+      div(
+        cls := "navbar-wrapper navbar-inverse",
+        div(
+          cls := "container",
+          div(
+            cls := "navbar-header",
+            button(
+              tpe := "button",
+              cls := "navbar-toggle collapsed",
+              data.toggle := "collapse",
+              data.target := "#bs-example-navbar-collapse-1",
+              aria.expanded := "false",
+              span(cls := "sr-only", "Toggle navigation"),
+              span(cls := "icon-bar"),
+              span(cls := "icon-bar"),
+              span(cls := "icon-bar")
+            ),
+            a(
+              href := "{{ site.baseurl }}/",
+              cls := "brand",
+              div(cls := "icon-wrapper", span(config.identity.name)))
+          ),
+          buildCollapseMenu
+        )
+      ),
+      div(
+        cls := "jumbotron",
+        style := "background-image:url('{{site.baseurl}}/img/jumbotron_pattern.png')"),
+      "{% include menu.html %}"
+    )
 
   def pageMain: TypedTag[String] =
-    main(id := "site-main",
-         section(cls := "use", div(cls := "container", div(id := "content", "{{ content }}"))))
+    main(
+      id := "site-main",
+      section(cls := "use", div(cls := "container", div(id := "content", "{{ content }}"))))
 
 }
