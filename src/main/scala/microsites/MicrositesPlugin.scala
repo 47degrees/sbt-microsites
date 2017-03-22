@@ -18,6 +18,7 @@ package microsites
 
 import com.typesafe.sbt.sbtghpages.GhpagesPlugin.autoImport._
 import com.typesafe.sbt.SbtGit.git
+import com.typesafe.sbt.sbtghpages.GhpagesPlugin
 import com.typesafe.sbt.site.SitePlugin.autoImport._
 import com.typesafe.sbt.site.jekyll.JekyllPlugin
 import microsites.util.MicrositeHelper
@@ -33,7 +34,7 @@ object MicrositesPlugin extends AutoPlugin {
   import MicrositesPlugin.autoImport._
   import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport._
 
-  override def requires: Plugins = IvyPlugin && JekyllPlugin
+  override def requires: Plugins = IvyPlugin && JekyllPlugin && GhpagesPlugin
 
   override def trigger: PluginTrigger = allRequirements
 
