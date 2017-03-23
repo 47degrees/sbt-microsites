@@ -18,66 +18,69 @@ package microsites.util
 
 import java.io.File
 
+import com.sksamuel.scrimage._
+import microsites.ConfigYamlProtocol._
 import microsites._
-import net.jcazevedo.moultingyaml.{YamlObject, _}
-import ConfigYamlProtocol._
 import microsites.layouts._
-import microsites.util.FileHelper._
+import net.jcazevedo.moultingyaml.{YamlObject, _}
 import sbt._
+import sbtorgpolicies.io._
+import sbtorgpolicies.io.syntax._
 
 import scala.io.Source
-import com.sksamuel.scrimage._
 
 class MicrositeHelper(config: MicrositeSettings) {
   implicitly(config)
 
+  val fw = new FileWriter
+
   val jekyllDir = "jekyll"
 
   // format: OFF
-  val faviconHeights = Seq(16, 24, 32, 48, 57, 60, 64, 70, 72, 76, 96,
+  val faviconHeights = List(16, 24, 32, 48, 57, 60, 64, 70, 72, 76, 96,
                            114, 120, 128, 144, 150, 152, 196, 310)
-  val faviconSizes = (faviconHeights zip faviconHeights) ++ Seq((310, 150))
+  val faviconSizes: List[(Int, Int)] = (faviconHeights zip faviconHeights) ++ List((310, 150))
   // format: ON
 
-  lazy val faviconFilenames =
-    faviconSizes.foldLeft(Seq[String]())((list, size) => {
+  lazy val faviconFilenames: List[String] =
+    faviconSizes.foldLeft(List.empty[String]) { (list, size) =>
       val (width, height) = size
-      list :+ s"favicon${width}x${height}.png"
-    })
+      list :+ s"favicon${width}x$height.png"
+    }
 
-  lazy val faviconDescriptions = (faviconFilenames zip faviconSizes).map {
+  lazy val faviconDescriptions: List[MicrositeFavicon] = (faviconFilenames zip faviconSizes) map {
     case (filename, (width, height)) =>
-      MicrositeFavicon(filename, s"${width}x${height}")
+      MicrositeFavicon(filename, s"${width}x$height")
   }
 
   def createResources(resourceManagedDir: File, tutSourceDirectory: File): List[File] = {
 
-    val targetDir: String    = getPathWithSlash(resourceManagedDir)
-    val tutSourceDir: String = getPathWithSlash(tutSourceDirectory)
+    val targetDir: String    = resourceManagedDir.getAbsolutePath.ensureFinalSlash
+    val tutSourceDir: String = tutSourceDirectory.getAbsolutePath.ensureFinalSlash
     val pluginURL: URL       = getClass.getProtectionDomain.getCodeSource.getLocation
 
-    copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "_sass")
-    copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "css")
-    copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "img")
-    copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "js")
-    copyPluginResources(pluginURL, s"$targetDir$jekyllDir/", "highlight")
+    fw.copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "_sass")
+    fw.copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "css")
+    fw.copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "img")
+    fw.copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "js")
+    fw.copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "highlight")
 
-    copyFilesRecursively(
+    fw.copyFilesRecursively(
       config.fileLocations.micrositeImgDirectory.getAbsolutePath,
       s"$targetDir$jekyllDir/img/")
-    copyFilesRecursively(
+    fw.copyFilesRecursively(
       config.fileLocations.micrositeCssDirectory.getAbsolutePath,
       s"$targetDir$jekyllDir/css/")
-    copyFilesRecursively(
+    fw.copyFilesRecursively(
       config.fileLocations.micrositeJsDirectory.getAbsolutePath,
       s"$targetDir$jekyllDir/js/")
-    copyFilesRecursively(
+    fw.copyFilesRecursively(
       config.fileLocations.micrositeExternalLayoutsDirectory.getAbsolutePath,
       s"$targetDir$jekyllDir/_layouts/")
-    copyFilesRecursively(
+    fw.copyFilesRecursively(
       config.fileLocations.micrositeExternalIncludesDirectory.getAbsolutePath,
       s"$targetDir$jekyllDir/_includes/")
-    copyFilesRecursively(
+    fw.copyFilesRecursively(
       config.fileLocations.micrositeDataDirectory.getAbsolutePath,
       s"$targetDir$jekyllDir/_data/")
 
@@ -103,7 +106,8 @@ class MicrositeHelper(config: MicrositeSettings) {
   }
 
   def createConfigYML(targetDir: String): File = {
-    val targetFile = createFilePathIfNotExists(s"$targetDir$jekyllDir/_config.yml")
+    val targetPath = s"$targetDir$jekyllDir/_config.yml"
+    fw.createFile(targetPath)
 
     val yaml             = config.configYaml
     val customProperties = yaml.yamlCustomProperties.toYaml.asYamlObject.fields
@@ -116,21 +120,25 @@ class MicrositeHelper(config: MicrositeSettings) {
         Source.fromFile(f.getAbsolutePath).mkString.parseYaml.asYamlObject.fields
       } else Map.empty[YamlValue, YamlValue])
 
-    IO.write(targetFile, YamlObject(customProperties ++ fileYaml ++ inlineYaml).prettyPrint)
+    fw.writeContentToFile(
+      YamlObject(customProperties ++ fileYaml ++ inlineYaml).prettyPrint,
+      targetPath)
 
-    targetFile
+    targetPath.toFile
   }
 
   def createPalette(targetDir: String): File = {
-    val targetFile = createFilePathIfNotExists(
-      s"$targetDir$jekyllDir/_sass/_variables_palette.scss")
+    val targetPath = s"$targetDir$jekyllDir/_sass/_variables_palette.scss"
+    fw.createFile(targetPath)
+
     val content = config.visualSettings.palette
       .map {
         case (key, value) => s"""$$$key: $value;"""
       }
       .mkString("\n")
-    IO.write(targetFile, content)
-    targetFile
+    fw.writeContentToFile(content, targetPath)
+
+    targetPath.toFile
   }
 
   def createLayouts(targetDir: String): List[File] =
@@ -140,23 +148,24 @@ class MicrositeHelper(config: MicrositeSettings) {
       "page" -> new PageLayout(config)
     ) map {
       case (layoutName, layout) =>
-        val targetFile =
-          createFilePathIfNotExists(s"$targetDir$jekyllDir/_layouts/$layoutName.html")
-        IO.write(targetFile, layout.render.toString())
-        targetFile
+        val targetPath = s"$targetDir$jekyllDir/_layouts/$layoutName.html"
+        fw.createFile(targetPath)
+
+        fw.writeContentToFile(layout.render.toString(), targetPath)
+        targetPath.toFile
     }
 
   def createPartialLayout(targetDir: String): List[File] =
     List("menu" -> new MenuPartialLayout(config)) map {
       case (layoutName, layout) =>
-        val targetFile =
-          createFilePathIfNotExists(s"$targetDir$jekyllDir/_includes/$layoutName.html")
-        IO.write(targetFile, layout.render.toString())
-        targetFile
+        val targetPath = s"$targetDir$jekyllDir/_includes/$layoutName.html"
+        fw.writeContentToFile(layout.render.toString(), targetPath)
+        targetPath.toFile
     }
 
   def createFavicons(targetDir: String): List[File] = {
-    val sourceFile = createFilePathIfNotExists(s"$targetDir$jekyllDir/img/navbar_brand2x.png")
+    val sourceFile = s"$targetDir$jekyllDir/img/navbar_brand2x.png"
+    fw.createFile(sourceFile)
 
     (faviconFilenames zip faviconSizes)
       .map {
@@ -165,16 +174,19 @@ class MicrositeHelper(config: MicrositeSettings) {
       }
       .map {
         case (file, (width, height)) =>
-          Image.fromFile(sourceFile).scaleTo(width, height).output(file)
+          Image.fromFile(sourceFile.toFile).scaleTo(width, height).output(file)
       }
-      .toList
   }
 
   def copyConfigurationFile(sourceDir: File, targetDir: File): Unit = {
 
-    val targetFile = createFilePathIfNotExists(s"$targetDir/_config.yml")
+    val targetPath = s"$targetDir/_config.yml"
+    fw.createFile(targetPath)
 
-    copyFilesRecursively(s"${sourceDir.getAbsolutePath}/_config.yml", targetFile.getAbsolutePath)
+    fw.copyFilesRecursively(
+      s"${sourceDir.getAbsolutePath}/_config.yml",
+      targetPath.toFile.getAbsolutePath)
+    ()
   }
 
   /*

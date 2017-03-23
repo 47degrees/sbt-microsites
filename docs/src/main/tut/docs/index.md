@@ -50,14 +50,14 @@ To begin, add the following lines to the `project/plugins.sbt` file within your 
 Latest release:
 
 ```bash
-addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "0.4.0")
+addSbtPlugin("com.47deg"  % "sbt-microsites" % "0.5.0")
 ```
 
 Latest snapshot built from the `master` branch code:
 
 ```tut:evaluated
 println("""resolvers += Resolver.sonatypeRepo("snapshots")""")
-println(s"""addSbtPlugin("com.fortysevendeg"  % "sbt-microsites" % "${microsites.BuildInfo.version}"""")
+println(s"""addSbtPlugin("com.47deg"  % "sbt-microsites" % "${microsites.BuildInfo.version}"""")
 ```
 
 Finally, to enable the plugin, add this to your `build.sbt` file:

@@ -19,8 +19,8 @@ package microsites.layouts
 import microsites.MicrositeSettings
 
 import scalatags.Text.TypedTag
-import scalatags.Text.tags2.section
 import scalatags.Text.all._
+import scalatags.Text.tags2.section
 
 class DocsLayout(config: MicrositeSettings) extends Layout(config) {
 

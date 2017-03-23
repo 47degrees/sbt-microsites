@@ -17,8 +17,8 @@
 package microsites.layouts
 
 import microsites.MicrositeSettings
-import microsites.util.FileHelper._
 import microsites.util.MicrositeHelper
+import sbtorgpolicies.io.FileReader
 
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
@@ -28,6 +28,7 @@ abstract class Layout(config: MicrositeSettings) {
   implicitly(config)
 
   lazy val micrositeHelper = new MicrositeHelper(config)
+  lazy val fr              = new FileReader
 
   def render: TypedTag[String]
 
@@ -79,22 +80,23 @@ abstract class Layout(config: MicrositeSettings) {
        config.visualSettings.favicons
      } else {
        micrositeHelper.faviconDescriptions
-     }).map {
-      case icon =>
-        link(
-          rel := "icon",
-          `type` := "image/png",
-          attr("sizes") := s"${icon.sizeDescription}",
-          href := s"{{site.url}}{{site.baseurl}}/img/${icon.filename}")
+     }).map { icon =>
+      link(
+        rel := "icon",
+        `type` := "image/png",
+        attr("sizes") := s"${icon.sizeDescription}",
+        href := s"{{site.url}}{{site.baseurl}}/img/${icon.filename}")
     }.toList
 
   def styles: List[TypedTag[String]] = {
 
-    val customCssList = fetchFilesRecursively(
-      config.fileLocations.micrositeCssDirectory,
-      List("css")) map { css =>
-      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${css.getName}")
-    }
+    val customCssList =
+      fr.fetchFilesRecursively(config.fileLocations.micrositeCssDirectory, List("css")) match {
+        case Right(cssList) =>
+          cssList.map(css =>
+            link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${css.getName}"))
+        case _ => Nil
+      }
 
     val customCDNList = config.fileLocations.micrositeCDNDirectives.cssList map { css =>
       link(rel := "stylesheet", href := css)
@@ -122,10 +124,12 @@ abstract class Layout(config: MicrositeSettings) {
 
   def scripts: List[TypedTag[String]] = {
 
-    val customJsList = fetchFilesRecursively(config.fileLocations.micrositeJsDirectory, List("js")) map {
-      js =>
-        script(src := s"{{site.url}}{{site.baseurl}}/js/${js.getName}")
-    }
+    val customJsList =
+      fr.fetchFilesRecursively(config.fileLocations.micrositeJsDirectory, List("js")) match {
+        case Right(jsList) =>
+          jsList.map(js => script(src := s"{{site.url}}{{site.baseurl}}/js/${js.getName}"))
+        case _ => Nil
+      }
 
     val customCDNList = config.fileLocations.micrositeCDNDirectives.jsList map { js =>
       script(src := js)
@@ -150,7 +154,7 @@ abstract class Layout(config: MicrositeSettings) {
       |})
     """.stripMargin)
 
-  def globalFooter =
+  def globalFooter: TypedTag[String] =
     footer(
       id := "site-footer",
       div(

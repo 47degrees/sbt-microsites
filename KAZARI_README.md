@@ -79,7 +79,7 @@ Also note that if you're creating a documentation for a library, or for almost a
 
 ```html
 <meta property="kazari-dependencies" content="groupId_1;artifactId_1;version_1,groupId_2;artifactId_2;version_2,...">
-<!-- i.e.: "com.fortysevendeg;fetch_2.11;0.3.0-SNAPSHOT,com.fortysevendeg;mvessel-android;0.1" -->
+<!-- i.e.: "com.47deg;fetch_2.11;0.3.0-SNAPSHOT,com.47deg;mvessel-android;0.1" -->
 <meta property="kazari-resolvers" content="resolverUrl_1,resolverUrl_2,resolverUrl_3,...">
 <!-- i.e.: "https://oss.sonatype.org/content/repositories/snapshots,https://dl.bintray.com/content/sbt/sbt-plugin-releases" -->
 ```

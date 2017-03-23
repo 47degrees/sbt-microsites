@@ -1,12 +1,12 @@
-import sbt.Keys.{scalaVersion, _}
-import sbt._
 import com.typesafe.sbt.site.SitePlugin.autoImport._
 import microsites.MicrositeKeys._
-import sbtorgpolicies._
-import sbtorgpolicies.OrgPoliciesPlugin.autoImport._
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
-import sbt.ScriptedPlugin.{scriptedDependencies, scriptedLaunchOpts}
-import sbtbuildinfo.BuildInfoPlugin.autoImport.{buildInfoKeys, buildInfoPackage, BuildInfoKey}
+import sbt.Keys._
+import sbt.ScriptedPlugin._
+import sbt._
+import sbtbuildinfo.BuildInfoPlugin.autoImport._
+import sbtorgpolicies.OrgPoliciesPlugin.autoImport._
+import sbtorgpolicies._
 
 object ProjectPlugin extends AutoPlugin {
 
@@ -18,10 +18,14 @@ object ProjectPlugin extends AutoPlugin {
 
     lazy val pluginSettings = Seq(
       sbtPlugin := true,
-      resolvers ++= Seq("jgit-repo" at "http://download.eclipse.org/jgit/maven"),
+      resolvers ++= Seq(
+        Resolver.sonatypeRepo("snapshots"),
+        "jgit-repo" at "http://download.eclipse.org/jgit/maven"),
       addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.0"),
       addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.2.0"),
       addSbtPlugin("org.tpolecat"     % "tut-plugin"  % "0.4.8"),
+      addSbtPlugin(
+        "com.47deg" % "sbt-org-policies" % "0.2.2-SNAPSHOT" % "compile" exclude ("com.47deg", "sbt-microsites")),
       libraryDependencies ++= Seq(
         "com.lihaoyi"           %% "scalatags" % "0.6.0",
         "org.scalactic"         %% "scalactic" % "3.0.0",
@@ -70,15 +74,21 @@ object ProjectPlugin extends AutoPlugin {
       crossScalaVersions := Seq("2.11.8"),
       skip in packageJSDependencies := false,
       libraryDependencies ++= Seq(
+        %%%("github4s"),
+        %%%("roshttp"),
+        %%%("cats-free"),
+        %%%("circe-core"),
+        %%%("circe-generic"),
+        %%%("circe-parser"),
+        %%%("base64"),
         "org.scala-js"        %%% "scalajs-dom"       % "0.9.0",
         "be.doeraene"         %%% "scalajs-jquery"    % "0.9.0",
         "com.lihaoyi"         %%% "upickle"           % "0.4.1",
-        "org.scala-exercises" %%% "evaluator-client"  % "0.1.2-SNAPSHOT",
+        "org.scala-exercises" %%% "evaluator-shared"  % "0.2.0-SNAPSHOT",
+        "org.scala-exercises" %%% "evaluator-client"  % "0.2.0-SNAPSHOT",
         "com.lihaoyi"         %%% "scalatags"         % "0.6.0",
         "org.querki"          %%% "jquery-facade"     % "1.0-RC6",
-        "org.denigma"         %%% "codemirror-facade" % "5.11-0.7",
-        "com.fortysevendeg"   %%% "github4s"          % "0.9.0",
-        "fr.hmil"             %%% "roshttp"           % "2.0.0-RC1"
+        "org.denigma"         %%% "codemirror-facade" % "5.11-0.7"
       ),
       resolvers ++= Seq(
         Resolver.url(

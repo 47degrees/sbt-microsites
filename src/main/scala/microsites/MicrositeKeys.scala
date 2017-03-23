@@ -16,7 +16,13 @@
 
 package microsites
 
+import com.typesafe.sbt.sbtghpages.GhpagesPlugin.autoImport.ghpagesPushSite
+import com.typesafe.sbt.site.SitePlugin.autoImport.{makeSite, siteDirectory}
+import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport._
+import microsites.util.MicrositeHelper
+import sbt.Keys._
 import sbt._
+import tut.Plugin._
 
 trait MicrositeKeys {
 
@@ -27,7 +33,7 @@ trait MicrositeKeys {
   final case class Other(value: String)                     extends GitHostingService(value)
 
   object GitHostingService {
-    implicit def string2GitHostingService(name: String) = {
+    implicit def string2GitHostingService(name: String): GitHostingService = {
       List(GitHub, GitLab, Bitbucket)
         .find(_.name.toLowerCase == name.toLowerCase)
         .getOrElse(Other(name))
@@ -90,4 +96,105 @@ trait MicrositeKeys {
   val micrositeGitHostingUrl = settingKey[String](
     "In the case where your project isn't hosted on Github, use this setting to point users to git host (e.g. 'https://internal.gitlab.com/<user>/<project>').")
 }
+
 object MicrositeKeys extends MicrositeKeys
+
+trait MicrositeAutoImportSettings extends MicrositeKeys {
+
+  lazy val micrositeHelper: Def.Initialize[MicrositeHelper] = Def.setting {
+    val baseUrl =
+      if (!micrositeBaseUrl.value.isEmpty && !micrositeBaseUrl.value.startsWith("/"))
+        s"/${micrositeBaseUrl.value}"
+      else micrositeBaseUrl.value
+
+    val defaultYamlCustomVariables = Map(
+      "name"        -> micrositeName.value,
+      "description" -> micrositeDescription.value,
+      "version"     -> version.value,
+      "org"         -> organizationName.value,
+      "baseurl"     -> baseUrl,
+      "docs"        -> true,
+      "markdown"    -> "kramdown",
+      "highlighter" -> "rouge",
+      "collections" -> Map("tut" -> Map("output" -> true))
+    )
+
+    val userCustomVariables = micrositeConfigYaml.value
+    val configWithAllCustomVariables = userCustomVariables.copy(
+      yamlCustomProperties = defaultYamlCustomVariables ++ userCustomVariables.yamlCustomProperties)
+
+    new MicrositeHelper(
+      MicrositeSettings(
+        identity = MicrositeIdentitySettings(
+          name = micrositeName.value,
+          description = micrositeDescription.value,
+          author = micrositeAuthor.value,
+          homepage = micrositeHomepage.value,
+          twitter = micrositeTwitter.value
+        ),
+        visualSettings = MicrositeVisualSettings(
+          highlightTheme = micrositeHighlightTheme.value,
+          palette = micrositePalette.value,
+          favicons = micrositeFavicons.value
+        ),
+        configYaml = configWithAllCustomVariables,
+        fileLocations = MicrositeFileLocations(
+          micrositeImgDirectory = micrositeImgDirectory.value,
+          micrositeCssDirectory = micrositeCssDirectory.value,
+          micrositeJsDirectory = micrositeJsDirectory.value,
+          micrositeCDNDirectives = micrositeCDNDirectives.value,
+          micrositeExternalLayoutsDirectory = micrositeExternalLayoutsDirectory.value,
+          micrositeExternalIncludesDirectory = micrositeExternalIncludesDirectory.value,
+          micrositeDataDirectory = micrositeDataDirectory.value,
+          micrositeExtraMdFiles = micrositeExtraMdFiles.value
+        ),
+        urlSettings = MicrositeUrlSettings(
+          micrositeBaseUrl = micrositeBaseUrl.value,
+          micrositeDocumentationUrl = micrositeDocumentationUrl.value
+        ),
+        micrositeKazariSettings = KazariSettings(
+          micrositeKazariEvaluatorUrl.value,
+          micrositeKazariEvaluatorToken.value,
+          micrositeKazariGithubToken.value,
+          micrositeKazariCodeMirrorTheme.value,
+          micrositeKazariDependencies.value,
+          micrositeKazariResolvers.value
+        ),
+        gitSettings = MicrositeGitSettings(
+          githubOwner = micrositeGitHostingService.value match {
+            case GitHub => micrositeGithubOwner.value
+            case _      => ""
+          },
+          githubRepo = micrositeGitHostingService.value match {
+            case GitHub => micrositeGithubRepo.value
+            case _      => ""
+          },
+          gitHostingService = micrositeGitHostingService.value.name,
+          gitHostingUrl = micrositeGitHostingUrl.value
+        )
+      ))
+  }
+
+  lazy val micrositeTasksSettings = Seq(
+    microsite := micrositeHelper.value.createResources(
+      resourceManagedDir = (resourceManaged in Compile).value,
+      tutSourceDirectory = (tutSourceDirectory in Compile).value),
+    micrositeConfig := micrositeHelper.value
+      .copyConfigurationFile((sourceDirectory in Jekyll).value, siteDirectory.value),
+    makeMicrosite := Def
+      .sequential(
+        microsite,
+        tut,
+        makeSite,
+        micrositeConfig
+      )
+      .value,
+    publishMicrosite := Def
+      .sequential(
+        clean,
+        makeMicrosite,
+        ghpagesPushSite
+      )
+      .value
+  )
+}
