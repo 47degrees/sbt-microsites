@@ -74,15 +74,21 @@ object ProjectPlugin extends AutoPlugin {
       crossScalaVersions := Seq("2.11.8"),
       skip in packageJSDependencies := false,
       libraryDependencies ++= Seq(
+        %%%("github4s"),
+        %%%("roshttp"),
+        %%%("cats-free"),
+        %%%("circe-core"),
+        %%%("circe-generic"),
+        %%%("circe-parser"),
+        %%%("base64"),
         "org.scala-js"        %%% "scalajs-dom"       % "0.9.0",
         "be.doeraene"         %%% "scalajs-jquery"    % "0.9.0",
         "com.lihaoyi"         %%% "upickle"           % "0.4.1",
-        "org.scala-exercises" %%% "evaluator-client"  % "0.1.2-SNAPSHOT",
+        "org.scala-exercises" %%% "evaluator-shared"  % "0.2.0-SNAPSHOT",
+        "org.scala-exercises" %%% "evaluator-client"  % "0.2.0-SNAPSHOT",
         "com.lihaoyi"         %%% "scalatags"         % "0.6.0",
         "org.querki"          %%% "jquery-facade"     % "1.0-RC6",
-        "org.denigma"         %%% "codemirror-facade" % "5.11-0.7",
-        %%%("github4s"),
-        %%%("roshttp")
+        "org.denigma"         %%% "codemirror-facade" % "5.11-0.7"
       ),
       resolvers ++= Seq(
         Resolver.url(
