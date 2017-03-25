@@ -24,9 +24,8 @@ object ProjectPlugin extends AutoPlugin {
       addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.0"),
       addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.2.0"),
       addSbtPlugin("org.tpolecat"     % "tut-plugin"  % "0.4.8"),
-      addSbtPlugin(
-        "com.47deg" % "sbt-org-policies" % "0.2.2-SNAPSHOT" % "compile" exclude ("com.47deg", "sbt-microsites")),
       libraryDependencies ++= Seq(
+        "com.47deg"             %% "org-policies-core" % "0.3.0",
         "com.lihaoyi"           %% "scalatags" % "0.6.0",
         "org.scalactic"         %% "scalactic" % "3.0.0",
         "net.jcazevedo"         %% "moultingyaml" % "0.4.0",
@@ -111,6 +110,7 @@ object ProjectPlugin extends AutoPlugin {
     Seq(
       name := "sbt-microsites",
       description := "An sbt plugin to create awesome microsites for your project",
+      startYear := Some(2016),
       scalaVersion := "2.10.6",
       crossScalaVersions := Seq("2.10.6"),
       scalaOrganization := "org.scala-lang"
