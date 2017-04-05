@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2017 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,8 @@ case class MicrositeIdentitySettings(
     description: String,
     author: String,
     homepage: String,
-    twitter: String)
+    twitter: String,
+    sbtName: String)
 
 case class MicrositeFileLocations(
     micrositeImgDirectory: File,
@@ -58,7 +59,11 @@ case class MicrositeGitSettings(
     gitHostingService: MicrositeKeys.GitHostingService,
     gitHostingUrl: String)
 
-case class MicrositeUrlSettings(micrositeBaseUrl: String, micrositeDocumentationUrl: String)
+case class MicrositeUrlSettings(
+    micrositePoweredByUrl: String,
+    micrositefortySevenUrl: String,
+    micrositeBaseUrl: String,
+    micrositeDocumentationUrl: String)
 
 case class MicrositeFavicon(filename: String, sizeDescription: String)
 

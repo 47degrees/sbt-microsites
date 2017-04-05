@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2017 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,6 +54,9 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeHomepage := homepage.value.map(_.toString).getOrElse(""),
     micrositeBaseUrl := "",
     micrositeDocumentationUrl := "",
+    micrositePoweredByUrl := "https://47deg.github.io/sbt-microsites/",
+    micrositefortySevenUrl := "https://www.47deg.com",
+    micrositeSbtName := "sbt-microsites",
     micrositeTwitter := "",
     micrositeHighlightTheme := "default",
     micrositeConfigYaml := ConfigYml(
