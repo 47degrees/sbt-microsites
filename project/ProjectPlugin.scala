@@ -114,6 +114,6 @@ object ProjectPlugin extends AutoPlugin {
       scalaVersion := "2.10.6",
       crossScalaVersions := Seq("2.10.6"),
       scalaOrganization := "org.scala-lang",
-      orgGithubTokenSetting := getEnvVar("GITHUB4S_ACCESS_TOKEN")
+      orgGithubTokenSetting := getEnvVar("GITHUB_TOKEN")
     ) ++ shellPromptSettings
 }
