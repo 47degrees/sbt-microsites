@@ -8,7 +8,6 @@ lazy val `sbt-microsites` = (project in file("."))
   .settings(tutSettings: _*)
   .settings(testScriptedSettings: _*)
   .enablePlugins(JekyllPlugin)
-  .enablePlugins(AutomateHeaderPlugin)
 
 lazy val docs = (project in file("docs"))
   .settings(moduleName := "docs")
