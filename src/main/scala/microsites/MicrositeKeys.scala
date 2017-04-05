@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2017 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,12 +46,15 @@ trait MicrositeKeys {
   val microsite = taskKey[Seq[File]]("Create microsite files")
   val micrositeConfig =
     taskKey[Unit]("Copy microsite config to the site folder")
-  val micrositeName        = settingKey[String]("Microsite name")
-  val micrositeDescription = settingKey[String]("Microsite description")
-  val micrositeAuthor      = settingKey[String]("Microsite author")
-  val micrositeHomepage    = settingKey[String]("Microsite homepage")
-  val micrositeTwitter     = settingKey[String]("Microsite twitter")
-  val micrositeBaseUrl     = settingKey[String]("Microsite site base url")
+  val micrositeName          = settingKey[String]("Microsite name")
+  val micrositeDescription   = settingKey[String]("Microsite description")
+  val micrositeAuthor        = settingKey[String]("Microsite author")
+  val micrositeHomepage      = settingKey[String]("Microsite homepage")
+  val micrositeTwitter       = settingKey[String]("Microsite twitter")
+  val micrositeBaseUrl       = settingKey[String]("Microsite site base url")
+  val micrositePoweredByUrl  = settingKey[String]("Microsite powered by url")
+  val micrositefortySevenUrl = settingKey[String]("47 Url")
+  val micrositeSbtName       = settingKey[String]("Microsite sbt name")
   val micrositeDocumentationUrl =
     settingKey[String]("Microsite site documentation url")
   val micrositeHighlightTheme = settingKey[String]("Microsite Highlight Theme")
@@ -130,7 +133,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           description = micrositeDescription.value,
           author = micrositeAuthor.value,
           homepage = micrositeHomepage.value,
-          twitter = micrositeTwitter.value
+          twitter = micrositeTwitter.value,
+          sbtName = micrositeSbtName.value
         ),
         visualSettings = MicrositeVisualSettings(
           highlightTheme = micrositeHighlightTheme.value,
@@ -149,6 +153,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           micrositeExtraMdFiles = micrositeExtraMdFiles.value
         ),
         urlSettings = MicrositeUrlSettings(
+          micrositePoweredByUrl = micrositePoweredByUrl.value,
+          micrositefortySevenUrl = micrositefortySevenUrl.value,
           micrositeBaseUrl = micrositeBaseUrl.value,
           micrositeDocumentationUrl = micrositeDocumentationUrl.value
         ),

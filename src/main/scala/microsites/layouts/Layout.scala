@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2017 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -178,6 +178,26 @@ abstract class Layout(config: MicrositeSettings) {
                 href := config.gitSiteUrl,
                 span(cls := s"fa ${config.gitHostingIconClass}"),
                 s"View on ${config.gitSettings.gitHostingService}"))
+          )
+        ),
+        div(
+          cls := "row",
+          div(
+            cls := "col-xs-6",
+            p(
+              s"Website built with ",
+              a(
+                href := s"${config.urlSettings.micrositePoweredByUrl}",
+                target := "_blank",
+                s"${config.identity.sbtName}"
+              ),
+              (s" - © 2016 "),
+              a(
+                href := s"${config.urlSettings.micrositefortySevenUrl}",
+                target := "_blank",
+                s"${config.identity.author}"
+              )
+            )
           )
         )
       )
