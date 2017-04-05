@@ -5,8 +5,8 @@ import sbt.Keys._
 import sbt.ScriptedPlugin._
 import sbt._
 import sbtbuildinfo.BuildInfoPlugin.autoImport._
+import sbtorgpolicies.OrgPoliciesPlugin
 import sbtorgpolicies.OrgPoliciesPlugin.autoImport._
-import sbtorgpolicies._
 
 object ProjectPlugin extends AutoPlugin {
 
@@ -25,7 +25,7 @@ object ProjectPlugin extends AutoPlugin {
       addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.2.0"),
       addSbtPlugin("org.tpolecat"     % "tut-plugin"  % "0.4.8"),
       libraryDependencies ++= Seq(
-        "com.47deg"             %% "org-policies-core" % "0.3.0",
+        "com.47deg"             %% "org-policies-core" % "0.4.2",
         "com.lihaoyi"           %% "scalatags" % "0.6.0",
         "org.scalactic"         %% "scalactic" % "3.0.0",
         "net.jcazevedo"         %% "moultingyaml" % "0.4.0",
@@ -35,9 +35,9 @@ object ProjectPlugin extends AutoPlugin {
       )
     )
 
-    lazy val testScriptedSettings =
+    lazy val testScriptedSettings: Seq[(Def.Setting[_])] =
       ScriptedPlugin.scriptedSettings ++ Seq(
-        scriptedDependencies := (compile in Test) map { (analysis) =>
+        scriptedDependencies := (compile in Test) map { (_) =>
           Unit
         },
         scriptedLaunchOpts := {
@@ -68,7 +68,7 @@ object ProjectPlugin extends AutoPlugin {
       includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
     )
 
-    lazy val jsSettings = sharedJsSettings ++ Seq(
+    lazy val jsSettings: Seq[Def.Setting[_]] = sharedJsSettings ++ Seq(
       scalaVersion := "2.11.8",
       crossScalaVersions := Seq("2.11.8"),
       skip in packageJSDependencies := false,
@@ -106,13 +106,14 @@ object ProjectPlugin extends AutoPlugin {
 
   }
 
-  override def projectSettings =
+  override def projectSettings: Seq[Def.Setting[_]] =
     Seq(
       name := "sbt-microsites",
       description := "An sbt plugin to create awesome microsites for your project",
       startYear := Some(2016),
       scalaVersion := "2.10.6",
       crossScalaVersions := Seq("2.10.6"),
-      scalaOrganization := "org.scala-lang"
+      scalaOrganization := "org.scala-lang",
+      orgGithubTokenSetting := getEnvVar("GITHUB_TOKEN")
     ) ++ shellPromptSettings
 }
