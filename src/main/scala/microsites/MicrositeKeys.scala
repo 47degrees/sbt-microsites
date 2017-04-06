@@ -50,7 +50,7 @@ trait MicrositeKeys {
   val micrositeDescription          = settingKey[String]("Microsite description")
   val micrositeAuthor               = settingKey[String]("Microsite author")
   val micrositeHomepage             = settingKey[String]("Microsite homepage")
-  val micrositeOrganisationHomepage = settingKey[String]("Microsite organisation homepage")
+  val micrositeOrganizationHomepage = settingKey[String]("Microsite organisation homepage")
   val micrositeTwitter              = settingKey[String]("Microsite twitter")
   val micrositeBaseUrl              = settingKey[String]("Microsite site base url")
   val micrositeDocumentationUrl =
@@ -131,7 +131,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           description = micrositeDescription.value,
           author = micrositeAuthor.value,
           homepage = micrositeHomepage.value,
-          organizationHomepage = micrositeOrganisationHomepage.value,
+          organizationHomepage = micrositeOrganizationHomepage.value,
           twitter = micrositeTwitter.value
         ),
         visualSettings = MicrositeVisualSettings(

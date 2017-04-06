@@ -137,7 +137,13 @@ trait Arbitraries {
       micrositeKazariResolvers           ← Arbitrary.arbitrary[Seq[String]]
     } yield
       MicrositeSettings(
-        MicrositeIdentitySettings(name, description, author, homepage, organizationHomepage, twitter),
+        MicrositeIdentitySettings(
+          name,
+          description,
+          author,
+          homepage,
+          organizationHomepage,
+          twitter),
         MicrositeVisualSettings(highlightTheme, palette, favicon),
         micrositeConfigYaml,
         MicrositeFileLocations(

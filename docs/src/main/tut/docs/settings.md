@@ -14,7 +14,7 @@ Before you begin to detail the settings, the **sbt-microsites** plugin will use 
 - `name`: default value for the microsite name.
 - `description`: value by default used for the microsite description.
 - `organizationName`: used as the microsite author by default.
-- `homepage`: used as the default microsite homepage.
+- `organizationHomepage`: used as the default microsite homepage.
 
 However, you can override these default settings by using the ones provided by the plugin, which we will describe in detail in the next section. 
 
@@ -56,10 +56,10 @@ Therefore, considering the example above, your microsite documentation would be 
 micrositeAuthor := "47 Degrees"
 ```
 
-- `micrositeHomepage`: this particular setting is used for the homepage url, similar to the way we've seen in other properties. This link is used in the footer-left link in the microsite. By default, the value is taken from the sbt setting `homepage`, but you can override it:
+- `micrositeOrganizationHomepage`: this particular setting is used for the homepage url, similar to the way we've seen in other properties. This link is used in the footer-left link in the microsite. By default, the value is taken from the sbt setting `organizationHomepage`, but you can override it:
 
 ```
-micrositeHomepage := "http://www.47deg.com"
+micrositeOrganizationHomepage := "http://www.47deg.com"
 ```
 
 - `micrositeGithubOwner` and `micrositeGithubRepo`: in order to add links to the `GitHub` repo, `micrositeGithubOwner` and `micrositeGithubRepo` are required:
