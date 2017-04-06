@@ -109,6 +109,7 @@ trait Arbitraries {
       description                        ← Arbitrary.arbitrary[String]
       author                             ← Arbitrary.arbitrary[String]
       homepage                           ← Arbitrary.arbitrary[String]
+      organizationHomepage               ← Arbitrary.arbitrary[String]
       twitter                            ← Arbitrary.arbitrary[String]
       highlightTheme                     ← Arbitrary.arbitrary[String]
       micrositeConfigYaml                ← configYamlArbitrary.arbitrary
@@ -136,7 +137,7 @@ trait Arbitraries {
       micrositeKazariResolvers           ← Arbitrary.arbitrary[Seq[String]]
     } yield
       MicrositeSettings(
-        MicrositeIdentitySettings(name, description, author, homepage, twitter),
+        MicrositeIdentitySettings(name, description, author, homepage, organizationHomepage, twitter),
         MicrositeVisualSettings(highlightTheme, palette, favicon),
         micrositeConfigYaml,
         MicrositeFileLocations(
