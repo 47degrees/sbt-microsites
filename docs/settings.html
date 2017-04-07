@@ -10,7 +10,7 @@
   <li><code class="highlighter-rouge">name</code>: default value for the microsite name.</li>
   <li><code class="highlighter-rouge">description</code>: value by default used for the microsite description.</li>
   <li><code class="highlighter-rouge">organizationName</code>: used as the microsite author by default.</li>
-  <li><code class="highlighter-rouge">homepage</code>: used as the default microsite homepage.</li>
+  <li><code class="highlighter-rouge">organizationHomepage</code>: used as the default microsite homepage.</li>
 </ul>
 
 <p>However, you can override these default settings by using the ones provided by the plugin, which we will describe in detail in the next section.</p>
@@ -64,10 +64,10 @@
 </div>
 
 <ul>
-  <li><code class="highlighter-rouge">micrositeHomepage</code>: this particular setting is used for the homepage url, similar to the way we’ve seen in other properties. This link is used in the footer-left link in the microsite. By default, the value is taken from the sbt setting <code class="highlighter-rouge">homepage</code>, but you can override it:</li>
+  <li><code class="highlighter-rouge">micrositeOrganizationHomepage</code>: this particular setting is used for the homepage url, similar to the way we’ve seen in other properties. This link is used in the footer-left link in the microsite. By default, the value is taken from the sbt setting <code class="highlighter-rouge">organizationHomepage</code>. In case you don´t provide any value for that setting, it will take it from the sbt setting <code class="highlighter-rouge">homepage</code>:</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>micrositeHomepage := "http://www.47deg.com"
+<div class="highlighter-rouge"><pre class="highlight"><code>micrositeOrganizationHomepage := "http://www.47deg.com"
 </code></pre>
 </div>
 
