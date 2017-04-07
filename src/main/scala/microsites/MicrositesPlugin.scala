@@ -52,7 +52,12 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeDescription := description.value,
     micrositeAuthor := organizationName.value,
     micrositeHomepage := homepage.value.map(_.toString).getOrElse(""),
-    micrositeOrganizationHomepage := organizationHomepage.value.map(_.toString).getOrElse(""),
+    micrositeOrganizationHomepage := {
+      if (organizationHomepage.value.map(_.toString).isEmpty)
+        homepage.value.map(_.toString).getOrElse("")
+      else
+        organizationHomepage.value.map(_.toString).getOrElse("")
+    },
     micrositeBaseUrl := "",
     micrositeDocumentationUrl := "",
     micrositeTwitter := "",
