@@ -25,7 +25,7 @@ object ProjectPlugin extends AutoPlugin {
       addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.2.0"),
       addSbtPlugin("org.tpolecat"     % "tut-plugin"  % "0.4.8"),
       libraryDependencies ++= Seq(
-        "com.47deg"             %% "org-policies-core" % "0.4.2",
+        "com.47deg"             %% "org-policies-core" % "0.4.4",
         "com.lihaoyi"           %% "scalatags" % "0.6.0",
         "org.scalactic"         %% "scalactic" % "3.0.0",
         "net.jcazevedo"         %% "moultingyaml" % "0.4.0",
