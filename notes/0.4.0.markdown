@@ -1,7 +1,0 @@
-# Version 0.4.0
-
-
-- Provides the ability to import JS and CSS files from CDN services.
-- Improves the `micrositeExtraMdFiles` setting. Now, you don't need to modify your markdown that are located in different path from tut. You can specify the layout version and the rest of the meta-properties when configuring this sbt setting. If your were using the previous version 0.3.x, and you are upgrading to 0.4.0, you need to rewrite this setting.
-- Brings a new feature to make possible the total customization of the `_config.yml` Jekyll file, throug the new `micrositeConfigYaml` setting.
-- Other minor improvements.

@@ -1,4 +1,0 @@
-# Version 0.3.3
-
-- Adds feature to allow users to include custom layouts and partial layouts to their microsites, by specifying their location with the micrositeExternalLayoutsDirectory and micrositeExternalIncludesDirectory settings of the plugin.
-- Fixes images loading for retina displays
