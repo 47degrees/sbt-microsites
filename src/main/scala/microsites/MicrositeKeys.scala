@@ -46,12 +46,13 @@ trait MicrositeKeys {
   val microsite = taskKey[Seq[File]]("Create microsite files")
   val micrositeConfig =
     taskKey[Unit]("Copy microsite config to the site folder")
-  val micrositeName        = settingKey[String]("Microsite name")
-  val micrositeDescription = settingKey[String]("Microsite description")
-  val micrositeAuthor      = settingKey[String]("Microsite author")
-  val micrositeHomepage    = settingKey[String]("Microsite homepage")
-  val micrositeTwitter     = settingKey[String]("Microsite twitter")
-  val micrositeBaseUrl     = settingKey[String]("Microsite site base url")
+  val micrositeName                 = settingKey[String]("Microsite name")
+  val micrositeDescription          = settingKey[String]("Microsite description")
+  val micrositeAuthor               = settingKey[String]("Microsite author")
+  val micrositeHomepage             = settingKey[String]("Microsite homepage")
+  val micrositeOrganizationHomepage = settingKey[String]("Microsite organisation homepage")
+  val micrositeTwitter              = settingKey[String]("Microsite twitter")
+  val micrositeBaseUrl              = settingKey[String]("Microsite site base url")
   val micrositeDocumentationUrl =
     settingKey[String]("Microsite site documentation url")
   val micrositeHighlightTheme = settingKey[String]("Microsite Highlight Theme")
@@ -130,6 +131,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           description = micrositeDescription.value,
           author = micrositeAuthor.value,
           homepage = micrositeHomepage.value,
+          organizationHomepage = micrositeOrganizationHomepage.value,
           twitter = micrositeTwitter.value
         ),
         visualSettings = MicrositeVisualSettings(

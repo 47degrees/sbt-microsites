@@ -166,7 +166,7 @@ abstract class Layout(config: MicrositeSettings) {
             p(
               "{{ site.name }} is designed and developed by ",
               a(
-                href := s"${config.identity.homepage}",
+                href := s"${config.identity.organizationHomepage}",
                 target := "_blank",
                 s"${config.identity.author}"))
           ),
@@ -191,7 +191,7 @@ abstract class Layout(config: MicrositeSettings) {
                 target := "_blank",
                 s"Sbt-microsites"
               ),
-              (s" - © 2016 "),
+              s" - © 2016 ",
               a(
                 href := s"https://www.47deg.com/",
                 target := "_blank",
