@@ -1,5 +1,13 @@
 # Changelog
 
+## 04/11/2017 - Version 0.5.3
+
+Release changes:
+
+* Migrates Old Changelog Format to the New format ([#167](https://github.com/47deg/sbt-microsites/pull/167))
+* Fixes Kazari Build ([#168](https://github.com/47deg/sbt-microsites/pull/168)) 
+      
+
 ## 04/07/2017 - Version 0.5.2
 
 Release changes:
