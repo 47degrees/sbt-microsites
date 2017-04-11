@@ -19,7 +19,7 @@ package microsites.util
 import java.io.File
 
 import com.sksamuel.scrimage._
-import microsites.ConfigYamlProtocol._
+import sbtorgpolicies.model.YamlFormats._
 import microsites._
 import microsites.layouts._
 import net.jcazevedo.moultingyaml.{YamlObject, _}
