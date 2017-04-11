@@ -50,7 +50,7 @@ To begin, add the following lines to the `project/plugins.sbt` file within your 
 Latest release:
 
 ```bash
-addSbtPlugin("com.47deg"  % "sbt-microsites" % "0.5.2")
+addSbtPlugin("com.47deg"  % "sbt-microsites" % "0.5.3")
 ```
 
 Latest snapshot built from the `master` branch code:

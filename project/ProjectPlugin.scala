@@ -25,10 +25,10 @@ object ProjectPlugin extends AutoPlugin {
       addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.2.0"),
       addSbtPlugin("org.tpolecat"     % "tut-plugin"  % "0.4.8"),
       libraryDependencies ++= Seq(
-        "com.47deg"             %% "org-policies-core" % "0.4.4",
+        %%("moultingyaml"),
+        "com.47deg"             %% "org-policies-core" % "0.4.6",
         "com.lihaoyi"           %% "scalatags" % "0.6.0",
         "org.scalactic"         %% "scalactic" % "3.0.0",
-        "net.jcazevedo"         %% "moultingyaml" % "0.4.0",
         "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.7",
         %%("scalatest")         % "test",
         %%("scalacheck")        % "test"
@@ -114,6 +114,6 @@ object ProjectPlugin extends AutoPlugin {
       scalaVersion := "2.10.6",
       crossScalaVersions := Seq("2.10.6"),
       scalaOrganization := "org.scala-lang",
-      orgGithubTokenSetting := getEnvVar("GITHUB_TOKEN")
+      orgGithubTokenSetting := "GITHUB_TOKEN"
     ) ++ shellPromptSettings
 }
