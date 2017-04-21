@@ -65,7 +65,10 @@ object ProjectPlugin extends AutoPlugin {
       micrositeGithubOwner := "47deg",
       micrositeGithubRepo := "sbt-microsites",
       micrositeHighlightTheme := "color-brewer",
-      includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
+      micrositeAnalytics := "UA-XXXXX-Y",
+      includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" |
+        "*" +
+          ".swf" | "*.md"
     )
 
     lazy val jsSettings: Seq[Def.Setting[_]] = sharedJsSettings ++ Seq(
