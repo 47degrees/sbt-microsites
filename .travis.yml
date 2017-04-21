@@ -4,9 +4,6 @@ scala:
 jdk:
 - oraclejdk8
 before_install:
-- mkdir ../test/;
-- echo "Hello World!" > ../test/file;
-- more ../test/file;
 - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash
   scripts/decrypt-keys.sh;
   mkdir ../keys/;
