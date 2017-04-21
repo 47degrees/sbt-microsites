@@ -40,7 +40,7 @@ trait MicrositeKeys {
 
   sealed trait PushWith
   final case object GHPagesPlugin extends PushWith
-  final case object GitHubAPI     extends PushWith
+  final case object GitHub4s      extends PushWith
 
   object GitHostingService {
     implicit def string2GitHostingService(name: String): GitHostingService = {
@@ -111,7 +111,8 @@ trait MicrositeKeys {
   val micrositeGitHostingUrl: SettingKey[String] = settingKey[String](
     "In the case where your project isn't hosted on Github, use this setting to point users to git host (e.g. 'https://internal.gitlab.com/<user>/<project>').")
   val micrositePushSiteWith: SettingKey[PushWith] =
-    settingKey[PushWith]("Determines what will be chosen for pushing the site")
+    settingKey[PushWith](
+      "Determines what will be chosen for pushing the site. The options are sbt-ghpages plugin and github4s library.")
 
   val publishMicrositeCommandKey: String = "publishMicrosite"
 }
@@ -227,11 +228,11 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val cleanState: State = extracted.runTask(clean, st)._1
       val makeState: State  = extracted.runTask(makeMicrosite, cleanState)._1
 
-      val newState = (pushSiteWith, gitHosting) match {
+      (pushSiteWith, gitHosting) match {
         case (GHPagesPlugin, _) =>
           val ref = extracted.get(thisProjectRef)
           extracted.runAggregated[Unit](ghpagesPushSite in Global in ref, makeState)
-        case (GitHubAPI, GitHub) if githubToken.nonEmpty =>
+        case (GitHub4s, GitHub) if githubToken.nonEmpty =>
           val commitMessage = sys.env.getOrElse("SBT_GHPAGES_COMMIT_MESSAGE", "updated site")
           makeState.log.info(
             s"""Committing files from ${siteDir.getAbsolutePath} into branch '$branch'
@@ -246,15 +247,13 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
               e.printStackTrace()
           }
           makeState
-        case (GitHubAPI, GitHub) =>
+        case (GitHub4s, GitHub) =>
           makeState.log.error(
-            s"You must provide a GitHub token through the `micrositeGithubToken` setting for pushing with GitHubAPI")
+            s"You must provide a GitHub token through the `micrositeGithubToken` setting for pushing with github4s")
           makeState
-        case (GitHubAPI, hosting) =>
-          makeState.log.warn(s"$hosting not supported for pushing with GitHubAPI")
+        case (GitHub4s, hosting) =>
+          makeState.log.warn(s"github4s doens't have support for $hosting")
           makeState
       }
-
-      newState
   }
 }
