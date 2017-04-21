@@ -62,11 +62,26 @@ micrositeAuthor := "47 Degrees"
 micrositeOrganizationHomepage := "http://www.47deg.com"
 ```
 
-- `micrositeGithubOwner` and `micrositeGithubRepo`: in order to add links to the `GitHub` repo, `micrositeGithubOwner` and `micrositeGithubRepo` are required:
+- `micrositeGithubOwner` and `micrositeGithubRepo`: in order to add links to the `GitHub` repo. It's also needed for publishing the site when `github4s` is chosen (see `micrositePushSiteWith` setting). Both, `micrositeGithubOwner` and `micrositeGithubRepo` are required:
 
 ```
 micrositeGithubOwner := "47deg"
 micrositeGithubRepo := "sbt-microsites"
+```
+
+- `micrositeGithubToken`: used for publishing the site when `github4s` is enabled. A [token with repo scope](https://github.com/settings/tokens/new?scopes=repo&description=sbt-microsites) is needed. None by default, but you can override it in this way:
+ 
+```
+micrositeGithubToken := getEnvVar("GITHUB_TOKEN")
+```
+
+- `micrositePushSiteWith`: determines how the site will be pushed. It accept two values:
+
+* `GHPagesPlugin`: The default value. The plugin will use the `sbt-ghpages` plugin for publishing the site.
+* `GitHub4s`: The [GitHub4s](https://github.com/47deg/github4s) will be used for publishing the site. By now, only GitHub is supported. You need to specify a value for the `micrositeGithubToken` in order to use this publishing method.
+
+```
+micrositePushSiteWith := GitHub4s
 ```
 
 - `micrositeGitHostingService` and `micrositeGitHostingUrl`: in order to specify a hosting service other than `GitHub`:

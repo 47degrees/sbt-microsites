@@ -5,7 +5,13 @@ title: Publish with Travis
 
 # Publish with Travis
 
-In this section, we’re going to learn how to configure Travis so you can publish your microsite when you merge in master. You can follow these steps:
+In this section, we’re going to learn how to configure Travis so you can publish your microsite when you merge in master.
+
+There are two options for publishing the site. See [Configuring the Microsite](settings.html) section for more information.
+
+## Publish using sbt-ghpages
+
+When the property `micrositePushSiteWith` is set to `GHPagesPlugin` (by default), the site is pushed using the sbt-ghpages plugins. The steps for this approach are:
 
 **1- Generate an SSH key pair**
 
@@ -133,3 +139,29 @@ sbt docs/publishMicrosite
 ```
 
 In this script, we are publishing the microsite in GitHub Pages. To do this, we should add the user information for git.
+
+## Publish using GitHub4s
+
+With this method, you don't need to generate any ssh keys or encrypt any files. We'll use the GitHub API for publishing the site. The steps are:
+
+**1- Create a token for your project**
+
+You need to create a GitHub token with `repo` scope. You can create it in the [GitHub settings](https://github.com/settings/tokens/new?scopes=repo&description=sbt-microsites) page.
+
+Copy the token in a safe place, we'll use this token through an environment variable as we'll see shortly.
+
+**2- Configure your project build**
+
+You need to set these two sbt settings:
+
+```
+micrositePushSiteWith := GitHub4s
+```
+
+```
+micrositeGithubToken := getEnvVar("GITHUB_TOKEN")
+```
+
+**3- Add the environment variable in Travis**
+
+The final step is to define the `GITHUB_TOKEN` environment variable in Travis Repository Settings. You can do it following [the documentation](https://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings).
