@@ -94,6 +94,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeGitHostingService := GitHub,
     micrositeGitHostingUrl := "",
     micrositePushSiteWith := GHPagesPlugin,
-    includeFilter in Jekyll := ("*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME")
+    includeFilter in Jekyll := ("*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME"),
+    commands ++= Seq(micrositePushSiteCommand)
   )
 }

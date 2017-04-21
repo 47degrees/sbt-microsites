@@ -32,9 +32,9 @@ import scala.io.Source
 class MicrositeHelper(config: MicrositeSettings) {
   implicitly(config)
 
-  val fw = new FileWriter
+  import MicrositeHelper._
 
-  val jekyllDir = "jekyll"
+  val fw = new FileWriter
 
   // format: OFF
   val faviconHeights = List(16, 24, 32, 48, 57, 60, 64, 70, 72, 76, 96,
@@ -201,4 +201,10 @@ class MicrositeHelper(config: MicrositeSettings) {
       .map(parent => sourceDir.*** pair relativeTo(parent))
       .getOrElse(sourceDir.*** pair basic)
   }
+}
+
+object MicrositeHelper {
+
+  val jekyllDir = "jekyll"
+
 }

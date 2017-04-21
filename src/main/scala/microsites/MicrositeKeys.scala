@@ -26,6 +26,7 @@ import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport._
 import microsites.util.MicrositeHelper
 import sbt.Keys._
 import sbt._
+import sbt.complete.DefaultParsers.OptNotSpace
 import sbtorgpolicies.github.GitHubOps
 import tut.Plugin._
 
@@ -53,8 +54,6 @@ trait MicrositeKeys {
   val publishMicrosite: TaskKey[Unit] =
     taskKey[Unit]("Publish the microsite (using the pushSite task) after build it")
   val microsite: TaskKey[Seq[File]] = taskKey[Seq[File]]("Create microsite files")
-  val micrositePushSite: TaskKey[Unit] =
-    taskKey[Unit]("Push the site into Git. Currently, only GitHub it's supported")
   val micrositeConfig: TaskKey[Unit] =
     taskKey[Unit]("Copy microsite config to the site folder")
   val micrositeName: SettingKey[String]        = settingKey[String]("Microsite name")
@@ -94,6 +93,8 @@ trait MicrositeKeys {
     "Optional. List of filenames and sizes for the PNG/ICO files to be used as favicon for the generated site, located in '/microsite/img'. The sizes should be described with a string (i.e.: \"16x16\"). By default, favicons with different sizes will be generated from the navbar_brand2x.jpg file.")
   val micrositeGithubOwner: SettingKey[String] = settingKey[String]("Microsite Github owner")
   val micrositeGithubRepo: SettingKey[String]  = settingKey[String]("Microsite Github repo")
+  val micrositeGithubToken: SettingKey[Option[String]] =
+    settingKey[Option[String]]("Microsite Github token for pushing the microsite")
   val micrositeKazariEvaluatorUrl: SettingKey[String] = settingKey[String](
     "URL of the remote Scala Evaluator to be used by Kazari. Required for Kazari to work. Default: https://scala-evaluator-212.herokuapp.com")
   val micrositeKazariEvaluatorToken: SettingKey[String] = settingKey[String](
@@ -113,6 +114,8 @@ trait MicrositeKeys {
     "In the case where your project isn't hosted on Github, use this setting to point users to git host (e.g. 'https://internal.gitlab.com/<user>/<project>').")
   val micrositePushSiteWith: SettingKey[PushWith] =
     settingKey[PushWith]("Determines what will be chosen for pushing the site")
+
+  val micrositePushSiteCommandKey: String = "micrositePushSite"
 }
 
 object MicrositeKeys extends MicrositeKeys
@@ -200,16 +203,6 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       tutSourceDirectory = (tutSourceDirectory in Compile).value),
     micrositeConfig := micrositeHelper.value
       .copyConfigurationFile((sourceDirectory in Jekyll).value, siteDirectory.value),
-    micrositePushSite := {
-      (micrositePushSiteWith.value, micrositeGitHostingService.value) match {
-        case (GHPagesPlugin, _) =>
-          ghpagesPushSite
-        case (GitHubAPI, GitHub) =>
-          publishSiteWithAPI
-        case (GitHubAPI, hosting) =>
-          Def.task(streams.value.log.warn(s"$hosting not supported for pushing with GitHubAPI"))
-      }
-    }.value,
     makeMicrosite := Def
       .sequential(
         microsite,
@@ -218,32 +211,53 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         micrositeConfig
       )
       .value,
-    publishMicrosite := Def
-      .sequential(
-        clean,
-        makeMicrosite,
-        micrositePushSite
-      )
-      .value
+    publishMicrosite := Def.task {
+      val scalaV = scalaVersion.value
+      s"sbt ++$scalaV $micrositePushSiteCommandKey".!
+      (): Unit
+    }.value
   )
 
-  private[this] def publishSiteWithAPI: Def.Initialize[Task[Unit]] = {
-    Def.task {
-      val dir    = (resourceManaged in Compile).value / micrositeHelper.value.jekyllDir
-      val branch = ghpagesBranch.value
-      if (ghpagesNoJekyll.value) IO.touch(dir / ".nojekyll")
-      streams.value.log.info(s"Committing files from ${dir.getAbsolutePath} into branch '$branch'")
-      val ghOps: GitHubOps = new GitHubOps(
-        micrositeGithubOwner.value,
-        micrositeGithubRepo.value,
-        Option(micrositeKazariGithubToken.value))
-      val commitMessage = sys.env.getOrElse("SBT_GHPAGES_COMMIT_MESSAGE", "updated site")
-      ghOps.commitDir(branch, commitMessage, dir) match {
-        case Right(_) => streams.value.log.info("Success")
-        case Left(e) =>
-          streams.value.log.error(s"Error committing files")
-          e.printStackTrace()
+  val micrositePushSiteCommand: Command = Command(micrositePushSiteCommandKey)(_ => OptNotSpace) {
+    (st, _) =>
+      val extracted = Project.extract(st)
+
+      val targetDir: Dir                = extracted.get(resourceManaged in Compile)
+      val jekyllDir: Dir                = targetDir / MicrositeHelper.jekyllDir
+      val noJekyll: Boolean             = extracted.get(ghpagesNoJekyll)
+      val branch: String                = extracted.get(ghpagesBranch)
+      val pushSiteWith: PushWith        = extracted.get(micrositePushSiteWith)
+      val gitHosting: GitHostingService = extracted.get(micrositeGitHostingService)
+      val githubOwner: String           = extracted.get(micrositeGithubOwner)
+      val githubRepo: String            = extracted.get(micrositeGithubRepo)
+      val githubToken: Option[String]   = extracted.get(micrositeGithubToken)
+
+      val cleanState: State = extracted.runTask(clean, st)._1
+      val makeState: State  = extracted.runTask(makeMicrosite, cleanState)._1
+
+      makeState.log.info(
+        s"Committing files from ${jekyllDir.getAbsolutePath} into branch '$branch'")
+
+      val newState = (pushSiteWith, gitHosting) match {
+        case (GHPagesPlugin, _) =>
+          val ref = extracted.get(thisProjectRef)
+          extracted.runAggregated[Unit](ghpagesPushSite in Global in ref, makeState)
+        case (GitHubAPI, GitHub) =>
+          val ghOps: GitHubOps = new GitHubOps(githubOwner, githubRepo, githubToken)
+          val commitMessage    = sys.env.getOrElse("SBT_GHPAGES_COMMIT_MESSAGE", "updated site")
+          if (noJekyll) IO.touch(jekyllDir / ".nojekyll")
+          ghOps.commitDir(branch, commitMessage, jekyllDir) match {
+            case Right(_) => makeState.log.info("Success")
+            case Left(e) =>
+              makeState.log.error(s"Error committing files")
+              e.printStackTrace()
+          }
+          makeState
+        case (GitHubAPI, hosting) =>
+          makeState.log.warn(s"$hosting not supported for pushing with GitHubAPI")
+          makeState
       }
-    }
+
+      newState
   }
 }
