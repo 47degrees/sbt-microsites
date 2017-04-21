@@ -72,11 +72,31 @@
 </div>
 
 <ul>
-  <li><code class="highlighter-rouge">micrositeGithubOwner</code> and <code class="highlighter-rouge">micrositeGithubRepo</code>: in order to add links to the <code class="highlighter-rouge">GitHub</code> repo, <code class="highlighter-rouge">micrositeGithubOwner</code> and <code class="highlighter-rouge">micrositeGithubRepo</code> are required:</li>
+  <li><code class="highlighter-rouge">micrositeGithubOwner</code> and <code class="highlighter-rouge">micrositeGithubRepo</code>: in order to add links to the <code class="highlighter-rouge">GitHub</code> repo. It’s also needed for publishing the site when <code class="highlighter-rouge">github4s</code> is chosen (see <code class="highlighter-rouge">micrositePushSiteWith</code> setting). Both, <code class="highlighter-rouge">micrositeGithubOwner</code> and <code class="highlighter-rouge">micrositeGithubRepo</code> are required:</li>
 </ul>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>micrositeGithubOwner := "47deg"
 micrositeGithubRepo := "sbt-microsites"
+</code></pre>
+</div>
+
+<ul>
+  <li><code class="highlighter-rouge">micrositeGithubToken</code>: used for publishing the site when <code class="highlighter-rouge">github4s</code> is enabled. A <a href="https://github.com/settings/tokens/new?scopes=repo&amp;description=sbt-microsites">token with repo scope</a> is needed. None by default, but you can override it in this way:</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>micrositeGithubToken := getEnvVar("GITHUB_TOKEN")
+</code></pre>
+</div>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">micrositePushSiteWith</code>: determines how the site will be pushed. It accept two values:</p>
+  </li>
+  <li><code class="highlighter-rouge">GHPagesPlugin</code>: The default value. The plugin will use the <code class="highlighter-rouge">sbt-ghpages</code> plugin for publishing the site.</li>
+  <li><code class="highlighter-rouge">GitHub4s</code>: The <a href="https://github.com/47deg/github4s">GitHub4s</a> will be used for publishing the site. By now, only GitHub is supported. You need to specify a value for the <code class="highlighter-rouge">micrositeGithubToken</code> in order to use this publishing method.</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>micrositePushSiteWith := GitHub4s
 </code></pre>
 </div>
 
