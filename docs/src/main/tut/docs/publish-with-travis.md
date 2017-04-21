@@ -11,7 +11,7 @@ There are two options for publishing the site. See [Configuring the Microsite](s
 
 ## Publish using sbt-ghpages
 
-This is the used method when the property `micrositePushSiteWith` is set to `GHPagesPlugin`. The steps are:
+When the property `micrositePushSiteWith` is set to `GHPagesPlugin` (by default), the site is pushed using the sbt-ghpages plugins. The steps for this approach are:
 
 **1- Generate an SSH key pair**
 
@@ -142,17 +142,17 @@ In this script, we are publishing the microsite in GitHub Pages. To do this, we 
 
 ## Publish using GitHub4s
 
-With this method, we don't need to generate any ssh keys or encrypt any files. We'll use the GitHub API for publishing the site. The steps are:
+With this method, you don't need to generate any ssh keys or encrypt any files. We'll use the GitHub API for publishing the site. The steps are:
 
 **1- Create a token for your project**
 
-You need to create a GitHub token with `repo` scope. You can create it in the [GitHub settings](https://github.com/settings/tokens/new?scopes=repo&description=sbt-microsites).
+You need to create a GitHub token with `repo` scope. You can create it in the [GitHub settings](https://github.com/settings/tokens/new?scopes=repo&description=sbt-microsites) page.
 
 Copy the token in a safe place, we'll send the token through an environment variable.
 
-**2- Configure your build**
+**2- Configure your project build**
 
-You need to set these properties:
+You need to set these two properties:
 
 ```
 micrositePushSiteWith := GitHub4s
