@@ -5,6 +5,14 @@
 Release changes:
 
 * Use GitHub api to publish ghpages ([#169](https://github.com/47deg/sbt-microsites/pull/169))
+* Fixes artifact publish ([#170](https://github.com/47deg/sbt-microsites/pull/170))
+
+
+## 04/21/2017 - Version 0.5.4
+
+Release changes:
+
+* Use GitHub api to publish ghpages ([#169](https://github.com/47deg/sbt-microsites/pull/169))
 
 
 ## 04/11/2017 - Version 0.5.3
