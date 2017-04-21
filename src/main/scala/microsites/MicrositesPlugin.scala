@@ -93,6 +93,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeKazariResolvers := Seq(),
     micrositeGitHostingService := GitHub,
     micrositeGitHostingUrl := "",
+    micrositePushSiteWith := GHPagesPlugin,
     includeFilter in Jekyll := ("*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME")
   )
 }

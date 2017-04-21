@@ -16,12 +16,17 @@
 
 package microsites
 
-import com.typesafe.sbt.sbtghpages.GhpagesPlugin.autoImport.ghpagesPushSite
+import com.typesafe.sbt.sbtghpages.GhpagesPlugin.autoImport.{
+  ghpagesBranch,
+  ghpagesNoJekyll,
+  ghpagesPushSite
+}
 import com.typesafe.sbt.site.SitePlugin.autoImport.{makeSite, siteDirectory}
 import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport._
 import microsites.util.MicrositeHelper
 import sbt.Keys._
 import sbt._
+import sbtorgpolicies.github.GitHubOps
 import tut.Plugin._
 
 trait MicrositeKeys {
@@ -32,6 +37,10 @@ trait MicrositeKeys {
   final case object Bitbucket                               extends GitHostingService("Bitbucket")
   final case class Other(value: String)                     extends GitHostingService(value)
 
+  sealed trait PushWith
+  final case object GHPagesPlugin extends PushWith
+  final case object GitHubAPI     extends PushWith
+
   object GitHostingService {
     implicit def string2GitHostingService(name: String): GitHostingService = {
       List(GitHub, GitLab, Bitbucket)
@@ -40,62 +49,70 @@ trait MicrositeKeys {
     }
   }
 
-  val makeMicrosite = taskKey[Unit]("Main Task to build a Microsite")
-  val publishMicrosite =
+  val makeMicrosite: TaskKey[Unit] = taskKey[Unit]("Main Task to build a Microsite")
+  val publishMicrosite: TaskKey[Unit] =
     taskKey[Unit]("Publish the microsite (using the pushSite task) after build it")
-  val microsite = taskKey[Seq[File]]("Create microsite files")
-  val micrositeConfig =
+  val microsite: TaskKey[Seq[File]] = taskKey[Seq[File]]("Create microsite files")
+  val micrositePushSite: TaskKey[Unit] =
+    taskKey[Unit]("Push the site into Git. Currently, only GitHub it's supported")
+  val micrositeConfig: TaskKey[Unit] =
     taskKey[Unit]("Copy microsite config to the site folder")
-  val micrositeName                 = settingKey[String]("Microsite name")
-  val micrositeDescription          = settingKey[String]("Microsite description")
-  val micrositeAuthor               = settingKey[String]("Microsite author")
-  val micrositeHomepage             = settingKey[String]("Microsite homepage")
-  val micrositeOrganizationHomepage = settingKey[String]("Microsite organisation homepage")
-  val micrositeTwitter              = settingKey[String]("Microsite twitter")
-  val micrositeBaseUrl              = settingKey[String]("Microsite site base url")
-  val micrositeDocumentationUrl =
+  val micrositeName: SettingKey[String]        = settingKey[String]("Microsite name")
+  val micrositeDescription: SettingKey[String] = settingKey[String]("Microsite description")
+  val micrositeAuthor: SettingKey[String]      = settingKey[String]("Microsite author")
+  val micrositeHomepage: SettingKey[String]    = settingKey[String]("Microsite homepage")
+  val micrositeOrganizationHomepage: SettingKey[String] =
+    settingKey[String]("Microsite organisation homepage")
+  val micrositeTwitter: SettingKey[String] = settingKey[String]("Microsite twitter")
+  val micrositeBaseUrl: SettingKey[String] = settingKey[String]("Microsite site base url")
+  val micrositeDocumentationUrl: SettingKey[String] =
     settingKey[String]("Microsite site documentation url")
-  val micrositeHighlightTheme = settingKey[String]("Microsite Highlight Theme")
-  val micrositeConfigYaml =
+  val micrositeHighlightTheme: SettingKey[String] = settingKey[String]("Microsite Highlight Theme")
+  val micrositeConfigYaml: SettingKey[ConfigYml] =
     settingKey[ConfigYml]("Microsite _config.yml file configuration.")
-  val micrositeImgDirectory = settingKey[File](
+  val micrositeImgDirectory: SettingKey[File] = settingKey[File](
     "Optional. Microsite images directory. By default, it'll be the resourcesDirectory + '/microsite/img'")
-  val micrositeCssDirectory = settingKey[File](
+  val micrositeCssDirectory: SettingKey[File] = settingKey[File](
     "Optional. Microsite CSS directory. By default, it'll be the resourcesDirectory + '/microsite/css'")
-  val micrositeJsDirectory = settingKey[File](
+  val micrositeJsDirectory: SettingKey[File] = settingKey[File](
     "Optional. Microsite Javascript directory. By default, it'll be the resourcesDirectory + '/microsite/js'")
-  val micrositeCDNDirectives = settingKey[CdnDirectives](
+  val micrositeCDNDirectives: SettingKey[CdnDirectives] = settingKey[CdnDirectives](
     "Optional. Microsite CDN directives lists (for css and js imports). By default, both lists are empty.")
-  val micrositeExternalLayoutsDirectory = settingKey[File](
+  val micrositeExternalLayoutsDirectory: SettingKey[File] = settingKey[File](
     "Optional. Microsite external layouts directory. By default, it'll be the resourcesDirectory + '/microsite/layout'")
-  val micrositeExternalIncludesDirectory = settingKey[File](
+  val micrositeExternalIncludesDirectory: SettingKey[File] = settingKey[File](
     "Optional. Microsite external includes (partial layouts) directory. By default, it'll be the resourcesDirectory + '/microsite/includes'")
-  val micrositeDataDirectory = settingKey[File](
+  val micrositeDataDirectory: SettingKey[File] = settingKey[File](
     "Optional. Microsite Data directory, useful to define the microsite data files " +
       "(https://jekyllrb.com/docs/datafiles/). By default, it'll be the resourcesDirectory + '/microsite/data'")
-  val micrositeExtraMdFiles = settingKey[Map[File, ExtraMdFileConfig]](
-    "Optional. This key is useful when you want to include automatically markdown documents as a part of your microsite, and these files are located in different places from the tutSourceDirectory. The map key is related with the source file, the map value corresponds with the target relative file path and the document meta-information configuration. By default, the map is empty.")
-  val micrositePalette = settingKey[Map[String, String]]("Microsite palette")
-  val micrositeFavicons = settingKey[Seq[MicrositeFavicon]](
+  val micrositeExtraMdFiles: SettingKey[Map[File, ExtraMdFileConfig]] =
+    settingKey[Map[File, ExtraMdFileConfig]](
+      "Optional. This key is useful when you want to include automatically markdown documents as a part of your microsite, and these files are located in different places from the tutSourceDirectory. The map key is related with the source file, the map value corresponds with the target relative file path and the document meta-information configuration. By default, the map is empty.")
+  val micrositePalette: SettingKey[Map[String, String]] =
+    settingKey[Map[String, String]]("Microsite palette")
+  val micrositeFavicons: SettingKey[Seq[MicrositeFavicon]] = settingKey[Seq[MicrositeFavicon]](
     "Optional. List of filenames and sizes for the PNG/ICO files to be used as favicon for the generated site, located in '/microsite/img'. The sizes should be described with a string (i.e.: \"16x16\"). By default, favicons with different sizes will be generated from the navbar_brand2x.jpg file.")
-  val micrositeGithubOwner = settingKey[String]("Microsite Github owner")
-  val micrositeGithubRepo  = settingKey[String]("Microsite Github repo")
-  val micrositeKazariEvaluatorUrl = settingKey[String](
+  val micrositeGithubOwner: SettingKey[String] = settingKey[String]("Microsite Github owner")
+  val micrositeGithubRepo: SettingKey[String]  = settingKey[String]("Microsite Github repo")
+  val micrositeKazariEvaluatorUrl: SettingKey[String] = settingKey[String](
     "URL of the remote Scala Evaluator to be used by Kazari. Required for Kazari to work. Default: https://scala-evaluator-212.herokuapp.com")
-  val micrositeKazariEvaluatorToken = settingKey[String](
+  val micrositeKazariEvaluatorToken: SettingKey[String] = settingKey[String](
     "Remote Scala Evaluator token to be used by Kazari. Required for Kazari to work. Default: token compatible with the Scala Exercises remote evaluator.")
-  val micrositeKazariGithubToken = settingKey[String](
+  val micrositeKazariGithubToken: SettingKey[String] = settingKey[String](
     "GitHub token to be used by Kazari. Required for Kazari to perform certain actions (i.e. save Gists). Default: empty string")
-  val micrositeKazariCodeMirrorTheme = settingKey[String](
+  val micrositeKazariCodeMirrorTheme: SettingKey[String] = settingKey[String](
     "Optional. CodeMirror theme to be used by Kazari in its modal editor. Default: monokai")
-  val micrositeKazariDependencies = settingKey[Seq[KazariDependency]](
-    "Optional. List of dependencies needed to compile the code to be evaluated by Kazari (set of groupId, artifactId, scalaVersion and versionId). Default: empty list")
-  val micrositeKazariResolvers = settingKey[Seq[String]](
+  val micrositeKazariDependencies: SettingKey[Seq[KazariDependency]] =
+    settingKey[Seq[KazariDependency]](
+      "Optional. List of dependencies needed to compile the code to be evaluated by Kazari (set of groupId, artifactId, scalaVersion and versionId). Default: empty list")
+  val micrositeKazariResolvers: SettingKey[Seq[String]] = settingKey[Seq[String]](
     "Optional. List of resolver urls needed for the provided dependencies to be fetched by Kazari. Default: empty list")
-  val micrositeGitHostingService =
+  val micrositeGitHostingService: SettingKey[GitHostingService] =
     settingKey[GitHostingService]("Service used for git hosting. By default, it'll be GitHub.")
-  val micrositeGitHostingUrl = settingKey[String](
+  val micrositeGitHostingUrl: SettingKey[String] = settingKey[String](
     "In the case where your project isn't hosted on Github, use this setting to point users to git host (e.g. 'https://internal.gitlab.com/<user>/<project>').")
+  val micrositePushSiteWith: SettingKey[PushWith] =
+    settingKey[PushWith]("Determines what will be chosen for pushing the site")
 }
 
 object MicrositeKeys extends MicrositeKeys
@@ -183,6 +200,16 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       tutSourceDirectory = (tutSourceDirectory in Compile).value),
     micrositeConfig := micrositeHelper.value
       .copyConfigurationFile((sourceDirectory in Jekyll).value, siteDirectory.value),
+    micrositePushSite := {
+      (micrositePushSiteWith.value, micrositeGitHostingService.value) match {
+        case (GHPagesPlugin, _) =>
+          ghpagesPushSite
+        case (GitHubAPI, GitHub) =>
+          publishSiteWithAPI
+        case (GitHubAPI, hosting) =>
+          Def.task(streams.value.log.warn(s"$hosting not supported for pushing with GitHubAPI"))
+      }
+    }.value,
     makeMicrosite := Def
       .sequential(
         microsite,
@@ -195,8 +222,28 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       .sequential(
         clean,
         makeMicrosite,
-        ghpagesPushSite
+        micrositePushSite
       )
       .value
   )
+
+  private[this] def publishSiteWithAPI: Def.Initialize[Task[Unit]] = {
+    Def.task {
+      val dir    = (resourceManaged in Compile).value / micrositeHelper.value.jekyllDir
+      val branch = ghpagesBranch.value
+      if (ghpagesNoJekyll.value) IO.touch(dir / ".nojekyll")
+      streams.value.log.info(s"Committing files from ${dir.getAbsolutePath} into branch '$branch'")
+      val ghOps: GitHubOps = new GitHubOps(
+        micrositeGithubOwner.value,
+        micrositeGithubRepo.value,
+        Option(micrositeKazariGithubToken.value))
+      val commitMessage = sys.env.getOrElse("SBT_GHPAGES_COMMIT_MESSAGE", "updated site")
+      ghOps.commitDir(branch, commitMessage, dir) match {
+        case Right(_) => streams.value.log.info("Success")
+        case Left(e) =>
+          streams.value.log.error(s"Error committing files")
+          e.printStackTrace()
+      }
+    }
+  }
 }
