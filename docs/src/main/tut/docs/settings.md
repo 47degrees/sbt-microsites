@@ -69,7 +69,7 @@ micrositeGithubOwner := "47deg"
 micrositeGithubRepo := "sbt-microsites"
 ```
 
-- `micrositeGithubToken`: used for publishing the site when `github4s` is enabled. A [token with repo scope](https://github.com/settings/tokens/new?scopes=repo&description=sbt-microsites) is needed. None by default:
+- `micrositeGithubToken`: used for publishing the site when `github4s` is enabled. A [token with repo scope](https://github.com/settings/tokens/new?scopes=repo&description=sbt-microsites) is needed. None by default, but you can override it in this way:
  
 ```
 micrositeGithubToken := getEnvVar("GITHUB_TOKEN")

@@ -148,11 +148,11 @@ With this method, you don't need to generate any ssh keys or encrypt any files. 
 
 You need to create a GitHub token with `repo` scope. You can create it in the [GitHub settings](https://github.com/settings/tokens/new?scopes=repo&description=sbt-microsites) page.
 
-Copy the token in a safe place, we'll send the token through an environment variable.
+Copy the token in a safe place, we'll use this token through an environment variable as we'll see shortly.
 
 **2- Configure your project build**
 
-You need to set these two properties:
+You need to set these two sbt settings:
 
 ```
 micrositePushSiteWith := GitHub4s

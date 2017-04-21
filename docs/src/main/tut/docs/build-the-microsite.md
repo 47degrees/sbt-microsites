@@ -25,9 +25,9 @@ If you're running the microsite locally, you can follow these steps:
 
 # Publish the microsite
 
-From version [`0.5.4`](https://github.com/47deg/sbt-microsites/releases/tag/v0.5.4), you have two options for publishing the site:
+From version [`0.5.4`](https://github.com/47deg/sbt-microsites/releases/tag/v0.5.4), you have two options to publish the site:
  * **sbt-ghpages**: This is the default method. It uses the sbt-git plugin and the local ssh keys for pushing the changes.
- * **github4s**: Avoids using local ssh keys, publishing the site with the GitHub web API. By contrast, you need to specify a token.
+ * **github4s**: Avoids using local ssh keys, publishing the site through the GitHub HTTP API and [Github4s](https://github.com/47deg/github4s). By contrast, you need to specify a token.
 
 Before publishing, a couple of requirements should be satisfied:
 
