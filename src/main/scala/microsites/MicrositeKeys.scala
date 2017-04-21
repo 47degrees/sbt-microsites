@@ -50,9 +50,7 @@ trait MicrositeKeys {
     }
   }
 
-  val makeMicrosite: TaskKey[Unit] = taskKey[Unit]("Main Task to build a Microsite")
-  val publishMicrosite: TaskKey[Unit] =
-    taskKey[Unit]("Publish the microsite (using the pushSite task) after build it")
+  val makeMicrosite: TaskKey[Unit]  = taskKey[Unit]("Main Task to build a Microsite")
   val microsite: TaskKey[Seq[File]] = taskKey[Seq[File]]("Create microsite files")
   val micrositeConfig: TaskKey[Unit] =
     taskKey[Unit]("Copy microsite config to the site folder")
@@ -115,7 +113,7 @@ trait MicrositeKeys {
   val micrositePushSiteWith: SettingKey[PushWith] =
     settingKey[PushWith]("Determines what will be chosen for pushing the site")
 
-  val micrositePushSiteCommandKey: String = "micrositePushSite"
+  val publishMicrositeCommandKey: String = "publishMicrosite"
 }
 
 object MicrositeKeys extends MicrositeKeys
@@ -210,20 +208,14 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         makeSite,
         micrositeConfig
       )
-      .value,
-    publishMicrosite := Def.task {
-      val scalaV = scalaVersion.value
-      s"sbt ++$scalaV $micrositePushSiteCommandKey".!
-      (): Unit
-    }.value
+      .value
   )
 
-  val micrositePushSiteCommand: Command = Command(micrositePushSiteCommandKey)(_ => OptNotSpace) {
+  val publishMicrositeCommand: Command = Command(publishMicrositeCommandKey)(_ => OptNotSpace) {
     (st, _) =>
       val extracted = Project.extract(st)
 
-      val targetDir: Dir                = extracted.get(resourceManaged in Compile)
-      val jekyllDir: Dir                = targetDir / MicrositeHelper.jekyllDir
+      val siteDir: Dir                  = extracted.get(target in makeSite)
       val noJekyll: Boolean             = extracted.get(ghpagesNoJekyll)
       val branch: String                = extracted.get(ghpagesBranch)
       val pushSiteWith: PushWith        = extracted.get(micrositePushSiteWith)
@@ -235,23 +227,28 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val cleanState: State = extracted.runTask(clean, st)._1
       val makeState: State  = extracted.runTask(makeMicrosite, cleanState)._1
 
-      makeState.log.info(
-        s"Committing files from ${jekyllDir.getAbsolutePath} into branch '$branch'")
-
       val newState = (pushSiteWith, gitHosting) match {
         case (GHPagesPlugin, _) =>
           val ref = extracted.get(thisProjectRef)
           extracted.runAggregated[Unit](ghpagesPushSite in Global in ref, makeState)
-        case (GitHubAPI, GitHub) =>
+        case (GitHubAPI, GitHub) if githubToken.nonEmpty =>
+          val commitMessage = sys.env.getOrElse("SBT_GHPAGES_COMMIT_MESSAGE", "updated site")
+          makeState.log.info(
+            s"""Committing files from ${siteDir.getAbsolutePath} into branch '$branch'
+               | * repo: $githubOwner/$githubRepo
+               | * commitMessage: $commitMessage""".stripMargin)
           val ghOps: GitHubOps = new GitHubOps(githubOwner, githubRepo, githubToken)
-          val commitMessage    = sys.env.getOrElse("SBT_GHPAGES_COMMIT_MESSAGE", "updated site")
-          if (noJekyll) IO.touch(jekyllDir / ".nojekyll")
-          ghOps.commitDir(branch, commitMessage, jekyllDir) match {
-            case Right(_) => makeState.log.info("Success")
+          if (noJekyll) IO.touch(siteDir / ".nojekyll")
+          ghOps.commitDir(branch, commitMessage, siteDir) match {
+            case Right(_) => makeState.log.info("Success committing files")
             case Left(e) =>
               makeState.log.error(s"Error committing files")
               e.printStackTrace()
           }
+          makeState
+        case (GitHubAPI, GitHub) =>
+          makeState.log.error(
+            s"You must provide a GitHub token through the `micrositeGithubToken` setting for pushing with GitHubAPI")
           makeState
         case (GitHubAPI, hosting) =>
           makeState.log.warn(s"$hosting not supported for pushing with GitHubAPI")
