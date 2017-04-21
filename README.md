@@ -58,3 +58,12 @@ Many Scala projects use sbt-microsites to display documentation and project note
 ![github4s](https://47deg.github.io/github4s/img/navbar_brand.png) | [**github4s**](https://47deg.github.io/github4s/) | A GitHub API wrapper written in Scala
 ![hammock](https://pepegar.github.io/hammock/img/navbar_brand.png) | [**hammock**](https://pepegar.github.io/hammock/) | A purely functional HTTP client for Scala
 ![cron4s](https://alonsodomin.github.io/cron4s/img/navbar_brand.png) | [**cron4s**](https://alonsodomin.github.io/cron4s) | A CRON expression parser and AST for Scala
+
+[comment]: # (Start Copyright)
+# Copyright
+
+sbt-microsites is designed and developed by 47 Degrees
+
+Copyright (C) 2016-2017 47 Degrees. <http://47deg.com>
+
+[comment]: # (End Copyright)
