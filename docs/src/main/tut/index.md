@@ -37,3 +37,5 @@ Additionally, it depends on other useful libraries and plugins like:
 * [sbt-scalafmt](https://github.com/olafurpg/scalafmt)
 * [sbt-pgp](https://github.com/sbt/sbt-pgp)
 * [sbt-header](https://github.com/sbt/sbt-header)
+* [GitHub4s](https://github.com/47deg/github4s)
+* [sbt-org-policies](https://github.com/47deg/sbt-org-policies)

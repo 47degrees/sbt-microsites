@@ -25,10 +25,15 @@ If you're running the microsite locally, you can follow these steps:
 
 # Publish the microsite
 
+From version "0.5.4", you have two options for publishing the site:
+ * sbt-ghpages: This is the default method. It uses the sbt-git and the local ssh keys for pushing the changes.
+ * github4s: Avoids using local ssh keys and publish the site with the web API. By contrast, you need to specify a token.
+
 Before publishing, a couple of requirements should be satisfied:
 
 1. Initializing the **gh-pages** branch, you can follow the instructions defined in the [sbt-ghpages](https://goo.gl/G0Ffv0) repository.
-2. Define `micrositeGithubOwner` and `micrositeGithubRepo` settings. You can see more details regarding this in the [Configuring the Microsite](settings.html) section.
+2. Define `micrositeGithubOwner` and `micrositeGithubRepo` settings and maybe the `micrositePushSiteWith` and `micrositeGithubRepo` settings.
+You can see more details regarding this in the [Configuring the Microsite](settings.html) section.
 
 Once both requirements are satisfied, you can just run:
 
@@ -36,7 +41,9 @@ Once both requirements are satisfied, you can just run:
 sbt> publishMicrosite
 ```
 
-And that's all. Behind the scenes, `makeMicrosite` and `pushSite` are invoked. The second task is possible thanks to [`sbt-ghpages` plugin](https://github.com/sbt/sbt-ghpages).
+And that's all. Behind the scenes, `makeMicrosite` and `pushSite` are invoked. 
+
+By default, the second task uses the [`sbt-ghpages` plugin](https://github.com/sbt/sbt-ghpages).
 
 If you don't have any domain names pointing to your site, you can see your microsite at:
 
