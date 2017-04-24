@@ -16,6 +16,8 @@
 
 package microsites.layouts
 
+import java.io.File
+
 import microsites.MicrositeSettings
 import microsites.util.MicrositeHelper
 import sbtorgpolicies.io.FileReader
@@ -102,7 +104,7 @@ abstract class Layout(config: MicrositeSettings) {
   def styles: List[TypedTag[String]] = {
 
     val customCssList =
-      fr.fetchFilesRecursively(config.fileLocations.micrositeCssDirectory, List("css")) match {
+      fr.fetchFilesRecursively(List(config.fileLocations.micrositeCssDirectory), validFile("css")) match {
         case Right(cssList) =>
           cssList.map(css =>
             link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${css.getName}"))
@@ -136,7 +138,7 @@ abstract class Layout(config: MicrositeSettings) {
   def scripts: List[TypedTag[String]] = {
 
     val customJsList =
-      fr.fetchFilesRecursively(config.fileLocations.micrositeJsDirectory, List("js")) match {
+      fr.fetchFilesRecursively(List(config.fileLocations.micrositeJsDirectory), validFile("js")) match {
         case Right(jsList) =>
           jsList.map(js => script(src := s"{{site.url}}{{site.baseurl}}/js/${js.getName}"))
         case _ => Nil
@@ -235,4 +237,7 @@ abstract class Layout(config: MicrositeSettings) {
         else ()
       )
     )
+
+  private[this] def validFile(extension: String)(file: File): Boolean =
+    file.getName.endsWith(s".$extension")
 }
