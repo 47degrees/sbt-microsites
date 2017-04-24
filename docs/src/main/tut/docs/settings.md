@@ -91,7 +91,7 @@ micrositeGitHostingService := GitLab
 micrositeGitHostingUrl := "https://gitlab.com/gitlab-org/gitlab-ce"
 ```
 
-- `micrositeAnalyticsToken`: Property id of Google Analytics, by default is empty
+- `micrositeAnalyticsToken`: Property id of Google Analytics, by default is empty.
 
 ```
 micrositeAnalyticsToken := 'UA-XXXXX-Y'

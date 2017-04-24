@@ -115,7 +115,7 @@ trait MicrositeKeys {
       "Determines what will be chosen for pushing the site. The options are sbt-ghpages plugin and github4s library.")
 
   val publishMicrositeCommandKey: String = "publishMicrosite"
-  val micrositeAnalytics = settingKey[String](
+  val micrositeAnalyticsToken = settingKey[String](
     "In the case where your project isn't hosted on Github, use this setting to point users to git host (e.g. 'https://internal.gitlab.com/<user>/<project>').")
 }
 
@@ -154,7 +154,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           homepage = micrositeHomepage.value,
           organizationHomepage = micrositeOrganizationHomepage.value,
           twitter = micrositeTwitter.value,
-          analytics = micrositeAnalytics.value
+          analytics = micrositeAnalyticsToken.value
         ),
         visualSettings = MicrositeVisualSettings(
           highlightTheme = micrositeHighlightTheme.value,
