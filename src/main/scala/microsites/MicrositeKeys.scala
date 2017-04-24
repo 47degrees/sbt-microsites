@@ -96,6 +96,8 @@ trait MicrositeKeys {
     settingKey[GitHostingService]("Service used for git hosting. By default, it'll be GitHub.")
   val micrositeGitHostingUrl = settingKey[String](
     "In the case where your project isn't hosted on Github, use this setting to point users to git host (e.g. 'https://internal.gitlab.com/<user>/<project>').")
+  val micrositeAnalytics = settingKey[String](
+    "In the case where your project isn't hosted on Github, use this setting to point users to git host (e.g. 'https://internal.gitlab.com/<user>/<project>').")
 }
 
 object MicrositeKeys extends MicrositeKeys
@@ -132,7 +134,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           author = micrositeAuthor.value,
           homepage = micrositeHomepage.value,
           organizationHomepage = micrositeOrganizationHomepage.value,
-          twitter = micrositeTwitter.value
+          twitter = micrositeTwitter.value,
+          analytics = micrositeAnalytics.value
         ),
         visualSettings = MicrositeVisualSettings(
           highlightTheme = micrositeHighlightTheme.value,

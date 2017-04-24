@@ -76,6 +76,12 @@ micrositeGitHostingService := GitLab
 micrositeGitHostingUrl := "https://gitlab.com/gitlab-org/gitlab-ce"
 ```
 
+- `micrositeAnalyticsToken`: Property id of Google Analytics, by default is empty
+
+```
+micrositeAnalyticsToken := 'UA-XXXXX-Y'
+```
+
 - `micrositeHighlightTheme`: by default, the theme of Highlight.js is [default](https://highlightjs.org/static/demo/), however, you can configure it to a different theme thanks to this setting:
 
 ```

@@ -40,6 +40,16 @@ abstract class Layout(config: MicrositeSettings) {
     )
   }
 
+  val ganalytics: Option[TypedTag[String]] =
+    if (config.identity.analytics.nonEmpty) Some(script(s"""
+                                                      |(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                                                      |(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                                                      |m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                                                      |})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+                                                      |
+                |ga('create', '${config.identity.analytics}' , 'auto');
+                                                      |ga('send', 'pageview');
+             """.stripMargin)) else None
   def metas: List[TypedTag[String]] =
     List(
       meta(charset := "utf-8"),
@@ -72,18 +82,8 @@ abstract class Layout(config: MicrositeSettings) {
       link(
         rel := "icon",
         `type` := "image/png",
-        href := "{{site.url}}{{site.baseurl}}/img/favicon.png"),
-      script("""
-               |(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-               |(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-               |m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-               |})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-               |
-               |ga('create', {{site.analytics}}, 'auto');
-               |ga('send', 'pageview');
-             """)
-    )
-
+        href := "{{site.url}}{{site.baseurl}}/img/favicon.png")
+    ) ++ ganalytics.toList
   def favicons: List[TypedTag[String]] =
     (if (config.visualSettings.favicons.nonEmpty) {
        config.visualSettings.favicons
@@ -153,7 +153,7 @@ abstract class Layout(config: MicrositeSettings) {
                |languages:['scala','java','bash']
                |});
                |hljs.initHighlighting();
-             """.stripMargin),
+             """.stripMargin)
     ) ++ customJsList ++ customCDNList
   }
 
