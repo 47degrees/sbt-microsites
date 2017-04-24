@@ -115,8 +115,9 @@ trait MicrositeKeys {
       "Determines what will be chosen for pushing the site. The options are sbt-ghpages plugin and github4s library.")
 
   val publishMicrositeCommandKey: String = "publishMicrosite"
-  val micrositeAnalyticsToken = settingKey[String](
-    "In the case where your project isn't hosted on Github, use this setting to point users to git host (e.g. 'https://internal.gitlab.com/<user>/<project>').")
+  val micrositeAnalyticsToken =
+    settingKey[String](
+      "Optional. Add your property id of Google Analytics to add a Google Analytics tracker")
 }
 
 object MicrositeKeys extends MicrositeKeys
