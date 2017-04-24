@@ -5,7 +5,10 @@ jdk:
 - oraclejdk8
 before_install:
 - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash
-  scripts/decrypt-keys.sh; fi
+  scripts/decrypt-keys.sh;
+  mkdir ../keys/;
+  cp pubring.gpg secring.gpg ../keys/;
+  fi
 - export PATH=${PATH}:./vendor/bundle
 install:
 - rvm use 2.2.3 --install --fuzzy
