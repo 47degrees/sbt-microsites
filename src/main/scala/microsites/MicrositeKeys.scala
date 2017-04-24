@@ -115,6 +115,9 @@ trait MicrositeKeys {
       "Determines what will be chosen for pushing the site. The options are sbt-ghpages plugin and github4s library.")
 
   val publishMicrositeCommandKey: String = "publishMicrosite"
+  val micrositeAnalyticsToken =
+    settingKey[String](
+      "Optional. Add your property id of Google Analytics to add a Google Analytics tracker")
 }
 
 object MicrositeKeys extends MicrositeKeys
@@ -151,7 +154,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           author = micrositeAuthor.value,
           homepage = micrositeHomepage.value,
           organizationHomepage = micrositeOrganizationHomepage.value,
-          twitter = micrositeTwitter.value
+          twitter = micrositeTwitter.value,
+          analytics = micrositeAnalyticsToken.value
         ),
         visualSettings = MicrositeVisualSettings(
           highlightTheme = micrositeHighlightTheme.value,
