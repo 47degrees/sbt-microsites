@@ -4,10 +4,8 @@ scala:
 jdk:
 - oraclejdk8
 before_install:
-- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash
-  scripts/decrypt-keys.sh;
-  mkdir ../keys/;
-  cp pubring.gpg secring.gpg ../keys/;
+- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
+    openssl aes-256-cbc -K $encrypted_cf02a587d2be_key -iv $encrypted_cf02a587d2be_iv -in secring.gpg.enc -out secring.gpg -d;
   fi
 - export PATH=${PATH}:./vendor/bundle
 install:
@@ -18,6 +16,4 @@ install:
 script:
 - sbt orgScriptCI
 after_success:
-- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash
-  scripts/kazariBuild.sh; bash scripts/publishMicrosite.sh; fi
 - sbt orgAfterCISuccess

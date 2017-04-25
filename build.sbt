@@ -1,6 +1,6 @@
 pgpPassphrase := Some(getEnvVar("PGP_PASSPHRASE").getOrElse("").toCharArray)
-pgpPublicRing := file(s"../keys/pubring.gpg")
-pgpSecretRing := file(s"../keys/secring.gpg")
+pgpPublicRing := file(s"./pubring.gpg")
+pgpSecretRing := file(s"./secring.gpg")
 
 lazy val `sbt-microsites` = (project in file("."))
   .settings(moduleName := "sbt-microsites")
