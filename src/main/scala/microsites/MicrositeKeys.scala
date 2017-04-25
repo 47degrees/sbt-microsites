@@ -50,7 +50,9 @@ trait MicrositeKeys {
     }
   }
 
-  val makeMicrosite: TaskKey[Unit]  = taskKey[Unit]("Main Task to build a Microsite")
+  val makeMicrosite: TaskKey[Unit] = taskKey[Unit]("Main Task to build a Microsite")
+  val publishMicrosite: TaskKey[Unit] =
+    taskKey[Unit]("Task helper that wraps the `publishMicrositeCommand`.")
   val microsite: TaskKey[Seq[File]] = taskKey[Seq[File]]("Create microsite files")
   val micrositeConfig: TaskKey[Unit] =
     taskKey[Unit]("Copy microsite config to the site folder")
@@ -114,10 +116,11 @@ trait MicrositeKeys {
     settingKey[PushWith](
       "Determines what will be chosen for pushing the site. The options are sbt-ghpages plugin and github4s library.")
 
-  val publishMicrositeCommandKey: String = "publishMicrosite"
-  val micrositeAnalyticsToken =
+  val micrositeAnalyticsToken: SettingKey[String] =
     settingKey[String](
       "Optional. Add your property id of Google Analytics to add a Google Analytics tracker")
+
+  val publishMicrositeCommandKey: String = "publishMicrositeCommand"
 }
 
 object MicrositeKeys extends MicrositeKeys
@@ -213,7 +216,11 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         makeSite,
         micrositeConfig
       )
-      .value
+      .value,
+    publishMicrosite := Def.task {
+      Command.process(publishMicrositeCommandKey, state.value)
+      (): Unit
+    }.value
   )
 
   val publishMicrositeCommand: Command = Command(publishMicrositeCommandKey)(_ => OptNotSpace) {
