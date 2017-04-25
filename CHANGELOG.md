@@ -1,5 +1,13 @@
 # Changelog
 
+## 04/25/2017 - Version 0.5.6
+
+Release changes:
+
+* Auto-update sbt-microsite version in doc files ([#174](https://github.com/47deg/sbt-microsites/pull/174))
+* Adds task wrapper for the publishMicrosite Command ([#175](https://github.com/47deg/sbt-microsites/pull/175))
+
+
 ## 04/25/2017 - Version 0.5.5
 
 Release changes:
