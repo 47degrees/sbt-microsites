@@ -7,6 +7,10 @@ import sbt._
 import sbtbuildinfo.BuildInfoPlugin.autoImport._
 import sbtorgpolicies.OrgPoliciesPlugin
 import sbtorgpolicies.OrgPoliciesPlugin.autoImport._
+import sbtorgpolicies.runnable.syntax._
+import sbtorgpolicies.templates.badges._
+import tut.Plugin.tut
+import KazariBuild._
 
 object ProjectPlugin extends AutoPlugin {
 
@@ -26,7 +30,7 @@ object ProjectPlugin extends AutoPlugin {
       addSbtPlugin("org.tpolecat"     % "tut-plugin"  % "0.4.8"),
       libraryDependencies ++= Seq(
         %%("moultingyaml"),
-        "com.47deg"             %% "org-policies-core" % "0.4.13",
+        "com.47deg"             %% "org-policies-core" % "0.4.15",
         "com.lihaoyi"           %% "scalatags" % "0.6.0",
         "org.scalactic"         %% "scalactic" % "3.0.0",
         "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.7",
@@ -64,7 +68,9 @@ object ProjectPlugin extends AutoPlugin {
       micrositeDocumentationUrl := "/sbt-microsites/docs/",
       micrositeGithubOwner := "47deg",
       micrositeGithubRepo := "sbt-microsites",
+      micrositeGithubToken := sys.env.get(orgGithubTokenSetting.value),
       micrositeHighlightTheme := "color-brewer",
+      micrositePushSiteWith := GitHub4s,
       includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
     )
 
@@ -114,6 +120,15 @@ object ProjectPlugin extends AutoPlugin {
       scalaVersion := "2.10.6",
       crossScalaVersions := Seq("2.10.6"),
       scalaOrganization := "org.scala-lang",
-      orgGithubTokenSetting := "GITHUB_TOKEN"
+      orgGithubTokenSetting := "GITHUB_TOKEN",
+      orgScriptTaskListSetting := List(
+        orgValidateFiles.asRunnableItem,
+        (clean in Global).asRunnableItemFull,
+        (compile in Compile).asRunnableItemFull,
+        (test in Test).asRunnableItemFull,
+        (publishLocal in Global).asRunnableItemFull,
+        (jsFullOptGenerateTask in ProjectRef(file("."), "kazari")).asRunnableItem,
+        (tut in ProjectRef(file("."), "docs")).asRunnableItem
+      )
     ) ++ shellPromptSettings
 }

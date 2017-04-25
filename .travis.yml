@@ -16,10 +16,7 @@ install:
 - gem install sass
 - gem install jekyll -v 3.2.1
 script:
-- sbt compile publishLocal
-- sbt test scripted
-- sbt kazari/fullOptGenerate
-- sbt docs/tut
+- sbt orgScriptCI
 after_success:
 - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash
   scripts/kazariBuild.sh; bash scripts/publishMicrosite.sh; fi
