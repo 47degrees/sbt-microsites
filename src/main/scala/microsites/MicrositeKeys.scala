@@ -38,9 +38,9 @@ trait MicrositeKeys {
   final case object Bitbucket                               extends GitHostingService("Bitbucket")
   final case class Other(value: String)                     extends GitHostingService(value)
 
-  sealed trait PushWith
-  final case object GHPagesPlugin extends PushWith
-  final case object GitHub4s      extends PushWith
+  sealed abstract class PushWith(val name: String) extends Product with Serializable
+  final case object GHPagesPlugin                  extends PushWith("ghPagesPlugin")
+  final case object GitHub4s                       extends PushWith("github4s")
 
   object GitHostingService {
     implicit def string2GitHostingService(name: String): GitHostingService = {
@@ -239,11 +239,11 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val cleanState: State = extracted.runTask(clean, st)._1
       val makeState: State  = extracted.runTask(makeMicrosite, cleanState)._1
 
-      (pushSiteWith, gitHosting) match {
-        case (GHPagesPlugin, _) =>
+      (pushSiteWith.name, gitHosting.name) match {
+        case (GHPagesPlugin.name, _) =>
           val ref = extracted.get(thisProjectRef)
           extracted.runAggregated[Unit](ghpagesPushSite in Global in ref, makeState)
-        case (GitHub4s, GitHub) if githubToken.nonEmpty =>
+        case (GitHub4s.name, GitHub.name) if githubToken.nonEmpty =>
           val commitMessage = sys.env.getOrElse("SBT_GHPAGES_COMMIT_MESSAGE", "updated site")
           makeState.log.info(
             s"""Committing files from ${siteDir.getAbsolutePath} into branch '$branch'
@@ -258,12 +258,16 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
               e.printStackTrace()
           }
           makeState
-        case (GitHub4s, GitHub) =>
+        case (GitHub4s.name, GitHub.name) =>
           makeState.log.error(
             s"You must provide a GitHub token through the `micrositeGithubToken` setting for pushing with github4s")
           makeState
-        case (GitHub4s, hosting) =>
+        case (GitHub4s.name, hosting) =>
           makeState.log.warn(s"github4s doens't have support for $hosting")
+          makeState
+        case _ =>
+          makeState.log.error(
+            s"""Unexpected match case (pushSiteWith, gitHosting) = ("${pushSiteWith.name}", "${gitHosting.name}")""")
           makeState
       }
   }

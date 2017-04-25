@@ -8,7 +8,6 @@ import sbtbuildinfo.BuildInfoPlugin.autoImport._
 import sbtorgpolicies.OrgPoliciesPlugin
 import sbtorgpolicies.OrgPoliciesPlugin.autoImport._
 import sbtorgpolicies.runnable.syntax._
-import sbtorgpolicies.templates.badges._
 import tut.Plugin.tut
 import KazariBuild._
 
@@ -30,7 +29,7 @@ object ProjectPlugin extends AutoPlugin {
       addSbtPlugin("org.tpolecat"     % "tut-plugin"  % "0.4.8"),
       libraryDependencies ++= Seq(
         %%("moultingyaml"),
-        "com.47deg"             %% "org-policies-core" % "0.4.15",
+        "com.47deg"             %% "org-policies-core" % "0.4.16",
         "com.lihaoyi"           %% "scalatags" % "0.6.0",
         "org.scalactic"         %% "scalactic" % "3.0.0",
         "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.7",
@@ -127,6 +126,7 @@ object ProjectPlugin extends AutoPlugin {
         (compile in Compile).asRunnableItemFull,
         (test in Test).asRunnableItemFull,
         (publishLocal in Global).asRunnableItemFull,
+        "scripted".asRunnableItemFull,
         (jsFullOptGenerateTask in ProjectRef(file("."), "kazari")).asRunnableItem,
         (tut in ProjectRef(file("."), "docs")).asRunnableItem
       )
