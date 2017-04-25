@@ -1,5 +1,13 @@
 # Changelog
 
+## 04/25/2017 - Version 0.5.5
+
+Release changes:
+
+* Add Google Analytics settings ([#172](https://github.com/47deg/sbt-microsites/pull/172))
+* Upgrades sbt-org-policies and uses new method signature for fetching files ([#173](https://github.com/47deg/sbt-microsites/pull/173))
+
+
 ## 04/21/2017 - Version 0.5.4
 
 Release changes:
