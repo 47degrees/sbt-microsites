@@ -49,9 +49,13 @@ To begin, add the following lines to the `project/plugins.sbt` file within your 
 
 Latest release:
 
+[comment]: # (Start Replace)
+
 ```bash
 addSbtPlugin("com.47deg"  % "sbt-microsites" % "0.5.3")
 ```
+
+[comment]: # (End Replace)
 
 Latest snapshot built from the `master` branch code:
 
