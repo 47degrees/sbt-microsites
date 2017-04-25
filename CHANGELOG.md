@@ -1,5 +1,11 @@
 # Changelog
 
+## 04/25/2017 - Version 0.5.7
+
+Release changes:
+
+* Bumps sbt-org-policies plugin ([#176](https://github.com/47deg/sbt-microsites/pull/176))
+
 ## 04/25/2017 - Version 0.5.6
 
 Release changes:
