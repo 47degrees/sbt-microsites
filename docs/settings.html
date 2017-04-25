@@ -269,7 +269,7 @@ layout: extra-layout
 <p>These three ways will be merged in order to generate the final and single <code class="highlighter-rouge">_config.yml</code> file.
 This is possible thanks to the <code class="highlighter-rouge">ConfigYml</code> case class, which looks like the following:</p>
 
-<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">case</span> <span class="k">class</span> <span class="nc">ConfigYml</span><span class="o">(</span>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">case</span> <span class="k">class</span> <span class="nc">ConfigYml</span><span class="o">(</span>
       <span class="n">yamlCustomProperties</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">String</span>, <span class="kt">Any</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">.</span><span class="n">empty</span><span class="o">,</span>
       <span class="n">yamlPath</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">File</span><span class="o">]</span> <span class="k">=</span> <span class="nc">None</span><span class="o">,</span>
       <span class="n">yamlInline</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span>
