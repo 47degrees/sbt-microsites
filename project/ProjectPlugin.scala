@@ -29,7 +29,7 @@ object ProjectPlugin extends AutoPlugin {
       addSbtPlugin("org.tpolecat"     % "tut-plugin"  % "0.4.8"),
       libraryDependencies ++= Seq(
         %%("moultingyaml"),
-        "com.47deg"             %% "org-policies-core" % "0.4.16",
+        "com.47deg"             %% "org-policies-core" % "0.4.20",
         "com.lihaoyi"           %% "scalatags" % "0.6.0",
         "org.scalactic"         %% "scalactic" % "3.0.0",
         "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.7",
