@@ -130,6 +130,7 @@ trait Arbitraries {
       githubRepo                         ← Arbitrary.arbitrary[String]
       gitHostingService                  ← Arbitrary.arbitrary[GitHostingService]
       gitHostingUrl                      ← Arbitrary.arbitrary[String]
+      gitSidecarChat                     ← Arbitrary.arbitrary[Boolean]
       micrositeKazariEvaluatorUrl        ← Arbitrary.arbitrary[String]
       micrositeKazariEvaluatorToken      ← Arbitrary.arbitrary[String]
       micrositeKazariGithubToken         ← Arbitrary.arbitrary[String]
@@ -159,7 +160,12 @@ trait Arbitraries {
           micrositeExtraMdFiles
         ),
         MicrositeUrlSettings(micrositeBaseUrl, micrositeDocumentationUrl),
-        MicrositeGitSettings(githubOwner, githubRepo, gitHostingService, gitHostingUrl),
+        MicrositeGitSettings(
+          githubOwner,
+          githubRepo,
+          gitHostingService,
+          gitHostingUrl,
+          gitSidecarChat),
         KazariSettings(
           micrositeKazariEvaluatorUrl,
           micrositeKazariEvaluatorToken,

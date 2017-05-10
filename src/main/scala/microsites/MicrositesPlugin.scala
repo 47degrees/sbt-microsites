@@ -24,6 +24,8 @@ import sbt._
 import sbt.plugins.IvyPlugin
 import tut.Plugin._
 
+import scalatags.generic.{Attr, Namespace}
+
 object MicrositesPlugin extends AutoPlugin {
 
   object autoImport extends MicrositeAutoImportSettings
@@ -96,6 +98,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeGitHostingUrl := "",
     micrositePushSiteWith := GHPagesPlugin,
     micrositeAnalyticsToken := "",
+    micrositeGitterChannel := true,
     includeFilter in Jekyll := ("*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME"),
     commands ++= Seq(publishMicrositeCommand)
   )

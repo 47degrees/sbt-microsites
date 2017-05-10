@@ -21,6 +21,7 @@ import java.io.File
 import microsites.MicrositeSettings
 import microsites.util.MicrositeHelper
 import sbtorgpolicies.io.FileReader
+import microsites.GitAttrb
 
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
@@ -31,6 +32,7 @@ abstract class Layout(config: MicrositeSettings) {
 
   lazy val micrositeHelper = new MicrositeHelper(config)
   lazy val fr              = new FileReader
+  lazy val gitAttrb        = new GitAttrb {}
 
   def render: TypedTag[String]
 
@@ -115,6 +117,20 @@ abstract class Layout(config: MicrositeSettings) {
       link(rel := "stylesheet", href := css)
     }
 
+    val gitSidecar: List[TypedTag[String]] = {
+      if (config.gitSettings.gitSidecarChat &&
+        (!config.gitSettings.githubOwner.isEmpty || !config.gitSettings.githubRepo.isEmpty)) {
+        List(
+          script(
+            src :=
+              s"""((window.gitter = {}).chat = {}).options = {
+                 |room: '${config.gitSettings.githubOwner}/${config.gitSettings.githubRepo}'};""".stripMargin),
+          script(src := "https://sidecar.gitter.im/dist/sidecar.v1.js"),
+          script(src := s"${gitAttrb.async} ${gitAttrb.defer}")
+        )
+      } else Nil
+    }
+
     List(
       link(
         rel := "stylesheet",
@@ -132,7 +148,7 @@ abstract class Layout(config: MicrositeSettings) {
       link(
         rel := "stylesheet",
         href := s"{{site.baseurl}}/css/${config.micrositeKazariSettings.micrositeKazariCodeMirrorTheme}.css")
-    ) ++ customCssList ++ customCDNList
+    ) ++ customCssList ++ customCDNList ++ gitSidecar
   }
 
   def scripts: List[TypedTag[String]] = {
