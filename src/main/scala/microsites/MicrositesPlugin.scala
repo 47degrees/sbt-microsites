@@ -24,8 +24,6 @@ import sbt._
 import sbt.plugins.IvyPlugin
 import tut.Plugin._
 
-import scalatags.generic.{Attr, Namespace}
-
 object MicrositesPlugin extends AutoPlugin {
 
   object autoImport extends MicrositeAutoImportSettings
