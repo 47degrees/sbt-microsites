@@ -28,9 +28,7 @@ import sbt.Keys._
 import sbt._
 import sbt.complete.DefaultParsers.OptNotSpace
 import sbtorgpolicies.github.GitHubOps
-import tut.Plugin._
-import sbtorgpolicies.io._
-import sbtorgpolicies.io.syntax._
+import tut.TutPlugin.autoImport._
 
 trait MicrositeKeys {
 
@@ -235,7 +233,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
     (st, _) =>
       val extracted = Project.extract(st)
 
-      val siteDir: Dir                  = extracted.get(target in makeSite)
+      val siteDir: File                 = extracted.get(target in makeSite)
       val noJekyll: Boolean             = extracted.get(ghpagesNoJekyll)
       val branch: String                = extracted.get(ghpagesBranch)
       val pushSiteWith: PushWith        = extracted.get(micrositePushSiteWith)
