@@ -119,6 +119,9 @@ trait MicrositeKeys {
   val micrositeAnalyticsToken: SettingKey[String] =
     settingKey[String](
       "Optional. Add your property id of Google Analytics to add a Google Analytics tracker")
+  val micrositeGitterChannel: SettingKey[Boolean] = SettingKey[Boolean](
+    "Optional. Includes Gitter sidecar Chat functionality. Enabled by default."
+  )
 
   val publishMicrositeCommandKey: String = "publishMicrositeCommand"
 }
@@ -198,7 +201,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
             case _      => ""
           },
           gitHostingService = micrositeGitHostingService.value.name,
-          gitHostingUrl = micrositeGitHostingUrl.value
+          gitHostingUrl = micrositeGitHostingUrl.value,
+          gitSidecarChat = micrositeGitterChannel.value
         )
       ))
   }

@@ -96,6 +96,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeGitHostingUrl := "",
     micrositePushSiteWith := GHPagesPlugin,
     micrositeAnalyticsToken := "",
+    micrositeGitterChannel := true,
     includeFilter in Jekyll := ("*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME"),
     commands ++= Seq(publishMicrositeCommand)
   )
