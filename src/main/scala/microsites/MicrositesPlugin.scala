@@ -61,6 +61,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeBaseUrl := "",
     micrositeDocumentationUrl := "",
     micrositeTwitter := "",
+    micrositeTwitterCreator := "",
     micrositeHighlightTheme := "default",
     micrositeConfigYaml := ConfigYml(
       yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "_config.yml")),

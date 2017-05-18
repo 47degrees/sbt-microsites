@@ -54,40 +54,63 @@ abstract class Layout(config: MicrositeSettings) {
       |ga('send', 'pageview');
       """.stripMargin))
     else None
+
+  val twitter: Option[TypedTag[String]] =
+    if (config.identity.twitter.nonEmpty) {
+      Some(meta(name := "twitter:site", content := config.identity.twitter))
+    } else None
+
+  val twitterCreator: Option[TypedTag[String]] =
+    if (config.identity.twitterCreator.nonEmpty) {
+      Some(meta(name := "twitter:creator", content := config.identity.twitterCreator))
+    } else None
+
+  val kazariDep: Option[TypedTag[String]] =
+    if (config.micrositeKazariSettings.micrositeKazariDependencies.nonEmpty) {
+      Some(
+        meta(
+          name := "kazari-dependencies",
+          content :=
+            config.micrositeKazariSettings.micrositeKazariDependencies
+              .map(dependency =>
+                s"${dependency.groupId};${dependency.artifactId}_${dependency.scalaVersion};${dependency.version}")
+              .mkString(",")
+        ))
+    } else None
+
+  val kazariRes: Option[TypedTag[String]] =
+    if (config.micrositeKazariSettings.micrositeKazariResolvers.nonEmpty) {
+      Some(
+        meta(
+          name := "kazari-resolvers",
+          content :=
+            config.micrositeKazariSettings.micrositeKazariResolvers.mkString(",")))
+    } else None
+
   def metas: List[TypedTag[String]] =
     List(
+      title(config.identity.name),
       meta(charset := "utf-8"),
       meta(httpEquiv := "X-UA-Compatible", content := "IE=edge,chrome=1"),
-      title(config.identity.name),
       meta(name := "viewport", content := "width=device-width, initial-scale=1.0"),
-      meta(name := "description", content := config.identity.description),
       meta(name := "author", content := config.identity.author),
+      meta(name := "description", content := config.identity.description),
       meta(name := "og:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
       meta(name := "og:title", content := config.identity.name),
       meta(name := "og:site_name", content := config.identity.name),
       meta(name := "og:url", content := config.identity.homepage),
       meta(name := "og:type", content := "website"),
       meta(name := "og:description", content := config.identity.description),
-      meta(name := "twitter:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
-      meta(name := "twitter:card", content := "summary_large_image"),
-      meta(name := "twitter:site", content := config.identity.twitter),
-      meta(
-        name := "kazari-dependencies",
-        content :=
-          config.micrositeKazariSettings.micrositeKazariDependencies
-            .map(dependency =>
-              s"${dependency.groupId};${dependency.artifactId}_${dependency.scalaVersion};${dependency.version}")
-            .mkString(",")
-      ),
-      meta(
-        name := "kazari-resolvers",
-        content :=
-          config.micrositeKazariSettings.micrositeKazariResolvers.mkString(",")),
       link(
         rel := "icon",
         `type` := "image/png",
-        href := "{{site.url}}{{site.baseurl}}/img/favicon.png")
-    ) ++ ganalytics.toList
+        href := "{{site.url}}{{site.baseurl}}/img/favicon.png"),
+      meta(name := "twitter:title", content := config.identity.name),
+      meta(name := "twitter:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
+      meta(name := "twitter:description", content := config.identity.description),
+      meta(name := "twitter:card", content := "summary_large_image")
+    ) ++ twitter.toList ++ twitterCreator.toList ++ kazariDep.toList ++ kazariRes.toList ++ ganalytics.toList
+
   def favicons: List[TypedTag[String]] =
     (if (config.visualSettings.favicons.nonEmpty) {
        config.visualSettings.favicons

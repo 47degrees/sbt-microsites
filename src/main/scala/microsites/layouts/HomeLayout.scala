@@ -97,6 +97,6 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
     )
 
   def scriptsKazari: List[TypedTag[String]] =
-    scripts ++ List(script(src := "{{ site.baseurl }}/js/kazari.js"), script(kazariEnableScript))
+    scripts ++ List(script(src := "{{ site.baseurl }}/js/kazari.js"), kazariEnableScript)
 
 }
