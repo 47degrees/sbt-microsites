@@ -6,6 +6,6 @@ docs: true
 collections:
   tut:
     output: true
-version: 0.5.8-SNAPSHOT
+version: 0.6.0
 org: 47 Degrees
 markdown: kramdown
