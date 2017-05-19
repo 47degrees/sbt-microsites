@@ -65,8 +65,8 @@ trait MicrositeKeys {
   val micrositeHomepage: SettingKey[String] = settingKey[String]("Microsite homepage")
   val micrositeOrganizationHomepage: SettingKey[String] =
     settingKey[String]("Microsite organisation homepage")
-  val micrositeTwitter: SettingKey[String]        = settingKey[String]("Microsite twitter")
-  val micrositeTwitterCreator: SettingKey[String] = settingKey[String]("Microsite twitter")
+  val micrositeTwitter: SettingKey[String]        = settingKey[String]("Microsite Twitter")
+  val micrositeTwitterCreator: SettingKey[String] = settingKey[String]("Microsite Twitter Creator")
   val micrositeHighlightTheme: SettingKey[String] = settingKey[String]("Microsite Highlight Theme")
   val micrositeConfigYaml: SettingKey[ConfigYml] =
     settingKey[ConfigYml]("Microsite _config.yml file configuration.")
@@ -134,6 +134,11 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         s"/${micrositeBaseUrl.value}"
       else micrositeBaseUrl.value
 
+    val homepage =
+      if (!micrositeHomepage.value.isEmpty && !micrositeHomepage.value.endsWith("/"))
+        s"${micrositeHomepage.value}/"
+      else micrositeHomepage.value
+
     val defaultYamlCustomVariables = Map(
       "name"        -> micrositeName.value,
       "description" -> micrositeDescription.value,
@@ -156,7 +161,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           name = micrositeName.value,
           description = micrositeDescription.value,
           author = micrositeAuthor.value,
-          homepage = micrositeHomepage.value,
+          homepage = homepage,
           organizationHomepage = micrositeOrganizationHomepage.value,
           twitter = micrositeTwitter.value,
           twitterCreator = micrositeTwitterCreator.value,

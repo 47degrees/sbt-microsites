@@ -68,13 +68,13 @@ micrositeHomepage := "https://47deg.github.io/sbt-microsites/"
 micrositeOrganizationHomepage := "http://www.47deg.com"
 ```
 
-- `micrositeTwitter`: this setting is used for the Twitter integration. This generate a meta that Twitter use in his [Twitter Cards](https://cards-dev.twitter.com/validator).
+- `micrositeTwitter`: this setting is used for the Twitter integration. This generate a meta that Twitter use in its [Twitter Cards](https://cards-dev.twitter.com/validator).
 
 ```
 micrositeTwitter := @sbt-microsites
 ```
 
-- `micrositeTwitterCreator`: this particular setting is used for the Twitter integration. This generate a meta that Twitter use in his [Twitter Cards](https://cards-dev.twitter.com/validator).
+- `micrositeTwitterCreator`: this particular setting is used for the Twitter integration. This generate a meta that Twitter use in its [Twitter Cards](https://cards-dev.twitter.com/validator).
 
 ```
 micrositeTwitterCreator := @47deg
