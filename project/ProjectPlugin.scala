@@ -118,7 +118,6 @@ object ProjectPlugin extends AutoPlugin {
       scalaVersion := "2.10.6",
       crossScalaVersions := Seq("2.10.6"),
       scalaOrganization := "org.scala-lang",
-      orgGithubTokenSetting := "GITHUB_TOKEN",
       orgScriptTaskListSetting := List(
         orgValidateFiles.asRunnableItem,
         (clean in Global).asRunnableItemFull,
