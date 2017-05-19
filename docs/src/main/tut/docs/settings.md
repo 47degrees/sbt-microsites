@@ -56,11 +56,30 @@ Therefore, considering the example above, your microsite documentation would be 
 micrositeAuthor := "47 Degrees"
 ```
 
-- `micrositeOrganizationHomepage`: this particular setting is used for the homepage url, similar to the way we've seen in other properties. This link is used in the footer-left link in the microsite. By default, the value is taken from the sbt setting `organizationHomepage`. In case you don´t provide any value for that setting, it will take it from the sbt setting `homepage`:
+- `micrositeHomepage`: used for the homepage url, similar to the way we've seen in other properties. This link is used in the footer-left link in the microsite. By default, the value is taken from the sbt setting `homepage`.
+
+```
+micrositeHomepage := "https://47deg.github.io/sbt-microsites/"
+```
+
+- `micrositeOrganizationHomepage`: this particular setting is used for organization the homepage url, similar to the way we've seen in other properties. This link is used in the footer-left link in the microsite. By default, the value is taken from the sbt setting `organizationHomepage`. In case you don´t provide any value for that setting, it will take it from the sbt setting `homepage`:
 
 ```
 micrositeOrganizationHomepage := "http://www.47deg.com"
 ```
+
+- `micrositeTwitter`: this setting is used for the Twitter integration. This generate a meta that Twitter use in his [Twitter Cards](https://cards-dev.twitter.com/validator).
+
+```
+micrositeTwitter := @sbt-microsites
+```
+
+- `micrositeTwitterCreator`: this particular setting is used for the Twitter integration. This generate a meta that Twitter use in his [Twitter Cards](https://cards-dev.twitter.com/validator).
+
+```
+micrositeTwitterCreator := @47deg
+```
+
 
 - `micrositeGithubOwner` and `micrositeGithubRepo`: in order to add links to the `GitHub` repo. It's also needed for publishing the site when `github4s` is chosen (see `micrositePushSiteWith` setting). Both, `micrositeGithubOwner` and `micrositeGithubRepo` are required:
 

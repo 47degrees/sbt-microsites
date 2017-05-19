@@ -58,15 +58,15 @@ trait MicrositeKeys {
     taskKey[Unit]("Copy microsite config to the site folder")
   val micrositeName: SettingKey[String]        = settingKey[String]("Microsite name")
   val micrositeDescription: SettingKey[String] = settingKey[String]("Microsite description")
-  val micrositeAuthor: SettingKey[String]      = settingKey[String]("Microsite author")
-  val micrositeHomepage: SettingKey[String]    = settingKey[String]("Microsite homepage")
+  val micrositeBaseUrl: SettingKey[String]     = settingKey[String]("Microsite site base url")
+  val micrositeDocumentationUrl: SettingKey[String] =
+    settingKey[String]("Microsite site documentation url")
+  val micrositeAuthor: SettingKey[String]   = settingKey[String]("Microsite author")
+  val micrositeHomepage: SettingKey[String] = settingKey[String]("Microsite homepage")
   val micrositeOrganizationHomepage: SettingKey[String] =
     settingKey[String]("Microsite organisation homepage")
   val micrositeTwitter: SettingKey[String]        = settingKey[String]("Microsite twitter")
   val micrositeTwitterCreator: SettingKey[String] = settingKey[String]("Microsite twitter")
-  val micrositeBaseUrl: SettingKey[String]        = settingKey[String]("Microsite site base url")
-  val micrositeDocumentationUrl: SettingKey[String] =
-    settingKey[String]("Microsite site documentation url")
   val micrositeHighlightTheme: SettingKey[String] = settingKey[String]("Microsite Highlight Theme")
   val micrositeConfigYaml: SettingKey[ConfigYml] =
     settingKey[ConfigYml]("Microsite _config.yml file configuration.")
