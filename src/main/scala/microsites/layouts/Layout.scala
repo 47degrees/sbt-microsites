@@ -106,7 +106,7 @@ abstract class Layout(config: MicrositeSettings) {
         `type` := "image/png",
         href := "{{site.url}}{{site.baseurl}}/img/favicon.png"),
       meta(name := "twitter:title", content := config.identity.name),
-      meta(name := "twitter:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
+      meta(name := "twitter:image", content := s"${config.identity.homepage}img/poster.png"),
       meta(name := "twitter:description", content := config.identity.description),
       meta(name := "twitter:card", content := "summary_large_image")
     ) ++ twitter.toList ++ twitterCreator.toList ++ kazariDep.toList ++ kazariRes.toList ++ ganalytics.toList
