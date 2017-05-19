@@ -71,13 +71,13 @@ micrositeOrganizationHomepage := "http://www.47deg.com"
 - `micrositeTwitter`: this setting is used for the Twitter integration. This generates a meta that Twitter uses in its [Twitter Cards](https://cards-dev.twitter.com/validator).
 
 ```
-micrositeTwitter := @sbt-microsites
+micrositeTwitter := "@sbt-microsites"
 ```
 
 - `micrositeTwitterCreator`: this particular setting is used for the Twitter integration. This generates a meta that Twitter uses in its [Twitter Cards](https://cards-dev.twitter.com/validator).
 
 ```
-micrositeTwitterCreator := @47deg
+micrositeTwitterCreator := "@47deg"
 ```
 
 
