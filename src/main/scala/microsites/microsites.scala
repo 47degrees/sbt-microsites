@@ -41,6 +41,7 @@ case class MicrositeIdentitySettings(
     homepage: String,
     organizationHomepage: String,
     twitter: String,
+    twitterCreator: String,
     analytics: String)
 
 case class MicrositeFileLocations(

@@ -29,6 +29,8 @@ import sbt._
 import sbt.complete.DefaultParsers.OptNotSpace
 import sbtorgpolicies.github.GitHubOps
 import tut.Plugin._
+import sbtorgpolicies.io._
+import sbtorgpolicies.io.syntax._
 
 trait MicrositeKeys {
 
@@ -62,8 +64,9 @@ trait MicrositeKeys {
   val micrositeHomepage: SettingKey[String]    = settingKey[String]("Microsite homepage")
   val micrositeOrganizationHomepage: SettingKey[String] =
     settingKey[String]("Microsite organisation homepage")
-  val micrositeTwitter: SettingKey[String] = settingKey[String]("Microsite twitter")
-  val micrositeBaseUrl: SettingKey[String] = settingKey[String]("Microsite site base url")
+  val micrositeTwitter: SettingKey[String]        = settingKey[String]("Microsite twitter")
+  val micrositeTwitterCreator: SettingKey[String] = settingKey[String]("Microsite twitter")
+  val micrositeBaseUrl: SettingKey[String]        = settingKey[String]("Microsite site base url")
   val micrositeDocumentationUrl: SettingKey[String] =
     settingKey[String]("Microsite site documentation url")
   val micrositeHighlightTheme: SettingKey[String] = settingKey[String]("Microsite Highlight Theme")
@@ -161,6 +164,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           homepage = micrositeHomepage.value,
           organizationHomepage = micrositeOrganizationHomepage.value,
           twitter = micrositeTwitter.value,
+          twitterCreator = micrositeTwitterCreator.value,
           analytics = micrositeAnalyticsToken.value
         ),
         visualSettings = MicrositeVisualSettings(

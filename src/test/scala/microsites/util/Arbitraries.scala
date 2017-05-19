@@ -111,6 +111,7 @@ trait Arbitraries {
       homepage                           ← Arbitrary.arbitrary[String]
       organizationHomepage               ← Arbitrary.arbitrary[String]
       twitter                            ← Arbitrary.arbitrary[String]
+      twitterCreator                     ← Arbitrary.arbitrary[String]
       analytics                          ← Arbitrary.arbitrary[String]
       highlightTheme                     ← Arbitrary.arbitrary[String]
       micrositeConfigYaml                ← configYamlArbitrary.arbitrary
@@ -146,6 +147,7 @@ trait Arbitraries {
           homepage,
           organizationHomepage,
           twitter,
+          twitterCreator,
           analytics),
         MicrositeVisualSettings(highlightTheme, palette, favicon),
         micrositeConfigYaml,

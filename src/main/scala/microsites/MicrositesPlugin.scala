@@ -61,6 +61,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeBaseUrl := "",
     micrositeDocumentationUrl := "",
     micrositeTwitter := "",
+    micrositeTwitterCreator := "",
     micrositeHighlightTheme := "default",
     micrositeConfigYaml := ConfigYml(
       yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "_config.yml")),
@@ -89,7 +90,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeKazariEvaluatorUrl := "https://scala-evaluator-212.herokuapp.com",
     micrositeKazariEvaluatorToken := "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.S2F6YXJp.Jl2eqMfw8IakJF93PjxTbrf-8YUJgX5OoOfy5JHE8Yw",
     micrositeKazariGithubToken := "",
-    micrositeKazariCodeMirrorTheme := "solarized-dark",
+    micrositeKazariCodeMirrorTheme := "monokai",
     micrositeKazariDependencies := Seq(),
     micrositeKazariResolvers := Seq(),
     micrositeGitHostingService := GitHub,
