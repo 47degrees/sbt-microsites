@@ -29,6 +29,8 @@ import sbt._
 import sbt.complete.DefaultParsers.OptNotSpace
 import sbtorgpolicies.github.GitHubOps
 import tut.Plugin._
+import sbtorgpolicies.io._
+import sbtorgpolicies.io.syntax._
 
 trait MicrositeKeys {
 
@@ -156,7 +158,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           name = micrositeName.value,
           description = micrositeDescription.value,
           author = micrositeAuthor.value,
-          homepage = micrositeHomepage.value.ensureFinalSlash,
+          homepage = micrositeHomepage.value,
           organizationHomepage = micrositeOrganizationHomepage.value,
           twitter = micrositeTwitter.value,
           twitterCreator = micrositeTwitterCreator.value,
