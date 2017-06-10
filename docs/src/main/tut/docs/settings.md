@@ -116,6 +116,12 @@ micrositeGitHostingUrl := "https://gitlab.com/gitlab-org/gitlab-ce"
 micrositeAnalyticsToken := 'UA-XXXXX-Y'
 ```
 
+- `micrositeGitterChannel`: This setting is used to enabled the Gitter sidecar Channel functionality, by default is enabled. The chat room is taken from `micrositeGithubOwner` and `micrositeGithubRepo`.
+
+```
+micrositeGitterChannel := true
+```
+
 - `micrositeHighlightTheme`: by default, the theme of Highlight.js is [default](https://highlightjs.org/static/demo/), however, you can configure it to a different theme thanks to this setting:
 
 ```

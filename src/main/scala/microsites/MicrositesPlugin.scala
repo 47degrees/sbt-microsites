@@ -22,7 +22,8 @@ import com.typesafe.sbt.site.jekyll.JekyllPlugin
 import sbt.Keys._
 import sbt._
 import sbt.plugins.IvyPlugin
-import tut.Plugin._
+import tut.TutPlugin
+import tut.TutPlugin.autoImport._
 
 object MicrositesPlugin extends AutoPlugin {
 
@@ -31,13 +32,12 @@ object MicrositesPlugin extends AutoPlugin {
   import MicrositesPlugin.autoImport._
   import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport._
 
-  override def requires: Plugins = IvyPlugin && JekyllPlugin && GhpagesPlugin
+  override def requires: Plugins = IvyPlugin && TutPlugin && JekyllPlugin && GhpagesPlugin
 
   override def trigger: PluginTrigger = allRequirements
 
   override def projectSettings: Seq[Def.Setting[_]] =
-    tutSettings ++
-      micrositeDefaultSettings ++
+    micrositeDefaultSettings ++
       micrositeTasksSettings ++
       Seq(
         git.remoteRepo := s"git@github.com:${micrositeGithubOwner.value}/${micrositeGithubRepo.value}.git",
@@ -97,6 +97,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeGitHostingUrl := "",
     micrositePushSiteWith := GHPagesPlugin,
     micrositeAnalyticsToken := "",
+    micrositeGitterChannel := true,
     includeFilter in Jekyll := ("*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME"),
     commands ++= Seq(publishMicrositeCommand)
   )

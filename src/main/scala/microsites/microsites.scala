@@ -58,7 +58,8 @@ case class MicrositeGitSettings(
     githubOwner: String,
     githubRepo: String,
     gitHostingService: MicrositeKeys.GitHostingService,
-    gitHostingUrl: String)
+    gitHostingUrl: String,
+    gitSidecarChat: Boolean)
 
 case class MicrositeUrlSettings(micrositeBaseUrl: String, micrositeDocumentationUrl: String)
 

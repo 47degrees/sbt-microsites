@@ -8,7 +8,6 @@ import sbtbuildinfo.BuildInfoPlugin.autoImport._
 import sbtorgpolicies.OrgPoliciesPlugin
 import sbtorgpolicies.OrgPoliciesPlugin.autoImport._
 import sbtorgpolicies.runnable.syntax._
-import tut.Plugin.tut
 import KazariBuild._
 
 object ProjectPlugin extends AutoPlugin {
@@ -26,12 +25,12 @@ object ProjectPlugin extends AutoPlugin {
         "jgit-repo" at "http://download.eclipse.org/jgit/maven"),
       addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.0"),
       addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.2.0"),
-      addSbtPlugin("org.tpolecat"     % "tut-plugin"  % "0.4.8"),
+      addSbtPlugin("org.tpolecat"     % "tut-plugin"  % "0.5.2"),
       libraryDependencies ++= Seq(
         %%("moultingyaml"),
-        "com.47deg"             %% "org-policies-core" % "0.4.20",
-        "com.lihaoyi"           %% "scalatags" % "0.6.0",
-        "org.scalactic"         %% "scalactic" % "3.0.0",
+        "com.47deg"             %% "org-policies-core" % "0.4.28",
+        "com.lihaoyi"           %% "scalatags" % "0.6.5",
+        "org.scalactic"         %% "scalactic" % "3.0.3",
         "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.7",
         %%("scalatest")         % "test",
         %%("scalacheck")        % "test"
@@ -90,7 +89,7 @@ object ProjectPlugin extends AutoPlugin {
         "com.lihaoyi"         %%% "upickle"           % "0.4.1",
         "org.scala-exercises" %%% "evaluator-shared"  % "0.2.0-SNAPSHOT",
         "org.scala-exercises" %%% "evaluator-client"  % "0.2.0-SNAPSHOT",
-        "com.lihaoyi"         %%% "scalatags"         % "0.6.0",
+        "com.lihaoyi"         %%% "scalatags"         % "0.6.5",
         "org.querki"          %%% "jquery-facade"     % "1.0-RC6",
         "org.denigma"         %%% "codemirror-facade" % "5.11-0.7"
       ),
@@ -119,7 +118,6 @@ object ProjectPlugin extends AutoPlugin {
       scalaVersion := "2.10.6",
       crossScalaVersions := Seq("2.10.6"),
       scalaOrganization := "org.scala-lang",
-      orgGithubTokenSetting := "GITHUB_TOKEN",
       orgScriptTaskListSetting := List(
         orgValidateFiles.asRunnableItem,
         (clean in Global).asRunnableItemFull,
@@ -128,7 +126,7 @@ object ProjectPlugin extends AutoPlugin {
         (publishLocal in Global).asRunnableItemFull,
         "scripted".asRunnableItemFull,
         (jsFullOptGenerateTask in ProjectRef(file("."), "kazari")).asRunnableItem,
-        (tut in ProjectRef(file("."), "docs")).asRunnableItem
+        "docs/tut".asRunnableItem
       )
     ) ++ shellPromptSettings
 }

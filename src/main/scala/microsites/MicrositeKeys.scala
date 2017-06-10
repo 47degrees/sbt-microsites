@@ -28,9 +28,7 @@ import sbt.Keys._
 import sbt._
 import sbt.complete.DefaultParsers.OptNotSpace
 import sbtorgpolicies.github.GitHubOps
-import tut.Plugin._
-import sbtorgpolicies.io._
-import sbtorgpolicies.io.syntax._
+import tut.TutPlugin.autoImport._
 
 trait MicrositeKeys {
 
@@ -122,6 +120,9 @@ trait MicrositeKeys {
   val micrositeAnalyticsToken: SettingKey[String] =
     settingKey[String](
       "Optional. Add your property id of Google Analytics to add a Google Analytics tracker")
+  val micrositeGitterChannel: SettingKey[Boolean] = SettingKey[Boolean](
+    "Optional. Includes Gitter sidecar Chat functionality. Enabled by default."
+  )
 
   val publishMicrositeCommandKey: String = "publishMicrositeCommand"
 }
@@ -202,7 +203,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
             case _      => ""
           },
           gitHostingService = micrositeGitHostingService.value.name,
-          gitHostingUrl = micrositeGitHostingUrl.value
+          gitHostingUrl = micrositeGitHostingUrl.value,
+          gitSidecarChat = micrositeGitterChannel.value
         )
       ))
   }
@@ -231,7 +233,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
     (st, _) =>
       val extracted = Project.extract(st)
 
-      val siteDir: Dir                  = extracted.get(target in makeSite)
+      val siteDir: File                 = extracted.get(target in makeSite)
       val noJekyll: Boolean             = extracted.get(ghpagesNoJekyll)
       val branch: String                = extracted.get(ghpagesBranch)
       val pushSiteWith: PushWith        = extracted.get(micrositePushSiteWith)

@@ -1,5 +1,16 @@
 # Changelog
 
+## 05/19/2017 - Version 0.6.0
+
+Release changes:
+
+* Update CHANGELOG.md with 0.5.7 release ([#177](https://github.com/47deg/sbt-microsites/pull/177))
+* Bumps sbt-org-policies version ([#180](https://github.com/47deg/sbt-microsites/pull/180))
+* Embed gitter channel ([#183](https://github.com/47deg/sbt-microsites/pull/183))
+* Fixes metatags and solarized-dark issues ([#187](https://github.com/47deg/sbt-microsites/pull/187))
+* Releases sbt-microsites 0.6.0 ([#188](https://github.com/47deg/sbt-microsites/pull/188))
+
+
 ## 04/25/2017 - Version 0.5.7
 
 Release changes:
@@ -36,7 +47,7 @@ Release changes:
 
 * Migrates Old Changelog Format to the New format ([#167](https://github.com/47deg/sbt-microsites/pull/167))
 * Fixes Kazari Build ([#168](https://github.com/47deg/sbt-microsites/pull/168)) 
-      
+
 
 ## 04/07/2017 - Version 0.5.2
 

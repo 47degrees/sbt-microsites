@@ -171,6 +171,17 @@ abstract class Layout(config: MicrositeSettings) {
       script(src := js)
     }
 
+    val gitSidecar: List[TypedTag[String]] = {
+      if (config.gitSettings.gitSidecarChat &&
+        (!config.gitSettings.githubOwner.isEmpty || !config.gitSettings.githubRepo.isEmpty)) {
+        List(
+          script(s"""((window.gitter = {}).chat = {}).options = {
+                 |room: '${config.gitSettings.githubOwner}/${config.gitSettings.githubRepo}'};""".stripMargin),
+          script(src := s"https://sidecar.gitter.im/dist/sidecar.v1.js")
+        )
+      } else Nil
+    }
+
     List(
       script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"),
       script(
@@ -181,7 +192,7 @@ abstract class Layout(config: MicrositeSettings) {
                |});
                |hljs.initHighlighting();
              """.stripMargin)
-    ) ++ customJsList ++ customCDNList
+    ) ++ customJsList ++ customCDNList ++ gitSidecar
   }
 
   def kazariEnableScript: TypedTag[String] = script(s"""
