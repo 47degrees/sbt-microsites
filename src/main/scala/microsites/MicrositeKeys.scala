@@ -123,6 +123,9 @@ trait MicrositeKeys {
   val micrositeGitterChannel: SettingKey[Boolean] = SettingKey[Boolean](
     "Optional. Includes Gitter sidecar Chat functionality. Enabled by default."
   )
+  val micrositeGitterChannelUrl: SettingKey[String] = SettingKey[String](
+    "Optional. Add custom Gitter sidecar Chat URL. By default is owner/repository."
+  )
 
   val publishMicrositeCommandKey: String = "publishMicrositeCommand"
 }
@@ -204,7 +207,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           },
           gitHostingService = micrositeGitHostingService.value.name,
           gitHostingUrl = micrositeGitHostingUrl.value,
-          gitSidecarChat = micrositeGitterChannel.value
+          gitSidecarChat = micrositeGitterChannel.value,
+          gitSidecarChatUrl = micrositeGitterChannelUrl.value
         )
       ))
   }
