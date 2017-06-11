@@ -13,7 +13,6 @@ These are the people that have contributed to the sbt-microsites project:
 * [AntonioMateoGomez](https://github.com/AntonioMateoGomez)
 * A. Alonso Dominguez <[alonsodomin](https://github.com/alonsodomin)>
 * Adrián Ramírez Fornell <[AdrianRaFo](https://github.com/AdrianRaFo)>
-* Alejandro Gómez <[dialelo](https://github.com/dialelo)>
 * Antonio Jiménez <[Antoniojimenez47](https://github.com/Antoniojimenez47)>
 * Domingo Valera <[dominv](https://github.com/dominv)>
 * Fede Fernández <[fedefernandez](https://github.com/fedefernandez)>
