@@ -173,19 +173,11 @@ abstract class Layout(config: MicrositeSettings) {
 
     val gitSidecar: List[TypedTag[String]] =
       if (config.gitSettings.gitSidecarChat) {
-        if (!config.gitSettings.gitSidecarChatUrl.isEmpty) {
-          List(
-            script(s"""((window.gitter = {}).chat = {}).options = {
+        List(
+          script(s"""((window.gitter = {}).chat = {}).options = {
                     |room: '${config.gitSettings.gitSidecarChatUrl}'};""".stripMargin),
-            script(src := s"https://sidecar.gitter.im/dist/sidecar.v1.js")
-          )
-        } else if (!config.gitSettings.githubOwner.isEmpty || !config.gitSettings.githubRepo.isEmpty) {
-          List(
-            script(s"""((window.gitter = {}).chat = {}).options = {
-                    |room: '${config.gitSettings.githubOwner}/${config.gitSettings.githubRepo}'};""".stripMargin),
-            script(src := s"https://sidecar.gitter.im/dist/sidecar.v1.js")
-          )
-        } else Nil
+          script(src := s"https://sidecar.gitter.im/dist/sidecar.v1.js")
+        )
       } else Nil
 
     List(
