@@ -132,6 +132,7 @@ trait Arbitraries {
       gitHostingService                  ← Arbitrary.arbitrary[GitHostingService]
       gitHostingUrl                      ← Arbitrary.arbitrary[String]
       gitSidecarChat                     ← Arbitrary.arbitrary[Boolean]
+      gitSidecarChatUrl                  ← Arbitrary.arbitrary[String]
       micrositeKazariEvaluatorUrl        ← Arbitrary.arbitrary[String]
       micrositeKazariEvaluatorToken      ← Arbitrary.arbitrary[String]
       micrositeKazariGithubToken         ← Arbitrary.arbitrary[String]
@@ -167,7 +168,8 @@ trait Arbitraries {
           githubRepo,
           gitHostingService,
           gitHostingUrl,
-          gitSidecarChat),
+          gitSidecarChat,
+          gitSidecarChatUrl),
         KazariSettings(
           micrositeKazariEvaluatorUrl,
           micrositeKazariEvaluatorToken,

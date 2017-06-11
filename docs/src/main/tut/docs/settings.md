@@ -122,6 +122,12 @@ micrositeAnalyticsToken := 'UA-XXXXX-Y'
 micrositeGitterChannel := true
 ```
 
+- `micrositeGitterChannelUrl`: This setting is used to set a custom url to Gitter sidecar Channel. By default is `micrositeGithubOwner/micrositeGithubRepo`.
+
+```
+micrositeGitterChannelUrl := "47deg/sbt-microsites"
+```
+
 - `micrositeHighlightTheme`: by default, the theme of Highlight.js is [default](https://highlightjs.org/static/demo/), however, you can configure it to a different theme thanks to this setting:
 
 ```
