@@ -56,6 +56,10 @@ trait MicrositeKeys {
   val microsite: TaskKey[Seq[File]] = taskKey[Seq[File]]("Create microsite files")
   val micrositeConfig: TaskKey[Unit] =
     taskKey[Unit]("Copy microsite config to the site folder")
+  val micrositeMakeExtraMdFiles: TaskKey[File] =
+    taskKey[File]("Create microsite extra md files")
+  val micrositeTutExtraMdFiles: TaskKey[Seq[File]] =
+    taskKey[Seq[File]]("Run tut for extra microsite md files")
   val micrositeName: SettingKey[String]        = settingKey[String]("Microsite name")
   val micrositeDescription: SettingKey[String] = settingKey[String]("Microsite description")
   val micrositeAuthor: SettingKey[String]      = settingKey[String]("Microsite author")
@@ -219,14 +223,29 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       tutSourceDirectory = (tutSourceDirectory in Compile).value),
     micrositeConfig := micrositeHelper.value
       .copyConfigurationFile((sourceDirectory in Jekyll).value, siteDirectory.value),
-    makeMicrosite := Def
-      .sequential(
-        microsite,
-        tut,
-        makeSite,
-        micrositeConfig
-      )
-      .value,
+    micrositeMakeExtraMdFiles := micrositeHelper.value.buildAdditionalMd(
+      (resourceManaged in Compile).value),
+    micrositeTutExtraMdFiles := {
+      val r     = (runner in Tut).value
+      val in    = micrositeMakeExtraMdFiles.value
+      val out   = tutTargetDirectory.value
+      val cp    = (fullClasspath in Tut).value
+      val opts  = (scalacOptions in Tut).value
+      val pOpts = tutPluginJars.value.map(f => "–Xplugin:" + f.getAbsolutePath)
+      val re    = tutNameFilter.value.pattern.toString
+      _root_.tut.TutPlugin.tutOne(streams.value, r, in, out, cp, opts, pOpts, re).map(_._1)
+    },
+    makeMicrosite := {
+      Def
+        .sequential(
+          microsite,
+          tut,
+          micrositeTutExtraMdFiles,
+          makeSite,
+          micrositeConfig
+        )
+        .value
+    },
     publishMicrosite := Def.task {
       Command.process(publishMicrositeCommandKey, state.value)
       (): Unit

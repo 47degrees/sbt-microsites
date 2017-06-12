@@ -34,7 +34,8 @@ class MicrositeHelper(config: MicrositeSettings) {
 
   val fw = new FileWriter
 
-  val jekyllDir = "jekyll"
+  val jekyllDir     = "jekyll"
+  val extraMdTarget = "_extra_md"
 
   // format: OFF
   val faviconHeights = List(16, 24, 32, 48, 57, 60, 64, 70, 72, 76, 96,
@@ -52,6 +53,9 @@ class MicrositeHelper(config: MicrositeSettings) {
     case (filename, (width, height)) =>
       MicrositeFavicon(filename, s"${width}x$height")
   }
+
+  def getAdditionalMdDir(resourceManagedDir: File): File =
+    resourceManagedDir / jekyllDir / extraMdTarget
 
   def createResources(resourceManagedDir: File, tutSourceDirectory: File): List[File] = {
 
@@ -84,9 +88,17 @@ class MicrositeHelper(config: MicrositeSettings) {
       config.fileLocations.micrositeDataDirectory.getAbsolutePath,
       s"$targetDir$jekyllDir/_data/")
 
+    List(createConfigYML(targetDir), createPalette(targetDir)) ++
+      createLayouts(targetDir) ++ createPartialLayout(targetDir) ++ createFavicons(targetDir)
+  }
+
+  def buildAdditionalMd(resourceManagedDir: File): File = {
+    val targetDir: String = resourceManagedDir.getAbsolutePath.ensureFinalSlash
+    val extraMdOutput     = getAdditionalMdDir(resourceManagedDir).getAbsolutePath.ensureFinalSlash
+
     config.fileLocations.micrositeExtraMdFiles foreach {
       case (sourceFile, targetFileConfig) =>
-        println(s"Copying from ${sourceFile.getAbsolutePath} to $tutSourceDir$targetFileConfig")
+        println(s"Copying from ${sourceFile.getAbsolutePath} to $extraMdOutput/$targetFileConfig")
 
         val targetFileContent =
           s"""---
@@ -98,11 +110,12 @@ class MicrositeHelper(config: MicrositeSettings) {
              |${Source.fromFile(sourceFile.getAbsolutePath).mkString}
              |""".stripMargin
 
-        IO.write(s"$tutSourceDir${targetFileConfig.fileName}".toFile, targetFileContent)
+        val outFile = s"$extraMdOutput${targetFileConfig.fileName}".toFile
+
+        IO.write(outFile, targetFileContent)
     }
 
-    List(createConfigYML(targetDir), createPalette(targetDir)) ++
-      createLayouts(targetDir) ++ createPartialLayout(targetDir) ++ createFavicons(targetDir)
+    new File(extraMdOutput)
   }
 
   def createConfigYML(targetDir: String): File = {
