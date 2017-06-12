@@ -52,7 +52,7 @@ Latest release:
 [comment]: # (Start Replace)
 
 ```bash
-addSbtPlugin("com.47deg"  % "sbt-microsites" % "0.6.0")
+addSbtPlugin("com.47deg"  % "sbt-microsites" % "0.6.1")
 ```
 
 [comment]: # (End Replace)
