@@ -1,5 +1,14 @@
 # Changelog
 
+## 06/12/2017 - Version 0.6.1
+
+Release changes:
+
+* Bumps org-policies version to 0.5.0 ([#189](https://github.com/47deg/sbt-microsites/pull/189))
+* Gitter Link Settings ([#197](https://github.com/47deg/sbt-microsites/pull/197))
+* Releases sbt-microsites 0.6.1 ([#199](https://github.com/47deg/sbt-microsites/pull/199))
+
+
 ## 05/19/2017 - Version 0.6.0
 
 Release changes:
