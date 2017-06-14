@@ -1,5 +1,4 @@
 import microsites._
-import microsites.MicrositeKeys._
 
 enablePlugins(MicrositesPlugin)
 scalaVersion := "2.11.8"
