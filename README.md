@@ -62,6 +62,8 @@ Many Scala projects use sbt-microsites to display documentation and project note
 ![github4s](https://47deg.github.io/github4s/img/navbar_brand.png) | [**github4s**](https://47deg.github.io/github4s/) | A GitHub API wrapper written in Scala
 ![hammock](https://pepegar.github.io/hammock/img/navbar_brand.png) | [**hammock**](https://pepegar.github.io/hammock/) | A purely functional HTTP client for Scala
 ![cron4s](https://alonsodomin.github.io/cron4s/img/navbar_brand.png) | [**cron4s**](https://alonsodomin.github.io/cron4s) | A CRON expression parser and AST for Scala
+![freestyle](http://frees.io/img/navbar_brand.png) | [**freestyle**](http://frees.io/) | A cohesive & pragmatic framework of FP centric Scala libraries
+![libra](https://to-ithaca.github.io/libra/img/navbar_brand.png) | [**libra**](https://github.com/to-ithaca/libra) |A dimensional analysis library based on dependent types
 
 [comment]: # (Start Copyright)
 # Copyright
