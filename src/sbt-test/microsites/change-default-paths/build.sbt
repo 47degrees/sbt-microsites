@@ -1,4 +1,5 @@
 import microsites._
+import microsites.MicrositeKeys._
 
 enablePlugins(MicrositesPlugin)
 scalaVersion := "2.11.8"
@@ -9,5 +10,8 @@ micrositeExtraMdFiles := Map(
     "home"
   )
 )
+
+micrositeExtraMdFilesOutput := target / "extra_md_override"
+
 micrositeImgDirectory := (resourceDirectory in Compile).value / "images"
 micrositeCssDirectory := (resourceDirectory in Compile).value / "styles"

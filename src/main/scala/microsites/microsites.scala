@@ -52,7 +52,8 @@ case class MicrositeFileLocations(
     micrositeExternalLayoutsDirectory: File,
     micrositeExternalIncludesDirectory: File,
     micrositeDataDirectory: File,
-    micrositeExtraMdFiles: Map[File, ExtraMdFileConfig])
+    micrositeExtraMdFiles: Map[File, ExtraMdFileConfig],
+    micrositeExtraMdFilesOutput: File)
 
 case class MicrositeGitSettings(
     githubOwner: String,

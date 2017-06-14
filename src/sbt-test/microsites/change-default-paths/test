@@ -17,3 +17,4 @@ $ exists target/site/css/palette.css
 $ exists target/site/css/style.css
 $ exists target/site/css/override-1.css
 $ exists target/site/css/override-2.css
+$ exists target/extra_md_override/extra.md

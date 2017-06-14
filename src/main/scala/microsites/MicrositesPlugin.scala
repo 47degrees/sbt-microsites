@@ -73,6 +73,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeExternalIncludesDirectory := (resourceDirectory in Compile).value / "microsite" / "includes",
     micrositeDataDirectory := (resourceDirectory in Compile).value / "microsite" / "data",
     micrositeExtraMdFiles := Map.empty,
+    micrositeExtraMdFilesOutput := (resourceManaged in Compile).value / "jekyll" / "_extra_md",
     micrositePalette := Map(
       "brand-primary"   -> "#02B4E5",
       "brand-secondary" -> "#1C2C52",

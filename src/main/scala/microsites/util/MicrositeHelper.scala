@@ -34,8 +34,7 @@ class MicrositeHelper(config: MicrositeSettings) {
 
   val fw = new FileWriter
 
-  val jekyllDir     = "jekyll"
-  val extraMdTarget = "_extra_md"
+  val jekyllDir = "jekyll"
 
   // format: OFF
   val faviconHeights = List(16, 24, 32, 48, 57, 60, 64, 70, 72, 76, 96,
@@ -53,9 +52,6 @@ class MicrositeHelper(config: MicrositeSettings) {
     case (filename, (width, height)) =>
       MicrositeFavicon(filename, s"${width}x$height")
   }
-
-  def getAdditionalMdDir(resourceManagedDir: File): File =
-    resourceManagedDir / jekyllDir / extraMdTarget
 
   def createResources(resourceManagedDir: File, tutSourceDirectory: File): List[File] = {
 
@@ -92,13 +88,14 @@ class MicrositeHelper(config: MicrositeSettings) {
       createLayouts(targetDir) ++ createPartialLayout(targetDir) ++ createFavicons(targetDir)
   }
 
-  def buildAdditionalMd(resourceManagedDir: File): File = {
-    val targetDir: String = resourceManagedDir.getAbsolutePath.ensureFinalSlash
-    val extraMdOutput     = getAdditionalMdDir(resourceManagedDir).getAbsolutePath.ensureFinalSlash
+  def buildAdditionalMd(): File = {
+    val extraMdOutputDir = config.fileLocations.micrositeExtraMdFilesOutput
+    extraMdOutputDir.mkdirs()
 
     config.fileLocations.micrositeExtraMdFiles foreach {
       case (sourceFile, targetFileConfig) =>
-        println(s"Copying from ${sourceFile.getAbsolutePath} to $extraMdOutput/$targetFileConfig")
+        println(
+          s"Copying from ${sourceFile.getAbsolutePath} to ${extraMdOutputDir.getAbsolutePath}/$targetFileConfig")
 
         val targetFileContent =
           s"""---
@@ -110,12 +107,12 @@ class MicrositeHelper(config: MicrositeSettings) {
              |${Source.fromFile(sourceFile.getAbsolutePath).mkString}
              |""".stripMargin
 
-        val outFile = s"$extraMdOutput${targetFileConfig.fileName}".toFile
+        val outFile = extraMdOutputDir / targetFileConfig.fileName
 
         IO.write(outFile, targetFileContent)
     }
 
-    new File(extraMdOutput)
+    extraMdOutputDir
   }
 
   def createConfigYML(targetDir: String): File = {
