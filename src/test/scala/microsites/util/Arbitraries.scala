@@ -123,6 +123,7 @@ trait Arbitraries {
       micrositeExternalIncludesDirectory ← Arbitrary.arbitrary[File]
       micrositeDataDirectory             ← Arbitrary.arbitrary[File]
       micrositeExtraMdFiles              ← markdownMapArbitrary.arbitrary
+      micrositeExtraMdFilesOutput        ← Arbitrary.arbitrary[File]
       micrositeBaseUrl                   ← Arbitrary.arbitrary[String]
       micrositeDocumentationUrl          ← Arbitrary.arbitrary[String]
       palette                            ← paletteMapArbitrary.arbitrary
@@ -160,7 +161,8 @@ trait Arbitraries {
           micrositeExternalLayoutsDirectory,
           micrositeExternalIncludesDirectory,
           micrositeDataDirectory,
-          micrositeExtraMdFiles
+          micrositeExtraMdFiles,
+          micrositeExtraMdFilesOutput
         ),
         MicrositeUrlSettings(micrositeBaseUrl, micrositeDocumentationUrl),
         MicrositeGitSettings(

@@ -84,9 +84,18 @@ class MicrositeHelper(config: MicrositeSettings) {
       config.fileLocations.micrositeDataDirectory.getAbsolutePath,
       s"$targetDir$jekyllDir/_data/")
 
+    List(createConfigYML(targetDir), createPalette(targetDir)) ++
+      createLayouts(targetDir) ++ createPartialLayout(targetDir) ++ createFavicons(targetDir)
+  }
+
+  def buildAdditionalMd(): File = {
+    val extraMdOutputDir = config.fileLocations.micrositeExtraMdFilesOutput
+    extraMdOutputDir.mkdirs()
+
     config.fileLocations.micrositeExtraMdFiles foreach {
       case (sourceFile, targetFileConfig) =>
-        println(s"Copying from ${sourceFile.getAbsolutePath} to $tutSourceDir$targetFileConfig")
+        println(
+          s"Copying from ${sourceFile.getAbsolutePath} to ${extraMdOutputDir.getAbsolutePath}/$targetFileConfig")
 
         val targetFileContent =
           s"""---
@@ -98,11 +107,12 @@ class MicrositeHelper(config: MicrositeSettings) {
              |${Source.fromFile(sourceFile.getAbsolutePath).mkString}
              |""".stripMargin
 
-        IO.write(s"$tutSourceDir${targetFileConfig.fileName}".toFile, targetFileContent)
+        val outFile = extraMdOutputDir / targetFileConfig.fileName
+
+        IO.write(outFile, targetFileContent)
     }
 
-    List(createConfigYML(targetDir), createPalette(targetDir)) ++
-      createLayouts(targetDir) ++ createPartialLayout(targetDir) ++ createFavicons(targetDir)
+    extraMdOutputDir
   }
 
   def createConfigYML(targetDir: String): File = {
