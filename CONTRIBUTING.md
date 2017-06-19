@@ -4,10 +4,7 @@ Discussion around sbt-microsites happens in the [Gitter channel](https://gitter.
 [GitHub issues](https://github.com/47deg/sbt-microsites/issues) and [pull requests](https://github.com/47deg/sbt-microsites/pulls).
 
 Feel free to open an issue if you notice a bug, have an idea for a feature, or have a question about
-the code. Pull requests are also welcome. 
-
-When creating a pull request, please be sure to write scripted tests to ensure that your features works. 
-This project usess the sbt scripted-plugin for testing.  Run `sbt scripted` to run scripted tests.
+the code. Pull requests are also welcome.
 
 People are expected to follow the [Typelevel Code of Conduct](http://typelevel.org/conduct.html) when discussing sbt-microsites on the Github page, Gitter channel, or other venues.
 
