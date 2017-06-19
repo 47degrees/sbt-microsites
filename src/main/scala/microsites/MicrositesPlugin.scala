@@ -19,6 +19,7 @@ package microsites
 import com.typesafe.sbt.SbtGit.git
 import com.typesafe.sbt.sbtghpages.GhpagesPlugin
 import com.typesafe.sbt.site.jekyll.JekyllPlugin
+import com.typesafe.sbt.site.SitePlugin.autoImport._
 import sbt.Keys._
 import sbt._
 import sbt.plugins.IvyPlugin
@@ -99,7 +100,8 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeAnalyticsToken := "",
     micrositeGitterChannel := true,
     micrositeGitterChannelUrl := s"${micrositeGithubOwner.value}/${micrositeGithubRepo.value}",
-    includeFilter in Jekyll := ("*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME"),
+    includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json",
+    includeFilter in Jekyll := (includeFilter in makeSite).value,
     commands ++= Seq(publishMicrositeCommand)
   )
 }
