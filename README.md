@@ -64,6 +64,7 @@ Many Scala projects use sbt-microsites to display documentation and project note
 ![cron4s](https://alonsodomin.github.io/cron4s/img/navbar_brand.png) | [**cron4s**](https://alonsodomin.github.io/cron4s) | A CRON expression parser and AST for Scala
 ![freestyle](http://frees.io/img/navbar_brand.png) | [**freestyle**](http://frees.io/) | A cohesive & pragmatic framework of FP centric Scala libraries
 ![libra](https://to-ithaca.github.io/libra/img/navbar_brand.png) | [**libra**](https://to-ithaca.github.io/libra) |A dimensional analysis library based on dependent types
+![airframe](http://wvlet.org/airframe/img/navbar_brand.png) | [**Airframe**](http://wvlet.org/airframe) |A dependency injection library for Scala and Scala.js
 
 [comment]: # (Start Copyright)
 # Copyright
