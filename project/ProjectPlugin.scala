@@ -79,11 +79,6 @@ object ProjectPlugin extends AutoPlugin {
       libraryDependencies ++= Seq(
         %%%("github4s"),
         %%%("roshttp"),
-        %%%("cats-free"),
-        %%%("circe-core"),
-        %%%("circe-generic"),
-        %%%("circe-parser"),
-        %%%("base64"),
         "org.scala-js"        %%% "scalajs-dom"       % "0.9.0",
         "be.doeraene"         %%% "scalajs-jquery"    % "0.9.0",
         "com.lihaoyi"         %%% "upickle"           % "0.4.1",
