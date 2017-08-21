@@ -32,6 +32,7 @@ These are the people that have contributed to the sbt-microsites project:
 * Rafa Paradela <[rafaparadela](https://github.com/rafaparadela)>
 * Raúl Raja Martínez <[raulraja](https://github.com/raulraja)>
 * Sam Ritchie <[sritchie](https://github.com/sritchie)>
+* Simeon H.K. Fitch <[metasim](https://github.com/metasim)>
 * Suhas Gaddam <[suhasgaddam](https://github.com/suhasgaddam)>
 * Taro L. Saito <[xerial](https://github.com/xerial)>
 * The Gitter Badger <[gitter-badger](https://github.com/gitter-badger)>
