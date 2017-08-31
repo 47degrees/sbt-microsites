@@ -1,5 +1,20 @@
 # Changelog
 
+## 08/31/2017 - Version 0.6.2
+
+Release changes:
+
+* Added Freestyle and Libra ([#201](https://github.com/47deg/sbt-microsites/pull/201))
+* Enriched version of `includeFilter` ([#203](https://github.com/47deg/sbt-microsites/pull/203))
+* Move extra-md files to a target dir, instead of tut-sources ([#200](https://github.com/47deg/sbt-microsites/pull/200))
+* Review css jumbotron_pattern retina ([#205](https://github.com/47deg/sbt-microsites/pull/205))
+* Add airframe as an sbt-microsites example ([#207](https://github.com/47deg/sbt-microsites/pull/207))
+* Remove unnecessary dependencies ([#209](https://github.com/47deg/sbt-microsites/pull/209))
+* Added clarifying instructions for MacOS X ([#212](https://github.com/47deg/sbt-microsites/pull/212))
+* Bump sbt org policies. Release 0.6.2 ([#215](https://github.com/47deg/sbt-microsites/pull/215))
+* Update .gitignore ([#216](https://github.com/47deg/sbt-microsites/pull/216))
+
+
 ## 08/29/2017 - Version 0.6.2
 
 Release changes:
