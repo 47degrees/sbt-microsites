@@ -140,6 +140,7 @@ trait Arbitraries {
       micrositeKazariCodeMirrorTheme     ← Arbitrary.arbitrary[String]
       micrositeKazariDependencies        ← dependenciesListArbitrary.arbitrary
       micrositeKazariResolvers           ← Arbitrary.arbitrary[Seq[String]]
+      micrositeFooterText                ← Arbitrary.arbitrary[Option[String]]
     } yield
       MicrositeSettings(
         MicrositeIdentitySettings(
@@ -152,6 +153,7 @@ trait Arbitraries {
           twitterCreator,
           analytics),
         MicrositeVisualSettings(highlightTheme, palette, favicon),
+        MicrositeTemplateTexts(micrositeFooterText),
         micrositeConfigYaml,
         MicrositeFileLocations(
           micrositeImgDirectory,
