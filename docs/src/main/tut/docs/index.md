@@ -22,6 +22,8 @@ apt-get install jekyll
 gem install jekyll
 ```
 
+*Note*: On MacOS X, `/usr/bin/gem` will install an incompatible version of `jekyll`. It is suggested that you use [Homebrew](https://brew.sh/) to install `ruby` (which provides `gem`) before running `gem install jekyll`.
+
 ## Continuous Integration - Travis
 
 If you have enabled [Travis](https://travis-ci.org/) for your project, you might have to tweak some parts of your `.travis.yml` file:
@@ -52,7 +54,7 @@ Latest release:
 [comment]: # (Start Replace)
 
 ```bash
-addSbtPlugin("com.47deg"  % "sbt-microsites" % "0.6.1")
+addSbtPlugin("com.47deg"  % "sbt-microsites" % "0.6.2")
 ```
 
 [comment]: # (End Replace)

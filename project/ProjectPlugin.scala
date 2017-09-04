@@ -28,7 +28,7 @@ object ProjectPlugin extends AutoPlugin {
       addSbtPlugin("org.tpolecat"     % "tut-plugin"  % "0.5.2"),
       libraryDependencies ++= Seq(
         %%("moultingyaml"),
-        "com.47deg"             %% "org-policies-core" % "0.5.8",
+        "com.47deg"             %% "org-policies-core" % "0.5.15",
         "com.lihaoyi"           %% "scalatags" % "0.6.5",
         "org.scalactic"         %% "scalactic" % "3.0.3",
         "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.7",
@@ -79,11 +79,6 @@ object ProjectPlugin extends AutoPlugin {
       libraryDependencies ++= Seq(
         %%%("github4s"),
         %%%("roshttp"),
-        %%%("cats-free"),
-        %%%("circe-core"),
-        %%%("circe-generic"),
-        %%%("circe-parser"),
-        %%%("base64"),
         "org.scala-js"        %%% "scalajs-dom"       % "0.9.0",
         "be.doeraene"         %%% "scalajs-jquery"    % "0.9.0",
         "com.lihaoyi"         %%% "upickle"           % "0.4.1",
