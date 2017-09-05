@@ -275,5 +275,4 @@ micrositeConfigYaml := ConfigYml(
 
 ```
 micrositeFooterText := Some("<b>Bob</b> the <i>Builder</i>")
-
 ```
