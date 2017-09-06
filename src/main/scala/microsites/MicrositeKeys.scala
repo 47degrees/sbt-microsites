@@ -256,6 +256,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         .value
     },
     publishMicrosite := Def.task {
+      // I don't know how to fix this for sbt 1.0.
+      // The Command.process api was dropped in sbt 1.0.
       Command.process(publishMicrositeCommandKey, state.value)
       (): Unit
     }.value
