@@ -1,5 +1,14 @@
 # Changelog
 
+## 09/06/2017 - Version 0.6.3
+
+Release changes:
+
+* Update CHANGELOG.md ([#217](https://github.com/47deg/sbt-microsites/pull/217))
+* Including console output in kazari ([#219](https://github.com/47deg/sbt-microsites/pull/219))
+* User configurable footer ([#220](https://github.com/47deg/sbt-microsites/pull/220))
+
+
 ## 08/31/2017 - Version 0.6.2
 
 Release changes:
