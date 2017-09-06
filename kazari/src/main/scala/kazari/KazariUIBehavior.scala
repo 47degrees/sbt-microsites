@@ -177,12 +177,13 @@ object KazariUIBehavior {
                   {
                     val isSuccess = isEvaluationSuccessful(compilationResult.result)
                     val resultMsg = compilationResult.result.value.getOrElse("")
+                    val consoleMsg = compilationResult.result.consoleOutput.getOrElse("")
                     val errorMsg = if (compilationResult.result.compilationInfos.nonEmpty) {
                       compilationResult.result.compilationInfos.mkString(" ")
                     } else {
                       resultMsg
                     }
-                    val compilationValue = if (isSuccess) { resultMsg } else { errorMsg }
+                    val compilationValue = if (isSuccess) { s"$resultMsg - $consoleMsg" } else { errorMsg }
                     showAlertMessage(
                       parentSelector,
                       s"${compilationResult.result.msg} - $compilationValue",
