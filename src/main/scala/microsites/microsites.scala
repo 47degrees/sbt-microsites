@@ -72,9 +72,12 @@ case class MicrositeVisualSettings(
     palette: Map[String, String],
     favicons: Seq[MicrositeFavicon])
 
+case class MicrositeTemplateTexts(footer: Option[String])
+
 case class MicrositeSettings(
     identity: MicrositeIdentitySettings,
     visualSettings: MicrositeVisualSettings,
+    templateTexts: MicrositeTemplateTexts,
     configYaml: ConfigYml,
     fileLocations: MicrositeFileLocations,
     urlSettings: MicrositeUrlSettings,

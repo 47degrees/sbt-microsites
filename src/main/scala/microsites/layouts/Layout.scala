@@ -26,6 +26,24 @@ import scalatags.Text.TypedTag
 import scalatags.Text.all._
 import scalatags.Text.tags2.{nav, title}
 
+object Layout {
+  val footer: TypedTag[String] =
+    p(
+      s"Website built with ",
+      a(
+        href := s"https://47deg.github.io/sbt-microsites/",
+        target := "_blank",
+        s"Sbt-microsites"
+      ),
+      s" - © 2016 ",
+      a(
+        href := s"https://www.47deg.com/",
+        target := "_blank",
+        s"47 Degrees"
+      )
+    )
+}
+
 abstract class Layout(config: MicrositeSettings) {
   implicitly(config)
 
@@ -199,54 +217,52 @@ abstract class Layout(config: MicrositeSettings) {
       |})
     """.stripMargin)
 
-  def globalFooter: TypedTag[String] =
+  def globalFooter: TypedTag[String] = {
+    val divs: Seq[TypedTag[String]] =
+      div(
+        cls := "row",
+        div(
+          cls := "col-xs-6",
+          p(
+            "{{ site.name }} is designed and developed by ",
+            a(
+              href := s"${config.identity.organizationHomepage}",
+              target := "_blank",
+              s"${config.identity.author}"))
+        ),
+        div(
+          cls := "col-xs-6",
+          p(
+            cls := "text-right",
+            a(
+              href := config.gitSiteUrl,
+              span(cls := s"fa ${config.gitHostingIconClass}"),
+              s"View on ${config.gitSettings.gitHostingService}"))
+        )
+      ) +: {
+        config.templateTexts.footer match {
+          case Some(text) =>
+            Seq(
+              div(
+                cls := "row",
+                div(
+                  cls := "col-xs-6",
+                  raw(text)
+                )
+              )
+            )
+          case None => Nil
+        }
+      }
+
     footer(
       id := "site-footer",
       div(
         cls := "container",
-        div(
-          cls := "row",
-          div(
-            cls := "col-xs-6",
-            p(
-              "{{ site.name }} is designed and developed by ",
-              a(
-                href := s"${config.identity.organizationHomepage}",
-                target := "_blank",
-                s"${config.identity.author}"))
-          ),
-          div(
-            cls := "col-xs-6",
-            p(
-              cls := "text-right",
-              a(
-                href := config.gitSiteUrl,
-                span(cls := s"fa ${config.gitHostingIconClass}"),
-                s"View on ${config.gitSettings.gitHostingService}"))
-          )
-        ),
-        div(
-          cls := "row",
-          div(
-            cls := "col-xs-6",
-            p(
-              s"Website built with ",
-              a(
-                href := s"https://47deg.github.io/sbt-microsites/",
-                target := "_blank",
-                s"Sbt-microsites"
-              ),
-              s" - © 2016 ",
-              a(
-                href := s"https://www.47deg.com/",
-                target := "_blank",
-                s"47 Degrees"
-              )
-            )
-          )
-        )
+        divs
       )
     )
+  }
 
   def buildCollapseMenu: TypedTag[String] =
     nav(

@@ -133,6 +133,10 @@ trait MicrositeKeys {
     "Optional. Add custom Gitter sidecar Chat URL. By default is owner/repository."
   )
 
+  val micrositeFooterText: SettingKey[Option[String]] = SettingKey[Option[String]](
+    "Optional. Customize the second line in the footer."
+  )
+
   val publishMicrositeCommandKey: String = "publishMicrositeCommand"
 }
 
@@ -178,6 +182,9 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           highlightTheme = micrositeHighlightTheme.value,
           palette = micrositePalette.value,
           favicons = micrositeFavicons.value
+        ),
+        templateTexts = MicrositeTemplateTexts(
+          footer = micrositeFooterText.value
         ),
         configYaml = configWithAllCustomVariables,
         fileLocations = MicrositeFileLocations(

@@ -79,6 +79,32 @@ class LayoutTest extends FunSuite with Checkers with Matchers with Arbitraries {
     check(property)
   }
 
+  test("globalFooter TypeTag should have the appropriate content") {
+
+    val property = forAll { implicit settings: MicrositeSettings ⇒
+      (settings.templateTexts.footer.isDefined) ==> {
+        val layout = buildParentLayout
+
+        layout.globalFooter.render contains settings.templateTexts.footer.get
+      }
+    }
+
+    check(property)
+  }
+
+  test("globalFooter TypeTag should have the appropriate number of </div>s") {
+
+    val property = forAll { implicit settings: MicrositeSettings ⇒
+      val layout = buildParentLayout
+
+      val footer = settings.templateTexts.footer
+
+      "</div>".r.findAllIn(layout.globalFooter.render).length === (4 + footer.fold(0)(_ => 2))
+    }
+
+    check(property)
+  }
+
   test("buildCollapseMenu TypeTag should be a `div`") {
 
     val property = forAll { implicit settings: MicrositeSettings ⇒

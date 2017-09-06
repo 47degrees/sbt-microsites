@@ -89,7 +89,7 @@ micrositeGithubRepo := "sbt-microsites"
 ```
 
 - `micrositeGithubToken`: used for publishing the site when `github4s` is enabled. A [token with repo scope](https://github.com/settings/tokens/new?scopes=repo&description=sbt-microsites) is needed. None by default, but you can override it in this way:
- 
+
 ```
 micrositeGithubToken := getEnvVar("GITHUB_TOKEN")
 ```
@@ -269,4 +269,10 @@ micrositeConfigYaml := ConfigYml(
 |""".stripMargin,
   yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "myconfig.yml")
 )
+```
+
+- `micrositeFooterText`: This setting allows the optional configuration of the second line in the footer. By default, it is set to `Some("""Website built with "Sbt-microsites © 2016 47 Degrees""")`. **This string is passed in unsanitized to the templating engine.**. If this setting is set to `None`, the second line is not displayed.
+
+```
+micrositeFooterText := Some("<b>Bob</b> the <i>Builder</i>")
 ```
