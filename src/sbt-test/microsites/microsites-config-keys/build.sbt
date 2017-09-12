@@ -19,14 +19,16 @@ micrositeDocumentationUrl := "/api"
 micrositeHighlightTheme := "just-another-theme"
 micrositeGithubOwner := "47deg"
 micrositeGithubRepo := "sbt-microsites"
-micrositePalette := Map("brand-primary"   -> "#111111",
-                        "brand-secondary" -> "#222222",
-                        "brand-tertiary"  -> "#333333",
-                        "gray-dark"       -> "#444444",
-                        "gray"            -> "#555555",
-                        "gray-light"      -> "#666666",
-                        "gray-lighter"    -> "#777777",
-                        "white-color"     -> "#888888")
+micrositePalette := Map(
+  "brand-primary"   -> "#111111",
+  "brand-secondary" -> "#222222",
+  "brand-tertiary"  -> "#333333",
+  "gray-dark"       -> "#444444",
+  "gray"            -> "#555555",
+  "gray-light"      -> "#666666",
+  "gray-lighter"    -> "#777777",
+  "white-color"     -> "#888888"
+)
 
 lazy val check = TaskKey[Unit]("check")
 
