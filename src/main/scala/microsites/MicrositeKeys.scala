@@ -255,60 +255,63 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         )
         .value
     },
-    publishMicrosite := Def.task {
-      // I don't know how to fix this for sbt 1.0.
-      // The Command.process api was dropped in sbt 1.0.
-      Command.process(publishMicrositeCommandKey, state.value)
-      (): Unit
-    }.value
+    publishMicrosite := (Def.taskDyn {
+      val siteDir: File                 = (target in makeSite).value
+      val noJekyll: Boolean             = ghpagesNoJekyll.value
+      val branch: String                = ghpagesBranch.value
+      val pushSiteWith: PushWith        = micrositePushSiteWith.value
+      val gitHosting: GitHostingService = micrositeGitHostingService.value
+      val githubOwner: String           = micrositeGithubOwner.value
+      val githubRepo: String            = micrositeGithubRepo.value
+      val githubToken: Option[String]   = micrositeGithubToken.value
+
+      val cleanAndMakeMicroSite = Def.sequential(clean, makeMicrosite).value
+
+      Def.task {
+        lazy val log: Logger = streams.value.log
+
+        (pushSiteWith.name, gitHosting.name, cleanAndMakeMicroSite) match {
+          case (GHPagesPlugin.name, _, _) =>
+            ghpagesPushSite.value
+          case (GitHub4s.name, GitHub.name, _) if githubToken.nonEmpty =>
+            val commitMessage = sys.env.getOrElse("SBT_GHPAGES_COMMIT_MESSAGE", "updated site")
+
+            log.info(s"""Committing files from ${siteDir.getAbsolutePath} into branch '$branch'
+                 | * repo: $githubOwner/$githubRepo
+                 | * commitMessage: $commitMessage""".stripMargin)
+
+            val ghOps: GitHubOps = new GitHubOps(githubOwner, githubRepo, githubToken)
+
+            if (noJekyll) IO.touch(siteDir / ".nojekyll")
+
+            ghOps.commitDir(branch, commitMessage, siteDir) match {
+              case Right(_) => log.info("Success committing files")
+              case Left(e) =>
+                log.error(s"Error committing files")
+                e.printStackTrace()
+            }
+
+            cleanAndMakeMicroSite
+          case (GitHub4s.name, GitHub.name, _) =>
+            log.error(
+              s"You must provide a GitHub token through the `micrositeGithubToken` setting for pushing with github4s")
+            cleanAndMakeMicroSite
+          case (GitHub4s.name, hosting, _) =>
+            log.warn(s"github4s doens't have support for $hosting")
+            cleanAndMakeMicroSite
+          case _ =>
+            log.error(
+              s"""Unexpected match case (pushSiteWith, gitHosting) = ("${pushSiteWith.name}", "${gitHosting.name}")""")
+            cleanAndMakeMicroSite
+        }
+      }
+    }).value
   )
 
   val publishMicrositeCommand: Command = Command(publishMicrositeCommandKey)(_ => OptNotSpace) {
     (st, _) =>
       val extracted = Project.extract(st)
 
-      val siteDir: File                 = extracted.get(target in makeSite)
-      val noJekyll: Boolean             = extracted.get(ghpagesNoJekyll)
-      val branch: String                = extracted.get(ghpagesBranch)
-      val pushSiteWith: PushWith        = extracted.get(micrositePushSiteWith)
-      val gitHosting: GitHostingService = extracted.get(micrositeGitHostingService)
-      val githubOwner: String           = extracted.get(micrositeGithubOwner)
-      val githubRepo: String            = extracted.get(micrositeGithubRepo)
-      val githubToken: Option[String]   = extracted.get(micrositeGithubToken)
-
-      val cleanState: State = extracted.runTask(clean, st)._1
-      val makeState: State  = extracted.runTask(makeMicrosite, cleanState)._1
-
-      (pushSiteWith.name, gitHosting.name) match {
-        case (GHPagesPlugin.name, _) =>
-          val ref = extracted.get(thisProjectRef)
-          extracted.runAggregated[Unit](ghpagesPushSite in Global in ref, makeState)
-        case (GitHub4s.name, GitHub.name) if githubToken.nonEmpty =>
-          val commitMessage = sys.env.getOrElse("SBT_GHPAGES_COMMIT_MESSAGE", "updated site")
-          makeState.log.info(
-            s"""Committing files from ${siteDir.getAbsolutePath} into branch '$branch'
-               | * repo: $githubOwner/$githubRepo
-               | * commitMessage: $commitMessage""".stripMargin)
-          val ghOps: GitHubOps = new GitHubOps(githubOwner, githubRepo, githubToken)
-          if (noJekyll) IO.touch(siteDir / ".nojekyll")
-          ghOps.commitDir(branch, commitMessage, siteDir) match {
-            case Right(_) => makeState.log.info("Success committing files")
-            case Left(e) =>
-              makeState.log.error(s"Error committing files")
-              e.printStackTrace()
-          }
-          makeState
-        case (GitHub4s.name, GitHub.name) =>
-          makeState.log.error(
-            s"You must provide a GitHub token through the `micrositeGithubToken` setting for pushing with github4s")
-          makeState
-        case (GitHub4s.name, hosting) =>
-          makeState.log.warn(s"github4s doens't have support for $hosting")
-          makeState
-        case _ =>
-          makeState.log.error(
-            s"""Unexpected match case (pushSiteWith, gitHosting) = ("${pushSiteWith.name}", "${gitHosting.name}")""")
-          makeState
-      }
+      extracted.runTask(publishMicrosite, st)._1
   }
 }

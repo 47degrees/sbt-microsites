@@ -5,7 +5,7 @@ import sbt.Keys._
 import sbt.ScriptedPlugin.autoImport._
 import sbt._
 import sbtbuildinfo.BuildInfoPlugin.autoImport._
-import sbtorgpolicies.model.{scalac, sbtV}
+import sbtorgpolicies.model.{sbtV, scalac}
 import sbtorgpolicies.OrgPoliciesPlugin
 import sbtorgpolicies.OrgPoliciesPlugin.autoImport._
 import sbtorgpolicies.runnable.syntax._
@@ -28,37 +28,32 @@ object ProjectPlugin extends AutoPlugin {
       addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.2"),
       addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.3.0"),
       libraryDependencies ++= Seq(
-        "com.47deg"             %% "org-policies-core" % "0.6.2",
+        "com.47deg" %% "org-policies-core" % "0.6.2",
         %%("moultingyaml"),
         %%("scalatags"),
         %%("scalactic"),
-        %%("scalatest")         % "test",
-        %%("scalacheck")        % "test"
-        ),
-      libraryDependencies ++=
-         {
-          val sbtVersionValue       = (sbtVersion in pluginCrossBuild).value
-          val sbtBinaryVersionValue = (sbtBinaryVersion in pluginCrossBuild).value
+        %%("scalatest")  % "test",
+        %%("scalacheck") % "test"
+      ),
+      libraryDependencies ++= {
+        val sbtVersionValue       = (sbtVersion in pluginCrossBuild).value
+        val sbtBinaryVersionValue = (sbtBinaryVersion in pluginCrossBuild).value
 
-          val scalaBinaryVersionValue = (scalaBinaryVersion in update).value
+        val scalaBinaryVersionValue = (scalaBinaryVersion in update).value
 
-          sbtVersionValue match {
-            case sbtV.`0.13` => Seq(
-              Defaults.sbtPluginExtra(
-                "org.tpolecat" % "tut-plugin" % "0.5.3",
-                sbtBinaryVersionValue,
-                scalaBinaryVersionValue),
-              "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.7"
-              )
-            case sbtV.`1.0` => Seq(
-              Defaults.sbtPluginExtra(
-                "org.tpolecat" % "tut-plugin" % "0.6.0",
-                sbtBinaryVersionValue,
-                scalaBinaryVersionValue),
-              "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.8"
-              )
-          }
+        val (tutPluginVersion, scrimageVersion) = sbtVersionValue match {
+          case sbtV.`0.13` => ("0.5.3", "2.1.7")
+          case sbtV.`1.0`  => ("0.6.0", "2.1.8")
         }
+
+        Seq(
+          Defaults.sbtPluginExtra(
+            "org.tpolecat" % "tut-plugin" % tutPluginVersion,
+            sbtBinaryVersionValue,
+            scalaBinaryVersionValue),
+          "com.sksamuel.scrimage" %% "scrimage-core" % scrimageVersion
+        )
+      }
     )
 
     lazy val testScriptedSettings: Seq[(Def.Setting[_])] =
@@ -112,8 +107,7 @@ object ProjectPlugin extends AutoPlugin {
       resolvers ++= Seq(
         Resolver.url(
           "bintray-sbt-plugin-releases",
-          url("https://dl.bintray.com/content/sbt/sbt-plugin-releases"))(
-          Resolver.ivyStylePatterns),
+          url("https://dl.bintray.com/content/sbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns),
         Resolver.sonatypeRepo("snapshots"),
         Resolver.bintrayRepo("denigma", "denigma-releases")
       ),
