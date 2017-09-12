@@ -28,7 +28,7 @@ object ProjectPlugin extends AutoPlugin {
       addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.2"),
       addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.3.0"),
       libraryDependencies ++= Seq(
-        "com.47deg"             %% "org-policies-core" % "0.6.1-SNAPSHOT",
+        "com.47deg"             %% "org-policies-core" % "0.6.2",
         %%("moultingyaml"),
         %%("scalatags"),
         %%("scalactic"),
