@@ -37,7 +37,10 @@ after_success:
       else
         if [ "$SBT_VERSION" = "1.0.1" ]; then
           sbt ^^$SBT_VERSION orgUpdateDocFiles;
-          sbt ^^$SBT_VERSION depUpdateDependencyIssues;
+          git reset --hard HEAD;
+          git clean -f;
+          git checkout master;
+          git pull origin master;
           sbt ^^$SBT_VERSION release;
         fi
       fi
