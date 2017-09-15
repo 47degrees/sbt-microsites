@@ -1,11 +1,7 @@
 # check that the sbt-microsites plugin work fine when tut compiles a markdown file
 
 > makeMicrosite
-
-# check markdown resource_managed/main/jekyll folder
-
-$ exists target/scala-2.11/resource_managed/main/jekyll/index.md
-$ exists target/scala-2.11/resource_managed/main/jekyll/docs.md
+> check
 
 # check site folder
 

@@ -1,0 +1,17 @@
+# check that the sbt-microsites plugin tasks work with the default configuration
+
+> microsite
+
+> tut
+
+> makeSite
+
+> micrositeConfig
+
+> check
+
+# check site folder
+
+$ exists target/site/_config.yml
+$ exists target/site/css
+$ exists target/site/js

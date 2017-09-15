@@ -2,7 +2,6 @@ import com.typesafe.sbt.site.SitePlugin.autoImport._
 // import microsites.MicrositeKeys._
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import sbt.Keys._
-import sbt.ScriptedPlugin.autoImport._
 import sbt._
 import sbtbuildinfo.BuildInfoPlugin.autoImport._
 import sbtorgpolicies.model.{sbtV, scalac}
@@ -25,8 +24,6 @@ object ProjectPlugin extends AutoPlugin {
       resolvers ++= Seq(
         Resolver.sonatypeRepo("snapshots"),
         "jgit-repo" at "http://download.eclipse.org/jgit/maven"),
-      addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.2"),
-      addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.3.0"),
       libraryDependencies ++= Seq(
         "com.47deg" %% "org-policies-core" % "0.6.2",
         %%("moultingyaml"),
@@ -48,6 +45,10 @@ object ProjectPlugin extends AutoPlugin {
 
         Seq(
           Defaults.sbtPluginExtra(
+            "com.47deg" % "sbt-org-policies" % "0.6.2",
+            sbtBinaryVersionValue,
+            scalaBinaryVersionValue),
+          Defaults.sbtPluginExtra(
             "org.tpolecat" % "tut-plugin" % tutPluginVersion,
             sbtBinaryVersionValue,
             scalaBinaryVersionValue),
@@ -55,20 +56,6 @@ object ProjectPlugin extends AutoPlugin {
         )
       }
     )
-
-    lazy val testScriptedSettings: Seq[(Def.Setting[_])] =
-      Seq(
-        scriptedLaunchOpts := {
-          scriptedLaunchOpts.value ++
-            Seq(
-              "-Xmx2048M",
-              "-XX:ReservedCodeCacheSize=256m",
-              "-XX:+UseConcMarkSweepGC",
-              "-Dplugin.version=" + version.value,
-              "-Dscala.version=" + scalaVersion.value
-            )
-        }
-      )
 
     lazy val buildInfoSettings = Seq(
       buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
@@ -134,7 +121,7 @@ object ProjectPlugin extends AutoPlugin {
         (compile in Compile).asRunnableItemFull,
         (test in Test).asRunnableItemFull,
         (publishLocal in Global).asRunnableItemFull,
-        "scripted".asRunnableItemFull,
+        "tests/scripted".asRunnableItemFull,
         (jsFullOptGenerateTask in ProjectRef(file("."), "kazari")).asRunnableItem,
         "docs/tut".asRunnableItem
       )
