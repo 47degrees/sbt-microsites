@@ -5,8 +5,10 @@ pgpSecretRing := file(s"$gpgFolder/secring.gpg")
 lazy val `sbt-microsites` = (project in file("."))
   .settings(moduleName := "sbt-microsites")
   .settings(pluginSettings: _*)
-  .settings(testScriptedSettings: _*)
   .enablePlugins(JekyllPlugin)
+
+lazy val tests = (project in file("tests"))
+  .settings(moduleName := "sbt-tests")
 
 lazy val docs = (project in file("docs"))
   .settings(moduleName := "docs")

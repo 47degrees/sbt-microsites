@@ -2,7 +2,6 @@ import com.typesafe.sbt.site.SitePlugin.autoImport._
 // import microsites.MicrositeKeys._
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import sbt.Keys._
-import sbt.ScriptedPlugin.autoImport._
 import sbt._
 import sbtbuildinfo.BuildInfoPlugin.autoImport._
 import sbtorgpolicies.model.{sbtV, scalac}
@@ -55,20 +54,6 @@ object ProjectPlugin extends AutoPlugin {
         )
       }
     )
-
-    lazy val testScriptedSettings: Seq[(Def.Setting[_])] =
-      Seq(
-        scriptedLaunchOpts := {
-          scriptedLaunchOpts.value ++
-            Seq(
-              "-Xmx2048M",
-              "-XX:ReservedCodeCacheSize=256m",
-              "-XX:+UseConcMarkSweepGC",
-              "-Dplugin.version=" + version.value,
-              "-Dscala.version=" + scalaVersion.value
-            )
-        }
-      )
 
     lazy val buildInfoSettings = Seq(
       buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
@@ -134,7 +119,7 @@ object ProjectPlugin extends AutoPlugin {
         (compile in Compile).asRunnableItemFull,
         (test in Test).asRunnableItemFull,
         (publishLocal in Global).asRunnableItemFull,
-        "scripted".asRunnableItemFull,
+        "tests/scripted".asRunnableItemFull,
         (jsFullOptGenerateTask in ProjectRef(file("."), "kazari")).asRunnableItem,
         "docs/tut".asRunnableItem
       )

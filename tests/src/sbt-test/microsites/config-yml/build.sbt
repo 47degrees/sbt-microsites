@@ -1,7 +1,8 @@
 import microsites._
 
 enablePlugins(MicrositesPlugin)
-scalaVersion := "2.12.1"
+
+scalaVersion := sys.props("scala.version")
 
 micrositeConfigYaml := ConfigYml(
   yamlCustomProperties = Map("org" -> "Test"),
@@ -17,6 +18,11 @@ def getLines(fileName: String) =
 lazy val check = TaskKey[Unit]("check")
 
 check := {
+  val checkPathFile: File = file((crossTarget in Compile).value.getAbsolutePath + "/resource_managed/main/jekyll")
+
+  if(!checkPathFile.exists())
+    sys.error("Jekyll directory doesn't exist.")
+
   val content = getLines("target/site/_config.yml").mkString
 
   if (!content.contains("org: Test"))

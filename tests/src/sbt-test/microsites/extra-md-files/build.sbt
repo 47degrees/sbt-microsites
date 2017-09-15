@@ -1,7 +1,8 @@
 import microsites._
 
 enablePlugins(MicrositesPlugin)
-scalaVersion := "2.12.1"
+
+scalaVersion := sys.props("scala.version")
 
 micrositeExtraMdFiles := Map(
   file("README.md") -> ExtraMdFileConfig(
@@ -17,6 +18,15 @@ micrositeExtraMdFiles := Map(
 
 def getLines(fileName: String) =
   IO.readLines(file(fileName))
+
+lazy val check = TaskKey[Unit]("check")
+
+check := {
+  val checkPathFile: File = file((crossTarget in Compile).value.getAbsolutePath + "/resource_managed/main/jekyll")
+
+  if(!checkPathFile.exists())
+    sys.error("Jekyll directory doesn't exist.")
+}
 
 lazy val checkReadme = TaskKey[Unit]("checkReadme")
 

@@ -1,5 +1,4 @@
 # check that the sbt-microsites plugin works on a minimal project
 
 > makeMicrosite
-
-$ exists target/scala-2.11/resource_managed/main/jekyll
+> check

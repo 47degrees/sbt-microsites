@@ -1,7 +1,8 @@
 import microsites._
 
 enablePlugins(MicrositesPlugin)
-scalaVersion := "2.11.8"
+
+scalaVersion := sys.props("scala.version")
 
 micrositeGitHostingService := GitLab
 micrositeGitHostingUrl := "https://gitlab.com/gitlab-org/gitlab-ce"
@@ -19,6 +20,11 @@ def getLines(fileName: String) =
 lazy val check = TaskKey[Unit]("check")
 
 check := {
+  val checkPathFile: File = file((crossTarget in Compile).value.getAbsolutePath + "/resource_managed/main/jekyll")
+
+  if(!checkPathFile.exists())
+    sys.error("Jekyll directory doesn't exist.")
+
   val content = getLines("target/site/index.html").mkString
 
   if (!content.contains("View on GitLab"))

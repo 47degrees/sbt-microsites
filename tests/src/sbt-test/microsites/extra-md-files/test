@@ -1,8 +1,7 @@
 # check that the sbt-microsites plugin works for external files outside tut directory
 
 > makeMicrosite
-
-$ exists target/scala-2.12/resource_managed/main/jekyll
+> check
 
 # check readme.md file
 
