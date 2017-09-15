@@ -24,8 +24,6 @@ object ProjectPlugin extends AutoPlugin {
       resolvers ++= Seq(
         Resolver.sonatypeRepo("snapshots"),
         "jgit-repo" at "http://download.eclipse.org/jgit/maven"),
-      addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.2"),
-      addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.3.0"),
       libraryDependencies ++= Seq(
         "com.47deg" %% "org-policies-core" % "0.6.2",
         %%("moultingyaml"),
@@ -46,6 +44,10 @@ object ProjectPlugin extends AutoPlugin {
         }
 
         Seq(
+          Defaults.sbtPluginExtra(
+            "com.47deg" % "sbt-org-policies" % "0.6.2",
+            sbtBinaryVersionValue,
+            scalaBinaryVersionValue),
           Defaults.sbtPluginExtra(
             "org.tpolecat" % "tut-plugin" % tutPluginVersion,
             sbtBinaryVersionValue,
