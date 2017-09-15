@@ -25,9 +25,9 @@ install:
   - gem install jekyll -v 3.2.1
 
 script:
-  - sbt ++SCALA_VERSION ^^$SBT_VERSION clean compile test
-  - sbt ++SCALA_VERSION ^^$SBT_VERSION publishLocal;
-  - sbt ++SCALA_VERSION ^^$SBT_VERSION tests/scripted;
+  - sbt ++$TRAVIS_SCALA_VERSION ^^$SBT_VERSION clean compile test
+  - sbt ++$TRAVIS_SCALA_VERSION ^^$SBT_VERSION publishLocal;
+  - sbt ++$TRAVIS_SCALA_VERSION ^^$SBT_VERSION tests/scripted;
 
 after_success:
   - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
