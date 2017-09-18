@@ -12,7 +12,10 @@ lazy val docs = (project in file("docs"))
   .settings(moduleName := "docs")
   // .settings(micrositeSettings: _*)
   .settings(noPublishSettings: _*)
-  .settings(buildInfoSettings: _*)
+  .settings(Seq(
+    buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
+    buildInfoPackage := "microsites"
+  ): _*)
   // .enablePlugins(MicrositesPlugin)
   .enablePlugins(TutPlugin)
   .enablePlugins(BuildInfoPlugin)

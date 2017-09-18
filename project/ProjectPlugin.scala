@@ -4,7 +4,6 @@ import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import sbt.Keys._
 import sbt.ScriptedPlugin.autoImport._
 import sbt._
-import sbtbuildinfo.BuildInfoPlugin.autoImport._
 import sbtorgpolicies.model.{sbtV, scalac}
 import sbtorgpolicies.OrgPoliciesPlugin
 import sbtorgpolicies.OrgPoliciesPlugin.autoImport._
@@ -28,7 +27,7 @@ object ProjectPlugin extends AutoPlugin {
       addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.2"),
       addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.3.0"),
       libraryDependencies ++= Seq(
-        "com.47deg" %% "org-policies-core" % "0.6.2",
+        "com.47deg" %% "org-policies-core" % "0.6.4",
         %%("moultingyaml"),
         %%("scalatags"),
         %%("scalactic"),
@@ -69,11 +68,6 @@ object ProjectPlugin extends AutoPlugin {
             )
         }
       )
-
-    lazy val buildInfoSettings = Seq(
-      buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
-      buildInfoPackage := "microsites"
-    )
 
     // lazy val micrositeSettings = Seq(
     //   micrositeName := "sbt-microsites",
