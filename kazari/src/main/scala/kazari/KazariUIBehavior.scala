@@ -103,10 +103,7 @@ object KazariUIBehavior {
 
         addResetButtonBehavior(s".$decoratorButtonResetClass", m)
 
-        addGistButtonBehavior(
-          s".$decoratorButtonSaveGistClass",
-          codeSnippetsFromModal,
-          githubToken)
+        addGistButtonBehavior(s".$decoratorButtonSaveGistClass", codeSnippetsFromModal, githubToken)
 
         addModalFunctionality(m)
 
@@ -175,15 +172,16 @@ object KazariUIBehavior {
               }, {
                 compilationResult =>
                   {
-                    val isSuccess = isEvaluationSuccessful(compilationResult.result)
-                    val resultMsg = compilationResult.result.value.getOrElse("")
+                    val isSuccess  = isEvaluationSuccessful(compilationResult.result)
+                    val resultMsg  = compilationResult.result.value.getOrElse("")
                     val consoleMsg = compilationResult.result.consoleOutput.getOrElse("")
                     val errorMsg = if (compilationResult.result.compilationInfos.nonEmpty) {
                       compilationResult.result.compilationInfos.mkString(" ")
                     } else {
                       resultMsg
                     }
-                    val compilationValue = if (isSuccess) { s"$resultMsg - $consoleMsg" } else { errorMsg }
+                    val compilationValue =
+                      if (isSuccess) { s"$resultMsg - $consoleMsg" } else { errorMsg }
                     showAlertMessage(
                       parentSelector,
                       s"${compilationResult.result.msg} - $compilationValue",
@@ -278,10 +276,7 @@ object KazariUIBehavior {
         val gistApi     = Github(Some(accessToken)).gists
         val files       = Map(newGistFilename -> GistFile(codeSnippet()))
         val request = gistApi
-          .newGist(
-            if (description.isEmpty) newGistDefaultDescription else description,
-            true,
-            files)
+          .newGist(if (description.isEmpty) newGistDefaultDescription else description, true, files)
 
         request.execFuture[SimpleHttpResponse]().onComplete {
           result =>

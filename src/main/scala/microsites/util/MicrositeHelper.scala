@@ -29,7 +29,7 @@ import sbtorgpolicies.io.syntax._
 
 import scala.io.Source
 
-class MicrositeHelper(config: MicrositeSettings) {
+class MicrositeHelper(config: MicrositeSettings) extends MicrositeHelperSpecific {
   implicitly(config)
 
   val fw = new FileWriter
@@ -197,18 +197,5 @@ class MicrositeHelper(config: MicrositeSettings) {
       s"${sourceDir.getAbsolutePath}/_config.yml",
       targetPath.toFile.getAbsolutePath)
     ()
-  }
-
-  /*
-   * This method has been extracted from the sbt-native-packager plugin:
-   *
-   * https://github.com/sbt/sbt-native-packager/blob/b5e2bb9027d08c00420476e6be0d876cf350963a/src/main/scala/com/typesafe/sbt/packager/MappingsHelper.scala#L21
-   *
-   */
-  def directory(sourceDirPath: String): Seq[(File, String)] = {
-    val sourceDir = file(sourceDirPath)
-    Option(sourceDir.getParentFile)
-      .map(parent => sourceDir.*** pair relativeTo(parent))
-      .getOrElse(sourceDir.*** pair basic)
   }
 }

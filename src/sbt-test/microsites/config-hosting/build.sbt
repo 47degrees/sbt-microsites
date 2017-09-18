@@ -13,9 +13,8 @@ micrositeExtraMdFiles := Map(
   )
 )
 
-def getLines(fileName: String) = {
+def getLines(fileName: String) =
   IO.readLines(file(fileName))
-}
 
 lazy val check = TaskKey[Unit]("check")
 

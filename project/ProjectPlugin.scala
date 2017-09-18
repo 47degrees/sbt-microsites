@@ -1,10 +1,10 @@
 import com.typesafe.sbt.site.SitePlugin.autoImport._
-import microsites.MicrositeKeys._
+// import microsites.MicrositeKeys._
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import sbt.Keys._
-import sbt.ScriptedPlugin._
+import sbt.ScriptedPlugin.autoImport._
 import sbt._
-import sbtbuildinfo.BuildInfoPlugin.autoImport._
+import sbtorgpolicies.model.{sbtV, scalac}
 import sbtorgpolicies.OrgPoliciesPlugin
 import sbtorgpolicies.OrgPoliciesPlugin.autoImport._
 import sbtorgpolicies.runnable.syntax._
@@ -20,28 +20,43 @@ object ProjectPlugin extends AutoPlugin {
 
     lazy val pluginSettings = Seq(
       sbtPlugin := true,
+      crossSbtVersions := Seq(sbtV.`0.13`, sbtV.`1.0`),
       resolvers ++= Seq(
         Resolver.sonatypeRepo("snapshots"),
         "jgit-repo" at "http://download.eclipse.org/jgit/maven"),
-      addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.0"),
-      addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.2.0"),
-      addSbtPlugin("org.tpolecat"     % "tut-plugin"  % "0.5.2"),
+      addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.2"),
+      addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.3.0"),
       libraryDependencies ++= Seq(
+        "com.47deg" %% "org-policies-core" % "0.6.4",
         %%("moultingyaml"),
-        "com.47deg"             %% "org-policies-core" % "0.5.15",
-        "com.lihaoyi"           %% "scalatags" % "0.6.5",
-        "org.scalactic"         %% "scalactic" % "3.0.3",
-        "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.7",
-        %%("scalatest")         % "test",
-        %%("scalacheck")        % "test"
-      )
+        %%("scalatags"),
+        %%("scalactic"),
+        %%("scalatest")  % "test",
+        %%("scalacheck") % "test"
+      ),
+      libraryDependencies ++= {
+        val sbtVersionValue       = (sbtVersion in pluginCrossBuild).value
+        val sbtBinaryVersionValue = (sbtBinaryVersion in pluginCrossBuild).value
+
+        val scalaBinaryVersionValue = (scalaBinaryVersion in update).value
+
+        val (tutPluginVersion, scrimageVersion) = sbtVersionValue match {
+          case sbtV.`0.13` => ("0.5.3", "2.1.7")
+          case sbtV.`1.0`  => ("0.6.0", "2.1.8")
+        }
+
+        Seq(
+          Defaults.sbtPluginExtra(
+            "org.tpolecat" % "tut-plugin" % tutPluginVersion,
+            sbtBinaryVersionValue,
+            scalaBinaryVersionValue),
+          "com.sksamuel.scrimage" %% "scrimage-core" % scrimageVersion
+        )
+      }
     )
 
     lazy val testScriptedSettings: Seq[(Def.Setting[_])] =
-      ScriptedPlugin.scriptedSettings ++ Seq(
-        scriptedDependencies := (compile in Test) map { (_) =>
-          Unit
-        },
+      Seq(
         scriptedLaunchOpts := {
           scriptedLaunchOpts.value ++
             Seq(
@@ -54,23 +69,18 @@ object ProjectPlugin extends AutoPlugin {
         }
       )
 
-    lazy val buildInfoSettings = Seq(
-      buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
-      buildInfoPackage := "microsites"
-    )
-
-    lazy val micrositeSettings = Seq(
-      micrositeName := "sbt-microsites",
-      micrositeDescription := "An sbt plugin to create awesome microsites for your project",
-      micrositeBaseUrl := "sbt-microsites",
-      micrositeDocumentationUrl := "/sbt-microsites/docs/",
-      micrositeGithubOwner := "47deg",
-      micrositeGithubRepo := "sbt-microsites",
-      micrositeGithubToken := sys.env.get(orgGithubTokenSetting.value),
-      micrositeHighlightTheme := "color-brewer",
-      micrositePushSiteWith := GitHub4s,
-      includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
-    )
+    // lazy val micrositeSettings = Seq(
+    //   micrositeName := "sbt-microsites",
+    //   micrositeDescription := "An sbt plugin to create awesome microsites for your project",
+    //   micrositeBaseUrl := "sbt-microsites",
+    //   micrositeDocumentationUrl := "/sbt-microsites/docs/",
+    //   micrositeGithubOwner := "47deg",
+    //   micrositeGithubRepo := "sbt-microsites",
+    //   micrositeGithubToken := sys.env.get(orgGithubTokenSetting.value),
+    //   micrositeHighlightTheme := "color-brewer",
+    //   micrositePushSiteWith := GitHub4s,
+    //   includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
+    // )
 
     lazy val jsSettings: Seq[Def.Setting[_]] = sharedJsSettings ++ Seq(
       scalaVersion := "2.11.8",
@@ -91,8 +101,7 @@ object ProjectPlugin extends AutoPlugin {
       resolvers ++= Seq(
         Resolver.url(
           "bintray-sbt-plugin-releases",
-          url("https://dl.bintray.com/content/sbt/sbt-plugin-releases"))(
-          Resolver.ivyStylePatterns),
+          url("https://dl.bintray.com/content/sbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns),
         Resolver.sonatypeRepo("snapshots"),
         Resolver.bintrayRepo("denigma", "denigma-releases")
       ),
@@ -110,8 +119,8 @@ object ProjectPlugin extends AutoPlugin {
       name := "sbt-microsites",
       description := "An sbt plugin to create awesome microsites for your project",
       startYear := Some(2016),
-      scalaVersion := "2.10.6",
-      crossScalaVersions := Seq("2.10.6"),
+      scalaVersion := scalac.`2.12`,
+      crossScalaVersions := Seq(scalac.`2.12`),
       scalaOrganization := "org.scala-lang",
       orgScriptTaskListSetting := List(
         orgValidateFiles.asRunnableItem,

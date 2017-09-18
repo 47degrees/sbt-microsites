@@ -32,7 +32,11 @@ object KazariPlugin extends JSApp {
   def main(): Unit = {}
 
   @JSExport
-  def decorateCode(url: String, scalaEvalToken: String, githubToken: String, theme: String): Unit = {
+  def decorateCode(
+      url: String,
+      scalaEvalToken: String,
+      githubToken: String,
+      theme: String): Unit = {
     lazy val evalClient           = new EvaluatorClient(url, scalaEvalToken)
     lazy val codeSnippetsSingle   = document.querySelectorAll(codeSingleSnippetSelector)
     lazy val codeSnippetsSequence = document.querySelectorAll(codeSnippetsSelectorById)
