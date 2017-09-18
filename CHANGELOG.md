@@ -1,5 +1,13 @@
 # Changelog
 
+## 09/18/2017 - Version 0.7.0
+
+Release changes:
+
+* Port plugin to sbt {1.0.x, 0.13.16} ([#221](https://github.com/47deg/sbt-microsites/pull/221))
+* Releases 0.7.0 - Cross-built for sbt 0.13 and sbt 1.0 ([#225](https://github.com/47deg/sbt-microsites/pull/225))
+
+
 ## 09/06/2017 - Version 0.6.3
 
 Release changes:
