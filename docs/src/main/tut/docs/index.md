@@ -59,13 +59,6 @@ addSbtPlugin("com.47deg"  % "sbt-microsites" % "0.7.0")
 
 [comment]: # (End Replace)
 
-Latest snapshot built from the `master` branch code:
-
-```tut:evaluated
-println("""resolvers += Resolver.sonatypeRepo("snapshots")""")
-println(s"""addSbtPlugin("com.47deg"  % "sbt-microsites" % "${microsites.BuildInfo.version}"""")
-```
-
 Finally, to enable the plugin, add this to your `build.sbt` file:
 ```bash
 enablePlugins(MicrositesPlugin)
