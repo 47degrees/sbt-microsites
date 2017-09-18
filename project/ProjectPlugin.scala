@@ -1,5 +1,5 @@
 import com.typesafe.sbt.site.SitePlugin.autoImport._
-// import microsites.MicrositeKeys._
+import microsites.MicrositeKeys._
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import sbt.Keys._
 import sbt.ScriptedPlugin.autoImport._
@@ -27,7 +27,7 @@ object ProjectPlugin extends AutoPlugin {
       addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.2"),
       addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.3.0"),
       libraryDependencies ++= Seq(
-        "com.47deg" %% "org-policies-core" % "0.6.4",
+        "com.47deg" %% "org-policies-core" % "0.7.0",
         %%("moultingyaml"),
         %%("scalatags"),
         %%("scalactic"),
@@ -42,7 +42,7 @@ object ProjectPlugin extends AutoPlugin {
 
         val (tutPluginVersion, scrimageVersion) = sbtVersionValue match {
           case sbtV.`0.13` => ("0.5.3", "2.1.7")
-          case sbtV.`1.0`  => ("0.6.0", "2.1.8")
+          case sbtV.`1.0`  => ("0.6.1", "2.1.8")
         }
 
         Seq(
@@ -69,18 +69,18 @@ object ProjectPlugin extends AutoPlugin {
         }
       )
 
-    // lazy val micrositeSettings = Seq(
-    //   micrositeName := "sbt-microsites",
-    //   micrositeDescription := "An sbt plugin to create awesome microsites for your project",
-    //   micrositeBaseUrl := "sbt-microsites",
-    //   micrositeDocumentationUrl := "/sbt-microsites/docs/",
-    //   micrositeGithubOwner := "47deg",
-    //   micrositeGithubRepo := "sbt-microsites",
-    //   micrositeGithubToken := sys.env.get(orgGithubTokenSetting.value),
-    //   micrositeHighlightTheme := "color-brewer",
-    //   micrositePushSiteWith := GitHub4s,
-    //   includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
-    // )
+    lazy val micrositeSettings = Seq(
+      micrositeName := "sbt-microsites",
+      micrositeDescription := "An sbt plugin to create awesome microsites for your project",
+      micrositeBaseUrl := "sbt-microsites",
+      micrositeDocumentationUrl := "/sbt-microsites/docs/",
+      micrositeGithubOwner := "47deg",
+      micrositeGithubRepo := "sbt-microsites",
+      micrositeGithubToken := sys.env.get(orgGithubTokenSetting.value),
+      micrositeHighlightTheme := "color-brewer",
+      micrositePushSiteWith := GitHub4s,
+      includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
+    )
 
     lazy val jsSettings: Seq[Def.Setting[_]] = sharedJsSettings ++ Seq(
       scalaVersion := "2.11.8",
