@@ -1,0 +1,13 @@
+
+.modal-kazari {
+    display: none;
+}
+
+@media not all,
+not all,
+(-webkit-min-device-pixel-ratio: 1.3),
+not all,(min-resolution: 1.3dppx) {
+.jumbotron {
+    background-image: url(../img/jumbotron_pattern2x.png);
+    background-size: 72px 68px;
+}
