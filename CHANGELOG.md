@@ -1,5 +1,14 @@
 # Changelog
 
+## 09/20/2017 - Version 0.7.1
+
+Release changes:
+
+* Enables sbt-microsites through latest version of sbt-org-policies ([#226](https://github.com/47deg/sbt-microsites/pull/226))
+* Upgrades sbt-org-policies ([#227](https://github.com/47deg/sbt-microsites/pull/227))
+* Releases 0.7.1 ([#228](https://github.com/47deg/sbt-microsites/pull/228))
+
+
 ## 09/18/2017 - Version 0.7.0
 
 Release changes:
