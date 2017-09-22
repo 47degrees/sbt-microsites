@@ -102,6 +102,8 @@ trait MicrositeKeys {
   val micrositeGithubRepo: SettingKey[String]  = settingKey[String]("Microsite Github repo")
   val micrositeGithubToken: SettingKey[Option[String]] =
     settingKey[Option[String]]("Microsite Github token for pushing the microsite")
+  val micrositeKazariEnabled: SettingKey[Boolean] =
+    SettingKey[Boolean]("Optional. Includes Kazari plugin functionality. Disabled by default.")
   val micrositeKazariEvaluatorUrl: SettingKey[String] = settingKey[String](
     "URL of the remote Scala Evaluator to be used by Kazari. Required for Kazari to work. Default: https://scala-evaluator-212.herokuapp.com")
   val micrositeKazariEvaluatorToken: SettingKey[String] = settingKey[String](
@@ -203,6 +205,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           micrositeDocumentationUrl = micrositeDocumentationUrl.value
         ),
         micrositeKazariSettings = KazariSettings(
+          micrositeKazariEnabled.value,
           micrositeKazariEvaluatorUrl.value,
           micrositeKazariEvaluatorToken.value,
           micrositeKazariGithubToken.value,
@@ -255,7 +258,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         )
         .value
     },
-    publishMicrosite := (Def.taskDyn {
+    publishMicrosite := Def.taskDyn {
       val siteDir: File                 = (target in makeSite).value
       val noJekyll: Boolean             = ghpagesNoJekyll.value
       val branch: String                = ghpagesBranch.value
@@ -305,7 +308,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
             cleanAndMakeMicroSite
         }
       }
-    }).value
+    }.value
   )
 
   val publishMicrositeCommand: Command = Command(publishMicrositeCommandKey)(_ => OptNotSpace) {

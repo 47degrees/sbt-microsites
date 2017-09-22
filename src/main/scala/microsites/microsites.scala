@@ -27,6 +27,7 @@ case class KazariDependency(
     version: String)
 
 case class KazariSettings(
+    micrositeKazariEnabled: Boolean,
     micrositeKazariEvaluatorUrl: String,
     micrositeKazariEvaluatorToken: String,
     micrositeKazariGithubToken: String,
