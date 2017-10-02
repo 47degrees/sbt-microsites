@@ -24,8 +24,8 @@ object ProjectPlugin extends AutoPlugin {
       resolvers ++= Seq(
         Resolver.sonatypeRepo("snapshots"),
         "jgit-repo" at "http://download.eclipse.org/jgit/maven"),
-      addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.2"),
-      addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.3.0"),
+      addSbtPlugin(%("sbt-ghpages", true)),
+      addSbtPlugin(%("sbt-site", true)),
       libraryDependencies ++= Seq(
         %%("org-policies-core"),
         %%("moultingyaml"),
@@ -41,7 +41,7 @@ object ProjectPlugin extends AutoPlugin {
         val scalaBinaryVersionValue = (scalaBinaryVersion in update).value
 
         val (tutPluginVersion, scrimageVersion) = sbtVersionValue match {
-          case sbtV.`0.13` => ("0.5.3", "2.1.7")
+          case sbtV.`0.13` => ("0.5.5", "2.1.7")
           case sbtV.`1.0`  => ("0.6.1", "2.1.8")
         }
 
