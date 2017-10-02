@@ -1,5 +1,12 @@
 # Changelog
 
+## 10/02/2017 - Version 0.7.2
+
+Release changes:
+
+* Fixes publishMicrosite dynamic task ([#229](https://github.com/47deg/sbt-microsites/pull/229))
+
+
 ## 09/20/2017 - Version 0.7.1
 
 Release changes:
