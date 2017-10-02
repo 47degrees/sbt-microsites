@@ -1,7 +1,7 @@
 import sbt.Resolver.sonatypeRepo
 
 resolvers ++= Seq(sonatypeRepo("snapshots"), sonatypeRepo("releases"))
-addSbtPlugin("com.47deg" % "sbt-org-policies" % "0.7.2")
+addSbtPlugin("com.47deg" % "sbt-org-policies" % "0.7.5")
 
 libraryDependencies += {
   lazy val sbtVersionValue = (sbtVersion in pluginCrossBuild).value
