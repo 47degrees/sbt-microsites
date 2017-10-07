@@ -8,6 +8,7 @@ $ exists target/scala-2.11/resource_managed/main/jekyll/img/scala.png
 $ exists target/scala-2.11/resource_managed/main/jekyll/img/sbt.png
 $ exists target/scala-2.11/resource_managed/main/jekyll/css/override-1.css
 $ exists target/scala-2.11/resource_managed/main/jekyll/css/override-2.css
+$ exists target/scala-2.11/resource_managed/main/jekyll/_plugins/GitterTag.rb
 
 # check images and css at site folder
 
