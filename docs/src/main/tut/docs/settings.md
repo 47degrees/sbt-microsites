@@ -224,6 +224,12 @@ Each file (the map key) can be related to a specific configuration through the `
 2. Jekyll `layout` property.
 3. Other custom Jekyll properties that you might want to include in your document.
 
+- `micrositePluginsDirectory`: you can also introduce custom [Jekyll plugins](https://jekyllrb.com/docs/plugins/) in the generated microsite through the `micrositePluginsDirectory` setting. The plugin files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "plugins"` but you can override it like this:
+
+```
+micrositePluginsDirectory := (resourceDirectory in Compile).value / "site" / "plugins"
+```
+
 - `micrositePalette`: the default microsite style essentially uses eight colors. You can configure all of them, as seen below:
 
 ```
