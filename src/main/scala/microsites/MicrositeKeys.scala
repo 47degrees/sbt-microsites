@@ -94,6 +94,8 @@ trait MicrositeKeys {
       "Optional. This key is useful when you want to include automatically markdown documents as a part of your microsite, and these files are located in different places from the tutSourceDirectory. The map key is related with the source file, the map value corresponds with the target relative file path and the document meta-information configuration. By default, the map is empty.")
   val micrositeExtraMdFilesOutput: SettingKey[File] = settingKey[File](
     "Optional. Microsite output location for extra-md files. Default is resourceManaged + '/jekyll/_extra_md'")
+  val micrositePluginsDirectory: SettingKey[File] = settingKey[File](
+    "Optional. Microsite Plugins directory. By default, it'll be the resourcesDirectory + '/microsite/plugins'")
   val micrositePalette: SettingKey[Map[String, String]] =
     settingKey[Map[String, String]]("Microsite palette")
   val micrositeFavicons: SettingKey[Seq[MicrositeFavicon]] = settingKey[Seq[MicrositeFavicon]](
@@ -196,7 +198,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           micrositeExternalIncludesDirectory = micrositeExternalIncludesDirectory.value,
           micrositeDataDirectory = micrositeDataDirectory.value,
           micrositeExtraMdFiles = micrositeExtraMdFiles.value,
-          micrositeExtraMdFilesOutput = micrositeExtraMdFilesOutput.value
+          micrositeExtraMdFilesOutput = micrositeExtraMdFilesOutput.value,
+          micrositePluginsDirectory = micrositePluginsDirectory.value
         ),
         urlSettings = MicrositeUrlSettings(
           micrositeBaseUrl = micrositeBaseUrl.value,

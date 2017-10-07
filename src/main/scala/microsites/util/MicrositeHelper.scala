@@ -64,6 +64,7 @@ class MicrositeHelper(config: MicrositeSettings) extends MicrositeHelperSpecific
     fw.copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "img")
     fw.copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "js")
     fw.copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "highlight")
+    fw.copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "plugins")
 
     fw.copyFilesRecursively(
       config.fileLocations.micrositeImgDirectory.getAbsolutePath,
@@ -83,6 +84,9 @@ class MicrositeHelper(config: MicrositeSettings) extends MicrositeHelperSpecific
     fw.copyFilesRecursively(
       config.fileLocations.micrositeDataDirectory.getAbsolutePath,
       s"$targetDir$jekyllDir/_data/")
+    fw.copyFilesRecursively(
+      config.fileLocations.micrositePluginsDirectory.getAbsolutePath,
+      s"$targetDir$jekyllDir/_plugins/")
 
     List(createConfigYML(targetDir), createPalette(targetDir)) ++
       createLayouts(targetDir) ++ createPartialLayout(targetDir) ++ createFavicons(targetDir)
