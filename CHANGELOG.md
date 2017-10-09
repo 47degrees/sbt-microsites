@@ -1,5 +1,13 @@
 # Changelog
 
+## 10/09/2017 - Version 0.7.4
+
+Release changes:
+
+* Add support for custom Jekyll plugins ([#231](https://github.com/47deg/sbt-microsites/pull/231))
+* Releases 0.7.4 with #231 ([#232](https://github.com/47deg/sbt-microsites/pull/232))
+
+
 ## 10/03/2017 - Version 0.7.3
 
 Release changes:
