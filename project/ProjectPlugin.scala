@@ -41,7 +41,7 @@ object ProjectPlugin extends AutoPlugin {
         val scalaBinaryVersionValue = (scalaBinaryVersion in update).value
 
         val (tutPluginVersion, scrimageVersion) = sbtVersionValue match {
-          case sbtV.`0.13` => ("0.5.5", "2.1.7")
+          case sbtV.`0.13` => ("0.5.6", "2.1.7")
           case sbtV.`1.0`  => ("0.6.2", "2.1.8")
         }
 
