@@ -24,7 +24,7 @@ import microsites._
 import microsites.layouts._
 import net.jcazevedo.moultingyaml.{YamlObject, _}
 import sbt._
-import sbtorgpolicies.io._
+import sbtorgpolicies.io.FileWriter
 import sbtorgpolicies.io.syntax._
 
 import scala.io.Source
