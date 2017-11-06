@@ -1,5 +1,12 @@
 # Changelog
 
+## 11/06/2017 - Version 0.7.6
+
+Release changes:
+
+* Updates missed tut 0.5.6 for sbt 0.13.x ([#234](https://github.com/47deg/sbt-microsites/pull/234))
+
+
 ## 11/06/2017 - Version 0.7.5
 
 Release changes:
