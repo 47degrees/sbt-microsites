@@ -35,14 +35,12 @@ object ProjectPlugin extends AutoPlugin {
         %%("scalacheck") % "test"
       ),
       libraryDependencies ++= {
-        val sbtVersionValue       = (sbtVersion in pluginCrossBuild).value
-        val sbtBinaryVersionValue = (sbtBinaryVersion in pluginCrossBuild).value
-
+        val sbtBinaryVersionValue   = (sbtBinaryVersion in pluginCrossBuild).value
         val scalaBinaryVersionValue = (scalaBinaryVersion in update).value
 
-        val (tutPluginVersion, scrimageVersion) = sbtVersionValue match {
-          case sbtV.`0.13` => ("0.5.6", "2.1.7")
-          case sbtV.`1.0`  => ("0.6.2", "2.1.8")
+        val (tutPluginVersion, scrimageVersion) = sbtBinaryVersionValue match {
+          case "0.13" => ("0.5.6", "2.1.7")
+          case "1.0"  => ("0.6.2", "2.1.8")
         }
 
         Seq(
