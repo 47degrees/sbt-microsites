@@ -1,5 +1,13 @@
 # Changelog
 
+## 11/15/2017 - Version 0.7.7
+
+Release changes:
+
+* Upgrades to sbt-org-policies 0.8.12 and releases 0.7.7 ([#236](https://github.com/47deg/sbt-microsites/pull/236))
+* Fixes travis release filter ([#237](https://github.com/47deg/sbt-microsites/pull/237))
+
+
 ## 11/06/2017 - Version 0.7.6
 
 Release changes:
