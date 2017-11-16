@@ -1,5 +1,12 @@
 # Changelog
 
+## 11/16/2017 - Version 0.7.8
+
+Release changes:
+
+* Bump-ups versions ([#238](https://github.com/47deg/sbt-microsites/pull/238))
+
+
 ## 11/15/2017 - Version 0.7.7
 
 Release changes:
