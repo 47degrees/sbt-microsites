@@ -1,5 +1,12 @@
 # Changelog
 
+## 11/16/2017 - Version 0.7.9
+
+Release changes:
+
+* Upgrades sbt org policies and scala version for Travis ([#240](https://github.com/47deg/sbt-microsites/pull/240))
+
+
 ## 11/16/2017 - Version 0.7.8
 
 Release changes:
