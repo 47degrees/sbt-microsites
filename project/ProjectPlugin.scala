@@ -27,7 +27,7 @@ object ProjectPlugin extends AutoPlugin {
       addSbtPlugin(%("sbt-ghpages", true)),
       addSbtPlugin(%("sbt-site", true)),
       libraryDependencies ++= Seq(
-        %%("org-policies-core"),
+        %%("org-policies-core", "0.8.13"),
         %%("moultingyaml"),
         %%("scalatags"),
         %%("scalactic"),
@@ -85,7 +85,7 @@ object ProjectPlugin extends AutoPlugin {
       crossScalaVersions := Seq("2.11.8"),
       skip in packageJSDependencies := false,
       libraryDependencies ++= Seq(
-        %%%("github4s"),
+        %%%("github4s", "0.17.0"),
         %%%("roshttp"),
         "org.scala-js"        %%% "scalajs-dom"       % "0.9.0",
         "be.doeraene"         %%% "scalajs-jquery"    % "0.9.0",
