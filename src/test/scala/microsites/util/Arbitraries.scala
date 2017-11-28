@@ -18,7 +18,7 @@ package microsites.util
 
 import java.io.File
 
-import microsites.MicrositeKeys.{micrositeKazariEnabled, _}
+import microsites.MicrositeKeys._
 import microsites._
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen._
