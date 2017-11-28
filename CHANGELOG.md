@@ -1,5 +1,12 @@
 # Changelog
 
+## 11/28/2017 - Version 0.7.10
+
+Release changes:
+
+* Option disable kazari ([#241](https://github.com/47deg/sbt-microsites/pull/241))
+
+
 ## 11/16/2017 - Version 0.7.9
 
 Release changes:
