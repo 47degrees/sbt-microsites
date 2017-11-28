@@ -24,10 +24,10 @@ object ProjectPlugin extends AutoPlugin {
       resolvers ++= Seq(
         Resolver.sonatypeRepo("snapshots"),
         "jgit-repo" at "http://download.eclipse.org/jgit/maven"),
-      addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.2"),
-      addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.3.0"),
+      addSbtPlugin(%("sbt-ghpages", true)),
+      addSbtPlugin(%("sbt-site", true)),
       libraryDependencies ++= Seq(
-        %%("org-policies-core"),
+        %%("org-policies-core", "0.8.14"),
         %%("moultingyaml"),
         %%("scalatags"),
         %%("scalactic"),
@@ -35,14 +35,12 @@ object ProjectPlugin extends AutoPlugin {
         %%("scalacheck") % "test"
       ),
       libraryDependencies ++= {
-        val sbtVersionValue       = (sbtVersion in pluginCrossBuild).value
-        val sbtBinaryVersionValue = (sbtBinaryVersion in pluginCrossBuild).value
-
+        val sbtBinaryVersionValue   = (sbtBinaryVersion in pluginCrossBuild).value
         val scalaBinaryVersionValue = (scalaBinaryVersion in update).value
 
-        val (tutPluginVersion, scrimageVersion) = sbtVersionValue match {
-          case sbtV.`0.13` => ("0.5.3", "2.1.7")
-          case sbtV.`1.0`  => ("0.6.1", "2.1.8")
+        val (tutPluginVersion, scrimageVersion) = sbtBinaryVersionValue match {
+          case "0.13" => ("0.5.6", "2.1.7")
+          case "1.0"  => ("0.6.2", "2.1.8")
         }
 
         Seq(
@@ -87,7 +85,7 @@ object ProjectPlugin extends AutoPlugin {
       crossScalaVersions := Seq("2.11.8"),
       skip in packageJSDependencies := false,
       libraryDependencies ++= Seq(
-        %%%("github4s"),
+        %%%("github4s", "0.15.0"),
         %%%("roshttp"),
         "org.scala-js"        %%% "scalajs-dom"       % "0.9.0",
         "be.doeraene"         %%% "scalajs-jquery"    % "0.9.0",

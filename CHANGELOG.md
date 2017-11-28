@@ -1,5 +1,63 @@
 # Changelog
 
+## 11/16/2017 - Version 0.7.9
+
+Release changes:
+
+* Upgrades sbt org policies and scala version for Travis ([#240](https://github.com/47deg/sbt-microsites/pull/240))
+
+
+## 11/16/2017 - Version 0.7.8
+
+Release changes:
+
+* Bump-ups versions ([#238](https://github.com/47deg/sbt-microsites/pull/238))
+
+
+## 11/15/2017 - Version 0.7.7
+
+Release changes:
+
+* Upgrades to sbt-org-policies 0.8.12 and releases 0.7.7 ([#236](https://github.com/47deg/sbt-microsites/pull/236))
+* Fixes travis release filter ([#237](https://github.com/47deg/sbt-microsites/pull/237))
+
+
+## 11/06/2017 - Version 0.7.6
+
+Release changes:
+
+* Updates missed tut 0.5.6 for sbt 0.13.x ([#234](https://github.com/47deg/sbt-microsites/pull/234))
+
+
+## 11/06/2017 - Version 0.7.5
+
+Release changes:
+
+* Updates tut 0.6.2 ([#233](https://github.com/47deg/sbt-microsites/pull/233))
+
+
+## 10/09/2017 - Version 0.7.4
+
+Release changes:
+
+* Add support for custom Jekyll plugins ([#231](https://github.com/47deg/sbt-microsites/pull/231))
+* Releases 0.7.4 with #231 ([#232](https://github.com/47deg/sbt-microsites/pull/232))
+
+
+## 10/03/2017 - Version 0.7.3
+
+Release changes:
+
+* Bump sbt-org-policies ([#230](https://github.com/47deg/sbt-microsites/pull/230))
+
+
+## 10/02/2017 - Version 0.7.2
+
+Release changes:
+
+* Fixes publishMicrosite dynamic task ([#229](https://github.com/47deg/sbt-microsites/pull/229))
+
+
 ## 09/20/2017 - Version 0.7.1
 
 Release changes:
