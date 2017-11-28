@@ -156,6 +156,13 @@ abstract class Layout(config: MicrositeSettings) {
       link(rel := "stylesheet", href := css)
     }
 
+    val kazariStyles = List(
+      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/kazari-style.css"),
+      link(
+        rel := "stylesheet",
+        href := s"{{site.baseurl}}/css/${config.micrositeKazariSettings.micrositeKazariCodeMirrorTheme}.css")
+    )
+
     List(
       link(
         rel := "stylesheet",
@@ -168,12 +175,10 @@ abstract class Layout(config: MicrositeSettings) {
         href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/style.css"),
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/palette.css"),
-      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css"),
-      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/kazari-style.css"),
-      link(
-        rel := "stylesheet",
-        href := s"{{site.baseurl}}/css/${config.micrositeKazariSettings.micrositeKazariCodeMirrorTheme}.css")
-    ) ++ customCssList ++ customCDNList
+      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css")
+    ) ++ customCssList ++ customCDNList ++ (if (config.micrositeKazariSettings.micrositeKazariEnabled)
+                                              kazariStyles
+                                            else Nil)
   }
 
   def scripts: List[TypedTag[String]] = {

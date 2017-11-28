@@ -27,7 +27,11 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
   override def render: TypedTag[String] = {
     html(
       commonHead,
-      body(cls := "docs", sideBarAndContent, scriptsDocs, kazariEnableScript)
+      body(
+        cls := "docs",
+        sideBarAndContent,
+        scriptsDocs,
+        if (config.micrositeKazariSettings.micrositeKazariEnabled) kazariEnableScript else "")
     )
   }
 
