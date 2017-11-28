@@ -126,8 +126,8 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
 
   def scriptsDocs: List[TypedTag[String]] =
     scripts ++
-      List(
-        script(src := "{{ site.baseurl }}/js/main.js"),
-        script(src := "{{ site.baseurl }}/js/kazari.js")
-      )
+      List(script(src := "{{ site.baseurl }}/js/main.js")) ++
+      (if (config.micrositeKazariSettings.micrositeKazariEnabled)
+         List(script(src := "{{ site.baseurl }}/js/kazari.js"))
+       else List.empty[TypedTag[String]])
 }
