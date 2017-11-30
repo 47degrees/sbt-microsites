@@ -62,7 +62,7 @@ abstract class Layout(config: MicrositeSettings) {
 
   val ganalytics: Option[TypedTag[String]] =
     if (config.identity.analytics.nonEmpty)
-      Some(script(s"""
+      Some(script(attr("async") := "async")(s"""
       |(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       |(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       |m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -127,7 +127,7 @@ abstract class Layout(config: MicrositeSettings) {
       meta(name := "twitter:image", content := s"${config.identity.homepage}img/poster.png"),
       meta(name := "twitter:description", content := config.identity.description),
       meta(name := "twitter:card", content := "summary_large_image")
-    ) ++ twitter.toList ++ twitterCreator.toList ++ kazariDep.toList ++ kazariRes.toList ++ ganalytics.toList
+    ) ++ twitter.toList ++ twitterCreator.toList ++ kazariDep.toList ++ kazariRes.toList
 
   def favicons: List[TypedTag[String]] =
     (if (config.visualSettings.favicons.nonEmpty) {
@@ -178,7 +178,7 @@ abstract class Layout(config: MicrositeSettings) {
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css")
     ) ++ customCssList ++ customCDNList ++ (if (config.micrositeKazariSettings.micrositeKazariEnabled)
                                               kazariStyles
-                                            else Nil)
+                                            else Nil) ++ ganalytics.toList
   }
 
   def scripts: List[TypedTag[String]] = {
