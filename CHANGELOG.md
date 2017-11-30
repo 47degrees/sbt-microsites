@@ -1,5 +1,14 @@
 # Changelog
 
+## 11/30/2017 - Version 0.7.11
+
+Release changes:
+
+* Disabling kazari in DocsLayout and kazari styles if kazari is not required ([#242](https://github.com/47deg/sbt-microsites/pull/242))
+* Change GA script parsing mode for smoother navigation jumps ([#243](https://github.com/47deg/sbt-microsites/pull/243))
+* Releases 0.7.11 ([#244](https://github.com/47deg/sbt-microsites/pull/244))
+
+
 ## 11/28/2017 - Version 0.7.10
 
 Release changes:
