@@ -1,5 +1,12 @@
 # Changelog
 
+## 12/01/2017 - Version 0.7.12
+
+Release changes:
+
+* Add anchor links handlers ([#245](https://github.com/47deg/sbt-microsites/pull/245))
+
+
 ## 11/30/2017 - Version 0.7.11
 
 Release changes:
