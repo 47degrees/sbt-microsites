@@ -105,7 +105,7 @@ trait MicrositeKeys {
   val micrositeGithubToken: SettingKey[Option[String]] =
     settingKey[Option[String]]("Microsite Github token for pushing the microsite")
   val micrositeKazariEnabled: SettingKey[Boolean] =
-    SettingKey[Boolean]("Optional. Includes Kazari plugin functionality. Disabled by default.")
+    settingKey[Boolean]("Optional. Includes Kazari plugin functionality. Disabled by default.")
   val micrositeKazariEvaluatorUrl: SettingKey[String] = settingKey[String](
     "URL of the remote Scala Evaluator to be used by Kazari. Required for Kazari to work. Default: https://scala-evaluator-212.herokuapp.com")
   val micrositeKazariEvaluatorToken: SettingKey[String] = settingKey[String](
@@ -130,14 +130,14 @@ trait MicrositeKeys {
   val micrositeAnalyticsToken: SettingKey[String] =
     settingKey[String](
       "Optional. Add your property id of Google Analytics to add a Google Analytics tracker")
-  val micrositeGitterChannel: SettingKey[Boolean] = SettingKey[Boolean](
+  val micrositeGitterChannel: SettingKey[Boolean] = settingKey[Boolean](
     "Optional. Includes Gitter sidecar Chat functionality. Enabled by default."
   )
-  val micrositeGitterChannelUrl: SettingKey[String] = SettingKey[String](
+  val micrositeGitterChannelUrl: SettingKey[String] = settingKey[String](
     "Optional. Add custom Gitter sidecar Chat URL. By default is owner/repository."
   )
 
-  val micrositeFooterText: SettingKey[Option[String]] = SettingKey[Option[String]](
+  val micrositeFooterText: SettingKey[Option[String]] = settingKey[Option[String]](
     "Optional. Customize the second line in the footer."
   )
 
