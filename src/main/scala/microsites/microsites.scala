@@ -18,8 +18,6 @@ package microsites
 
 import sbt._
 
-import scala.language.{postfixOps, reflectiveCalls}
-
 case class KazariDependency(
     groupId: String,
     artifactId: String,

@@ -53,9 +53,8 @@ class MicrositeHelper(config: MicrositeSettings) extends MicrositeHelperSpecific
 
   def createResources(resourceManagedDir: File, tutSourceDirectory: File): List[File] = {
 
-    val targetDir: String    = resourceManagedDir.getAbsolutePath.ensureFinalSlash
-    val tutSourceDir: String = tutSourceDirectory.getAbsolutePath.ensureFinalSlash
-    val pluginURL: URL       = getClass.getProtectionDomain.getCodeSource.getLocation
+    val targetDir: String = resourceManagedDir.getAbsolutePath.ensureFinalSlash
+    val pluginURL: URL    = getClass.getProtectionDomain.getCodeSource.getLocation
 
     copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "_sass")
     copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "css")
