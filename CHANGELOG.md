@@ -1,5 +1,14 @@
 # Changelog
 
+## 12/14/2017 - Version 0.7.13
+
+Release changes:
+
+* Bump ruby version to 2.2.8 in docs ([#246](https://github.com/47deg/sbt-microsites/pull/246))
+* Use settingKey for SettingKey definitions ([#247](https://github.com/47deg/sbt-microsites/pull/247))
+* Releases 0.7.13 ([#249](https://github.com/47deg/sbt-microsites/pull/249))
+
+
 ## 12/01/2017 - Version 0.7.12
 
 Release changes:
