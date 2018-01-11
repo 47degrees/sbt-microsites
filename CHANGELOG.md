@@ -1,5 +1,12 @@
 # Changelog
 
+## 01/11/2018 - Version 0.7.14
+
+Release changes:
+
+* Add micrositeStaticDirectory feature ([#253](https://github.com/47deg/sbt-microsites/pull/253))
+
+
 ## 12/14/2017 - Version 0.7.13
 
 Release changes:
