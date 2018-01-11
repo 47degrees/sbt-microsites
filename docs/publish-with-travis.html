@@ -1,0 +1,168 @@
+<html><head><title>sbt-microsites</title><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="47 Degrees" /><meta name="description" content="An sbt plugin to create awesome microsites for your project" /><meta name="og:image" content="/sbt-microsites/img/poster.png" /><meta name="og:title" content="sbt-microsites" /><meta name="og:site_name" content="sbt-microsites" /><meta name="og:url" content="https://47deg.github.io/sbt-microsites/" /><meta name="og:type" content="website" /><meta name="og:description" content="An sbt plugin to create awesome microsites for your project" /><link rel="icon" type="image/png" href="/sbt-microsites/img/favicon.png" /><meta name="twitter:title" content="sbt-microsites" /><meta name="twitter:image" content="https://47deg.github.io/sbt-microsites/img/poster.png" /><meta name="twitter:description" content="An sbt plugin to create awesome microsites for your project" /><meta name="twitter:card" content="summary_large_image" /><link rel="icon" type="image/png" sizes="16x16" href="/sbt-microsites/img/favicon16x16.png" /><link rel="icon" type="image/png" sizes="24x24" href="/sbt-microsites/img/favicon24x24.png" /><link rel="icon" type="image/png" sizes="32x32" href="/sbt-microsites/img/favicon32x32.png" /><link rel="icon" type="image/png" sizes="48x48" href="/sbt-microsites/img/favicon48x48.png" /><link rel="icon" type="image/png" sizes="57x57" href="/sbt-microsites/img/favicon57x57.png" /><link rel="icon" type="image/png" sizes="60x60" href="/sbt-microsites/img/favicon60x60.png" /><link rel="icon" type="image/png" sizes="64x64" href="/sbt-microsites/img/favicon64x64.png" /><link rel="icon" type="image/png" sizes="70x70" href="/sbt-microsites/img/favicon70x70.png" /><link rel="icon" type="image/png" sizes="72x72" href="/sbt-microsites/img/favicon72x72.png" /><link rel="icon" type="image/png" sizes="76x76" href="/sbt-microsites/img/favicon76x76.png" /><link rel="icon" type="image/png" sizes="96x96" href="/sbt-microsites/img/favicon96x96.png" /><link rel="icon" type="image/png" sizes="114x114" href="/sbt-microsites/img/favicon114x114.png" /><link rel="icon" type="image/png" sizes="120x120" href="/sbt-microsites/img/favicon120x120.png" /><link rel="icon" type="image/png" sizes="128x128" href="/sbt-microsites/img/favicon128x128.png" /><link rel="icon" type="image/png" sizes="144x144" href="/sbt-microsites/img/favicon144x144.png" /><link rel="icon" type="image/png" sizes="150x150" href="/sbt-microsites/img/favicon150x150.png" /><link rel="icon" type="image/png" sizes="152x152" href="/sbt-microsites/img/favicon152x152.png" /><link rel="icon" type="image/png" sizes="196x196" href="/sbt-microsites/img/favicon196x196.png" /><link rel="icon" type="image/png" sizes="310x310" href="/sbt-microsites/img/favicon310x310.png" /><link rel="icon" type="image/png" sizes="310x150" href="/sbt-microsites/img/favicon310x150.png" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" /><link rel="stylesheet" href="/sbt-microsites/highlight/styles/color-brewer.css" /><link rel="stylesheet" href="/sbt-microsites/css/style.css" /><link rel="stylesheet" href="/sbt-microsites/css/palette.css" /><link rel="stylesheet" href="/sbt-microsites/css/codemirror.css" /><link rel="stylesheet" href="/sbt-microsites/css/override.css" /></head><body class="docs"><div id="wrapper"><div id="sidebar-wrapper"><ul id="sidebar" class="sidebar-nav"><li class="sidebar-brand"><a href="/sbt-microsites/" class="brand"><div class="brand-wrapper"><span>sbt-microsites</span></div></a></li> <li><a href="/sbt-microsites/docs/index.html" class="">Getting Started</a></li> <li><a href="/sbt-microsites/docs/settings.html" class="">Configuring the Microsite</a></li> <li><a href="/sbt-microsites/docs/layouts.html" class="">Layouts</a></li> <li><a href="/sbt-microsites/docs/customize.html" class="">Customize</a></li> <li><a href="/sbt-microsites/docs/build-the-microsite.html" class="">Build the microsite</a></li> <li><a href="/sbt-microsites/docs/publish-with-travis.html" class=" active ">Publish with Travis</a></li></ul></div><div id="page-content-wrapper"><div class="nav"><div class="container-fluid"><div class="row"><div class="col-lg-12"><div class="action-menu pull-left clearfix"><a href="#menu-toggle" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a></div><ul class="pull-right"><li id="gh-eyes-item" class="hidden-xs"><a href="https://github.com/47deg/sbt-microsites"><i class="fa fa-eye"></i><span>WATCH<span id="eyes" class="label label-default">--</span></span></a></li><li id="gh-stars-item" class="hidden-xs"><a href="https://github.com/47deg/sbt-microsites"><i class="fa fa-star-o"></i><span>STARS<span id="stars" class="label label-default">--</span></span></a></li><li><a href="#" onclick="shareSiteTwitter('sbt-microsites An sbt plugin to create awesome microsites for your project');"><i class="fa fa-twitter"></i></a></li><li><a href="#" onclick="shareSiteFacebook('sbt-microsites An sbt plugin to create awesome microsites for your project');"><i class="fa fa-facebook"></i></a></li><li><a href="#" onclick="shareSiteGoogle();"><i class="fa fa-google-plus"></i></a></li></ul></div></div></div></div><div id="content" data-github-owner="47deg" data-github-repo="sbt-microsites"><div class="content-wrapper"><section><h1 id="publish-with-travis">Publish with Travis</h1>
+
+<p>In this section, we’re going to learn how to configure Travis so you can publish your microsite when you merge in master.</p>
+
+<p>There are two options for publishing the site. See <a href="settings.html">Configuring the Microsite</a> section for more information.</p>
+
+<h2 id="publish-using-sbt-ghpages">Publish using sbt-ghpages</h2>
+
+<p>When the property <code class="highlighter-rouge">micrositePushSiteWith</code> is set to <code class="highlighter-rouge">GHPagesPlugin</code> (by default), the site is pushed using the sbt-ghpages plugins. The steps for this approach are:</p>
+
+<p><strong>1- Generate an SSH key pair</strong></p>
+
+<p>Run this command in your console</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ ssh-keygen -t rsa -b 4096 -C "Travis Deploy Key" -f travis-deploy-key
+</code></pre>
+</div>
+
+<p>After that, you’ll see two new files in your folder: <code class="highlighter-rouge">travis-deploy-key</code> and <code class="highlighter-rouge">travis-deploy-key.pub</code></p>
+
+<p><em><strong>Note:</strong> If you are creating the keys in your project maybe you should add these files to your .gitignore file</em>.</p>
+
+<p><strong>2- Add key to GitHub Project</strong></p>
+
+<p>Add the content of <code class="highlighter-rouge">travis-deploy-key.pub</code> in the <code class="highlighter-rouge">Deploy Key</code> section of the GitHub project’s setting page.</p>
+
+<p>Navigate to <code class="highlighter-rouge">Setting</code> &gt; <code class="highlighter-rouge">Deploy Keys</code>. Make sure you allow write access in order to push in this repository.</p>
+
+<p><strong>3- Encrypt your keys</strong></p>
+
+<p>Travis needs the keys for publishing the microsite in <code class="highlighter-rouge">gh-pages</code> branch. It’s very important that you encrypt your keys using the <code class="highlighter-rouge">travis</code> command line. You have to install travis:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ gem install travis
+</code></pre>
+</div>
+
+<p><em><strong>Note:</strong> An important thing to remember is that you can only have one file encrypted in Travis. If you need more keys you should use <code class="highlighter-rouge">tar</code> for joining your different keys. In our example, we only are going to use the key</em></p>
+
+<p>We have to encrypt the <code class="highlighter-rouge">travis-deploy-key</code> file and we have to add the encrypted file to GitHub.</p>
+
+<p>First, we must be logged into travis:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ travis login
+</code></pre>
+</div>
+
+<p>Secondly, encrypt the file:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ travis encrypt-file travis-deploy-key travis-deploy-key.enc
+</code></pre>
+</div>
+
+<p>You are going to see the following response:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>encrypting travis-deploy-key for [org]/[project]
+storing result as travis-deploy-key.enc
+
+Please add the following to your build script (before_install stage in your .travis.yml, for instance):
+
+    openssl aes-256-cbc -K $encrypted_[your_number]_key -iv $encrypted_[your_number]_iv -in travis-deploy-key.enc -out travis-deploy-key -d
+
+Pro Tip: You can add it automatically by running with --add.
+
+Make sure to add keys.tar.enc to the git repository.
+Make sure not to add keys.tar to the git repository.
+Commit all changes to your .travis.yml.
+
+</code></pre>
+</div>
+
+<p>Finally, add the encrypted file to your git:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git add travis-deploy-key.enc
+</code></pre>
+</div>
+
+<p><strong>4- Configure your .travis.yml</strong></p>
+
+<p>Our recommendation is that you should use <code class="highlighter-rouge">Bash Scripts</code> and run the script when you merge the changes in master.</p>
+
+<p>This is the <code class="highlighter-rouge">.travis.yml</code> in <code class="highlighter-rouge">sbt-microsite</code> project:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>language: scala
+scala:
+- 2.10.6
+jdk:
+- oraclejdk8
+before_install:
+- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash
+  scripts/decrypt-keys.sh; fi
+- export PATH=${PATH}:./vendor/bundle
+install:
+- rvm use 2.2.8 --install --fuzzy
+- gem update --system
+- gem install sass
+- gem install jekyll -v 3.2.1
+script:
+- sbt ++$TRAVIS_SCALA_VERSION test scripted
+after_success:
+- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash
+  scripts/publishMicrosite.sh; fi
+- if [ "$TRAVIS_PULL_REQUEST" = "true" ]; then echo "Not in master branch, skipping
+  deploy and release"; fi
+</code></pre>
+</div>
+
+<p>You can see that before we install, we run <code class="highlighter-rouge">decrypt-keys.sh</code>, then we install <code class="highlighter-rouge">jekyll</code> and finally, we are running <code class="highlighter-rouge">publishMicrosite.sh</code>.</p>
+
+<p>Next, you can see the <code class="highlighter-rouge">decrypt-keys.sh</code> script:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
+
+openssl aes-256-cbc -K <span class="nv">$encrypted_</span><span class="o">[</span>your_number]_key -iv <span class="nv">$encrypted_</span><span class="o">[</span>your_number]_iv -in travis-deploy-key.enc -out travis-deploy-key -d;
+chmod 600 travis-deploy-key;
+cp travis-deploy-key ~/.ssh/id_rsa;
+</code></pre>
+</div>
+
+<p>The most important thing here is the <code class="highlighter-rouge">openssl</code> command. You should use the command that you receive as a response when you encrypt the file using the <code class="highlighter-rouge">travis</code> command above.</p>
+
+<p>In this script, we decrypt the keys and copy <code class="highlighter-rouge">.ssh</code> to the folder in order to publish it in GitHub later.</p>
+
+<p>Next, you can see the <code class="highlighter-rouge">publishMicrosite.sh</code> script:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="nb">set</span> -e
+
+git config --global user.email <span class="s2">"your_user_email"</span>
+git config --global user.name <span class="s2">"your_user_name"</span>
+git config --global push.default simple
+
+sbt docs/publishMicrosite
+</code></pre>
+</div>
+
+<p>In this script, we are publishing the microsite in GitHub Pages. To do this, we should add the user information for git.</p>
+
+<h2 id="publish-using-github4s">Publish using GitHub4s</h2>
+
+<p>With this method, you don’t need to generate any ssh keys or encrypt any files. We’ll use the GitHub API for publishing the site. The steps are:</p>
+
+<p><strong>1- Create a token for your project</strong></p>
+
+<p>You need to create a GitHub token with <code class="highlighter-rouge">repo</code> scope. You can create it in the <a href="https://github.com/settings/tokens/new?scopes=repo&amp;description=sbt-microsites">GitHub settings</a> page.</p>
+
+<p>Copy the token in a safe place, we’ll use this token through an environment variable as we’ll see shortly.</p>
+
+<p><strong>2- Configure your project build</strong></p>
+
+<p>You need to set these two sbt settings:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>micrositePushSiteWith := GitHub4s
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>micrositeGithubToken := getEnvVar("GITHUB_TOKEN")
+</code></pre>
+</div>
+
+<p><strong>3- Add the environment variable in Travis</strong></p>
+
+<p>The final step is to define the <code class="highlighter-rouge">GITHUB_TOKEN</code> environment variable in Travis Repository Settings. You can do it following <a href="https://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings">the documentation</a>.</p>
+</section></div></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script><script src="/sbt-microsites/highlight/highlight.pack.js"></script><script>hljs.configure({
+languages:['scala','java','bash']
+});
+hljs.initHighlighting();
+             </script><script>((window.gitter = {}).chat = {}).options = {
+room: '47deg/sbt-microsites'};</script><script src="https://sidecar.gitter.im/dist/sidecar.v1.js"></script><script src="/sbt-microsites/js/main.js"></script></body></html>
