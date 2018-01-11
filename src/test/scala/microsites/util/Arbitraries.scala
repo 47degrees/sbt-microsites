@@ -122,6 +122,7 @@ trait Arbitraries {
       micrositeExternalLayoutsDirectory  ← Arbitrary.arbitrary[File]
       micrositeExternalIncludesDirectory ← Arbitrary.arbitrary[File]
       micrositeDataDirectory             ← Arbitrary.arbitrary[File]
+      micrositeStaticDirectory           ← Arbitrary.arbitrary[File]
       micrositeExtraMdFiles              ← markdownMapArbitrary.arbitrary
       micrositeExtraMdFilesOutput        ← Arbitrary.arbitrary[File]
       micrositePluginsDirectory          ← Arbitrary.arbitrary[File]
@@ -165,6 +166,7 @@ trait Arbitraries {
           micrositeExternalLayoutsDirectory,
           micrositeExternalIncludesDirectory,
           micrositeDataDirectory,
+          micrositeStaticDirectory,
           micrositeExtraMdFiles,
           micrositeExtraMdFilesOutput,
           micrositePluginsDirectory
