@@ -51,6 +51,7 @@ case class MicrositeFileLocations(
     micrositeExternalLayoutsDirectory: File,
     micrositeExternalIncludesDirectory: File,
     micrositeDataDirectory: File,
+    micrositeStaticDirectory: File,
     micrositeExtraMdFiles: Map[File, ExtraMdFileConfig],
     micrositeExtraMdFilesOutput: File,
     micrositePluginsDirectory: File)

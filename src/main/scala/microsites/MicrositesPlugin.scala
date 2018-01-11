@@ -73,6 +73,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeExternalLayoutsDirectory := (resourceDirectory in Compile).value / "microsite" / "layouts",
     micrositeExternalIncludesDirectory := (resourceDirectory in Compile).value / "microsite" / "includes",
     micrositeDataDirectory := (resourceDirectory in Compile).value / "microsite" / "data",
+    micrositeStaticDirectory := (resourceDirectory in Compile).value / "microsite" / "static",
     micrositeExtraMdFiles := Map.empty,
     micrositeExtraMdFilesOutput := (resourceManaged in Compile).value / "jekyll" / "_extra_md",
     micrositePluginsDirectory := (resourceDirectory in Compile).value / "microsite" / "plugins",

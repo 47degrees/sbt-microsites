@@ -7,20 +7,20 @@ title: Configuring the Microsite
 
 The following are the `sbt` settings that you can use to make adjustments to your microsite regarding deployment, configuration, and appearance. Not all of these settings are mandatory, since most of them have default values, as we'll see briefly.
 
-Before you begin to detail the settings, the **sbt-microsites** plugin will use regular sbt configurations from your `build.sbt` file. In order to setup the microsite with minimal effort, all of the configurations are used as default values: 
-   
+Before you begin to detail the settings, the **sbt-microsites** plugin will use regular sbt configurations from your `build.sbt` file. In order to setup the microsite with minimal effort, all of the configurations are used as default values:
+
 ## Regular SBT Settings
-   
+
 - `name`: default value for the microsite name.
 - `description`: value by default used for the microsite description.
 - `organizationName`: used as the microsite author by default.
 - `organizationHomepage`: used as the default microsite homepage.
 
-However, you can override these default settings by using the ones provided by the plugin, which we will describe in detail in the next section. 
+However, you can override these default settings by using the ones provided by the plugin, which we will describe in detail in the next section.
 
 ## Microsite SBT Settings
 
-We tried to provide all of the parameters that are potentially needed to configure any microsite. If you think that something additional needs adding, please let us know! We're open to suggestions and contributions. 
+We tried to provide all of the parameters that are potentially needed to configure any microsite. If you think that something additional needs adding, please let us know! We're open to suggestions and contributions.
 
 - `micrositeName`: the microsite name. As we mentioned previously, by default, it's taken from the sbt setting `name`. Sometimes, it isn't the default behavior so you can override it like this:
 
@@ -201,6 +201,14 @@ micrositeDataDirectory := (resourceDirectory in Compile).value / "site" / "mydat
 ```
 
 In the Documentation **Menu** case, as you can see in the [layouts](layouts.html) section, you need to create a file named as `menu.yml` under the `micrositeDataDirectory` setting.
+
+- `micrositeStaticDirectory`: you can also provide a static directory to your Jekyll site through the `micrositeStaticDirectory` setting. It's based on the idea of [Jekyll Static Files](https://jekyllrb.com/docs/static-files/). The default value is `(resourceDirectory in Compile).value / "microsite" / "static"` but you can override it like this:
+
+```
+micrositeStaticDirectory := (resourceDirectory in Compile).value / "site" / "mystaticfiles"
+```
+
+The directory will be copied as-is, but no process will be applied to any file on it, so the responsibility of loading/linking/use them on a layout is yours.
 
 - `micrositeExtraMdFiles`: this setting can be handy if you want to include additional markdown files in your site, and these files are not located in the same place in your `tut` directory. By default, the setting is set up as an empty map. You can override it, in this way:
 

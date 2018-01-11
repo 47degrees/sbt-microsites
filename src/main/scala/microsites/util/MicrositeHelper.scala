@@ -82,6 +82,9 @@ class MicrositeHelper(config: MicrositeSettings) extends MicrositeHelperSpecific
       config.fileLocations.micrositeDataDirectory.getAbsolutePath,
       s"$targetDir$jekyllDir/_data/")
     copyFilesRecursively(
+      config.fileLocations.micrositeStaticDirectory.getAbsolutePath,
+      s"$targetDir$jekyllDir/${config.fileLocations.micrositeStaticDirectory.getName}/")
+    copyFilesRecursively(
       config.fileLocations.micrositePluginsDirectory.getAbsolutePath,
       s"$targetDir$jekyllDir/_plugins/")
 
