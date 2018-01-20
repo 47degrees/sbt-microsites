@@ -1,5 +1,12 @@
 # Changelog
 
+## 01/20/2018 - Version 0.7.15
+
+Release changes:
+
+* Add page title ([#255](https://github.com/47deg/sbt-microsites/pull/255))
+
+
 ## 01/11/2018 - Version 0.7.14
 
 Release changes:
