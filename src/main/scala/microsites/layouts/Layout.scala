@@ -105,16 +105,17 @@ abstract class Layout(config: MicrositeSettings) {
             config.micrositeKazariSettings.micrositeKazariResolvers.mkString(",")))
     } else None
 
-  def metas: List[TypedTag[String]] =
+  def metas: List[TypedTag[String]] = {
+    val pageTitle = s"${config.identity.name}{% if page.title %}: {{page.title}}{% endif %}"
     List(
-      title(config.identity.name),
+      title(pageTitle),
       meta(charset := "utf-8"),
       meta(httpEquiv := "X-UA-Compatible", content := "IE=edge,chrome=1"),
       meta(name := "viewport", content := "width=device-width, initial-scale=1.0"),
       meta(name := "author", content := config.identity.author),
       meta(name := "description", content := config.identity.description),
       meta(name := "og:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
-      meta(name := "og:title", content := config.identity.name),
+      meta(name := "og:title", content := pageTitle),
       meta(name := "og:site_name", content := config.identity.name),
       meta(name := "og:url", content := config.identity.homepage),
       meta(name := "og:type", content := "website"),
@@ -123,11 +124,12 @@ abstract class Layout(config: MicrositeSettings) {
         rel := "icon",
         `type` := "image/png",
         href := "{{site.url}}{{site.baseurl}}/img/favicon.png"),
-      meta(name := "twitter:title", content := config.identity.name),
+      meta(name := "twitter:title", content := pageTitle),
       meta(name := "twitter:image", content := s"${config.identity.homepage}img/poster.png"),
       meta(name := "twitter:description", content := config.identity.description),
       meta(name := "twitter:card", content := "summary_large_image")
     ) ++ twitter.toList ++ twitterCreator.toList ++ kazariDep.toList ++ kazariRes.toList
+  }
 
   def favicons: List[TypedTag[String]] =
     (if (config.visualSettings.favicons.nonEmpty) {
