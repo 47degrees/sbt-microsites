@@ -68,7 +68,10 @@ trait MicrositeKeys {
     settingKey[String]("Microsite organisation homepage")
   val micrositeTwitter: SettingKey[String]        = settingKey[String]("Microsite twitter")
   val micrositeTwitterCreator: SettingKey[String] = settingKey[String]("Microsite twitter")
-  val micrositeBaseUrl: SettingKey[String]        = settingKey[String]("Microsite site base url")
+  val micrositeShareOnSocial: SettingKey[Boolean] = settingKey[Boolean](
+    "Optional. Includes links to share on social media in the layout. Enabled by default."
+  )
+  val micrositeBaseUrl: SettingKey[String] = settingKey[String]("Microsite site base url")
   val micrositeDocumentationUrl: SettingKey[String] =
     settingKey[String]("Microsite site documentation url")
   val micrositeHighlightTheme: SettingKey[String] = settingKey[String]("Microsite Highlight Theme")
@@ -106,6 +109,8 @@ trait MicrositeKeys {
   val micrositeGithubRepo: SettingKey[String]  = settingKey[String]("Microsite Github repo")
   val micrositeGithubToken: SettingKey[Option[String]] =
     settingKey[Option[String]]("Microsite Github token for pushing the microsite")
+  val micrositeGithubLinks: SettingKey[Boolean] = settingKey[Boolean](
+    "Optional. Includes Github links (forks, stars) in the layout. Enabled by default.")
   val micrositeKazariEnabled: SettingKey[Boolean] =
     settingKey[Boolean]("Optional. Includes Kazari plugin functionality. Disabled by default.")
   val micrositeKazariEvaluatorUrl: SettingKey[String] = settingKey[String](
@@ -187,7 +192,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         visualSettings = MicrositeVisualSettings(
           highlightTheme = micrositeHighlightTheme.value,
           palette = micrositePalette.value,
-          favicons = micrositeFavicons.value
+          favicons = micrositeFavicons.value,
+          shareOnSocial = micrositeShareOnSocial.value
         ),
         templateTexts = MicrositeTemplateTexts(
           footer = micrositeFooterText.value
@@ -228,6 +234,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
             case GitHub => micrositeGithubRepo.value
             case _      => ""
           },
+          githubLinks = micrositeGithubLinks.value,
           gitHostingService = micrositeGitHostingService.value.name,
           gitHostingUrl = micrositeGitHostingUrl.value,
           gitSidecarChat = micrositeGitterChannel.value,
