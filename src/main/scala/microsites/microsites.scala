@@ -59,6 +59,7 @@ case class MicrositeFileLocations(
 case class MicrositeGitSettings(
     githubOwner: String,
     githubRepo: String,
+    githubLinks: Boolean,
     gitHostingService: MicrositeKeys.GitHostingService,
     gitHostingUrl: String,
     gitSidecarChat: Boolean,
@@ -71,7 +72,8 @@ case class MicrositeFavicon(filename: String, sizeDescription: String)
 case class MicrositeVisualSettings(
     highlightTheme: String,
     palette: Map[String, String],
-    favicons: Seq[MicrositeFavicon])
+    favicons: Seq[MicrositeFavicon],
+    shareOnSocial: Boolean)
 
 case class MicrositeTemplateTexts(footer: Option[String])
 

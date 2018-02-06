@@ -63,6 +63,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeDocumentationUrl := "",
     micrositeTwitter := "",
     micrositeTwitterCreator := "",
+    micrositeShareOnSocial := true,
     micrositeHighlightTheme := "default",
     micrositeConfigYaml := ConfigYml(
       yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "_config.yml")),
@@ -105,6 +106,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeGitterChannel := true,
     micrositeGitterChannelUrl := s"${micrositeGithubOwner.value}/${micrositeGithubRepo.value}",
     micrositeFooterText := Some(layouts.Layout.footer.toString),
+    micrositeGithubLinks := true,
     includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json",
     includeFilter in Jekyll := (includeFilter in makeSite).value,
     commands ++= Seq(publishMicrositeCommand)
