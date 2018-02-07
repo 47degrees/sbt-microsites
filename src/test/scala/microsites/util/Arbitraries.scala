@@ -134,8 +134,10 @@ trait Arbitraries {
       githubRepo                         ← Arbitrary.arbitrary[String]
       gitHostingService                  ← Arbitrary.arbitrary[GitHostingService]
       gitHostingUrl                      ← Arbitrary.arbitrary[String]
+      githubLinks                        ← Arbitrary.arbitrary[Boolean]
       gitSidecarChat                     ← Arbitrary.arbitrary[Boolean]
       gitSidecarChatUrl                  ← Arbitrary.arbitrary[String]
+      shareOnSocial                      ← Arbitrary.arbitrary[Boolean]
       micrositeKazariEnabled             ← Arbitrary.arbitrary[Boolean]
       micrositeKazariEvaluatorUrl        ← Arbitrary.arbitrary[String]
       micrositeKazariEvaluatorToken      ← Arbitrary.arbitrary[String]
@@ -155,7 +157,7 @@ trait Arbitraries {
           twitter,
           twitterCreator,
           analytics),
-        MicrositeVisualSettings(highlightTheme, palette, favicon),
+        MicrositeVisualSettings(highlightTheme, palette, favicon, shareOnSocial),
         MicrositeTemplateTexts(micrositeFooterText),
         micrositeConfigYaml,
         MicrositeFileLocations(
@@ -175,6 +177,7 @@ trait Arbitraries {
         MicrositeGitSettings(
           githubOwner,
           githubRepo,
+          githubLinks,
           gitHostingService,
           gitHostingUrl,
           gitSidecarChat,
