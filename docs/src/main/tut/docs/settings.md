@@ -116,6 +116,12 @@ micrositeGitHostingUrl := "https://gitlab.com/gitlab-org/gitlab-ce"
 micrositeAnalyticsToken := 'UA-XXXXX-Y'
 ```
 
+- `micrositeGithubLinks`: This setting defines whether to show/hide GitHub links for stars and forks in docs layout. By default, it is enabled.
+
+```
+micrositeGithubLinks := true
+```
+
 - `micrositeGitterChannel`: This setting is used to enabled the Gitter sidecar Channel functionality, by default is enabled. The chat room is taken from `micrositeGithubOwner` and `micrositeGithubRepo`.
 
 ```
@@ -129,6 +135,12 @@ micrositeGitterChannelUrl := "47deg/sbt-microsites"
 ```
 
 - `micrositeHighlightTheme`: by default, the theme of Highlight.js is [default](https://highlightjs.org/static/demo/), however, you can configure it to a different theme thanks to this setting:
+
+- `micrositeShareOnSocial`: This setting defines whether to show/hide the social media buttons in docs layout. By default, it is enabled.
+
+```
+micrositeShareOnSocial := true
+```
 
 ```
 micrositeHighlightTheme := "monokai"
