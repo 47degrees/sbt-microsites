@@ -134,13 +134,13 @@ micrositeGitterChannel := true
 micrositeGitterChannelUrl := "47deg/sbt-microsites"
 ```
 
-- `micrositeHighlightTheme`: by default, the theme of Highlight.js is [default](https://highlightjs.org/static/demo/), however, you can configure it to a different theme thanks to this setting:
-
 - `micrositeShareOnSocial`: This setting defines whether to show/hide the social media buttons in docs layout. By default, it is enabled.
 
 ```
 micrositeShareOnSocial := true
 ```
+
+- `micrositeHighlightTheme`: by default, the theme of Highlight.js is [default](https://highlightjs.org/static/demo/), however, you can configure it to a different theme thanks to this setting:
 
 ```
 micrositeHighlightTheme := "monokai"
