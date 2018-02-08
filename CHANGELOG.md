@@ -1,5 +1,12 @@
 # Changelog
 
+## 02/08/2018 - Version 0.7.16
+
+Release changes:
+
+* allows hide Github and Social links in `docs` layout ([#257](https://github.com/47deg/sbt-microsites/pull/257))
+
+
 ## 01/20/2018 - Version 0.7.15
 
 Release changes:
