@@ -156,7 +156,7 @@ section: "section2"
 position: 3
 ---
 
-file2.md contents:
+file3.md contents:
 
 ---
 layout: page
