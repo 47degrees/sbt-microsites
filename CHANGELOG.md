@@ -1,5 +1,13 @@
 # Changelog
 
+## 03/30/2018 - Version 0.7.18
+
+Release changes:
+
+* docs typos ([#261](https://github.com/47deg/sbt-microsites/pull/261))
+* Update tut to 0.6.4 for incomplete input fix ([#262](https://github.com/47deg/sbt-microsites/pull/262))
+
+
 ## 03/11/2018 - Version 0.7.17
 
 Release changes:
