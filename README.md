@@ -65,6 +65,7 @@ Many Scala projects use sbt-microsites to display documentation and project note
 ![freestyle](http://frees.io/img/navbar_brand.png) | [**freestyle**](http://frees.io/) | A cohesive & pragmatic framework of FP centric Scala libraries
 ![libra](https://to-ithaca.github.io/libra/img/navbar_brand.png) | [**libra**](https://to-ithaca.github.io/libra) |A dimensional analysis library based on dependent types
 ![airframe](http://wvlet.org/airframe/img/navbar_brand.png) | [**Airframe**](http://wvlet.org/airframe) |A dependency injection library for Scala and Scala.js
+![Scanamo](http://www.scanamo.org/img/navbar_brand.png) | [**Scanamo**](http://www.scanamo.org) | Simpler DynamoDB access for Scala
 
 [comment]: # (Start Copyright)
 # Copyright
