@@ -1,5 +1,14 @@
 # Changelog
 
+## 06/13/2018 - Version 0.7.19
+
+Release changes:
+
+* Add Scanamo to wild sbt-microsites ([#263](https://github.com/47deg/sbt-microsites/pull/263))
+* Updated sbt-org-policies, and sbt to the latest versions. ([#265](https://github.com/47deg/sbt-microsites/pull/265))
+* Release sbt-microsites v0.7.19 ([#266](https://github.com/47deg/sbt-microsites/pull/266))
+
+
 ## 03/30/2018 - Version 0.7.18
 
 Release changes:
