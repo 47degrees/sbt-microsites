@@ -74,6 +74,8 @@ trait MicrositeKeys {
   val micrositeBaseUrl: SettingKey[String] = settingKey[String]("Microsite site base url")
   val micrositeDocumentationUrl: SettingKey[String] =
     settingKey[String]("Microsite site documentation url")
+  val micrositeDocumentationLabelDescription: SettingKey[String] =
+    settingKey[String]("Microsite site documentation Label Description")
   val micrositeHighlightTheme: SettingKey[String] = settingKey[String]("Microsite Highlight Theme")
   val micrositeConfigYaml: SettingKey[ConfigYml] =
     settingKey[ConfigYml]("Microsite _config.yml file configuration.")
@@ -214,7 +216,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         ),
         urlSettings = MicrositeUrlSettings(
           micrositeBaseUrl = micrositeBaseUrl.value,
-          micrositeDocumentationUrl = micrositeDocumentationUrl.value
+          micrositeDocumentationUrl = micrositeDocumentationUrl.value,
+          micrositeDocumentationLabelDescription = micrositeDocumentationLabelDescription.value
         ),
         micrositeKazariSettings = KazariSettings(
           micrositeKazariEnabled.value,

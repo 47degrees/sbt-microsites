@@ -287,7 +287,8 @@ abstract class Layout(config: MicrositeSettings) {
             a(
               href := s"${config.urlSettings.micrositeDocumentationUrl}",
               i(cls := "fa fa-file-text"),
-              span(cls := "hidden-xs", "Documentation"))
+              span(cls := "hidden-xs", config.urlSettings.micrositeDocumentationLabelDescription)
+            )
           )
         else ()
       )

@@ -61,6 +61,7 @@ object MicrositesPlugin extends AutoPlugin {
     },
     micrositeBaseUrl := "",
     micrositeDocumentationUrl := "",
+    micrositeDocumentationLabelDescription := "Documentation",
     micrositeTwitter := "",
     micrositeTwitterCreator := "",
     micrositeShareOnSocial := true,

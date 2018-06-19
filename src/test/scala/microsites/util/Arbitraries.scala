@@ -105,47 +105,48 @@ trait Arbitraries {
 
   implicit def settingsArbitrary: Arbitrary[MicrositeSettings] = Arbitrary {
     for {
-      name                               ← Arbitrary.arbitrary[String]
-      description                        ← Arbitrary.arbitrary[String]
-      author                             ← Arbitrary.arbitrary[String]
-      homepage                           ← Arbitrary.arbitrary[String]
-      organizationHomepage               ← Arbitrary.arbitrary[String]
-      twitter                            ← Arbitrary.arbitrary[String]
-      twitterCreator                     ← Arbitrary.arbitrary[String]
-      analytics                          ← Arbitrary.arbitrary[String]
-      highlightTheme                     ← Arbitrary.arbitrary[String]
-      micrositeConfigYaml                ← configYamlArbitrary.arbitrary
-      micrositeImgDirectory              ← Arbitrary.arbitrary[File]
-      micrositeCssDirectory              ← Arbitrary.arbitrary[File]
-      micrositeJsDirectory               ← Arbitrary.arbitrary[File]
-      micrositeCDNDirectives             <- cdnDirectivesArbitrary.arbitrary
-      micrositeExternalLayoutsDirectory  ← Arbitrary.arbitrary[File]
-      micrositeExternalIncludesDirectory ← Arbitrary.arbitrary[File]
-      micrositeDataDirectory             ← Arbitrary.arbitrary[File]
-      micrositeStaticDirectory           ← Arbitrary.arbitrary[File]
-      micrositeExtraMdFiles              ← markdownMapArbitrary.arbitrary
-      micrositeExtraMdFilesOutput        ← Arbitrary.arbitrary[File]
-      micrositePluginsDirectory          ← Arbitrary.arbitrary[File]
-      micrositeBaseUrl                   ← Arbitrary.arbitrary[String]
-      micrositeDocumentationUrl          ← Arbitrary.arbitrary[String]
-      palette                            ← paletteMapArbitrary.arbitrary
-      favicon                            ← listOf[MicrositeFavicon](micrositeFaviconArbitrary.arbitrary)
-      githubOwner                        ← Arbitrary.arbitrary[String]
-      githubRepo                         ← Arbitrary.arbitrary[String]
-      gitHostingService                  ← Arbitrary.arbitrary[GitHostingService]
-      gitHostingUrl                      ← Arbitrary.arbitrary[String]
-      githubLinks                        ← Arbitrary.arbitrary[Boolean]
-      gitSidecarChat                     ← Arbitrary.arbitrary[Boolean]
-      gitSidecarChatUrl                  ← Arbitrary.arbitrary[String]
-      shareOnSocial                      ← Arbitrary.arbitrary[Boolean]
-      micrositeKazariEnabled             ← Arbitrary.arbitrary[Boolean]
-      micrositeKazariEvaluatorUrl        ← Arbitrary.arbitrary[String]
-      micrositeKazariEvaluatorToken      ← Arbitrary.arbitrary[String]
-      micrositeKazariGithubToken         ← Arbitrary.arbitrary[String]
-      micrositeKazariCodeMirrorTheme     ← Arbitrary.arbitrary[String]
-      micrositeKazariDependencies        ← dependenciesListArbitrary.arbitrary
-      micrositeKazariResolvers           ← Arbitrary.arbitrary[Seq[String]]
-      micrositeFooterText                ← Arbitrary.arbitrary[Option[String]]
+      name                                   ← Arbitrary.arbitrary[String]
+      description                            ← Arbitrary.arbitrary[String]
+      author                                 ← Arbitrary.arbitrary[String]
+      homepage                               ← Arbitrary.arbitrary[String]
+      organizationHomepage                   ← Arbitrary.arbitrary[String]
+      twitter                                ← Arbitrary.arbitrary[String]
+      twitterCreator                         ← Arbitrary.arbitrary[String]
+      analytics                              ← Arbitrary.arbitrary[String]
+      highlightTheme                         ← Arbitrary.arbitrary[String]
+      micrositeConfigYaml                    ← configYamlArbitrary.arbitrary
+      micrositeImgDirectory                  ← Arbitrary.arbitrary[File]
+      micrositeCssDirectory                  ← Arbitrary.arbitrary[File]
+      micrositeJsDirectory                   ← Arbitrary.arbitrary[File]
+      micrositeCDNDirectives                 <- cdnDirectivesArbitrary.arbitrary
+      micrositeExternalLayoutsDirectory      ← Arbitrary.arbitrary[File]
+      micrositeExternalIncludesDirectory     ← Arbitrary.arbitrary[File]
+      micrositeDataDirectory                 ← Arbitrary.arbitrary[File]
+      micrositeStaticDirectory               ← Arbitrary.arbitrary[File]
+      micrositeExtraMdFiles                  ← markdownMapArbitrary.arbitrary
+      micrositeExtraMdFilesOutput            ← Arbitrary.arbitrary[File]
+      micrositePluginsDirectory              ← Arbitrary.arbitrary[File]
+      micrositeBaseUrl                       ← Arbitrary.arbitrary[String]
+      micrositeDocumentationUrl              ← Arbitrary.arbitrary[String]
+      micrositeDocumentationLabelDescription ← Arbitrary.arbitrary[String]
+      palette                                ← paletteMapArbitrary.arbitrary
+      favicon                                ← listOf[MicrositeFavicon](micrositeFaviconArbitrary.arbitrary)
+      githubOwner                            ← Arbitrary.arbitrary[String]
+      githubRepo                             ← Arbitrary.arbitrary[String]
+      gitHostingService                      ← Arbitrary.arbitrary[GitHostingService]
+      gitHostingUrl                          ← Arbitrary.arbitrary[String]
+      githubLinks                            ← Arbitrary.arbitrary[Boolean]
+      gitSidecarChat                         ← Arbitrary.arbitrary[Boolean]
+      gitSidecarChatUrl                      ← Arbitrary.arbitrary[String]
+      shareOnSocial                          ← Arbitrary.arbitrary[Boolean]
+      micrositeKazariEnabled                 ← Arbitrary.arbitrary[Boolean]
+      micrositeKazariEvaluatorUrl            ← Arbitrary.arbitrary[String]
+      micrositeKazariEvaluatorToken          ← Arbitrary.arbitrary[String]
+      micrositeKazariGithubToken             ← Arbitrary.arbitrary[String]
+      micrositeKazariCodeMirrorTheme         ← Arbitrary.arbitrary[String]
+      micrositeKazariDependencies            ← dependenciesListArbitrary.arbitrary
+      micrositeKazariResolvers               ← Arbitrary.arbitrary[Seq[String]]
+      micrositeFooterText                    ← Arbitrary.arbitrary[Option[String]]
     } yield
       MicrositeSettings(
         MicrositeIdentitySettings(
@@ -173,7 +174,10 @@ trait Arbitraries {
           micrositeExtraMdFilesOutput,
           micrositePluginsDirectory
         ),
-        MicrositeUrlSettings(micrositeBaseUrl, micrositeDocumentationUrl),
+        MicrositeUrlSettings(
+          micrositeBaseUrl,
+          micrositeDocumentationUrl,
+          micrositeDocumentationLabelDescription),
         MicrositeGitSettings(
           githubOwner,
           githubRepo,

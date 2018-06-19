@@ -39,6 +39,8 @@ All the markdown files that contain this `layout` and `section` as `docs` will b
 
 To be able to access the documentation, you have to configure `micrositeDocumentationUrl` setting.
 
+In order to change the default label description for the `micrositeDocumentationUrl`, the default value is `Documentation` you have to change the `micrositeDocumentationLabelDescription`.
+
 As an example, you can look at the sbt-microsites documentation at [Github](https://github.com/47deg/sbt-microsites/tree/master/docs/src/main/tut). We have several documentation files:
 
 - `build-the-microsite.md`
