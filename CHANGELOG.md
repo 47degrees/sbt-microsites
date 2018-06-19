@@ -1,5 +1,12 @@
 # Changelog
 
+## 06/19/2018 - Version 0.7.20
+
+Release changes:
+
+* #267 documentation label configurable ([#268](https://github.com/47deg/sbt-microsites/pull/268))
+
+
 ## 06/13/2018 - Version 0.7.19
 
 Release changes:
