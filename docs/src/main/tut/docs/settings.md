@@ -50,6 +50,13 @@ micrositeDocumentationUrl := "/yoursite/docs"
 
 Therefore, considering the example above, your microsite documentation would be placed on: http://yourdomain.io/yoursite/docs. Moreover, the layouts supplied by the plugin will provide a link in the upper-right area pointing to this URL (if it isn't empty).
 
+
+- `micrositeDocumentationLabelDescription`: The default label description for the `micrositeDocumentationUrl` link in the homepage is `Documentation`, you can change it through this setting.
+
+```
+micrositeDocumentationLabelDescription := "Documentation"
+```
+
 - `micrositeAuthor`: the author of the microsite is taken from this sbt setting. However, if nothing is specified, the default value will be `organizationName`, but you can override it, as we can see in this example:
 
 ```
