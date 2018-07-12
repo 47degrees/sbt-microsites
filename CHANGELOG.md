@@ -1,5 +1,13 @@
 # Changelog
 
+## 07/12/2018 - Version 0.7.21
+
+Release changes:
+
+* update tut 0.6.6 ([#270](https://github.com/47deg/sbt-microsites/pull/270))
+* Release - Updating to tut 0.6.6 ([#271](https://github.com/47deg/sbt-microsites/pull/271))
+
+
 ## 06/19/2018 - Version 0.7.20
 
 Release changes:
