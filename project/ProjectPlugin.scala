@@ -40,7 +40,7 @@ object ProjectPlugin extends AutoPlugin {
 
         val (tutPluginVersion, scrimageVersion) = sbtBinaryVersionValue match {
           case "0.13" => ("0.5.6", "2.1.7")
-          case "1.0"  => ("0.6.4", "2.1.8")
+          case "1.0"  => ("0.6.6", "2.1.8")
         }
 
         Seq(
