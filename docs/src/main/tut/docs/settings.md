@@ -110,7 +110,7 @@ micrositeGithubToken := getEnvVar("GITHUB_TOKEN")
 micrositePushSiteWith := GitHub4s
 ```
 
-- `micrositeGitHostingService` and `micrositeGitHostingUrl`: in order to specify a hosting service other than `GitHub`:
+- `micrositeGitHostingService` and `micrositeGitHostingUrl`: in order to specify a hosting service other than `GitHub`. If you are using a privately hosted GitHub instance you can set the `micrositeGitHostingUrl` to override the default github.com and repo name configuration.
 
 ```
 micrositeGitHostingService := GitLab

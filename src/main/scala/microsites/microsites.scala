@@ -91,8 +91,8 @@ case class MicrositeSettings(
     micrositeKazariSettings: KazariSettings) {
 
   def gitSiteUrl: String = {
-    gitSettings.gitHostingService match {
-      case MicrositeKeys.GitHub =>
+    (gitSettings.gitHostingService, gitSettings.gitHostingUrl) match {
+      case (MicrositeKeys.GitHub, "") =>
         s"https://github.com/${gitSettings.githubOwner}/${gitSettings.githubRepo}"
       case _ => gitSettings.gitHostingUrl
     }
