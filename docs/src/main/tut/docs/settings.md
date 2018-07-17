@@ -190,10 +190,10 @@ micrositeCDNDirectives := CdnDirectives(
 )
 ```
 
-- `micrositeExternalLayoutsDirectory`: you can also introduce custom html layouts in the generated microsite through the `micrositeExternalLayoutsDirectory` setting. The layout files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "layout"` but you can override it like this:
+- `micrositeExternalLayoutsDirectory`: you can also introduce custom html layouts in the generated microsite through the `micrositeExternalLayoutsDirectory` setting. The layout files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "layouts"` but you can override it like this:
 
 ```
-micrositeExternalLayoutsDirectory := (resourceDirectory in Compile).value / "site" / "layout"
+micrositeExternalLayoutsDirectory := (resourceDirectory in Compile).value / "site" / "layouts"
 ```
 
 These will be available to your pages by using the `layout` keyword in the YAML front matter block in each of your docs' markdown files. i.e. having included a `extra-layout.html` external layout file:
