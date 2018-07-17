@@ -1,5 +1,14 @@
 # Changelog
 
+## 07/17/2018 - Version 0.7.22
+
+Release changes:
+
+* gitSiteURL supports MicrositeKeys.GitHub and gitHostingUrl ([#272](https://github.com/47deg/sbt-microsites/pull/272))
+* Releases sbt-microsites 0.7.22 ([#273](https://github.com/47deg/sbt-microsites/pull/273))
+* Fix default layouts path ([#274](https://github.com/47deg/sbt-microsites/pull/274))
+
+
 ## 07/12/2018 - Version 0.7.21
 
 Release changes:
