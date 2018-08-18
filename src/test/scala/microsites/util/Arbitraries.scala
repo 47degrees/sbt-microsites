@@ -114,6 +114,7 @@ trait Arbitraries {
       twitterCreator                         ← Arbitrary.arbitrary[String]
       analytics                              ← Arbitrary.arbitrary[String]
       highlightTheme                         ← Arbitrary.arbitrary[String]
+      highlightLanguages                     ← Arbitrary.arbitrary[Seq[String]]
       micrositeConfigYaml                    ← configYamlArbitrary.arbitrary
       micrositeImgDirectory                  ← Arbitrary.arbitrary[File]
       micrositeCssDirectory                  ← Arbitrary.arbitrary[File]
@@ -158,7 +159,12 @@ trait Arbitraries {
           twitter,
           twitterCreator,
           analytics),
-        MicrositeVisualSettings(highlightTheme, palette, favicon, shareOnSocial),
+        MicrositeVisualSettings(
+          highlightTheme,
+          highlightLanguages,
+          palette,
+          favicon,
+          shareOnSocial),
         MicrositeTemplateTexts(micrositeFooterText),
         micrositeConfigYaml,
         MicrositeFileLocations(

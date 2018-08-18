@@ -77,6 +77,8 @@ trait MicrositeKeys {
   val micrositeDocumentationLabelDescription: SettingKey[String] =
     settingKey[String]("Microsite site documentation Label Description")
   val micrositeHighlightTheme: SettingKey[String] = settingKey[String]("Microsite Highlight Theme")
+  val micrositeHighlightLanguages: SettingKey[Seq[String]] =
+    settingKey[Seq[String]]("Microsite Highlight Languages")
   val micrositeConfigYaml: SettingKey[ConfigYml] =
     settingKey[ConfigYml]("Microsite _config.yml file configuration.")
   val micrositeImgDirectory: SettingKey[File] = settingKey[File](
@@ -193,6 +195,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         ),
         visualSettings = MicrositeVisualSettings(
           highlightTheme = micrositeHighlightTheme.value,
+          highlightLanguages = micrositeHighlightLanguages.value,
           palette = micrositePalette.value,
           favicons = micrositeFavicons.value,
           shareOnSocial = micrositeShareOnSocial.value

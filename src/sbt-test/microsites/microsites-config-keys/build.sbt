@@ -17,6 +17,7 @@ micrositeTwitter := "@47deg"
 micrositeBaseUrl := "/test-microsite"
 micrositeDocumentationUrl := "/api"
 micrositeHighlightTheme := "just-another-theme"
+micrositeHighlightLanguages := Seq("scala", "bash", "protobuf")
 micrositeGithubOwner := "47deg"
 micrositeGithubRepo := "sbt-microsites"
 micrositePalette := Map(

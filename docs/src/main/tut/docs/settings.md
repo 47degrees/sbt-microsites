@@ -154,6 +154,24 @@ micrositeHighlightTheme := "monokai"
 ```
 [Available themes: https://cdnjs.com/libraries/highlight.js/](https://cdnjs.com/libraries/highlight.js/)
 
+- `micrositeHighlightLanguages`: by default, Highlight.js is configured to support syntax highlighting for `java`, `scala` and `bash`. You can add additional languages:
+
+```
+micrositeHighlightTheme ++= Seq("protobuf", "thrift")
+```
+
+Then, use it as follows:
+
+~~~
+```protobuf
+message MyMessage {
+   optional int32 i = 1;
+}
+```
+~~~
+
+[Available languages: https://cdnjs.com/libraries/highlight.js/](https://cdnjs.com/libraries/highlight.js/)
+
 - `micrositeImgDirectory`: the plugin provides some basic images, but you can add new images to personalize the microsite. This is the property where you can specify where they will be placed. The images in this folder will be automatically copied by the plugin, and they will be placed together with the rest of the Jekyll resources. By default, its value is `(resourceDirectory in Compile).value / "microsite" / "img"` but you can override it, for instance:
 
 ```
