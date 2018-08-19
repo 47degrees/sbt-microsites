@@ -74,6 +74,7 @@ case class MicrositeFavicon(filename: String, sizeDescription: String)
 
 case class MicrositeVisualSettings(
     highlightTheme: String,
+    highlightLanguages: Seq[String],
     palette: Map[String, String],
     favicons: Seq[MicrositeFavicon],
     shareOnSocial: Boolean)

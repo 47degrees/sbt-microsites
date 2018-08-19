@@ -66,6 +66,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeTwitterCreator := "",
     micrositeShareOnSocial := true,
     micrositeHighlightTheme := "default",
+    micrositeHighlightLanguages := Seq("scala", "java", "bash"),
     micrositeConfigYaml := ConfigYml(
       yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "_config.yml")),
     micrositeImgDirectory := (resourceDirectory in Compile).value / "microsite" / "img",
