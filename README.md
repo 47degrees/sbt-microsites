@@ -1,7 +1,7 @@
 
 [comment]: # (Start Badges)
 
-[![Build Status](https://travis-ci.org/47deg/sbt-microsites.svg?branch=master)](https://travis-ci.org/47deg/sbt-microsites) [![Maven Central](https://img.shields.io/badge/maven%20central-0.7.22-green.svg)](https://repo1.maven.org/maven2/com/47deg/sbt-microsites_2.12_1.0) [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/47deg/sbt-microsites/master/LICENSE) [![Join the chat at https://gitter.im/47deg/sbt-microsites](https://badges.gitter.im/47deg/sbt-microsites.svg)](https://gitter.im/47deg/sbt-microsites?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![GitHub Issues](https://img.shields.io/github/issues/47deg/sbt-microsites.svg)](https://github.com/47deg/sbt-microsites/issues)
+[![Build Status](https://travis-ci.org/47deg/sbt-microsites.svg?branch=master)](https://travis-ci.org/47deg/sbt-microsites) [![Maven Central](https://img.shields.io/badge/maven%20central-0.7.23-green.svg)](https://repo1.maven.org/maven2/com/47deg/sbt-microsites_2.12_1.0) [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/47deg/sbt-microsites/master/LICENSE) [![Join the chat at https://gitter.im/47deg/sbt-microsites](https://badges.gitter.im/47deg/sbt-microsites.svg)](https://gitter.im/47deg/sbt-microsites?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![GitHub Issues](https://img.shields.io/github/issues/47deg/sbt-microsites.svg)](https://github.com/47deg/sbt-microsites/issues)
 
 [comment]: # (End Badges)
 
@@ -24,7 +24,7 @@ To Begin, add the following lines to the `project/plugins.sbt` file within your 
 [comment]: # (Start Replace)
 
 ```
-addSbtPlugin("com.47deg"  % "sbt-microsites" % "0.7.22")
+addSbtPlugin("com.47deg"  % "sbt-microsites" % "0.7.23")
 ```
 
 [comment]: # (End Replace)
