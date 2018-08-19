@@ -1,5 +1,12 @@
 # Changelog
 
+## 08/19/2018 - Version 0.7.23
+
+Release changes:
+
+* Add support for additional highlighted languages ([#276](https://github.com/47deg/sbt-microsites/pull/276))
+
+
 ## 07/17/2018 - Version 0.7.22
 
 Release changes:
