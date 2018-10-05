@@ -92,7 +92,8 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
         ),
         div(id := "content", data("github-owner") := config.gitSettings.githubOwner, data("github-repo") := config.gitSettings.githubRepo,
           div(cls := "content-wrapper",
-            section("{{ content }}")
+            section("{{ content }}"),
+            editButton
           )
         )
       )
@@ -155,4 +156,21 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
       (if (config.micrositeKazariSettings.micrositeKazariEnabled)
          List(script(src := "{{ site.baseurl }}/js/kazari.js"))
        else List.empty[TypedTag[String]])
+
+  def editButton: Seq[TypedTag[String]] =
+    config.templateTexts.editButton match {
+      case Some(text) =>
+        Seq(
+          div(
+            cls := "edit-button",
+            a(
+              href := config.gitSiteUrl,
+              href := "/edit/master/modules/docs/src/main/tut/{{ page.path }}",
+              cls := "btn-sm btn-info",
+              text
+            )
+          )
+        )
+      case None => Nil
+    }
 }

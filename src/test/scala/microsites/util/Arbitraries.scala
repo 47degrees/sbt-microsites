@@ -148,6 +148,7 @@ trait Arbitraries {
       micrositeKazariDependencies            ← dependenciesListArbitrary.arbitrary
       micrositeKazariResolvers               ← Arbitrary.arbitrary[Seq[String]]
       micrositeFooterText                    ← Arbitrary.arbitrary[Option[String]]
+      micrositeEditButtonText                ← Arbitrary.arbitrary[Option[String]]
     } yield
       MicrositeSettings(
         MicrositeIdentitySettings(
@@ -165,7 +166,10 @@ trait Arbitraries {
           palette,
           favicon,
           shareOnSocial),
-        MicrositeTemplateTexts(micrositeFooterText),
+        MicrositeTemplateTexts(
+          micrositeFooterText,
+          micrositeEditButtonText
+        ),
         micrositeConfigYaml,
         MicrositeFileLocations(
           micrositeImgDirectory,

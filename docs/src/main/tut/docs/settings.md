@@ -327,3 +327,9 @@ micrositeConfigYaml := ConfigYml(
 ```
 micrositeFooterText := Some("<b>Bob</b> the <i>Builder</i>")
 ```
+
+- `micrositeEditButtonText`: This setting allows the optional inclusion and configuration of an edit button on pages with the docs layout. By default, it is set to `None` and not visible. If the setting is set to `Some` with given text, that text will appear on the button at the bottom of the page. The button links to the edit view of the page in it's repository. **This string is passed in unsanitized to the templating engine.**
+
+```
+micrositeEditButtonText := Some("Improve this page")
+```

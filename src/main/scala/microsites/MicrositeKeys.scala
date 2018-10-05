@@ -152,6 +152,10 @@ trait MicrositeKeys {
     "Optional. Customize the second line in the footer."
   )
 
+  val micrositeEditButtonText: SettingKey[Option[String]] = settingKey[Option[String]](
+    "Optional. Add a button with given string in DocsLayout pages that links to the file in the repository."
+  )
+
   val publishMicrositeCommandKey: String = "publishMicrositeCommand"
 }
 
@@ -201,7 +205,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           shareOnSocial = micrositeShareOnSocial.value
         ),
         templateTexts = MicrositeTemplateTexts(
-          footer = micrositeFooterText.value
+          footer = micrositeFooterText.value,
+          editButton = micrositeEditButtonText.value
         ),
         configYaml = configWithAllCustomVariables,
         fileLocations = MicrositeFileLocations(

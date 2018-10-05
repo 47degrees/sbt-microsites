@@ -79,7 +79,7 @@ case class MicrositeVisualSettings(
     favicons: Seq[MicrositeFavicon],
     shareOnSocial: Boolean)
 
-case class MicrositeTemplateTexts(footer: Option[String])
+case class MicrositeTemplateTexts(footer: Option[String], editButton: Option[String])
 
 case class MicrositeSettings(
     identity: MicrositeIdentitySettings,
