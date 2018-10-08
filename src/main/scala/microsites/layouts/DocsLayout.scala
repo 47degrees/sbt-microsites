@@ -157,20 +157,19 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
          List(script(src := "{{ site.baseurl }}/js/kazari.js"))
        else List.empty[TypedTag[String]])
 
-  def editButton: Seq[TypedTag[String]] =
-    config.templateTexts.editButton match {
-      case Some(text) =>
-        Seq(
+  def editButton: Option[TypedTag[String]] =
+    config.editButtonSettings.button match {
+      case Some(button) =>
+        Some(
           div(
             cls := "edit-button",
             a(
               href := config.gitSiteUrl,
-              href := "/edit/master/modules/docs/src/main/tut/{{ page.path }}",
+              href := button.basePath,
               cls := "btn-sm btn-info",
-              text
+              button.text
             )
-          )
-        )
-      case None => Nil
+          ))
+      case _ => None
     }
 }

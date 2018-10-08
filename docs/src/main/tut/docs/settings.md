@@ -328,8 +328,13 @@ micrositeConfigYaml := ConfigYml(
 micrositeFooterText := Some("<b>Bob</b> the <i>Builder</i>")
 ```
 
-- `micrositeEditButtonText`: This setting allows the optional inclusion and configuration of an edit button on pages with the docs layout. By default, it is set to `None` and not visible. If the setting is set to `Some` with given text, that text will appear on the button at the bottom of the page. The button links to the edit view of the page in it's repository. **This string is passed in unsanitized to the templating engine.**
+- `micrositeEditButtonText`: This setting allows the optional inclusion and configuration of an edit button on pages
+with the docs layout. The button links to the given path of the page in it's repository.
+By default, it is set to `None` and not visible. To enable, set the MicrositeEditButton with text
+for the button and the basePath for the file. The basePath is comprised of the file URL excluding the top-level
+repository URL and should include the dynamic property `{{page.path}}` that will be generated for each page when Jekyll
+compiles the site.  **The strings are passed in unsanitized to the templating engine.**
 
 ```
-micrositeEditButtonText := Some("Improve this page")
+micrositeEditButton := Some(MicrositeEditButton("Improve this Page", "/edit/master/docs/src/main/tut/{{ page.path }}"))
 ```

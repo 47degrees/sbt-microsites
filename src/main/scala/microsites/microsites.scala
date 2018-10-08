@@ -79,7 +79,11 @@ case class MicrositeVisualSettings(
     favicons: Seq[MicrositeFavicon],
     shareOnSocial: Boolean)
 
-case class MicrositeTemplateTexts(footer: Option[String], editButton: Option[String])
+case class MicrositeTemplateTexts(footer: Option[String])
+
+case class MicrositeEditButton(text: String, basePath: String)
+
+case class MicrositeEditButtonSettings(button: Option[MicrositeEditButton])
 
 case class MicrositeSettings(
     identity: MicrositeIdentitySettings,
@@ -89,6 +93,7 @@ case class MicrositeSettings(
     fileLocations: MicrositeFileLocations,
     urlSettings: MicrositeUrlSettings,
     gitSettings: MicrositeGitSettings,
+    editButtonSettings: MicrositeEditButtonSettings,
     micrositeKazariSettings: KazariSettings) {
 
   def gitSiteUrl: String = {

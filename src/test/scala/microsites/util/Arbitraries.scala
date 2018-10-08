@@ -18,7 +18,7 @@ package microsites.util
 
 import java.io.File
 
-import microsites.MicrositeKeys._
+import microsites.MicrositeKeys.{micrositeEditButton, _}
 import microsites._
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen._
@@ -148,7 +148,7 @@ trait Arbitraries {
       micrositeKazariDependencies            ← dependenciesListArbitrary.arbitrary
       micrositeKazariResolvers               ← Arbitrary.arbitrary[Seq[String]]
       micrositeFooterText                    ← Arbitrary.arbitrary[Option[String]]
-      micrositeEditButtonText                ← Arbitrary.arbitrary[Option[String]]
+      micrositeEditButton                    ← Arbitrary.arbitrary[Option[MicrositeEditButton]]
     } yield
       MicrositeSettings(
         MicrositeIdentitySettings(
@@ -167,8 +167,7 @@ trait Arbitraries {
           favicon,
           shareOnSocial),
         MicrositeTemplateTexts(
-          micrositeFooterText,
-          micrositeEditButtonText
+          micrositeFooterText
         ),
         micrositeConfigYaml,
         MicrositeFileLocations(
@@ -196,6 +195,9 @@ trait Arbitraries {
           gitHostingUrl,
           gitSidecarChat,
           gitSidecarChatUrl),
+        MicrositeEditButtonSettings(
+          micrositeEditButton
+        ),
         KazariSettings(
           micrositeKazariEnabled,
           micrositeKazariEvaluatorUrl,

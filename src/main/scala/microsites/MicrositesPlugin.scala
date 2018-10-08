@@ -108,7 +108,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeGitterChannel := true,
     micrositeGitterChannelUrl := s"${micrositeGithubOwner.value}/${micrositeGithubRepo.value}",
     micrositeFooterText := Some(layouts.Layout.footer.toString),
-    micrositeEditButtonText := None,
+    micrositeEditButton := None,
     micrositeGithubLinks := true,
     includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json",
     includeFilter in Jekyll := (includeFilter in makeSite).value,
