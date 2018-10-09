@@ -153,6 +153,11 @@ trait MicrositeKeys {
   )
 
   val publishMicrositeCommandKey: String = "publishMicrositeCommand"
+
+  val micrositeEditButton: SettingKey[Option[MicrositeEditButton]] =
+    settingKey[Option[MicrositeEditButton]](
+      "Optional. Add a button in DocsLayout pages that links to the file in the repository."
+    )
 }
 
 object MicrositeKeys extends MicrositeKeys
@@ -201,7 +206,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           shareOnSocial = micrositeShareOnSocial.value
         ),
         templateTexts = MicrositeTemplateTexts(
-          footer = micrositeFooterText.value
+          micrositeFooterText.value
         ),
         configYaml = configWithAllCustomVariables,
         fileLocations = MicrositeFileLocations(
@@ -245,6 +250,9 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           gitHostingUrl = micrositeGitHostingUrl.value,
           gitSidecarChat = micrositeGitterChannel.value,
           gitSidecarChatUrl = micrositeGitterChannelUrl.value
+        ),
+        editButtonSettings = MicrositeEditButtonSettings(
+          micrositeEditButton.value
         )
       ))
   }

@@ -22,7 +22,6 @@ import microsites.MicrositeKeys._
 import microsites._
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen._
-import sbt.Resolver
 
 trait Arbitraries {
 
@@ -103,6 +102,13 @@ trait Arbitraries {
     } yield MicrositeFavicon(filename, size)
   }
 
+  implicit def micrositeEditButtonArbitrary: Arbitrary[Option[MicrositeEditButton]] = Arbitrary {
+    for {
+      text     <- Arbitrary.arbitrary[String]
+      basePath <- Arbitrary.arbitrary[String]
+    } yield Some(MicrositeEditButton(text, basePath))
+  }
+
   implicit def settingsArbitrary: Arbitrary[MicrositeSettings] = Arbitrary {
     for {
       name                                   ← Arbitrary.arbitrary[String]
@@ -148,6 +154,7 @@ trait Arbitraries {
       micrositeKazariDependencies            ← dependenciesListArbitrary.arbitrary
       micrositeKazariResolvers               ← Arbitrary.arbitrary[Seq[String]]
       micrositeFooterText                    ← Arbitrary.arbitrary[Option[String]]
+      micrositeEditButton                    ← micrositeEditButtonArbitrary.arbitrary
     } yield
       MicrositeSettings(
         MicrositeIdentitySettings(
@@ -165,7 +172,9 @@ trait Arbitraries {
           palette,
           favicon,
           shareOnSocial),
-        MicrositeTemplateTexts(micrositeFooterText),
+        MicrositeTemplateTexts(
+          micrositeFooterText
+        ),
         micrositeConfigYaml,
         MicrositeFileLocations(
           micrositeImgDirectory,
@@ -192,6 +201,9 @@ trait Arbitraries {
           gitHostingUrl,
           gitSidecarChat,
           gitSidecarChatUrl),
+        MicrositeEditButtonSettings(
+          micrositeEditButton
+        ),
         KazariSettings(
           micrositeKazariEnabled,
           micrositeKazariEvaluatorUrl,

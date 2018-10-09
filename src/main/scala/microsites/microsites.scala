@@ -81,6 +81,10 @@ case class MicrositeVisualSettings(
 
 case class MicrositeTemplateTexts(footer: Option[String])
 
+case class MicrositeEditButton(text: String, basePath: String)
+
+case class MicrositeEditButtonSettings(button: Option[MicrositeEditButton])
+
 case class MicrositeSettings(
     identity: MicrositeIdentitySettings,
     visualSettings: MicrositeVisualSettings,
@@ -89,6 +93,7 @@ case class MicrositeSettings(
     fileLocations: MicrositeFileLocations,
     urlSettings: MicrositeUrlSettings,
     gitSettings: MicrositeGitSettings,
+    editButtonSettings: MicrositeEditButtonSettings,
     micrositeKazariSettings: KazariSettings) {
 
   def gitSiteUrl: String = {
