@@ -1,5 +1,13 @@
 # Changelog
 
+## 10/09/2018 - Version 0.7.24
+
+Release changes:
+
+* add 'Edit Page' feature to doc pages ([#278](https://github.com/47deg/sbt-microsites/pull/278))
+* Release sbt-microsites 0.7.24 ([#279](https://github.com/47deg/sbt-microsites/pull/279))
+
+
 ## 08/19/2018 - Version 0.7.23
 
 Release changes:
