@@ -51,6 +51,11 @@ Many Scala projects use sbt-microsites to display documentation and project note
 ★ | ★ | ★
 --- | --- | ---
 ![Cats](http://typelevel.org/cats/img/navbar_brand.png) | [**Cats**](http://typelevel.org/cats/) | Lightweight, modular, and extensible library for functional programming
+![Cats-Effect](http://typelevel.org/cats/img/navbar_brand.png) | [**Cats-Effect**](https://github.com/typelevel/cats-effect) | Extension of Cats for general effect types, Asynchronicity and Concurrency
+![] | [**fs2**](http://fs2.io/guide.html) | Functional streaming library, based on `cats` and `cats-effect` 
+![] | [**circe**](https://circe.github.io/circe/) | Json Library, with automatic encoder-decoder generation
+![] | [**pureconfig**](https://pureconfig.github.io/) | A library for loading configuration files
+![] | [**ciris**](https://cir.is/) | A _configuration as code_ library for compile-time safe configurations
 ![Tuco](https://tpolecat.github.io/tuco/img/navbar_brand.png) | [**Tuco**](https://tpolecat.github.io/tuco/) | Tuco is a reasonable telnet server for Scala
 ![Atto](https://tpolecat.github.io/atto/img/navbar_brand.png) | [**Atto**](https://tpolecat.github.io/atto/) | Everyday parsers.
 ![Typelevel Scala](http://typelevel.org/scala/img/navbar_brand.png) | [**Typelevel Scala**](http://typelevel.org/scala/) | Our fork of the Scala compiler
