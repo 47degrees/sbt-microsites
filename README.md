@@ -60,7 +60,7 @@ Many Scala projects, libraries and applications, use sbt-microsites to display d
 ![Tuco](https://tpolecat.github.io/tuco/img/navbar_brand.png) | [**Tuco**](https://tpolecat.github.io/tuco/) | Tuco is a reasonable telnet server for Scala
 ![Atto](https://tpolecat.github.io/atto/img/navbar_brand.png) | [**Atto**](https://tpolecat.github.io/atto/) | Everyday parsers.
 ![Typelevel Scala](http://typelevel.org/scala/img/navbar_brand.png) | [**Typelevel Scala**](http://typelevel.org/scala/) | Our fork of the Scala compiler
-![Monocle](http://julien-truffaut.github.io/Monocle/img/navbar_brand.png) | [**Monocle**](http://julien-truffaut.github.io/Monocle/) | Optics library for Scala
+![Monocle](https://raw.githubusercontent.com/julien-truffaut/Monocle/master/image/black_icons/navbar_brand.png) | [**Monocle**](http://julien-truffaut.github.io/Monocle/) | Optics library for Scala
 ![ScalaCache](https://cb372.github.io/scalacache/img/navbar_brand.png) | [**ScalaCache**](https://cb372.github.io/scalacache/) | A facade for popular cache implementations, such as Caffeine, Redis, or Memcached
 ![scalacheck-toolbox](https://47deg.github.io/scalacheck-toolbox/img/navbar_brand.png) | [**scalacheck-toolbox**](https://47deg.github.io/scalacheck-toolbox/) | Generating sensible data with ScalaCheck
 ![Algebird](https://twitter.github.io/algebird/img/navbar_brand.png) | [**Algebird**](https://twitter.github.io/algebird/) | Algebraic typeclasses and data structures for big data
