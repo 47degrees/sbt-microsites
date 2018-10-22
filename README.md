@@ -51,20 +51,20 @@ Many Scala projects, libraries and applications, use sbt-microsites to display d
 ★ | ★ | ★
 --- | --- | ---
 ![Cats](http://typelevel.org/cats/img/navbar_brand.png) | [**Cats**](http://typelevel.org/cats/) | A library of typeclasses for functional programming, such as functors, monads, and arrows. 
-![Scalaz](view-source:https://scalaz.github.io/8/img/favicon.png) | [**Scalaz**](https://scalaz.github.io/7/) | A library of typeclasses for functional programming, such as functors, monads, and arrows. 
+![Scalaz](https://scalaz.github.io/8/img/navbar_brand.png) | [**Scalaz**](https://scalaz.github.io/7/) | A library of typeclasses for functional programming, such as functors, monads, and arrows. 
 ![Cats-Effect](http://typelevel.org/cats/img/navbar_brand.png) | [**Cats-Effect**](https://github.com/typelevel/cats-effect) | Extension of Cats for general effect types, with asynchronicity and concurrency
-![ZIO](https://raw.githubusercontent.com/scalaz/scalaz-zio/master/ZIO.svg) | [**ZIO**](https://scalaz.github.io/scalaz-zio/) | A general-purpose effect monad, for asynchronicity and concurrency
-![FS2](http://fs2.io/img/favicon310x310.png) | [**fs2**](http://fs2.io/guide.html) | Functional Streams for Scala (FS2), based on `cats` and `cats-effect` 
-![PureConfig](https://pureconfig.github.io/img/pureconfig-logo-1040x1200.png) | [**pureconfig**](https://pureconfig.github.io/) | A library for loading configuration files
-![Ciris](https://cir.is/img/favicon152x152.png) | [**ciris**](https://cir.is/) | A _configuration as code_ library for compile-time safe configurations
+![ZIO](https://scalaz.github.io/scalaz-zio/img/navbar_brand.png) | [**ZIO**](https://scalaz.github.io/scalaz-zio/) | A general-purpose effect monad, for asynchronicity and concurrency
+![FS2](http://fs2.io/img/navbar_brand.png) | [**fs2**](http://fs2.io/guide.html) | Functional Streams for Scala (FS2), based on `cats` and `cats-effect` 
+![PureConfig](https://pureconfig.github.io/img/navbar_brand.png) | [**pureconfig**](https://pureconfig.github.io/) | A library for loading configuration files
+![Ciris](https://cir.is/img/navbar_brand.png) | [**ciris**](https://cir.is/) | A _configuration as code_ library for compile-time safe configurations
 ![Tuco](https://tpolecat.github.io/tuco/img/navbar_brand.png) | [**Tuco**](https://tpolecat.github.io/tuco/) | Tuco is a reasonable telnet server for Scala
 ![Atto](https://tpolecat.github.io/atto/img/navbar_brand.png) | [**Atto**](https://tpolecat.github.io/atto/) | Everyday parsers.
 ![Typelevel Scala](http://typelevel.org/scala/img/navbar_brand.png) | [**Typelevel Scala**](http://typelevel.org/scala/) | Our fork of the Scala compiler
 ![Monocle](https://raw.githubusercontent.com/julien-truffaut/Monocle/master/image/black_icons/navbar_brand.png) | [**Monocle**](http://julien-truffaut.github.io/Monocle/) | Optics library for Scala
-![ScalaCache](https://cb372.github.io/scalacache/img/favicon152x152.png) | [**ScalaCache**](https://cb372.github.io/scalacache/) | A facade for popular cache implementations, such as Caffeine, Redis, or Memcached
+![ScalaCache](https://cb372.github.io/scalacache/img/navbar_brand.png) | [**ScalaCache**](https://cb372.github.io/scalacache/) | A facade for popular cache implementations, such as Caffeine, Redis, or Memcached
 ![scalacheck-toolbox](https://47deg.github.io/scalacheck-toolbox/img/navbar_brand.png) | [**scalacheck-toolbox**](https://47deg.github.io/scalacheck-toolbox/) | Generating sensible data with ScalaCheck
 ![Algebird](https://twitter.github.io/algebird/img/navbar_brand.png) | [**Algebird**](https://twitter.github.io/algebird/) | Algebraic typeclasses and data structures for big data
-![Finch](https://finagle.github.io/finch/img/favicon128x128.png) | [**Finch**](https://finagle.github.io/finch/) | A combinator API over the Finagle HTTP services
+![Finch](https://finagle.github.io/finch/img/navbar_brand.png) | [**Finch**](https://finagle.github.io/finch/) | A combinator API over the Finagle HTTP services
 ![Scalding](https://twitter.github.io/scalding/img/navbar_brand.png) | [**Scalding**](https://twitter.github.io/scalding/) | Scala API for Hadoop and Cascading
 ![fetch](https://47deg.github.io/fetch/img/navbar_brand.png) | [**fetch**](https://47deg.github.io/fetch/) | Simple & Efficient data access for Scala and Scala.js
 ![github4s](https://47deg.github.io/github4s/img/navbar_brand.png) | [**github4s**](https://47deg.github.io/github4s/) | A GitHub API wrapper written in Scala
