@@ -1,5 +1,16 @@
 # Changelog
 
+## 11/16/2018 - Version 0.7.25
+
+Release changes:
+
+* Some more Projects using Microsites. ([#280](https://github.com/47deg/sbt-microsites/pull/280))
+* Improve logos in the README ([#281](https://github.com/47deg/sbt-microsites/pull/281))
+* Changed position of Finch on README in order to see icon ([#282](https://github.com/47deg/sbt-microsites/pull/282))
+* Fix twitter image URL ([#283](https://github.com/47deg/sbt-microsites/pull/283))
+* Release 0.7.25 ([#284](https://github.com/47deg/sbt-microsites/pull/284))
+
+
 ## 10/09/2018 - Version 0.7.24
 
 Release changes:
