@@ -59,6 +59,7 @@ object MicrositesPlugin extends AutoPlugin {
       else
         organizationHomepage.value.map(_.toString).getOrElse("")
     },
+    micrositeUrl := "",
     micrositeBaseUrl := "",
     micrositeDocumentationUrl := "",
     micrositeDocumentationLabelDescription := "Documentation",
