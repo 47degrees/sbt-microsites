@@ -66,6 +66,7 @@ case class MicrositeGitSettings(
     gitSidecarChatUrl: String)
 
 case class MicrositeUrlSettings(
+    micrositeUrl: String,
     micrositeBaseUrl: String,
     micrositeDocumentationUrl: String,
     micrositeDocumentationLabelDescription: String)

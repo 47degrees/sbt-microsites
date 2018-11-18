@@ -71,6 +71,7 @@ trait MicrositeKeys {
   val micrositeShareOnSocial: SettingKey[Boolean] = settingKey[Boolean](
     "Optional. Includes links to share on social media in the layout. Enabled by default."
   )
+  val micrositeUrl: SettingKey[String]     = settingKey[String]("Microsite site absolute url prefix")
   val micrositeBaseUrl: SettingKey[String] = settingKey[String]("Microsite site base url")
   val micrositeDocumentationUrl: SettingKey[String] =
     settingKey[String]("Microsite site documentation url")
@@ -223,6 +224,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           micrositePluginsDirectory = micrositePluginsDirectory.value
         ),
         urlSettings = MicrositeUrlSettings(
+          micrositeUrl = micrositeUrl.value,
           micrositeBaseUrl = micrositeBaseUrl.value,
           micrositeDocumentationUrl = micrositeDocumentationUrl.value,
           micrositeDocumentationLabelDescription = micrositeDocumentationLabelDescription.value
