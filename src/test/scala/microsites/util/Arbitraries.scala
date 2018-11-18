@@ -133,6 +133,7 @@ trait Arbitraries {
       micrositeExtraMdFiles                  ← markdownMapArbitrary.arbitrary
       micrositeExtraMdFilesOutput            ← Arbitrary.arbitrary[File]
       micrositePluginsDirectory              ← Arbitrary.arbitrary[File]
+      micrositeUrl                           ← Arbitrary.arbitrary[String]
       micrositeBaseUrl                       ← Arbitrary.arbitrary[String]
       micrositeDocumentationUrl              ← Arbitrary.arbitrary[String]
       micrositeDocumentationLabelDescription ← Arbitrary.arbitrary[String]
@@ -190,6 +191,7 @@ trait Arbitraries {
           micrositePluginsDirectory
         ),
         MicrositeUrlSettings(
+          micrositeUrl,
           micrositeBaseUrl,
           micrositeDocumentationUrl,
           micrositeDocumentationLabelDescription),
