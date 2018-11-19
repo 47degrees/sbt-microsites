@@ -115,6 +115,11 @@ abstract class Layout(config: MicrositeSettings) {
       meta(name := "author", content := config.identity.author),
       meta(name := "description", content := config.identity.description),
       meta(name := "og:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
+      // Linked-In requires this og:image tag format
+      meta(
+        name := "image",
+        attr("property") := "og:image",
+        content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
       meta(name := "og:title", content := pageTitle),
       meta(name := "og:site_name", content := config.identity.name),
       meta(name := "og:url", content := config.identity.homepage),
