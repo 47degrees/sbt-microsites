@@ -121,6 +121,8 @@ abstract class Layout(config: MicrositeSettings) {
         attr("property") := "og:image",
         content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
       meta(name := "og:title", content := pageTitle),
+      // For Linked-In
+      meta(name := "title", attr("property") := "og:title", content := pageTitle),
       meta(name := "og:site_name", content := config.identity.name),
       meta(name := "og:url", content := config.identity.homepage),
       meta(name := "og:type", content := "website"),
