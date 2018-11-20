@@ -1,5 +1,13 @@
 # Changelog
 
+## 11/20/2018 - Version 0.7.26
+
+Release changes:
+
+* Use the site absolute url for twitter:image ([#285](https://github.com/47deg/sbt-microsites/pull/285))
+* Release 0.7.26 ([#286](https://github.com/47deg/sbt-microsites/pull/286))
+
+
 ## 11/16/2018 - Version 0.7.25
 
 Release changes:
