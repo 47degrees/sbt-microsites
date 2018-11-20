@@ -34,6 +34,12 @@ micrositeName := "Your Awesome Library Name"
 micrositeDescription := "This is the description of my Awesome Library"
 ```
 
+- `micrositeUrl`: the URL prefix of your site. This setting is necessary if you need to show a poster image `{micrositeUrl}{micrositeBaseUrl}/img/poster.png` of your site on Twitter. See also [Twitter Cards](https://cards-dev.twitter.com/validator) for more details.
+
+```
+micrositeUrl := "http://yourdomain.io"
+```
+
 - `micrositeBaseUrl`: this setting brings the ability to set up a site base URL for your microsite. It's empty by default. However, you might need something like this:
 
 ```
