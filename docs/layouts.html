@@ -1,0 +1,184 @@
+<html><head><title>sbt-microsites: Layouts</title><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="47 Degrees" /><meta name="description" content="An sbt plugin to create awesome microsites for your project" /><meta name="og:image" content="/sbt-microsites/img/poster.png" /><meta name="og:title" content="sbt-microsites: Layouts" /><meta name="og:site_name" content="sbt-microsites" /><meta name="og:url" content="https://47deg.github.io/sbt-microsites/" /><meta name="og:type" content="website" /><meta name="og:description" content="An sbt plugin to create awesome microsites for your project" /><link rel="icon" type="image/png" href="/sbt-microsites/img/favicon.png" /><meta name="twitter:title" content="sbt-microsites: Layouts" /><meta name="twitter:image" content="https://47deg.github.io/sbt-microsites/img/poster.png" /><meta name="twitter:description" content="An sbt plugin to create awesome microsites for your project" /><meta name="twitter:card" content="summary_large_image" /><link rel="icon" type="image/png" sizes="16x16" href="/sbt-microsites/img/favicon16x16.png" /><link rel="icon" type="image/png" sizes="24x24" href="/sbt-microsites/img/favicon24x24.png" /><link rel="icon" type="image/png" sizes="32x32" href="/sbt-microsites/img/favicon32x32.png" /><link rel="icon" type="image/png" sizes="48x48" href="/sbt-microsites/img/favicon48x48.png" /><link rel="icon" type="image/png" sizes="57x57" href="/sbt-microsites/img/favicon57x57.png" /><link rel="icon" type="image/png" sizes="60x60" href="/sbt-microsites/img/favicon60x60.png" /><link rel="icon" type="image/png" sizes="64x64" href="/sbt-microsites/img/favicon64x64.png" /><link rel="icon" type="image/png" sizes="70x70" href="/sbt-microsites/img/favicon70x70.png" /><link rel="icon" type="image/png" sizes="72x72" href="/sbt-microsites/img/favicon72x72.png" /><link rel="icon" type="image/png" sizes="76x76" href="/sbt-microsites/img/favicon76x76.png" /><link rel="icon" type="image/png" sizes="96x96" href="/sbt-microsites/img/favicon96x96.png" /><link rel="icon" type="image/png" sizes="114x114" href="/sbt-microsites/img/favicon114x114.png" /><link rel="icon" type="image/png" sizes="120x120" href="/sbt-microsites/img/favicon120x120.png" /><link rel="icon" type="image/png" sizes="128x128" href="/sbt-microsites/img/favicon128x128.png" /><link rel="icon" type="image/png" sizes="144x144" href="/sbt-microsites/img/favicon144x144.png" /><link rel="icon" type="image/png" sizes="150x150" href="/sbt-microsites/img/favicon150x150.png" /><link rel="icon" type="image/png" sizes="152x152" href="/sbt-microsites/img/favicon152x152.png" /><link rel="icon" type="image/png" sizes="196x196" href="/sbt-microsites/img/favicon196x196.png" /><link rel="icon" type="image/png" sizes="310x310" href="/sbt-microsites/img/favicon310x310.png" /><link rel="icon" type="image/png" sizes="310x150" href="/sbt-microsites/img/favicon310x150.png" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" /><link rel="stylesheet" href="/sbt-microsites/highlight/styles/color-brewer.css" /><link rel="stylesheet" href="/sbt-microsites/css/style.css" /><link rel="stylesheet" href="/sbt-microsites/css/palette.css" /><link rel="stylesheet" href="/sbt-microsites/css/codemirror.css" /><link rel="stylesheet" href="/sbt-microsites/css/override.css" /></head><body class="docs"><div id="wrapper"><div id="sidebar-wrapper"><ul id="sidebar" class="sidebar-nav"><li class="sidebar-brand"><a href="/sbt-microsites/" class="brand"><div class="brand-wrapper"><span>sbt-microsites</span></div></a></li> <li><a href="/sbt-microsites/docs/index.html" class="">Getting Started</a></li> <li><a href="/sbt-microsites/docs/settings.html" class="">Configuring the Microsite</a></li> <li><a href="/sbt-microsites/docs/layouts.html" class=" active ">Layouts</a></li> <li><a href="/sbt-microsites/docs/customize.html" class="">Customize</a></li> <li><a href="/sbt-microsites/docs/build-the-microsite.html" class="">Build the microsite</a></li> <li><a href="/sbt-microsites/docs/publish-with-travis.html" class="">Publish with Travis</a></li></ul></div><div id="page-content-wrapper"><div class="nav"><div class="container-fluid"><div class="row"><div class="col-lg-12"><div class="action-menu pull-left clearfix"><a href="#menu-toggle" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a></div><ul class="pull-right"><li id="gh-eyes-item" class="hidden-xs"><a href="https://github.com/47deg/sbt-microsites"><i class="fa fa-eye"></i><span>WATCH<span id="eyes" class="label label-default">--</span></span></a></li><li id="gh-stars-item" class="hidden-xs"><a href="https://github.com/47deg/sbt-microsites"><i class="fa fa-star-o"></i><span>STARS<span id="stars" class="label label-default">--</span></span></a></li><li><a href="#" onclick="shareSiteTwitter('sbt-microsites An sbt plugin to create awesome microsites for your project');"><i class="fa fa-twitter"></i></a></li><li><a href="#" onclick="shareSiteFacebook('sbt-microsites An sbt plugin to create awesome microsites for your project');"><i class="fa fa-facebook"></i></a></li><li><a href="#" onclick="shareSiteGoogle();"><i class="fa fa-google-plus"></i></a></li></ul></div></div></div></div><div id="content" data-github-owner="47deg" data-github-repo="sbt-microsites"><div class="content-wrapper"><section><h1 id="layouts">Layouts</h1>
+
+<p>Currently, the sbt-microsites plugin includes four different layouts:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">home</code>: The landing page, the public face of your library or project.</li>
+  <li><code class="highlighter-rouge">docs</code> (Optional): The page where the documentation for your library should be included. Most likely, you are seeing the <code class="highlighter-rouge">Documentation</code> page of this repo right now. It’s optional, depending on the <code class="highlighter-rouge">micrositeDocumentationUrl</code> setting, take a look at the <a href="settings.html">Configuring the Microsite</a> section for an in-depth explanation.</li>
+  <li><code class="highlighter-rouge">page</code> (Optional): Similar to <code class="highlighter-rouge">home</code> but reducing the jumbotron layer and taking into account the submenu (jumbotron and other concepts related to style are explained in the <a href="customize.html">Customize</a> section.</li>
+  <li>Menu Partial: this abstract layout reads all the files in your project that fit a set of requirements, and sets up a menu under the jumbotron image. We’ll see more details on this later on.</li>
+</ul>
+
+<h2 id="home-layout">Home Layout</h2>
+
+<p>Usually, the <code class="highlighter-rouge">home</code> layout is related to the <code class="highlighter-rouge">index.md</code> file. In this document, you can put all the markdown content that’s related to the landing page.</p>
+
+<p>For instance:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+---
+layout: home
+title:  "Home"
+section: "home"
+technologies:
+ - first: ["Scala", "sbt-microsites plugin is completely written in Scala"]
+ - second: ["SBT", "sbt-microsites plugin uses SBT and other sbt plugins to generate microsites easily"]
+ - third: ["Jekyll", "Jekyll allows for the transformation of plain text into static websites and blogs."]
+---
+</code></pre>
+</div>
+
+<p>The technology list is optional. These three technologies will be shown as a sub-footer in your home page. These technologies are identified for the set of keys (<code class="highlighter-rouge">first</code>, <code class="highlighter-rouge">second</code>, <code class="highlighter-rouge">third</code>). You can specify to include all of them or none of them. At this time there are no other choices.</p>
+
+<h2 id="docs-layout">Docs Layout</h2>
+
+<p>All the markdown files that contain this <code class="highlighter-rouge">layout</code> and <code class="highlighter-rouge">section</code> as <code class="highlighter-rouge">docs</code> will be grouped in the Documentation page. Each markdown file with these characteristics will be shown on a collapsible left menu, with one item per existing file. From this menu, you can easily navigate all the docs.</p>
+
+<p>To be able to access the documentation, you have to configure <code class="highlighter-rouge">micrositeDocumentationUrl</code> setting.</p>
+
+<p>In order to change the default label description for the <code class="highlighter-rouge">micrositeDocumentationUrl</code>, the default value is <code class="highlighter-rouge">Documentation</code> you have to change the <code class="highlighter-rouge">micrositeDocumentationLabelDescription</code>.</p>
+
+<p>As an example, you can look at the sbt-microsites documentation at <a href="https://github.com/47deg/sbt-microsites/tree/master/docs/src/main/tut">Github</a>. We have several documentation files:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">build-the-microsite.md</code></li>
+  <li><code class="highlighter-rouge">customize.md</code></li>
+  <li><code class="highlighter-rouge">getting-started.md</code></li>
+  <li><code class="highlighter-rouge">index.md</code></li>
+  <li>…</li>
+</ul>
+
+<p>All these files contain as a header, something similar to this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+---
+layout: docs
+title: &lt;Document Title&gt;
+---
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">&lt;Document Title&gt;</code> will be used as a menu item name on the left.</p>
+
+<h3 id="how-to-setup-the-docs-menu">How to setup the Docs Menu?</h3>
+
+<p>Looking at the <a href="settings.html">Configuring the Microsite</a> section, in the directory configured under the <code class="highlighter-rouge">micrositeDataDirectory</code> setting, you need to create a new file named <code class="highlighter-rouge">menu.yml</code>. This <code class="highlighter-rouge">YAML</code> file will be accessed by the <code class="highlighter-rouge">Docs Layout</code> in order to create the menu. Let’s see an example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>options:
+  - title: Getting Started
+    url: docs/index.html
+    section: intro
+
+  - title: Configuring the Microsite
+    url: docs/settings.html
+
+  - title: Layouts
+    url: docs/layouts.html
+    section: resources
+
+  - title: Customize
+    url: docs/customize.html
+
+  - title: Build the microsite
+    url: docs/build-the-microsite.html
+</code></pre>
+</div>
+
+<ul>
+  <li>The <code class="highlighter-rouge">options</code> key is mandatory. It’ll be the parent of all the options defined here. Each <code class="highlighter-rouge">option</code> or menu item will contain:</li>
+  <li><code class="highlighter-rouge">title</code>: the menu title. It should be the same as defined in the meta-property associated with the file (<code class="highlighter-rouge">&lt;Document Title&gt;</code>, where the layout is defined).</li>
+  <li><code class="highlighter-rouge">url</code>: relative path to the site URL.</li>
+  <li><code class="highlighter-rouge">menu_section</code>: this key is mandatory only when you have a nested submenu. It’ll be useful to distinguish between sub-items with the same name in different menu options.</li>
+  <li><code class="highlighter-rouge">menu_type</code>: optional parameter. It brings the ability to configure different menus for different set of documents, defining all the menu options in the same <code class="highlighter-rouge">menu.yml</code> file. For example, you might want to define two different places in your microsite where the menu might be different. This is the setting you can use in order to group the set of menu options.</li>
+  <li>Optionally, we could define a second level of nested sub-items, thanks to the <code class="highlighter-rouge">nested_options</code> key, defined at the same level that <code class="highlighter-rouge">title</code> and <code class="highlighter-rouge">url</code> of the parent menu. For example:</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>options:
+  - title: Introduction
+    url: index.html
+    menu_section: intro
+
+    nested_options:
+     - title: Submenu 1
+       url: subfolder/submenu1.html
+     - title: Submenu 2
+       url: subfolder/submenu2.html
+
+  - title: Configuring the Microsite
+    url: settings.html
+</code></pre>
+</div>
+
+<p>In this example, <code class="highlighter-rouge">Submenu 1</code> and <code class="highlighter-rouge">Submenu 2</code> will be nested under the <code class="highlighter-rouge">Introduction</code> menu option. At the same time, <code class="highlighter-rouge">submenu1</code> and <code class="highlighter-rouge">submenu2</code> would have the same section name as the parent. For instance, <code class="highlighter-rouge">submenu1.md</code> would have a header like this, where the <code class="highlighter-rouge">section</code> field matches the one defined in <code class="highlighter-rouge">menu.yml</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>---
+layout: docs
+title:  "Submenu 2"
+section: "intro"
+---
+</code></pre>
+</div>
+
+<h2 id="page-layout-and-menu-partial-layout">Page Layout and Menu Partial Layout</h2>
+
+<p>This layout is useful when we want to have different web pages at the same <code class="highlighter-rouge">home</code> level but under the menu of the microsite.</p>
+
+<p>One example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+---
+layout: page
+title:  "&lt;page-menu-title&gt;"
+section: "&lt;page_menu_title&gt;"
+position: 3
+---
+</code></pre>
+</div>
+
+<p>For each different <code class="highlighter-rouge">section</code> the framework finds in your source directory, it’ll create a new menu option in the microsite.</p>
+
+<p>Let’s review this in this example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+file1.md contents:
+
+---
+layout: home
+title:  "Home"
+section: "section_home"
+position: 1
+---
+
+file2.md contents:
+
+---
+layout: page
+title:  "Section 2"
+section: "section2"
+position: 3
+---
+
+file3.md contents:
+
+---
+layout: page
+title:  "Section 3"
+section: "section3"
+position: 2
+---
+</code></pre>
+</div>
+
+<p>In this case, thanks to Jekyll and the MenuPartial Layout implemented as a part of the <strong>sbt-microsites</strong> plugin; it will automatically generate a menu with three items:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    Home | Section 3 | Section 2 
+</code></pre>
+</div>
+
+<p>As you can see, the menu is ordered by the tag <code class="highlighter-rouge">position</code>.</p>
+</section></div></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script><script src="/sbt-microsites/highlight/highlight.pack.js"></script><script>hljs.configure({
+languages:['scala','java','bash']
+});
+hljs.initHighlighting();
+             </script><script>((window.gitter = {}).chat = {}).options = {
+room: '47deg/sbt-microsites'};</script><script src="https://sidecar.gitter.im/dist/sidecar.v1.js"></script><script src="/sbt-microsites/js/main.js"></script></body></html>
