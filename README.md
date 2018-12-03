@@ -36,7 +36,7 @@ enablePlugins(MicrositesPlugin)
 
 We recommend taking a look at the `Getting Started` section at the [documentation](https://47deg.github.io/sbt-microsites/docs/) since there are some prerequisites that are needed to build your microsite.
 
-# Documentation
+# Documentation
 
 Microsites comes with a range of options to customize and configure your project's site. Please visit the [documentation](https://47deg.github.io/sbt-microsites/docs/) section for more information.
 

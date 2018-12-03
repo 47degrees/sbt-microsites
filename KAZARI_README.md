@@ -2,7 +2,7 @@
 
 Kazari is a script developed on **Scala.Js** that allows to turn your project's existing documentation into interactive Scala worksheets. Basically it decorates your code snippets with extra functionality that allows users to run them in a [remote Scala evaluator](https://github.com/scala-exercises/evaluator) and edit it, by just including the script and some CSS files to your site.
 
-# Installation
+# Installation
 
 Kazari comes integrated with `sbt-microsites` (version >0.4.1), and all sites built with it are able to use it right out the bat. To do so you need to add certain classes to the code snippets in your library documentation `tut` files. i.e.:
 
@@ -85,7 +85,7 @@ Also note that if you're creating a documentation for a library, or for almost a
 <!-- i.e.: "https://oss.sonatype.org/content/repositories/snapshots,https://dl.bintray.com/content/sbt/sbt-plugin-releases" -->
 ```
 
-# Building the plugin
+# Building the plugin
 
 Kazari is a **Scala.JS** application. Even if it's part of the `sbt-microsites` project, it exists in its own independent module called `kazari`. Before being able to build it, you'll need to include the CodeMirror scripts that Kazari relies on. You can download the CodeMirror release from their [official site](http://codemirror.net/doc/releases.html), noting that Kazari is built with version `5.19.0`. Once you download the package, you'll be able to find the needed scripts in the following locations:
 
