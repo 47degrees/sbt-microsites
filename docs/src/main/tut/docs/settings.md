@@ -163,7 +163,7 @@ micrositeHighlightTheme := "monokai"
 - `micrositeHighlightLanguages`: by default, Highlight.js is configured to support syntax highlighting for `java`, `scala` and `bash`. You can add additional languages:
 
 ```
-micrositeHighlightTheme ++= Seq("protobuf", "thrift")
+micrositeHighlightLanguages ++= Seq("protobuf", "thrift")
 ```
 
 Then, use it as follows:
