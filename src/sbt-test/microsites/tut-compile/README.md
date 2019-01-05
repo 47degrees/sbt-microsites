@@ -10,7 +10,7 @@ Nunc et nunc vel tortor eleifend rutrum ut hendrerit ipsum.
 
 > Suspendisse et blandit magna.
 
-```scala
+```tut
 val list = List(1, 2, 3)
 list map (_ * 2)
 ```

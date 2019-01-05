@@ -1,7 +1,7 @@
 import microsites._
 
 enablePlugins(MicrositesPlugin)
-scalaVersion := "2.11.8"
+scalaVersion := sys.props("scala.version")
 
 micrositeGitHostingService := GitLab
 micrositeGitHostingUrl := "https://gitlab.com/gitlab-org/gitlab-ce"

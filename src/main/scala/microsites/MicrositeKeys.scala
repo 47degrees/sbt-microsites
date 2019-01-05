@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ import sbt._
 import sbt.complete.DefaultParsers.OptNotSpace
 import sbtorgpolicies.github.GitHubOps
 import tut.TutPlugin.autoImport._
+import mdoc.MdocPlugin.autoImport._
 
 trait MicrositeKeys {
 
@@ -51,6 +52,9 @@ trait MicrositeKeys {
   }
 
   val makeMicrosite: TaskKey[Unit] = taskKey[Unit]("Main Task to build a Microsite")
+  val makeTut: TaskKey[Unit]       = taskKey[Unit]("Sequential tasks to compile tut and move the result")
+  val makeMdoc: TaskKey[Unit] =
+    taskKey[Unit]("Sequential tasks to compile mdoc and move the result")
   val publishMicrosite: TaskKey[Unit] =
     taskKey[Unit]("Task helper that wraps the `publishMicrositeCommand`.")
   val microsite: TaskKey[Seq[File]] = taskKey[Seq[File]]("Create microsite files")
@@ -159,6 +163,9 @@ trait MicrositeKeys {
     settingKey[Option[MicrositeEditButton]](
       "Optional. Add a button in DocsLayout pages that links to the file in the repository."
     )
+
+  val micrositeCompilingDocsTool =
+    settingKey[String]("Choose between compiling code snippets with tut or mdoc")
 }
 
 object MicrositeKeys extends MicrositeKeys
@@ -261,8 +268,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 
   lazy val micrositeTasksSettings = Seq(
     microsite := micrositeHelper.value.createResources(
-      resourceManagedDir = (resourceManaged in Compile).value,
-      tutSourceDirectory = (tutSourceDirectory in Compile).value),
+      resourceManagedDir = (resourceManaged in Compile).value),
     micrositeConfig := micrositeHelper.value
       .copyConfigurationFile((sourceDirectory in Jekyll).value, siteDirectory.value),
     micrositeMakeExtraMdFiles := micrositeHelper.value.buildAdditionalMd(),
@@ -276,17 +282,19 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val re    = tutNameFilter.value.pattern.toString
       _root_.tut.TutPlugin.tutOne(streams.value, r, in, out, cp, opts, pOpts, re).map(_._1)
     },
-    makeMicrosite := {
-      Def
-        .sequential(
-          microsite,
-          tut,
-          micrositeTutExtraMdFiles,
-          makeSite,
-          micrositeConfig
-        )
-        .value
-    },
+    makeTut := {
+      Def.sequential(microsite, tut, micrositeTutExtraMdFiles, makeSite, micrositeConfig)
+    }.value,
+    makeMdoc := {
+      Def.sequential(microsite, mdoc.toTask(""), makeSite, micrositeConfig)
+    }.value,
+    makeMicrosite := Def.taskDyn {
+      micrositeCompilingDocsTool.value match {
+        case "tut"  => Def.task(makeTut.value)
+        case "mdoc" => Def.task(makeMdoc.value)
+        case _      => Def.task(streams.value.log.error("Invalid value for micrositeCompilingDocsTool"))
+      }
+    }.value,
     publishMicrosite := Def.taskDyn {
       val siteDir: File                 = (target in makeSite).value
       val noJekyll: Boolean             = ghpagesNoJekyll.value

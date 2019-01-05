@@ -10,15 +10,15 @@
 
 # check resource_managed/main/jekyll folder
 
-$ exists target/scala-2.11/resource_managed/main/jekyll
-$ exists target/scala-2.11/resource_managed/main/jekyll/_config.yml
-$ exists target/scala-2.11/resource_managed/main/jekyll/_includes
-$ exists target/scala-2.11/resource_managed/main/jekyll/_layouts/docs.html
-$ exists target/scala-2.11/resource_managed/main/jekyll/_layouts/home.html
-$ exists target/scala-2.11/resource_managed/main/jekyll/_layouts/page.html
-$ exists target/scala-2.11/resource_managed/main/jekyll/_sass
-$ exists target/scala-2.11/resource_managed/main/jekyll/css
-$ exists target/scala-2.11/resource_managed/main/jekyll/js
+$ exists target/scala-2.12/resource_managed/main/jekyll
+$ exists target/scala-2.12/resource_managed/main/jekyll/_config.yml
+$ exists target/scala-2.12/resource_managed/main/jekyll/_includes
+$ exists target/scala-2.12/resource_managed/main/jekyll/_layouts/docs.html
+$ exists target/scala-2.12/resource_managed/main/jekyll/_layouts/home.html
+$ exists target/scala-2.12/resource_managed/main/jekyll/_layouts/page.html
+$ exists target/scala-2.12/resource_managed/main/jekyll/_sass
+$ exists target/scala-2.12/resource_managed/main/jekyll/css
+$ exists target/scala-2.12/resource_managed/main/jekyll/js
 
 # check site folder
 

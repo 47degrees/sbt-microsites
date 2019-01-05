@@ -63,3 +63,10 @@ Finally, to enable the plugin, add this to your `build.sbt` file:
 ```bash
 enablePlugins(MicrositesPlugin)
 ```
+
+# Write your documentation `.md` files
+
+You can place your docs wherever you want in your project, since there are some sbt settings to point the sources of your microsite, however there the plugin expects to find the sources where both [**tut**](https://github.com/tpolecat/tut) and [**mdoc**](https://github.com/scalameta/mdoc) have defined by default. That are:
+
+- Tut: `src/main/tut/`
+- mdoc: `docs/`

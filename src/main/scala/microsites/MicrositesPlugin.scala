@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,8 @@ import sbt._
 import sbt.plugins.IvyPlugin
 import tut.TutPlugin
 import tut.TutPlugin.autoImport._
+import mdoc.MdocPlugin
+import mdoc.MdocPlugin.autoImport._
 
 object MicrositesPlugin extends AutoPlugin {
 
@@ -33,7 +35,8 @@ object MicrositesPlugin extends AutoPlugin {
   import MicrositesPlugin.autoImport._
   import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport._
 
-  override def requires: Plugins = IvyPlugin && TutPlugin && JekyllPlugin && GhpagesPlugin
+  override def requires: Plugins =
+    IvyPlugin && MdocPlugin && TutPlugin && JekyllPlugin && GhpagesPlugin
 
   override def trigger: PluginTrigger = allRequirements
 
@@ -45,7 +48,9 @@ object MicrositesPlugin extends AutoPlugin {
         mappings in Jekyll ++= micrositeHelper.value.directory("src/main/resources/microsite"),
         sourceDirectory in Jekyll := resourceManaged.value / "main" / "jekyll",
         tutSourceDirectory := sourceDirectory.value / "main" / "tut",
-        tutTargetDirectory := resourceManaged.value / "main" / "jekyll"
+        tutTargetDirectory := resourceManaged.value / "main" / "jekyll",
+        mdocIn := baseDirectory.in(ThisBuild).value / "docs",
+        mdocOut := resourceManaged.value / "main" / "jekyll",
       )
 
   lazy val micrositeDefaultSettings = Seq(
@@ -111,6 +116,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeFooterText := Some(layouts.Layout.footer.toString),
     micrositeEditButton := None,
     micrositeGithubLinks := true,
+    micrositeCompilingDocsTool := "tut",
     includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json",
     includeFilter in Jekyll := (includeFilter in makeSite).value,
     commands ++= Seq(publishMicrositeCommand)

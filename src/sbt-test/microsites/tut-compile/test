@@ -4,8 +4,8 @@
 
 # check markdown resource_managed/main/jekyll folder
 
-$ exists target/scala-2.11/resource_managed/main/jekyll/index.md
-$ exists target/scala-2.11/resource_managed/main/jekyll/docs.md
+$ exists target/scala-2.12/resource_managed/main/jekyll/index.md
+$ exists target/scala-2.12/resource_managed/main/jekyll/docs.md
 
 # check site folder
 
