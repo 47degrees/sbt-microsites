@@ -96,7 +96,7 @@ before_install:
   scripts/decrypt-keys.sh; fi
 - export PATH=${PATH}:./vendor/bundle
 install:
-- rvm use 2.3.0 --install --fuzzy
+- rvm use 2.6.0 --install --fuzzy
 - gem update --system
 - gem install sass
 - gem install jekyll -v 3.2.1
