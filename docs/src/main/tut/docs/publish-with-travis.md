@@ -88,7 +88,7 @@ This is the `.travis.yml` in `sbt-microsite` project:
 ```
 language: scala
 scala:
-- 2.10.6
+- 2.12.6
 jdk:
 - oraclejdk8
 before_install:

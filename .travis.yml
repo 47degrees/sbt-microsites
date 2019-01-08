@@ -8,9 +8,6 @@ matrix:
     - scala: 2.12.6
       env:
         - SBT_VERSION=1.1.6
-    - scala: 2.10.6
-      env:
-        - SBT_VERSION=0.13.16
 
 before_install:
   - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then

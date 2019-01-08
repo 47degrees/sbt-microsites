@@ -24,12 +24,14 @@ import microsites._
 import microsites.layouts._
 import net.jcazevedo.moultingyaml.{YamlObject, _}
 import sbt._
+import sbt.io.Path
+import sbt.io.syntax.file
 import sbtorgpolicies.io.FileWriter._
 import sbtorgpolicies.io.syntax._
 
 import scala.io.Source
 
-class MicrositeHelper(config: MicrositeSettings) extends MicrositeHelperSpecific {
+class MicrositeHelper(config: MicrositeSettings) {
   implicitly(config)
 
   val jekyllDir = "jekyll"
@@ -201,5 +203,12 @@ class MicrositeHelper(config: MicrositeSettings) extends MicrositeHelperSpecific
       s"${sourceDir.getAbsolutePath}/_config.yml",
       targetPath.toFile.getAbsolutePath)
     ()
+  }
+
+  def directory(sourceDirPath: String): Seq[(File, String)] = {
+    val sourceDir = file(sourceDirPath)
+    Option(sourceDir.getParentFile)
+      .map(parent => sourceDir.allPaths pair Path.relativeTo(parent))
+      .getOrElse(sourceDir.allPaths pair Path.basic)
   }
 }
