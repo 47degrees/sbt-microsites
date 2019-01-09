@@ -345,9 +345,9 @@ compiles the site.  **The strings are passed in unsanitized to the templating en
 micrositeEditButton := Some(MicrositeEditButton("Improve this Page", "/edit/master/docs/src/main/tut/{{ page.path }}"))
 ```
 
-- `micrositeCompilingDocsTool`: Choose between compiling code snippets with [**tut**](https://github.com/tpolecat/tut) or [**mdoc**](https://github.com/scalameta/mdoc). By default is set to `tut` in order to preserve compatibility with previous versions of your markdown files. But now also `mdoc` is supported with all the features that includes.
+- `micrositeCompilingDocsTool`: Choose between compiling code snippets with [**tut**](https://github.com/tpolecat/tut) or [**mdoc**](https://github.com/scalameta/mdoc). By default, it's set to `tut` in order to preserve compatibility with previous versions of your markdown files. But `mdoc` and all the features it includes is now also supported.
 
 ```scala
 micrositeCompilingDocsTool := "mdoc"
 ```
-If you are interested on knowing where to place the markdown files according to the compilation tool chosen, please take a look at the [Typechecked Snippets](typechecked-snippets.html) section.
+If you are interested in learning where to place the markdown files according to the compilation tool chosen, please take a look at the [Typechecked Snippets](typechecked-snippets.html) section.
