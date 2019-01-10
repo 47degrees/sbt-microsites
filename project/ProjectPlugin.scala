@@ -48,6 +48,10 @@ object ProjectPlugin extends AutoPlugin {
             "org.tpolecat" % "tut-plugin" % tutPluginVersion,
             sbtBinaryVersionValue,
             scalaBinaryVersionValue),
+          Defaults.sbtPluginExtra(
+            "org.scalameta" % "sbt-mdoc" % "1.2.3",
+            sbtBinaryVersionValue,
+            scalaBinaryVersionValue),
           "com.sksamuel.scrimage" %% "scrimage-core" % scrimageVersion
         )
       }

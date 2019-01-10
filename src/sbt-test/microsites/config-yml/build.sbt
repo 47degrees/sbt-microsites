@@ -1,7 +1,7 @@
 import microsites._
 
 enablePlugins(MicrositesPlugin)
-scalaVersion := "2.12.1"
+scalaVersion := sys.props("scala.version")
 
 micrositeConfigYaml := ConfigYml(
   yamlCustomProperties = Map("org" -> "Test"),

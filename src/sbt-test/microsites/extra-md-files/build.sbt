@@ -1,7 +1,7 @@
 import microsites._
 
 enablePlugins(MicrositesPlugin)
-scalaVersion := "2.12.1"
+scalaVersion := sys.props("scala.version")
 
 micrositeExtraMdFiles := Map(
   file("README.md") -> ExtraMdFileConfig(

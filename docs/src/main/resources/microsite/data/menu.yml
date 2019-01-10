@@ -5,6 +5,9 @@ options:
   - title: Configuring the Microsite
     url: docs/settings.html
 
+  - title: Typechecked Snippets
+    url: docs/typechecked-snippets.html
+
   - title: Layouts
     url: docs/layouts.html
 

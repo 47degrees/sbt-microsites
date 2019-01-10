@@ -2,7 +2,7 @@
 
 > makeMicrosite
 
-$ exists target/scala-2.11/resource_managed/main/jekyll
+$ exists target/scala-2.12/resource_managed/main/jekyll
 
 # check the index.html file
 

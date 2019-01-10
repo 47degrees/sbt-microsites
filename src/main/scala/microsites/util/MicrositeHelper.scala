@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,12 +24,14 @@ import microsites._
 import microsites.layouts._
 import net.jcazevedo.moultingyaml.{YamlObject, _}
 import sbt._
+import sbt.io.Path
+import sbt.io.syntax.file
 import sbtorgpolicies.io.FileWriter._
 import sbtorgpolicies.io.syntax._
 
 import scala.io.Source
 
-class MicrositeHelper(config: MicrositeSettings) extends MicrositeHelperSpecific {
+class MicrositeHelper(config: MicrositeSettings) {
   implicitly(config)
 
   val jekyllDir = "jekyll"
@@ -51,7 +53,7 @@ class MicrositeHelper(config: MicrositeSettings) extends MicrositeHelperSpecific
       MicrositeFavicon(filename, s"${width}x$height")
   }
 
-  def createResources(resourceManagedDir: File, tutSourceDirectory: File): List[File] = {
+  def createResources(resourceManagedDir: File): List[File] = {
 
     val targetDir: String = resourceManagedDir.getAbsolutePath.ensureFinalSlash
     val pluginURL: URL    = getClass.getProtectionDomain.getCodeSource.getLocation
@@ -201,5 +203,12 @@ class MicrositeHelper(config: MicrositeSettings) extends MicrositeHelperSpecific
       s"${sourceDir.getAbsolutePath}/_config.yml",
       targetPath.toFile.getAbsolutePath)
     ()
+  }
+
+  def directory(sourceDirPath: String): Seq[(File, String)] = {
+    val sourceDir = file(sourceDirPath)
+    Option(sourceDir.getParentFile)
+      .map(parent => sourceDir.allPaths pair Path.relativeTo(parent))
+      .getOrElse(sourceDir.allPaths pair Path.basic)
   }
 }
