@@ -5,9 +5,9 @@ jdk:
 
 matrix:
   include:
-    - scala: 2.12.6
+    - scala: 2.12.8
       env:
-        - SBT_VERSION=1.1.6
+        - SBT_VERSION=1.2.8
 
 before_install:
   - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
@@ -30,7 +30,7 @@ after_success:
       if grep -q "SNAPSHOT" version.sbt; then
         sbt ^^$SBT_VERSION publish;
       else
-        if [ "$SBT_VERSION" = "1.1.6" ]; then
+        if [ "$SBT_VERSION" = "1.2.8" ]; then
           sbt ^^$SBT_VERSION orgUpdateDocFiles;
           git reset --hard HEAD;
           git clean -f;
