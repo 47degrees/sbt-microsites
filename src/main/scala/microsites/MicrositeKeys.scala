@@ -120,21 +120,6 @@ trait MicrositeKeys {
     settingKey[Option[String]]("Microsite Github token for pushing the microsite")
   val micrositeGithubLinks: SettingKey[Boolean] = settingKey[Boolean](
     "Optional. Includes Github links (forks, stars) in the layout. Enabled by default.")
-  val micrositeKazariEnabled: SettingKey[Boolean] =
-    settingKey[Boolean]("Optional. Includes Kazari plugin functionality. Disabled by default.")
-  val micrositeKazariEvaluatorUrl: SettingKey[String] = settingKey[String](
-    "URL of the remote Scala Evaluator to be used by Kazari. Required for Kazari to work. Default: https://scala-evaluator-212.herokuapp.com")
-  val micrositeKazariEvaluatorToken: SettingKey[String] = settingKey[String](
-    "Remote Scala Evaluator token to be used by Kazari. Required for Kazari to work. Default: token compatible with the Scala Exercises remote evaluator.")
-  val micrositeKazariGithubToken: SettingKey[String] = settingKey[String](
-    "GitHub token to be used by Kazari. Required for Kazari to perform certain actions (i.e. save Gists). Default: empty string")
-  val micrositeKazariCodeMirrorTheme: SettingKey[String] = settingKey[String](
-    "Optional. CodeMirror theme to be used by Kazari in its modal editor. Default: monokai")
-  val micrositeKazariDependencies: SettingKey[Seq[KazariDependency]] =
-    settingKey[Seq[KazariDependency]](
-      "Optional. List of dependencies needed to compile the code to be evaluated by Kazari (set of groupId, artifactId, scalaVersion and versionId). Default: empty list")
-  val micrositeKazariResolvers: SettingKey[Seq[String]] = settingKey[Seq[String]](
-    "Optional. List of resolver urls needed for the provided dependencies to be fetched by Kazari. Default: empty list")
   val micrositeGitHostingService: SettingKey[GitHostingService] =
     settingKey[GitHostingService]("Service used for git hosting. By default, it'll be GitHub.")
   val micrositeGitHostingUrl: SettingKey[String] = settingKey[String](
@@ -235,15 +220,6 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           micrositeBaseUrl = micrositeBaseUrl.value,
           micrositeDocumentationUrl = micrositeDocumentationUrl.value,
           micrositeDocumentationLabelDescription = micrositeDocumentationLabelDescription.value
-        ),
-        micrositeKazariSettings = KazariSettings(
-          micrositeKazariEnabled.value,
-          micrositeKazariEvaluatorUrl.value,
-          micrositeKazariEvaluatorToken.value,
-          micrositeKazariGithubToken.value,
-          micrositeKazariCodeMirrorTheme.value,
-          micrositeKazariDependencies.value,
-          micrositeKazariResolvers.value
         ),
         gitSettings = MicrositeGitSettings(
           githubOwner = micrositeGitHostingService.value match {

@@ -83,28 +83,6 @@ abstract class Layout(config: MicrositeSettings) {
       Some(meta(name := "twitter:creator", content := config.identity.twitterCreator))
     } else None
 
-  val kazariDep: Option[TypedTag[String]] =
-    if (config.micrositeKazariSettings.micrositeKazariDependencies.nonEmpty) {
-      Some(
-        meta(
-          name := "kazari-dependencies",
-          content :=
-            config.micrositeKazariSettings.micrositeKazariDependencies
-              .map(dependency =>
-                s"${dependency.groupId};${dependency.artifactId}_${dependency.scalaVersion};${dependency.version}")
-              .mkString(",")
-        ))
-    } else None
-
-  val kazariRes: Option[TypedTag[String]] =
-    if (config.micrositeKazariSettings.micrositeKazariResolvers.nonEmpty) {
-      Some(
-        meta(
-          name := "kazari-resolvers",
-          content :=
-            config.micrositeKazariSettings.micrositeKazariResolvers.mkString(",")))
-    } else None
-
   def metas: List[TypedTag[String]] = {
     val pageTitle = s"${config.identity.name}{% if page.title %}: {{page.title}}{% endif %}"
     List(
@@ -138,7 +116,7 @@ abstract class Layout(config: MicrositeSettings) {
         content := s"${config.urlSettings.micrositeUrl}{{site.baseurl}}/img/poster.png"),
       meta(name := "twitter:description", content := config.identity.description),
       meta(name := "twitter:card", content := "summary_large_image")
-    ) ++ twitter.toList ++ twitterCreator.toList ++ kazariDep.toList ++ kazariRes.toList
+    ) ++ twitter.toList ++ twitterCreator.toList
   }
 
   def favicons: List[TypedTag[String]] =
@@ -168,13 +146,6 @@ abstract class Layout(config: MicrositeSettings) {
       link(rel := "stylesheet", href := css)
     }
 
-    val kazariStyles = List(
-      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/kazari-style.css"),
-      link(
-        rel := "stylesheet",
-        href := s"{{site.baseurl}}/css/${config.micrositeKazariSettings.micrositeKazariCodeMirrorTheme}.css")
-    )
-
     List(
       link(
         rel := "stylesheet",
@@ -188,9 +159,7 @@ abstract class Layout(config: MicrositeSettings) {
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/style.css"),
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/palette.css"),
       link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css")
-    ) ++ customCssList ++ customCDNList ++ (if (config.micrositeKazariSettings.micrositeKazariEnabled)
-                                              kazariStyles
-                                            else Nil) ++ ganalytics.toList
+    ) ++ customCssList ++ customCDNList ++ ganalytics.toList
   }
 
   def scripts: List[TypedTag[String]] = {
@@ -235,12 +204,6 @@ abstract class Layout(config: MicrositeSettings) {
                 |hljs.initHighlighting();
               """.stripMargin)) ++ customJsList ++ customCDNList ++ gitSidecar
   }
-
-  def kazariEnableScript: TypedTag[String] = script(s"""
-      |$$(document).ready(function() {
-      |	kazari.KazariPlugin().decorateCode('${config.micrositeKazariSettings.micrositeKazariEvaluatorUrl}/eval', '${config.micrositeKazariSettings.micrositeKazariEvaluatorToken}', '${config.micrositeKazariSettings.micrositeKazariGithubToken}', '${config.micrositeKazariSettings.micrositeKazariCodeMirrorTheme}')
-      |})
-    """.stripMargin)
 
   def globalFooter: TypedTag[String] = {
     val divs: Seq[TypedTag[String]] =

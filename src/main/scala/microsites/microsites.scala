@@ -18,21 +18,6 @@ package microsites
 
 import sbt._
 
-case class KazariDependency(
-    groupId: String,
-    artifactId: String,
-    scalaVersion: String,
-    version: String)
-
-case class KazariSettings(
-    micrositeKazariEnabled: Boolean,
-    micrositeKazariEvaluatorUrl: String,
-    micrositeKazariEvaluatorToken: String,
-    micrositeKazariGithubToken: String,
-    micrositeKazariCodeMirrorTheme: String,
-    micrositeKazariDependencies: Seq[KazariDependency],
-    micrositeKazariResolvers: Seq[String])
-
 case class MicrositeIdentitySettings(
     name: String,
     description: String,
@@ -94,8 +79,7 @@ case class MicrositeSettings(
     fileLocations: MicrositeFileLocations,
     urlSettings: MicrositeUrlSettings,
     gitSettings: MicrositeGitSettings,
-    editButtonSettings: MicrositeEditButtonSettings,
-    micrositeKazariSettings: KazariSettings) {
+    editButtonSettings: MicrositeEditButtonSettings) {
 
   def gitSiteUrl: String = {
     (gitSettings.gitHostingService, gitSettings.gitHostingUrl) match {
