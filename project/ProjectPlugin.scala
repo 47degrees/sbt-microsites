@@ -8,7 +8,6 @@ import sbtorgpolicies.model.{sbtV, scalac}
 import sbtorgpolicies.OrgPoliciesPlugin
 import sbtorgpolicies.OrgPoliciesPlugin.autoImport._
 import sbtorgpolicies.runnable.syntax._
-import KazariBuild._
 
 object ProjectPlugin extends AutoPlugin {
 
@@ -131,7 +130,6 @@ object ProjectPlugin extends AutoPlugin {
         (test in Test).asRunnableItemFull,
         (publishLocal in Global).asRunnableItemFull,
         "scripted".asRunnableItemFull,
-        (jsFullOptGenerateTask in ProjectRef(file("."), "kazari")).asRunnableItem,
         "docs/tut".asRunnableItem
       )
     ) ++ shellPromptSettings

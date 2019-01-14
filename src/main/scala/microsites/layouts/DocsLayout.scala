@@ -27,11 +27,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
   override def render: TypedTag[String] = {
     html(
       commonHead,
-      body(
-        cls := "docs",
-        sideBarAndContent,
-        scriptsDocs,
-        if (config.micrositeKazariSettings.micrositeKazariEnabled) kazariEnableScript else "")
+      body(cls := "docs", sideBarAndContent, scriptsDocs)
     )
   }
 
@@ -152,10 +148,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
 
   def scriptsDocs: List[TypedTag[String]] =
     scripts ++
-      List(script(src := "{{ site.baseurl }}/js/main.js")) ++
-      (if (config.micrositeKazariSettings.micrositeKazariEnabled)
-         List(script(src := "{{ site.baseurl }}/js/kazari.js"))
-       else List.empty[TypedTag[String]])
+      List(script(src := "{{ site.baseurl }}/js/main.js"))
 
   def editButton: Option[TypedTag[String]] =
     config.editButtonSettings.button match {

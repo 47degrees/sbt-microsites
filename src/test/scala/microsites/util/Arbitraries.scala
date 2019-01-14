@@ -68,26 +68,6 @@ trait Arbitraries {
     } yield map
   }
 
-  implicit def dependencyArbitrary: Arbitrary[KazariDependency] = Arbitrary {
-    for {
-      dependencyGroup        ← Arbitrary.arbitrary[String]
-      dependencyArtifact     ← Arbitrary.arbitrary[String]
-      dependencyScalaVersion ← Arbitrary.arbitrary[String]
-      dependencyVersion      ← Arbitrary.arbitrary[String]
-    } yield
-      KazariDependency(
-        dependencyGroup,
-        dependencyArtifact,
-        dependencyScalaVersion,
-        dependencyVersion)
-  }
-
-  implicit def dependenciesListArbitrary: Arbitrary[Seq[KazariDependency]] = Arbitrary {
-    for {
-      list <- listOf[KazariDependency](dependencyArbitrary.arbitrary)
-    } yield list
-  }
-
   implicit def hostingServiceArbitrary: Arbitrary[GitHostingService] = Arbitrary {
     oneOf(
       oneOf(GitHub, GitLab, Bitbucket),
@@ -147,13 +127,6 @@ trait Arbitraries {
       gitSidecarChat                         ← Arbitrary.arbitrary[Boolean]
       gitSidecarChatUrl                      ← Arbitrary.arbitrary[String]
       shareOnSocial                          ← Arbitrary.arbitrary[Boolean]
-      micrositeKazariEnabled                 ← Arbitrary.arbitrary[Boolean]
-      micrositeKazariEvaluatorUrl            ← Arbitrary.arbitrary[String]
-      micrositeKazariEvaluatorToken          ← Arbitrary.arbitrary[String]
-      micrositeKazariGithubToken             ← Arbitrary.arbitrary[String]
-      micrositeKazariCodeMirrorTheme         ← Arbitrary.arbitrary[String]
-      micrositeKazariDependencies            ← dependenciesListArbitrary.arbitrary
-      micrositeKazariResolvers               ← Arbitrary.arbitrary[Seq[String]]
       micrositeFooterText                    ← Arbitrary.arbitrary[Option[String]]
       micrositeEditButton                    ← micrositeEditButtonArbitrary.arbitrary
     } yield
@@ -205,15 +178,6 @@ trait Arbitraries {
           gitSidecarChatUrl),
         MicrositeEditButtonSettings(
           micrositeEditButton
-        ),
-        KazariSettings(
-          micrositeKazariEnabled,
-          micrositeKazariEvaluatorUrl,
-          micrositeKazariEvaluatorToken,
-          micrositeKazariGithubToken,
-          micrositeKazariCodeMirrorTheme,
-          micrositeKazariDependencies,
-          micrositeKazariResolvers
         )
       )
   }

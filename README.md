@@ -40,10 +40,6 @@ We recommend taking a look at the `Getting Started` section at the [documentatio
 
 Microsites comes with a range of options to customize and configure your project's site. Please visit the [documentation](https://47deg.github.io/sbt-microsites/docs/) section for more information.
 
-# Kazari plugin (Optional)
-
-If you already have some pre-existing documentation for your project, `sbt-microsites` also provides a Javascript plugin called [Kazari](KAZARI_README.md) (disabled by default) that decorates your code snippets with functionality that allows users to edit them live and run them in a remote Scala evaluator; making the learning process a whole lot easier.
-
 # sbt-microsites in the wild
 
 Many Scala projects, libraries and applications, use sbt-microsites to display documentation and project notes. If you wish to add your library here please consider a PR to include it in the list below.
