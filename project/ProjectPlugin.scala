@@ -1,10 +1,8 @@
 import com.typesafe.sbt.site.SitePlugin.autoImport._
 import microsites.MicrositeKeys._
-import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
+import sbt._
 import sbt.Keys._
 import sbt.ScriptedPlugin.autoImport._
-import sbt._
-import sbtorgpolicies.model.{sbtV, scalac}
 import sbtorgpolicies.OrgPoliciesPlugin
 import sbtorgpolicies.OrgPoliciesPlugin.autoImport._
 import sbtorgpolicies.runnable.syntax._
@@ -17,60 +15,50 @@ object ProjectPlugin extends AutoPlugin {
 
   object autoImport {
 
-    lazy val pluginSettings = Seq(
+    lazy val V = new {
+      val mdoc: String         = "1.2.7"
+      val moultingyaml: String = "0.4.0"
+      val orgPolicies: String  = "0.9.4"
+      val scala: String        = "2.12.8"
+      val scalactic: String    = "3.0.5"
+      val scalatest: String    = "3.0.5"
+      val scalacheck: String   = "1.14.0"
+      val scalatags: String    = "0.6.7"
+      val scrimage: String     = "2.1.8"
+      val tut: String          = "0.6.10"
+    }
+
+    lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
       sbtPlugin := true,
-      crossSbtVersions := Seq(sbtV.`0.13`, sbtV.`1.0`),
       resolvers ++= Seq(
         Resolver.sonatypeRepo("snapshots"),
         "jgit-repo" at "http://download.eclipse.org/jgit/maven"),
-      addSbtPlugin(%("sbt-ghpages", true)),
-      addSbtPlugin(%("sbt-site", true)),
+      addSbtPlugin("org.tpolecat"  % "tut-plugin" % V.tut),
+      addSbtPlugin("org.scalameta" % "sbt-mdoc"   % V.mdoc),
+      addSbtPlugin(%("sbt-ghpages", isSbtPlugin = true)),
+      addSbtPlugin(%("sbt-site", isSbtPlugin = true)),
       libraryDependencies ++= Seq(
-        %%("org-policies-core", "0.9.2"),
-        %%("moultingyaml"),
-        %%("scalatags"),
-        %%("scalactic"),
-        %%("scalatest")  % "test",
-        %%("scalacheck") % "test"
+        %%("org-policies-core", V.orgPolicies),
+        %%("moultingyaml", V.moultingyaml),
+        %%("scalatags", V.scalatags),
+        %%("scalactic", V.scalactic),
+        "com.sksamuel.scrimage"        %% "scrimage-core" % V.scrimage,
+        %%("scalatest", V.scalatest)   % "test",
+        %%("scalacheck", V.scalacheck) % "test"
       ),
-      libraryDependencies ++= {
-        val sbtBinaryVersionValue   = (sbtBinaryVersion in pluginCrossBuild).value
-        val scalaBinaryVersionValue = (scalaBinaryVersion in update).value
-
-        val (tutPluginVersion, scrimageVersion) = sbtBinaryVersionValue match {
-          case "0.13" => ("0.5.6", "2.1.7")
-          case "1.0"  => ("0.6.9", "2.1.8")
-        }
-
-        Seq(
-          Defaults.sbtPluginExtra(
-            "org.tpolecat" % "tut-plugin" % tutPluginVersion,
-            sbtBinaryVersionValue,
-            scalaBinaryVersionValue),
-          Defaults.sbtPluginExtra(
-            "org.scalameta" % "sbt-mdoc" % "1.2.3",
-            sbtBinaryVersionValue,
-            scalaBinaryVersionValue),
-          "com.sksamuel.scrimage" %% "scrimage-core" % scrimageVersion
-        )
+      scriptedLaunchOpts := {
+        scriptedLaunchOpts.value ++
+          Seq(
+            "-Xmx2048M",
+            "-XX:ReservedCodeCacheSize=256m",
+            "-XX:+UseConcMarkSweepGC",
+            "-Dplugin.version=" + version.value,
+            "-Dscala.version=" + scalaVersion.value
+          )
       }
     )
 
-    lazy val testScriptedSettings: Seq[(Def.Setting[_])] =
-      Seq(
-        scriptedLaunchOpts := {
-          scriptedLaunchOpts.value ++
-            Seq(
-              "-Xmx2048M",
-              "-XX:ReservedCodeCacheSize=256m",
-              "-XX:+UseConcMarkSweepGC",
-              "-Dplugin.version=" + version.value,
-              "-Dscala.version=" + scalaVersion.value
-            )
-        }
-      )
-
-    lazy val micrositeSettings = Seq(
+    lazy val micrositeSettings: Seq[Def.Setting[_]] = Seq(
       micrositeName := "sbt-microsites",
       micrositeDescription := "An sbt plugin to create awesome microsites for your project",
       micrositeBaseUrl := "sbt-microsites",
@@ -83,45 +71,17 @@ object ProjectPlugin extends AutoPlugin {
       includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
     )
 
-    lazy val jsSettings: Seq[Def.Setting[_]] = sharedJsSettings ++ Seq(
-      scalaVersion := "2.11.8",
-      crossScalaVersions := Seq("2.11.8"),
-      skip in packageJSDependencies := false,
-      libraryDependencies ++= Seq(
-        %%%("github4s", "0.15.0"),
-        %%%("roshttp"),
-        "org.scala-js"        %%% "scalajs-dom"       % "0.9.0",
-        "be.doeraene"         %%% "scalajs-jquery"    % "0.9.0",
-        "com.lihaoyi"         %%% "upickle"           % "0.4.1",
-        "org.scala-exercises" %%% "evaluator-shared"  % "0.4.0-SNAPSHOT",
-        "org.scala-exercises" %%% "evaluator-client"  % "0.4.0-SNAPSHOT",
-        "com.lihaoyi"         %%% "scalatags"         % "0.6.5",
-        "org.querki"          %%% "jquery-facade"     % "1.0-RC6",
-        "org.denigma"         %%% "codemirror-facade" % "5.11-0.7"
-      ),
-      resolvers ++= Seq(
-        Resolver.url(
-          "bintray-sbt-plugin-releases",
-          url("https://dl.bintray.com/content/sbt/sbt-plugin-releases"))(Resolver.ivyStylePatterns),
-        Resolver.sonatypeRepo("snapshots"),
-        Resolver.bintrayRepo("denigma", "denigma-releases")
-      ),
-      jsDependencies ++= Seq(
-        "org.webjars" % "jquery" % "2.1.3" / "2.1.3/jquery.js",
-        ProvidedJS / "codemirror.js",
-        ProvidedJS / "clike.js" dependsOn "codemirror.js"
-      )
-    )
-
   }
+
+  import autoImport.V
 
   override def projectSettings: Seq[Def.Setting[_]] =
     Seq(
       name := "sbt-microsites",
       description := "An sbt plugin to create awesome microsites for your project",
       startYear := Some(2016),
-      scalaVersion := scalac.`2.12`,
-      crossScalaVersions := Seq(scalac.`2.12`),
+      scalaVersion := V.scala,
+      crossScalaVersions := Seq(V.scala),
       scalaOrganization := "org.scala-lang",
       orgScriptTaskListSetting := List(
         orgValidateFiles.asRunnableItem,

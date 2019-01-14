@@ -1,13 +1,5 @@
 import sbt.Resolver.sonatypeRepo
 
 resolvers ++= Seq(sonatypeRepo("snapshots"), sonatypeRepo("releases"))
-addSbtPlugin("com.47deg" % "sbt-org-policies" % "0.9.2")
-
-libraryDependencies += {
-  lazy val sbtVersionValue = (sbtVersion in pluginCrossBuild).value
-
-  scalaBinaryVersion.value match {
-    case "2.10" => "org.scala-sbt" % "scripted-plugin"  % sbtVersionValue
-    case _      => "org.scala-sbt" %% "scripted-plugin" % sbtVersionValue
-  }
-}
+addSbtPlugin("com.47deg" % "sbt-org-policies" % "0.9.4")
+addSbtPlugin("com.eed3si9n" % "sbt-buildinfo" % "0.9.0")
