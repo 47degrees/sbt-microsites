@@ -28,8 +28,8 @@ import sbt.Keys._
 import sbt._
 import sbt.complete.DefaultParsers.OptNotSpace
 import sbtorgpolicies.github.GitHubOps
-import tut.TutPlugin.autoImport._
-import mdoc.MdocPlugin.autoImport._
+import tut.TutPlugin.autoImport.{tut => tutTask, _}
+import mdoc.MdocPlugin.autoImport.{mdoc => mdocTask}
 
 trait MicrositeKeys {
 
@@ -42,6 +42,10 @@ trait MicrositeKeys {
   sealed abstract class PushWith(val name: String) extends Product with Serializable
   final case object GHPagesPlugin                  extends PushWith("ghPagesPlugin")
   final case object GitHub4s                       extends PushWith("github4s")
+
+  sealed abstract class CompilingDocsTool extends Product with Serializable
+  final case object tut                   extends CompilingDocsTool
+  final case object mdoc                  extends CompilingDocsTool
 
   object GitHostingService {
     implicit def string2GitHostingService(name: String): GitHostingService = {
@@ -150,7 +154,7 @@ trait MicrositeKeys {
     )
 
   val micrositeCompilingDocsTool =
-    settingKey[String]("Choose between compiling code snippets with tut or mdoc")
+    settingKey[CompilingDocsTool]("Choose between compiling code snippets with tut or mdoc")
 }
 
 object MicrositeKeys extends MicrositeKeys
@@ -259,16 +263,15 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       _root_.tut.TutPlugin.tutOne(streams.value, r, in, out, cp, opts, pOpts, re).map(_._1)
     },
     makeTut := {
-      Def.sequential(microsite, tut, micrositeTutExtraMdFiles, makeSite, micrositeConfig)
+      Def.sequential(microsite, tutTask, micrositeTutExtraMdFiles, makeSite, micrositeConfig)
     }.value,
     makeMdoc := {
-      Def.sequential(microsite, mdoc.toTask(""), makeSite, micrositeConfig)
+      Def.sequential(microsite, mdocTask.toTask(""), makeSite, micrositeConfig)
     }.value,
     makeMicrosite := Def.taskDyn {
       micrositeCompilingDocsTool.value match {
-        case "tut"  => Def.task(makeTut.value)
-        case "mdoc" => Def.task(makeMdoc.value)
-        case _      => Def.task(streams.value.log.error("Invalid value for micrositeCompilingDocsTool"))
+        case `tut`  => Def.task(makeTut.value)
+        case `mdoc` => Def.task(makeMdoc.value)
       }
     }.value,
     publishMicrosite := Def.taskDyn {

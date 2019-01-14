@@ -21,7 +21,7 @@ Tut is the option by default, so no special action is required from your side, a
 This feature has been recently added and includes some amazing features that are [explained](https://scalameta.org/mdoc/) very well. Here is some advice for using this in your microsite:
 
 - Add your markdown files in this path by default: `docs/`.
-- Set this property accordingly: `micrositeCompilingDocsTool := "mdoc"`
+- Set this property accordingly: `micrositeCompilingDocsTool := mdoc`
 - If you want to place your documments in a different path, just set the sbt property `mdocIn := your-path` being _your-path_ a `SettingKey[File]`.
 - Mark the snippets that you want to compile, following this convention: **_```scala mdoc_** or any of its [modifiers](https://scalameta.org/mdoc/docs/modifiers.html)
 
@@ -29,7 +29,7 @@ This feature has been recently added and includes some amazing features that are
 
 You can migrate your microsite from _tut_ to _mdoc_ in 3 smooth steps:
 
-- Set this property accordingly: `micrositeCompilingDocsTool := "mdoc"`
+- Set this property accordingly: `micrositeCompilingDocsTool := mdoc`
 - Set the property `mdocIn := tutSourceDirectory`, thus we are setting the source for mdoc as it used to be for tut.
 - Replace **_tut_** with **_scala mdoc_** in the snippets modifiers following this table of compatibilities
 
