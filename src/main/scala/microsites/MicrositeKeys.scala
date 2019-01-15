@@ -28,8 +28,8 @@ import sbt.Keys._
 import sbt._
 import sbt.complete.DefaultParsers.OptNotSpace
 import sbtorgpolicies.github.GitHubOps
-import tut.TutPlugin.autoImport.{tut => tutTask, _}
-import mdoc.MdocPlugin.autoImport.{mdoc => mdocTask}
+import tut.TutPlugin.autoImport._
+import mdoc.MdocPlugin.autoImport._
 
 trait MicrositeKeys {
 
@@ -44,8 +44,8 @@ trait MicrositeKeys {
   final case object GitHub4s                       extends PushWith("github4s")
 
   sealed abstract class CompilingDocsTool extends Product with Serializable
-  final case object tut                   extends CompilingDocsTool
-  final case object mdoc                  extends CompilingDocsTool
+  final case object WithTut               extends CompilingDocsTool
+  final case object WithMdoc              extends CompilingDocsTool
 
   object GitHostingService {
     implicit def string2GitHostingService(name: String): GitHostingService = {
@@ -263,15 +263,15 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       _root_.tut.TutPlugin.tutOne(streams.value, r, in, out, cp, opts, pOpts, re).map(_._1)
     },
     makeTut := {
-      Def.sequential(microsite, tutTask, micrositeTutExtraMdFiles, makeSite, micrositeConfig)
+      Def.sequential(microsite, tut, micrositeTutExtraMdFiles, makeSite, micrositeConfig)
     }.value,
     makeMdoc := {
-      Def.sequential(microsite, mdocTask.toTask(""), makeSite, micrositeConfig)
+      Def.sequential(microsite, mdoc.toTask(""), makeSite, micrositeConfig)
     }.value,
     makeMicrosite := Def.taskDyn {
       micrositeCompilingDocsTool.value match {
-        case `tut`  => Def.task(makeTut.value)
-        case `mdoc` => Def.task(makeMdoc.value)
+        case WithTut  => Def.task(makeTut.value)
+        case WithMdoc => Def.task(makeMdoc.value)
       }
     }.value,
     publishMicrosite := Def.taskDyn {
