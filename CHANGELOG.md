@@ -1,5 +1,19 @@
 # Changelog
 
+## 01/15/2019 - Version 0.8.0
+
+Release changes:
+
+* fix markdown parsing ([#290](https://github.com/47deg/sbt-microsites/pull/290))
+* fix typo with bumping ruby version to 2.3.0 in travis ([#291](https://github.com/47deg/sbt-microsites/pull/291))
+* Update Ruby Version Script ([#294](https://github.com/47deg/sbt-microsites/pull/294))
+* Add support to use mdoc ([#293](https://github.com/47deg/sbt-microsites/pull/293))
+* Fixes and Updates Build ([#296](https://github.com/47deg/sbt-microsites/pull/296))
+* Removes kazari from sbt-microsites ([#295](https://github.com/47deg/sbt-microsites/pull/295))
+* Type safety at micrositeCompilingDocsTool Setting ([#297](https://github.com/47deg/sbt-microsites/pull/297))
+* Releases 0.8.0 ([#298](https://github.com/47deg/sbt-microsites/pull/298))
+
+
 ## 11/29/2018 - Version 0.7.27
 
 Release changes:
