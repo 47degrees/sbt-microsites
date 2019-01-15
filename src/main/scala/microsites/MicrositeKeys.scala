@@ -43,6 +43,10 @@ trait MicrositeKeys {
   final case object GHPagesPlugin                  extends PushWith("ghPagesPlugin")
   final case object GitHub4s                       extends PushWith("github4s")
 
+  sealed abstract class CompilingDocsTool extends Product with Serializable
+  final case object WithTut               extends CompilingDocsTool
+  final case object WithMdoc              extends CompilingDocsTool
+
   object GitHostingService {
     implicit def string2GitHostingService(name: String): GitHostingService = {
       List(GitHub, GitLab, Bitbucket)
@@ -150,7 +154,7 @@ trait MicrositeKeys {
     )
 
   val micrositeCompilingDocsTool =
-    settingKey[String]("Choose between compiling code snippets with tut or mdoc")
+    settingKey[CompilingDocsTool]("Choose between compiling code snippets with tut or mdoc")
 }
 
 object MicrositeKeys extends MicrositeKeys
@@ -266,9 +270,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
     }.value,
     makeMicrosite := Def.taskDyn {
       micrositeCompilingDocsTool.value match {
-        case "tut"  => Def.task(makeTut.value)
-        case "mdoc" => Def.task(makeMdoc.value)
-        case _      => Def.task(streams.value.log.error("Invalid value for micrositeCompilingDocsTool"))
+        case WithTut  => Def.task(makeTut.value)
+        case WithMdoc => Def.task(makeMdoc.value)
       }
     }.value,
     publishMicrosite := Def.taskDyn {
