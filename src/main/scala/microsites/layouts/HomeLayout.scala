@@ -65,7 +65,7 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
             a(
               href := config.gitSiteUrl,
               cls := "btn btn-outline-inverse",
-              s"View on ${config.gitSettings.gitHostingService}"))
+              s"View on ${config.gitSettings.gitHostingService.name}"))
         )
       ),
       "{% include menu.html %}"
