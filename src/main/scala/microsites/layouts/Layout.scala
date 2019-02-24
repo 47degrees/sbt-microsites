@@ -225,7 +225,7 @@ abstract class Layout(config: MicrositeSettings) {
             a(
               href := config.gitSiteUrl,
               span(cls := s"fa ${config.gitHostingIconClass}"),
-              s"View on ${config.gitSettings.gitHostingService}"))
+              s"View on ${config.gitSettings.gitHostingService.name}"))
         )
       ) +: {
         config.templateTexts.footer match {
