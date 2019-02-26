@@ -1,5 +1,12 @@
 # Changelog
 
+## 02/26/2019 - Version 0.9.0
+
+Release changes:
+
+Releasing 0.9.0
+
+
 ## 02/26/2019 - Version 0.9.0-M1
 
 Release changes:
