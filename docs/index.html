@@ -11,13 +11,12 @@
 
 <p>Depending on your platform, you might do this with:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>yum install jekyll
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum <span class="nb">install </span>jekyll
 
-apt-get install jekyll
+apt-get <span class="nb">install </span>jekyll
 
-gem install jekyll
-</code></pre>
-</div>
+gem <span class="nb">install </span>jekyll
+</code></pre></div></div>
 
 <p><em>Note</em>: On MacOS X, <code class="highlighter-rouge">/usr/bin/gem</code> will install an incompatible version of <code class="highlighter-rouge">jekyll</code>. It is suggested that you use <a href="https://brew.sh/">Homebrew</a> to install <code class="highlighter-rouge">ruby</code> (which provides <code class="highlighter-rouge">gem</code>) before running <code class="highlighter-rouge">gem install jekyll</code>.</p>
 
@@ -27,20 +26,18 @@ gem install jekyll
 
 <p>If you’re working on a Scala project (<code class="highlighter-rouge">language: scala</code>), you need to add the bundle gems vendor path in the <code class="highlighter-rouge">PATH</code> environment variable:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>before_install:
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>before_install:
  - <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="k">${</span><span class="nv">PATH</span><span class="k">}</span>:./vendor/bundle
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>This is needed in order to install and use the <code class="highlighter-rouge">jekyll</code> gem from other parts of your travis descriptor file. Once we have the <code class="highlighter-rouge">/vendor/bundle</code> path in the Travis <code class="highlighter-rouge">PATH</code> env variable, we have to install the gem in the <code class="highlighter-rouge">install</code> travis section:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>install:
-  - rvm use 2.3.0 --install --fuzzy
-  - gem update --system
-  - gem install sass
-  - gem install jekyll -v 3.2.1
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">install</span>:
+  - rvm use 2.3.0 <span class="nt">--install</span> <span class="nt">--fuzzy</span>
+  - gem update <span class="nt">--system</span>
+  - gem <span class="nb">install </span>sass
+  - gem <span class="nb">install </span>jekyll <span class="nt">-v</span> 3.2.1
+</code></pre></div></div>
 
 <h1 id="set-it-up-in-your-project">Set it up in your Project</h1>
 
@@ -48,14 +45,12 @@ gem install jekyll
 
 <p>Latest release:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>addSbtPlugin<span class="o">(</span><span class="s2">"com.47deg"</span>  % <span class="s2">"sbt-microsites"</span> % <span class="s2">"0.9.0-M1"</span><span class="o">)</span>
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addSbtPlugin<span class="o">(</span><span class="s2">"com.47deg"</span>  % <span class="s2">"sbt-microsites"</span> % <span class="s2">"0.9.0"</span><span class="o">)</span>
+</code></pre></div></div>
 
 <p>Finally, to enable the plugin, add this to your <code class="highlighter-rouge">build.sbt</code> file:</p>
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>enablePlugins<span class="o">(</span>MicrositesPlugin<span class="o">)</span>
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>enablePlugins<span class="o">(</span>MicrositesPlugin<span class="o">)</span>
+</code></pre></div></div>
 
 <h1 id="write-your-documentation-md-files">Write your documentation <code class="highlighter-rouge">.md</code> files</h1>
 

@@ -15,7 +15,7 @@
 
 <p>For instance:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 ---
 layout: home
 title:  "Home"
@@ -25,8 +25,7 @@ technologies:
  - second: ["SBT", "sbt-microsites plugin uses SBT and other sbt plugins to generate microsites easily"]
  - third: ["Jekyll", "Jekyll allows for the transformation of plain text into static websites and blogs."]
 ---
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The technology list is optional. These three technologies will be shown as a sub-footer in your home page. These technologies are identified for the set of keys (<code class="highlighter-rouge">first</code>, <code class="highlighter-rouge">second</code>, <code class="highlighter-rouge">third</code>). You can specify to include all of them or none of them. At this time there are no other choices.</p>
 
@@ -50,13 +49,12 @@ technologies:
 
 <p>All these files contain as a header, something similar to this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 ---
 layout: docs
 title: &lt;Document Title&gt;
 ---
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">&lt;Document Title&gt;</code> will be used as a menu item name on the left.</p>
 
@@ -64,7 +62,7 @@ title: &lt;Document Title&gt;
 
 <p>Looking at the <a href="settings.html">Configuring the Microsite</a> section, in the directory configured under the <code class="highlighter-rouge">micrositeDataDirectory</code> setting, you need to create a new file named <code class="highlighter-rouge">menu.yml</code>. This <code class="highlighter-rouge">YAML</code> file will be accessed by the <code class="highlighter-rouge">Docs Layout</code> in order to create the menu. Let’s see an example:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>options:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>options:
   - title: Getting Started
     url: docs/index.html
     section: intro
@@ -81,8 +79,7 @@ title: &lt;Document Title&gt;
 
   - title: Build the microsite
     url: docs/build-the-microsite.html
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <ul>
   <li>The <code class="highlighter-rouge">options</code> key is mandatory. It’ll be the parent of all the options defined here. Each <code class="highlighter-rouge">option</code> or menu item will contain:</li>
@@ -93,7 +90,7 @@ title: &lt;Document Title&gt;
   <li>Optionally, we could define a second level of nested sub-items, thanks to the <code class="highlighter-rouge">nested_options</code> key, defined at the same level that <code class="highlighter-rouge">title</code> and <code class="highlighter-rouge">url</code> of the parent menu. For example:</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>options:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>options:
   - title: Introduction
     url: index.html
     menu_section: intro
@@ -106,18 +103,16 @@ title: &lt;Document Title&gt;
 
   - title: Configuring the Microsite
     url: settings.html
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>In this example, <code class="highlighter-rouge">Submenu 1</code> and <code class="highlighter-rouge">Submenu 2</code> will be nested under the <code class="highlighter-rouge">Introduction</code> menu option. At the same time, <code class="highlighter-rouge">submenu1</code> and <code class="highlighter-rouge">submenu2</code> would have the same section name as the parent. For instance, <code class="highlighter-rouge">submenu1.md</code> would have a header like this, where the <code class="highlighter-rouge">section</code> field matches the one defined in <code class="highlighter-rouge">menu.yml</code>:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>---
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
 layout: docs
 title:  "Submenu 2"
 section: "intro"
 ---
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="page-layout-and-menu-partial-layout">Page Layout and Menu Partial Layout</h2>
 
@@ -125,21 +120,20 @@ section: "intro"
 
 <p>One example:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 ---
 layout: page
 title:  "&lt;page-menu-title&gt;"
 section: "&lt;page_menu_title&gt;"
 position: 3
 ---
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>For each different <code class="highlighter-rouge">section</code> the framework finds in your source directory, it’ll create a new menu option in the microsite.</p>
 
 <p>Let’s review this in this example:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 file1.md contents:
 
 ---
@@ -166,14 +160,12 @@ title:  "Section 3"
 section: "section3"
 position: 2
 ---
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>In this case, thanks to Jekyll and the MenuPartial Layout implemented as a part of the <strong>sbt-microsites</strong> plugin; it will automatically generate a menu with three items:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    Home | Section 3 | Section 2 
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Home | Section 3 | Section 2 
+</code></pre></div></div>
 
 <p>As you can see, the menu is ordered by the tag <code class="highlighter-rouge">position</code>.</p>
 </section></div></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script><script src="/sbt-microsites/highlight/highlight.pack.js"></script><script>hljs.configure({languages:['scala','java','bash']});

@@ -2,9 +2,8 @@
 
 <p>Once you have written your documents, you can build the microsite running this sbt task:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">sbt&gt; </span>makeMicrosite
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt&gt; makeMicrosite
+</code></pre></div></div>
 
 <p>Internally, it’ll sequentially run other tasks including its own, <a href="https://github.com/tpolecat/tut"><code class="highlighter-rouge">tut</code></a>, and <code class="highlighter-rouge">makeSite</code> (<a href="https://github.com/sbt/sbt-site">sbt-site</a>) tasks.</p>
 
@@ -42,9 +41,8 @@ You can see more details regarding this in the <a href="settings.html">Configuri
 
 <p>Once both requirements are satisfied, you can just run:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">sbt&gt; </span>publishMicrosite
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt&gt; publishMicrosite
+</code></pre></div></div>
 
 <p>And that’s all. Behind the scenes, <code class="highlighter-rouge">makeMicrosite</code> and <code class="highlighter-rouge">pushSite</code> are invoked.</p>
 

@@ -12,9 +12,8 @@
 
 <p>Run this command in your console</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ ssh-keygen -t rsa -b 4096 -C "Travis Deploy Key" -f travis-deploy-key
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ssh-keygen -t rsa -b 4096 -C "Travis Deploy Key" -f travis-deploy-key
+</code></pre></div></div>
 
 <p>After that, you’ll see two new files in your folder: <code class="highlighter-rouge">travis-deploy-key</code> and <code class="highlighter-rouge">travis-deploy-key.pub</code></p>
 
@@ -30,9 +29,8 @@
 
 <p>Travis needs the keys for publishing the microsite in <code class="highlighter-rouge">gh-pages</code> branch. It’s very important that you encrypt your keys using the <code class="highlighter-rouge">travis</code> command line. You have to install travis:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ gem install travis
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem install travis
+</code></pre></div></div>
 
 <p><em><strong>Note:</strong> An important thing to remember is that you can only have one file encrypted in Travis. If you need more keys you should use <code class="highlighter-rouge">tar</code> for joining your different keys. In our example, we only are going to use the key</em></p>
 
@@ -40,19 +38,17 @@
 
 <p>First, we must be logged into travis:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ travis login
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ travis login
+</code></pre></div></div>
 
 <p>Secondly, encrypt the file:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ travis encrypt-file travis-deploy-key travis-deploy-key.enc
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ travis encrypt-file travis-deploy-key travis-deploy-key.enc
+</code></pre></div></div>
 
 <p>You are going to see the following response:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>encrypting travis-deploy-key for [org]/[project]
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>encrypting travis-deploy-key for [org]/[project]
 storing result as travis-deploy-key.enc
 
 Please add the following to your build script (before_install stage in your .travis.yml, for instance):
@@ -65,14 +61,12 @@ Make sure to add keys.tar.enc to the git repository.
 Make sure not to add keys.tar to the git repository.
 Commit all changes to your .travis.yml.
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Finally, add the encrypted file to your git:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ git add travis-deploy-key.enc
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git add travis-deploy-key.enc
+</code></pre></div></div>
 
 <p><strong>4- Configure your .travis.yml</strong></p>
 
@@ -80,7 +74,7 @@ Commit all changes to your .travis.yml.
 
 <p>This is the <code class="highlighter-rouge">.travis.yml</code> in <code class="highlighter-rouge">sbt-microsite</code> project:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>language: scala
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>language: scala
 scala:
 - 2.12.6
 jdk:
@@ -101,20 +95,18 @@ after_success:
   scripts/publishMicrosite.sh; fi
 - if [ "$TRAVIS_PULL_REQUEST" = "true" ]; then echo "Not in master branch, skipping
   deploy and release"; fi
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>You can see that before we install, we run <code class="highlighter-rouge">decrypt-keys.sh</code>, then we install <code class="highlighter-rouge">jekyll</code> and finally, we are running <code class="highlighter-rouge">publishMicrosite.sh</code>.</p>
 
 <p>Next, you can see the <code class="highlighter-rouge">decrypt-keys.sh</code> script:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/sh</span>
 
-openssl aes-256-cbc -K <span class="nv">$encrypted_</span><span class="o">[</span>your_number]_key -iv <span class="nv">$encrypted_</span><span class="o">[</span>your_number]_iv -in travis-deploy-key.enc -out travis-deploy-key -d;
-chmod 600 travis-deploy-key;
-cp travis-deploy-key ~/.ssh/id_rsa;
-</code></pre>
-</div>
+openssl aes-256-cbc <span class="nt">-K</span> <span class="nv">$encrypted_</span><span class="o">[</span>your_number]_key <span class="nt">-iv</span> <span class="nv">$encrypted_</span><span class="o">[</span>your_number]_iv <span class="nt">-in</span> travis-deploy-key.enc <span class="nt">-out</span> travis-deploy-key <span class="nt">-d</span><span class="p">;</span>
+<span class="nb">chmod </span>600 travis-deploy-key<span class="p">;</span>
+<span class="nb">cp </span>travis-deploy-key ~/.ssh/id_rsa<span class="p">;</span>
+</code></pre></div></div>
 
 <p>The most important thing here is the <code class="highlighter-rouge">openssl</code> command. You should use the command that you receive as a response when you encrypt the file using the <code class="highlighter-rouge">travis</code> command above.</p>
 
@@ -122,16 +114,15 @@ cp travis-deploy-key ~/.ssh/id_rsa;
 
 <p>Next, you can see the <code class="highlighter-rouge">publishMicrosite.sh</code> script:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
-<span class="nb">set</span> -e
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="nb">set</span> <span class="nt">-e</span>
 
-git config --global user.email <span class="s2">"your_user_email"</span>
-git config --global user.name <span class="s2">"your_user_name"</span>
-git config --global push.default simple
+git config <span class="nt">--global</span> user.email <span class="s2">"your_user_email"</span>
+git config <span class="nt">--global</span> user.name <span class="s2">"your_user_name"</span>
+git config <span class="nt">--global</span> push.default simple
 
 sbt docs/publishMicrosite
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>In this script, we are publishing the microsite in GitHub Pages. To do this, we should add the user information for git.</p>
 
@@ -149,13 +140,11 @@ sbt docs/publishMicrosite
 
 <p>You need to set these two sbt settings:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>micrositePushSiteWith := GitHub4s
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micrositePushSiteWith := GitHub4s
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>micrositeGithubToken := getEnvVar("GITHUB_TOKEN")
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micrositeGithubToken := getEnvVar("GITHUB_TOKEN")
+</code></pre></div></div>
 
 <p><strong>3- Add the environment variable in Travis</strong></p>
 
