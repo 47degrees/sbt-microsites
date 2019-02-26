@@ -1,5 +1,13 @@
 # Changelog
 
+## 02/26/2019 - Version 0.9.0-M1
+
+Release changes:
+
+* Fix issue #229 ([#300](https://github.com/47deg/sbt-microsites/pull/300))
+* Upgrades the project by using the latest sbt-org-policies version ([#302](https://github.com/47deg/sbt-microsites/pull/302))
+
+
 ## 01/15/2019 - Version 0.8.0
 
 Release changes:
