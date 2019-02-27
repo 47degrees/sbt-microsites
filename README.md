@@ -24,7 +24,7 @@ To Begin, add the following lines to the `project/plugins.sbt` file within your 
 [comment]: # (Start Replace)
 
 ```
-addSbtPlugin("com.47deg"  % "sbt-microsites" % "0.9.0-M1")
+addSbtPlugin("com.47deg"  % "sbt-microsites" % "0.9.0")
 ```
 
 [comment]: # (End Replace)
