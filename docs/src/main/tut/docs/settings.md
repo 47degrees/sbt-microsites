@@ -251,7 +251,7 @@ In the Documentation **Menu** case, as you can see in the [layouts](layouts.html
 micrositeStaticDirectory := (resourceDirectory in Compile).value / "site" / "mystaticfiles"
 ```
 
-The directory will be copied as-is, but no process will be applied to any file on it, so the responsibility of loading/linking/use them on a layout is yours.
+The directory will be copied as-is, but no process will be applied to any file on it, so the responsibility of loading/linking/use them on a layout is yours. Also, see the `includeFilter in makeSite` config setting for the allowed file types that will be copied.
 
 - `micrositeExtraMdFiles`: this setting can be handy if you want to include additional markdown files in your site, and these files are not located in the same place in your `tut` directory. By default, the setting is set up as an empty map. You can override it, in this way:
 
@@ -351,3 +351,9 @@ micrositeEditButton := Some(MicrositeEditButton("Improve this Page", "/edit/mast
 micrositeCompilingDocsTool := WithMdoc
 ```
 If you are interested in learning where to place the markdown files according to the compilation tool chosen, please take a look at the [Typechecked Snippets](typechecked-snippets.html) section.
+
+- `includeFilter in makeSite`: Restrict the type of files that are included during the microsite build. The default value is `"*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json"` but you can override it like this:
+
+```
+includeFilter in makeSite := "*.csv" | "*.pdf" | *.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json"
+```
