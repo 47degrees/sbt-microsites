@@ -1,5 +1,15 @@
 # Changelog
 
+## 05/22/2019 - Version 0.9.1
+
+Release changes:
+
+* Updates microsite docs ([#304](https://github.com/47deg/sbt-microsites/pull/304))
+* add "includeFilter in makeSite" to docs ([#307](https://github.com/47deg/sbt-microsites/pull/307))
+* Upgrade sbt-org-policies 0.11.3 applying Scala CoC ([#308](https://github.com/47deg/sbt-microsites/pull/308))
+* Release version 0.9.1 ([#309](https://github.com/47deg/sbt-microsites/pull/309))
+
+
 ## 02/26/2019 - Version 0.9.0
 
 Release changes:
