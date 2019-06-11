@@ -205,22 +205,10 @@ abstract class Layout(config: MicrositeSettings) {
               """.stripMargin)) ++ customJsList ++ customCDNList ++ gitSidecar
   }
 
-  def mainScripts: List[TypedTag[String]] = {
-    val BuiltinLanguages = Set("scala", "java", "bash")
-
-    val languages =
-      config.visualSettings.highlightLanguages.map(lang => s"'$lang'").mkString("[", ",", "]")
-
-    val languageScripts =
-      config.visualSettings.highlightLanguages.filterNot(BuiltinLanguages.contains).map { lang =>
-        script(
-          src := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/${lang}.min.js")
-      }
-
+  def highLightingScript: List[TypedTag[String]] = {
     List(
       script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js")
-    ) ++ languageScripts ++ List(script(s"""hljs.configure({languages:${languages}});
-                |hljs.initHighlighting();
+    ) ++ List(script(s"""hljs.initHighlighting();
               """.stripMargin))
   }
 
@@ -267,7 +255,7 @@ abstract class Layout(config: MicrositeSettings) {
       div(
         cls := "container",
         divs,
-        mainScripts
+        highLightingScript
       )
     )
   }
