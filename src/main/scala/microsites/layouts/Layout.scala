@@ -205,6 +205,28 @@ abstract class Layout(config: MicrositeSettings) {
               """.stripMargin)) ++ customJsList ++ customCDNList ++ gitSidecar
   }
 
+  def mainScripts: List[TypedTag[String]] = {
+    val BuiltinLanguages = Set("scala", "java", "bash")
+
+    val languages =
+      config.visualSettings.highlightLanguages.map(lang => s"'$lang'").mkString("[", ",", "]")
+
+    val languageScripts =
+      config.visualSettings.highlightLanguages.filterNot(BuiltinLanguages.contains).map { lang =>
+        script(
+          src := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/${lang}.min.js")
+      }
+
+    List(
+      script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"),
+      script(
+        src := "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),
+      script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js")
+    ) ++ languageScripts ++ List(script(s"""hljs.configure({languages:${languages}});
+                |hljs.initHighlighting();
+              """.stripMargin))
+  }
+
   def globalFooter: TypedTag[String] = {
     val divs: Seq[TypedTag[String]] =
       div(
@@ -247,7 +269,8 @@ abstract class Layout(config: MicrositeSettings) {
       id := "site-footer",
       div(
         cls := "container",
-        divs
+        divs,
+        mainScripts
       )
     )
   }
