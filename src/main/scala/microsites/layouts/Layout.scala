@@ -218,9 +218,6 @@ abstract class Layout(config: MicrositeSettings) {
       }
 
     List(
-      script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"),
-      script(
-        src := "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),
       script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js")
     ) ++ languageScripts ++ List(script(s"""hljs.configure({languages:${languages}});
                 |hljs.initHighlighting();
