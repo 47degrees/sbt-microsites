@@ -205,6 +205,13 @@ abstract class Layout(config: MicrositeSettings) {
               """.stripMargin)) ++ customJsList ++ customCDNList ++ gitSidecar
   }
 
+  def highLightingScript: List[TypedTag[String]] = {
+    List(
+      script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js")
+    ) ++ List(script(s"""hljs.initHighlighting();
+              """.stripMargin))
+  }
+
   def globalFooter: TypedTag[String] = {
     val divs: Seq[TypedTag[String]] =
       div(
@@ -247,7 +254,8 @@ abstract class Layout(config: MicrositeSettings) {
       id := "site-footer",
       div(
         cls := "container",
-        divs
+        divs,
+        highLightingScript
       )
     )
   }
