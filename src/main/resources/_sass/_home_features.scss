@@ -1,0 +1,57 @@
+// Features Header
+// -----------------------------------------------------
+
+.features {
+  display: flex;
+    padding: 80px 0 80px 0;
+
+    .feature-item {
+      text-align: center;
+      flex: 1;
+      margin-right: ($base-point * 3);
+      &:last-child {
+        margin-right: 0px;
+      }
+      .first-feature-icon-wrapper,
+      .second-feature-icon-wrapper,
+      .third-feature-icon-wrapper
+      {
+          margin-top: 0;
+          margin-bottom: ($base-point * 3);
+          width: 70px;
+          height: 70px;
+          @media screen and (min-width: $screen-md-min) {
+              margin-top: 26px;
+          }
+      }
+
+      .first-feature-icon-wrapper {
+        background: url('../img/first_icon.png') no-repeat;
+        @include image-2x('../img/first_feature_icon2x.png',
+        70px,
+        70px);
+      }
+      .second-feature-icon-wrapper {
+        background: url('../img/second_icon.png') no-repeat;
+        @include image-2x('../img/second_feature_icon2x.png',
+        70px,
+        70px);
+      }
+      .third-feature-icon-wrapper {
+        background: url('../img/third_icon.png') no-repeat;
+        @include image-2x('../img/third_feature_icon2x.png',
+        70px,
+        70px);
+      }
+    }
+}
+
+.main-logo-wrapper {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background: url('../img/navbar_brand.png') no-repeat;
+    @include image-2x('../img/navbar_brand2x.png',
+    44px,
+    44px);
+}
