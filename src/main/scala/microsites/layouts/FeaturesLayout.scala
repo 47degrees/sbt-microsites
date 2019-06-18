@@ -55,26 +55,29 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
         )
       ),
       div(
-        cls := "jumbotron-features",
+        cls := "jumbotron jumbotron-features",
         div(
           cls := "container",
           div(
-            cls := "col-xs-6",
-            h1(config.identity.description),
-            p(
+            cls := "masthead-top",
+            div(
+              cls := "masthead-text",
+              h1(config.identity.description),
+              p(
+                a(
+                  href := config.gitSiteUrl,
+                  cls := "btn btn-outline-inverse",
+                  s"View on ${config.gitSettings.gitHostingService.name}"))
+            ),
+            div(
+              cls := "masthead-brand",
               a(
-                href := config.gitSiteUrl,
-                cls := "btn btn-outline-inverse",
-                s"View on ${config.gitSettings.gitHostingService.name}"))
-          ),
-          div(
-            cls := "col-xs-6",
-            a(
-              href := "{{ site.baseurl }}/",
-              cls := "brand",
-              div(cls := "main-logo-wrapper")
-            )
-          ),
+                href := "{{ site.baseurl }}/",
+                cls := "brand",
+                img(cls := "main-logo-wrapper")
+              )
+            ),
+          )
         )
       ),
       "{% include menu.html %}"
@@ -92,7 +95,7 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
             {% for feature in feature_hash %}""",
             div(
               cls := "feature-item",
-              div(cls := "{{ feature[0] }}-feature-icon-wrapper"),
+              img(cls := "{{ feature[0] }}-feature-icon-wrapper"),
               h4("{{ feature[1][0] }}"),
               p("{{ feature[1][1] }}")),
             """{% endfor %}
