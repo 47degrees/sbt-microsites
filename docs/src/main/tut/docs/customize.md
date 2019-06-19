@@ -31,11 +31,20 @@ If you create your own images (which makes sense) and override the default ones,
     - Third icon:
         - `third_icon.png` -> **[40x40]**
         - `third_icon2x.png` -> **[80x80]**
+- Icons used by the `features` meta tag that we saw in the [Layouts](layouts.html) section. These features and their icons will be shown in features section in the homeFeatures page.
+    - First feature icon:
+        - `first_feature_icon.png` -> **[40x40]**
+    - Second feature icon:
+        - `second_feature_icon.png` -> **[40x40]**
+    - Third feature icon:
+        - `third_feature_icon.png` -> **[40x40]**
+    - Fourth feature icon:
+        - `fourth_feature_icon.png` -> **[40x40]**
 - Optionally, you might want to specify your `favicon.png` image.
 
 ## Styles
 
-`sbt-microsites` is completely based on [Bootstrap](http://getbootstrap.com/), adding some extra styles that make the microsites even more beautiful. 
+`sbt-microsites` is completely based on [Bootstrap](http://getbootstrap.com/), adding some extra styles that make the microsites even more beautiful.
 
 That being said, you can personalize your microsite even further by using your own css files. In the same manner, as we've just seen for images, all the css files that you place in the directory associated with the `micrositeCssDirectory` setting (`src/main/resources/microsite/css` by default), will be copied to the generated microsite. Therefore, you can add new styles, or even override existing ones.
 
@@ -53,7 +62,7 @@ https://highlightjs.org/static/demo/ provides the ability to preview the differe
 
 ## Permalinks and Github integration
 
-Users may want to navigate through your site docs but also they may just use Github's to do so. 
+Users may want to navigate through your site docs but also they may just use Github's to do so.
 In order to achieve linkable documents that work both in Jekyll and Github you may accomplish that by following a few
 simple steps:
 

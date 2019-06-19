@@ -14,7 +14,8 @@
       }
       .first-feature-icon-wrapper,
       .second-feature-icon-wrapper,
-      .third-feature-icon-wrapper
+      .third-feature-icon-wrapper,
+      .fourth-feature-icon-wrapper
       {
           margin-top: 0;
           margin-bottom: ($base-point * 3);
@@ -23,13 +24,16 @@
       }
 
       .first-feature-icon-wrapper {
-        background: url('../img/first_icon.png') no-repeat;
+        background: url('../img/first_feature_icon.png') no-repeat;
       }
       .second-feature-icon-wrapper {
-        background: url('../img/second_icon.png') no-repeat;
+        background: url('../img/second_feature_icon.png') no-repeat;
       }
       .third-feature-icon-wrapper {
-        background: url('../img/third_icon.png') no-repeat;
+        background: url('../img/third_feature_icon.png') no-repeat;
+      }
+      .fourth-feature-icon-wrapper {
+        background: url('../img/fourth_feature_icon.png') no-repeat;
       }
     }
 }
@@ -58,12 +62,7 @@
 
 .main-logo-wrapper {
     position: relative;
-    width: 50px;
-    height: 50px;
-    background: url('../img/navbar_brand.png') no-repeat;
-    @include image-2x('../img/navbar_brand2x.png',
-    44px,
-    44px);
+    background: url('../img/navbar_main_brand.png') no-repeat;
 }
 
 // Responsive mode

@@ -71,11 +71,7 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
             ),
             div(
               cls := "masthead-brand",
-              a(
-                href := "{{ site.baseurl }}/",
-                cls := "brand",
-                img(cls := "main-logo-wrapper")
-              )
+              img(cls := "main-logo-wrapper")
             ),
           )
         )
