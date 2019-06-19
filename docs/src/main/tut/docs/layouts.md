@@ -38,7 +38,7 @@ The technology list is optional. These three technologies will be shown as a sub
 ## HomeFeatures Layout
 
 As the `home` layout `homeFeatures` is related to the `index.md` file.
-This layout is designed to show just a main title beside a big logo, and then a serie of features that can be highlighted from the library.
+This layout is designed to show a main title beside a big logo, and then a series of features that can be highlighted from the library.
 
 For instance:
 
