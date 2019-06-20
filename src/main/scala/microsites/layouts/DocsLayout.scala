@@ -108,17 +108,20 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
       "{% if site.data.menu.options %}",
         "{% assign items = site.data.menu.options %}",
         "{% for x in items %} ",
+          "{% assign x_title = x.title | downcase %}",
+          "{% assign page_title = page.title | downcase %}",
           "{% if x.menu_type.size == false or x.menu_type == page.section %}",
             li(
               a(href := "{{ site.baseurl }}/{{ x.url }}",
-                cls := "{% if x.title == page.title %} active {% endif %}", "{{x.title}}"),
+                cls := "{% if x_title == page_title %} active {% endif %}", "{{x.title}}"),
                 "{% if x.nested_options %} ",
                   ul(
                     cls := "sub_section",
                     "{% for sub in x.nested_options %} ",
+                    "{% assign sub_title = sub.title | downcase %}",
                     li(
                       a(href := "{{ site.baseurl }}/{{ sub.url }}",
-                        cls := "{% if sub.title == page.title and x.section == sub.section %} active {% endif %}",
+                        cls := "{% if sub_title == page_title and x.section == sub.section %} active {% endif %}",
                         "{{sub.title}}"
                       )
                     ),
@@ -131,11 +134,13 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
       "{% else %}",
         "{% assign items = site.pages | sort: 'weight' %}",
         "{% for x in items %}",
+          "{% assign x_title = x.title | downcase %}",
+          "{% assign page_title = page.title | downcase %}",
           "{% if x.section == page.section %}",
             li(
               a(
                 href := "{{ site.baseurl }}{{x.url}}",
-                cls := "{% if x.title == page.title %} active {% endif %}",
+                cls := "{% if x_title == page_title %} active {% endif %}",
                 "{{x.title}}"
               )
             ),
