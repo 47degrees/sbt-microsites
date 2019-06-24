@@ -39,10 +39,10 @@ This is needed in order to install and use the `jekyll` gem from other parts of 
 
 ```bash
 install:
-  - rvm use 2.3.0 --install --fuzzy
+  - rvm use 2.6.0 --install --fuzzy
   - gem update --system
   - gem install sass
-  - gem install jekyll -v 3.2.1
+  - gem install jekyll -v 3.8.5
 ```
 
 # Set it up in your Project
