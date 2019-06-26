@@ -1,5 +1,15 @@
 # Changelog
 
+## 06/26/2019 - Version 0.9.2
+
+Release changes:
+
+* Home layout HighLighting ([#311](https://github.com/47deg/sbt-microsites/pull/311))
+* Update to the latest stable Jekyll version ([#315](https://github.com/47deg/sbt-microsites/pull/315))
+* Active doc page highlighted ([#314](https://github.com/47deg/sbt-microsites/pull/314))
+* Release version 0.9.2 ([#316](https://github.com/47deg/sbt-microsites/pull/316))
+
+
 ## 05/22/2019 - Version 0.9.1
 
 Release changes:
