@@ -49,7 +49,6 @@ Many Scala projects, libraries and applications, use sbt-microsites to display d
 ![Cats](http://typelevel.org/cats/img/navbar_brand.png) | [**Cats**](http://typelevel.org/cats/) | A library of typeclasses for functional programming, such as functors, monads, and arrows. 
 ![Scalaz](https://scalaz.github.io/8/img/navbar_brand.png) | [**Scalaz**](https://scalaz.github.io/7/) | A library of typeclasses for functional programming, such as functors, monads, and arrows. 
 ![Cats-Effect](http://typelevel.org/cats/img/navbar_brand.png) | [**Cats-Effect**](https://github.com/typelevel/cats-effect) | Extension of Cats for general effect types, with asynchronicity and concurrency
-![ZIO](https://scalaz.github.io/scalaz-zio/img/navbar_brand.png) | [**ZIO**](https://scalaz.github.io/scalaz-zio/) | A general-purpose effect monad, for asynchronicity and concurrency
 ![FS2](http://fs2.io/img/navbar_brand.png) | [**fs2**](http://fs2.io/guide.html) | Functional Streams for Scala (FS2), based on `cats` and `cats-effect` 
 ![PureConfig](https://pureconfig.github.io/img/navbar_brand.png) | [**pureconfig**](https://pureconfig.github.io/) | A library for loading configuration files
 ![Ciris](https://cir.is/img/navbar_brand.png) | [**ciris**](https://cir.is/) | A _configuration as code_ library for compile-time safe configurations
