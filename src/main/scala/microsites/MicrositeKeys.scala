@@ -256,13 +256,13 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       .copyConfigurationFile((sourceDirectory in Jekyll).value, siteDirectory.value),
     micrositeMakeExtraMdFiles := micrositeHelper.value.buildAdditionalMd(),
     micrositeTutExtraMdFiles := {
-      val r: ScalaRun = (runner in Tut).value
-      val in          = micrositeMakeExtraMdFiles.value
-      val out         = tutTargetDirectory.value
-      val cp          = (fullClasspath in Tut).value
-      val opts        = (scalacOptions in Tut).value
-      val pOpts       = tutPluginJars.value.map(f => "–Xplugin:" + f.getAbsolutePath)
-      val re          = tutNameFilter.value.pattern.toString
+      val r     = (runner in Tut).value
+      val in    = micrositeMakeExtraMdFiles.value
+      val out   = tutTargetDirectory.value
+      val cp    = (fullClasspath in Tut).value
+      val opts  = (scalacOptions in Tut).value
+      val pOpts = tutPluginJars.value.map(f => "–Xplugin:" + f.getAbsolutePath)
+      val re    = tutNameFilter.value.pattern.toString
       _root_.tut.TutPlugin.tutOne(streams.value, r, in, out, cp, opts, pOpts, re).map(_._1)
     },
     makeTut := {
