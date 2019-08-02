@@ -68,8 +68,6 @@ trait MicrositeKeys {
     taskKey[File]("Create microsite extra md files")
   val micrositeTutExtraMdFiles: TaskKey[Seq[File]] =
     taskKey[Seq[File]]("Run tut for extra microsite md files")
-  val micrositeMdocExtraMdFiles: TaskKey[Seq[File]] =
-    taskKey[Seq[File]]("Run mdoc for extra microsite md files")
   val micrositeName: SettingKey[String]        = settingKey[String]("Microsite name")
   val micrositeDescription: SettingKey[String] = settingKey[String]("Microsite description")
   val micrositeAuthor: SettingKey[String]      = settingKey[String]("Microsite author")
@@ -218,7 +216,10 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           micrositeDataDirectory = micrositeDataDirectory.value,
           micrositeStaticDirectory = micrositeStaticDirectory.value,
           micrositeExtraMdFiles = micrositeExtraMdFiles.value,
-          micrositeExtraMdFilesOutput = micrositeExtraMdFilesOutput.value,
+          micrositeExtraMdFilesOutput = micrositeCompilingDocsTool.value match {
+            case WithTut  => micrositeExtraMdFilesOutput.value
+            case WithMdoc => tutTargetDirectory.value
+          },
           micrositePluginsDirectory = micrositePluginsDirectory.value
         ),
         urlSettings = MicrositeUrlSettings(
@@ -264,12 +265,6 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val re          = tutNameFilter.value.pattern.toString
       _root_.tut.TutPlugin.tutOne(streams.value, r, in, out, cp, opts, pOpts, re).map(_._1)
     },
-    micrositeMdocExtraMdFiles := {
-
-
-
-      tutTargetDirectory.value
-    },
     makeTut := {
       Def.sequential(microsite, tut, micrositeTutExtraMdFiles, makeSite, micrositeConfig)
     }.value,
@@ -277,7 +272,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       Def.sequential(
         microsite,
         mdoc.toTask(""),
-        micrositeMdocExtraMdFiles,
+        micrositeMakeExtraMdFiles,
         makeSite,
         micrositeConfig)
     }.value,
