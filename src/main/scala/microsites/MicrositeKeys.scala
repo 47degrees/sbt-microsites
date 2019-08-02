@@ -68,6 +68,8 @@ trait MicrositeKeys {
     taskKey[File]("Create microsite extra md files")
   val micrositeTutExtraMdFiles: TaskKey[Seq[File]] =
     taskKey[Seq[File]]("Run tut for extra microsite md files")
+  val micrositeMdocExtraMdFiles: TaskKey[Seq[File]] =
+    taskKey[Seq[File]]("Run mdoc for extra microsite md files")
   val micrositeName: SettingKey[String]        = settingKey[String]("Microsite name")
   val micrositeDescription: SettingKey[String] = settingKey[String]("Microsite description")
   val micrositeAuthor: SettingKey[String]      = settingKey[String]("Microsite author")
@@ -253,20 +255,31 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       .copyConfigurationFile((sourceDirectory in Jekyll).value, siteDirectory.value),
     micrositeMakeExtraMdFiles := micrositeHelper.value.buildAdditionalMd(),
     micrositeTutExtraMdFiles := {
-      val r     = (runner in Tut).value
-      val in    = micrositeMakeExtraMdFiles.value
-      val out   = tutTargetDirectory.value
-      val cp    = (fullClasspath in Tut).value
-      val opts  = (scalacOptions in Tut).value
-      val pOpts = tutPluginJars.value.map(f => "–Xplugin:" + f.getAbsolutePath)
-      val re    = tutNameFilter.value.pattern.toString
+      val r: ScalaRun = (runner in Tut).value
+      val in          = micrositeMakeExtraMdFiles.value
+      val out         = tutTargetDirectory.value
+      val cp          = (fullClasspath in Tut).value
+      val opts        = (scalacOptions in Tut).value
+      val pOpts       = tutPluginJars.value.map(f => "–Xplugin:" + f.getAbsolutePath)
+      val re          = tutNameFilter.value.pattern.toString
       _root_.tut.TutPlugin.tutOne(streams.value, r, in, out, cp, opts, pOpts, re).map(_._1)
+    },
+    micrositeMdocExtraMdFiles := {
+
+
+
+      tutTargetDirectory.value
     },
     makeTut := {
       Def.sequential(microsite, tut, micrositeTutExtraMdFiles, makeSite, micrositeConfig)
     }.value,
     makeMdoc := {
-      Def.sequential(microsite, mdoc.toTask(""), makeSite, micrositeConfig)
+      Def.sequential(
+        microsite,
+        mdoc.toTask(""),
+        micrositeMdocExtraMdFiles,
+        makeSite,
+        micrositeConfig)
     }.value,
     makeMicrosite := Def.taskDyn {
       micrositeCompilingDocsTool.value match {
