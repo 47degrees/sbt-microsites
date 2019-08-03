@@ -12,6 +12,7 @@ $ exists target/site/_config.yml
 $ exists target/site/index.html
 
 # check readme.md file
-#> checkReadme
+> checkReadme
+
 # check consequat.md file
-#> checkConsequat
+> checkConsequat
