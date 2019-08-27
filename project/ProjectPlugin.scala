@@ -16,16 +16,16 @@ object ProjectPlugin extends AutoPlugin {
   object autoImport {
 
     lazy val V = new {
-      val mdoc: String         = "1.2.10"
+      val mdoc: String         = "1.3.2"
       val moultingyaml: String = "0.4.0"
-      val orgPolicies: String  = "0.11.1"
+      val orgPolicies: String  = "0.12.0-M2"
       val scala: String        = "2.12.9"
-      val scalactic: String    = "3.0.5"
-      val scalatest: String    = "3.0.5"
+      val scalactic: String    = "3.0.8"
+      val scalatest: String    = "3.0.8"
       val scalacheck: String   = "1.14.0"
-      val scalatags: String    = "0.6.7"
+      val scalatags: String    = "0.7.0"
       val scrimage: String     = "2.1.8"
-      val tut: String          = "0.6.10"
+      val tut: String          = "0.6.12"
     }
 
     lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
