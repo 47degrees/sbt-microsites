@@ -5,7 +5,7 @@ jdk:
 
 matrix:
   include:
-    - scala: 2.12.8
+    - scala: 2.12.9
       env:
         - SBT_VERSION=1.2.8
 
