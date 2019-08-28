@@ -1,5 +1,15 @@
 # Changelog
 
+## 08/28/2019 - Version 0.9.3
+
+Release changes:
+
+* Link mdoc into the credits section ([#317](https://github.com/47deg/sbt-microsites/pull/317))
+* Remove ZIO from "microsites in the wild" ([#319](https://github.com/47deg/sbt-microsites/pull/319))
+* Build Upgrade ([#321](https://github.com/47deg/sbt-microsites/pull/321))
+* Release 0.9.3 ([#322](https://github.com/47deg/sbt-microsites/pull/322))
+
+
 ## 06/26/2019 - Version 0.9.2
 
 Release changes:
