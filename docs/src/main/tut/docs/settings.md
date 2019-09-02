@@ -338,11 +338,11 @@ micrositeFooterText := Some("<b>Bob</b> the <i>Builder</i>")
 with the docs layout. The button links to the given path of the page in it's repository.
 By default, it is set to `None` and not visible. To enable, set the MicrositeEditButton with text
 for the button and the basePath for the file. The basePath is comprised of the file URL excluding the top-level
-repository URL and should include the dynamic property `{{page.path}}` that will be generated for each page when Jekyll
+repository URL and should include the dynamic property `{% raw %}{{page.path}}{% endraw %}` that will be generated for each page when Jekyll
 compiles the site.  **The strings are passed in unsanitized to the templating engine.**
 
 ```
-micrositeEditButton := Some(MicrositeEditButton("Improve this Page", "/edit/master/docs/src/main/tut/{{ page.path }}"))
+{% raw %}micrositeEditButton := Some(MicrositeEditButton("Improve this Page", "/edit/master/docs/src/main/tut/{{ page.path }}")){% endraw %}
 ```
 
 - `micrositeCompilingDocsTool`: Choose between compiling code snippets with [**tut**](https://github.com/tpolecat/tut) or [**mdoc**](https://github.com/scalameta/mdoc). By default, it's set to `WithTut` in order to preserve compatibility with previous versions of your markdown files. But `WithMdoc` and all the features it includes is now also supported.
