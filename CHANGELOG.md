@@ -1,5 +1,13 @@
 # Changelog
 
+## 09/02/2019 - Version 0.9.4
+
+Release changes:
+
+* Consolidate two editButton href tags into one ([#324](https://github.com/47deg/sbt-microsites/pull/324))
+* Release version 0.9.4 ([#325](https://github.com/47deg/sbt-microsites/pull/325))
+
+
 ## 08/28/2019 - Version 0.9.3
 
 Release changes:
