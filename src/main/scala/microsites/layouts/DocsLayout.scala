@@ -162,8 +162,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
           div(
             cls := "edit-button",
             a(
-              href := config.gitSiteUrl,
-              href := button.basePath,
+              href := s"${config.gitSiteUrl}${button.basePath}",
               cls := "btn-sm btn-info",
               button.text
             )
