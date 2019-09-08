@@ -7,10 +7,10 @@ title: Layouts
 
 Currently, the sbt-microsites plugin includes four different layouts:
 
-- `home`: The landing page, the public face of your library or project.
-- `docs` (Optional): The page where the documentation for your library should be included. Most likely, you are seeing the `Documentation` page of this repo right now. It's optional, depending on the `micrositeDocumentationUrl` setting, take a look at the [Configuring the Microsite](settings.html) section for an in-depth explanation.
-- `page` (Optional): Similar to `home` but reducing the jumbotron layer and taking into account the submenu (jumbotron and other concepts related to style are explained in the [Customize](customize.html) section.
-- Menu Partial: this abstract layout reads all the files in your project that fit a set of requirements, and sets up a menu under the jumbotron image. We'll see more details on this later on.
+- `home`: The landing page—the public face of your library or project.
+- `docs` (Optional): The page where the documentation for your library should be included. Most likely, you are seeing the `Documentation` page of this repo right now. It's optional, depending on the `micrositeDocumentationUrl` setting. Take a look at the [Configuring the Microsite](settings.html) section for an in-depth explanation.
+- `page` (Optional): Similar to `home`, but reducing the jumbotron layer and taking into account the submenu (jumbotron and other concepts related to style are explained in the [Customize](customize.html) section).
+- Menu Partial: This abstract layout reads all the files in your project that fit a set of requirements, and sets up a menu under the jumbotron image. We'll see more details on this later.
 
 ## Home Layout
 
@@ -31,7 +31,7 @@ technologies:
 ---
 ```
 
-The technology list is optional. These three technologies will be shown as a sub-footer in your home page. These technologies are identified for the set of keys (`first`, `second`, `third`). You can specify to include all of them or none of them. At this time there are no other choices.
+The technology list is optional. These three technologies will be shown as a sub-footer in your home page. These technologies are identified for the set of keys (`first`, `second`, `third`). You can specify to include all of them or none of them. There are no other choices at this time.
 
 ## Docs Layout
 
@@ -39,9 +39,9 @@ All the markdown files that contain this `layout` and `section` as `docs` will b
 
 To be able to access the documentation, you have to configure `micrositeDocumentationUrl` setting.
 
-In order to change the default label description for the `micrositeDocumentationUrl`, the default value is `Documentation` you have to change the `micrositeDocumentationLabelDescription`.
+In order to change the default label description for the `micrositeDocumentationUrl` (the default value is `Documentation`), you have to change the `micrositeDocumentationLabelDescription`.
 
-As an example, you can look at the sbt-microsites documentation at [Github](https://github.com/47deg/sbt-microsites/tree/master/docs/src/main/tut). We have several documentation files:
+As an example, you can look at the sbt-microsites documentation at [GitHub](https://github.com/47deg/sbt-microsites/tree/master/docs/src/main/tut). We have several documentation files:
 
 - `build-the-microsite.md`
 - `customize.md`
@@ -61,7 +61,7 @@ title: <Document Title>
 
 `<Document Title>` will be used as a menu item name on the left.
 
-### How to setup the Docs Menu?
+### How to setup the Docs Menu
 
 Looking at the [Configuring the Microsite](settings.html) section, in the directory configured under the `micrositeDataDirectory` setting, you need to create a new file named `menu.yml`. This `YAML` file will be accessed by the `Docs Layout` in order to create the menu. Let's see an example:
 
@@ -89,7 +89,7 @@ options:
 * `title`: the menu title. It should be the same as defined in the meta-property associated with the file (`<Document Title>`, where the layout is defined).
 * `url`: relative path to the site URL.
 * `menu_section`: this key is mandatory only when you have a nested submenu. It'll be useful to distinguish between sub-items with the same name in different menu options.
-* `menu_type`: optional parameter. It brings the ability to configure different menus for different set of documents, defining all the menu options in the same `menu.yml` file. For example, you might want to define two different places in your microsite where the menu might be different. This is the setting you can use in order to group the set of menu options.
+* `menu_type`: optional parameter. It brings the ability to configure different menus for different sets of documents, defining all the menu options in the same `menu.yml` file. For example, you might want to define two different places in your microsite where the menu might be different. This is the setting you can use in order to group the set of menu options.
 * Optionally, we could define a second level of nested sub-items, thanks to the `nested_options` key, defined at the same level that `title` and `url` of the parent menu. For example:
 
 ```
@@ -120,7 +120,7 @@ section: "intro"
 
 ## Page Layout and Menu Partial Layout
 
-This layout is useful when we want to have different web pages at the same `home` level but under the menu of the microsite.
+This layout is useful when we want to have different web pages at the same `home` level, but under the menu of the microsite.
 
 One example:
 
@@ -168,7 +168,7 @@ position: 2
 ---
 ```
 
-In this case, thanks to Jekyll and the MenuPartial Layout implemented as a part of the **sbt-microsites** plugin; it will automatically generate a menu with three items:
+In this case, thanks to Jekyll and the MenuPartial Layout implemented as a part of the **sbt-microsites** plugin, it will automatically generate a menu with three items:
  
         Home | Section 3 | Section 2 
         
