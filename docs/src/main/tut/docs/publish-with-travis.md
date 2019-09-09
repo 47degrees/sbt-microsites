@@ -23,27 +23,27 @@ $ ssh-keygen -t rsa -b 4096 -C "Travis Deploy Key" -f travis-deploy-key
 
 After that, you'll see two new files in your folder: `travis-deploy-key` and `travis-deploy-key.pub`
 
-_**Note:** If you are creating the keys in your project maybe you should add these files to your .gitignore file_.
+_**Note:** If you are creating the keys in your project, maybe you should add these files to your .gitignore file_.
 
 **2- Add key to GitHub Project**
 
-Add the content of `travis-deploy-key.pub` in the `Deploy Key` section of the GitHub project's setting page.
+Add the content of `travis-deploy-key.pub` in the `Deploy Key` section of the GitHub project's settings page.
 
-Navigate to `Setting` > `Deploy Keys`. Make sure you allow write access in order to push in this repository.
+Navigate to `Settings` > `Deploy Keys`. Make sure you allow write access in order to push in this repository.
 
 **3- Encrypt your keys**
 
-Travis needs the keys for publishing the microsite in `gh-pages` branch. It's very important that you encrypt your keys using the `travis` command line. You have to install travis:
+Travis needs the keys for publishing the microsite in `gh-pages` branch. It's very important that you encrypt your keys using the `travis` command line. You have to install Travis:
 
 ```
 $ gem install travis
 ```
 
-_**Note:** An important thing to remember is that you can only have one file encrypted in Travis. If you need more keys you should use `tar` for joining your different keys. In our example, we only are going to use the key_
+_**Note:** An important thing to remember is that you can only have one file encrypted in Travis. If you need more keys, you should use `tar` for joining your different keys. In our example, we are only going to use the key_
 
-We have to encrypt the `travis-deploy-key` file and we have to add the encrypted file to GitHub.
+We have to encrypt the `travis-deploy-key` file, and we have to add the encrypted file to GitHub.
 
-First, we must be logged into travis:
+First, we must be logged into Travis:
 
 ```
 $ travis login
@@ -109,7 +109,7 @@ after_success:
   deploy and release"; fi
 ```
 
-You can see that before we install, we run `decrypt-keys.sh`, then we install `jekyll` and finally, we are running `publishMicrosite.sh`.
+You can see that, before we install, we run `decrypt-keys.sh`, then we install `jekyll`, and, finally, we are running `publishMicrosite.sh`.
 
 Next, you can see the `decrypt-keys.sh` script:
 
@@ -148,7 +148,7 @@ With this method, you don't need to generate any ssh keys or encrypt any files. 
 
 You need to create a GitHub token with `repo` scope. You can create it in the [GitHub settings](https://github.com/settings/tokens/new?scopes=repo&description=sbt-microsites) page.
 
-Copy the token in a safe place, we'll use this token through an environment variable as we'll see shortly.
+Copy the token in a safe place. We'll use this token through an environment variable as we'll see shortly.
 
 **2- Configure your project build**
 
