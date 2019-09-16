@@ -36,7 +36,7 @@ object Layout {
         rel := "noopener noreferrer",
         s"sbt-microsites"
       ),
-      s" - © 2016 ",
+      s" - © 2019 ",
       a(
         href := s"https://www.47deg.com/",
         target := "_blank",
