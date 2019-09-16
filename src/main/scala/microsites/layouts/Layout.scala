@@ -34,11 +34,13 @@ object Layout {
         href := s"https://47deg.github.io/sbt-microsites/",
         target := "_blank",
         s"Sbt-microsites"
+        rel := "noopener noreferrer",
       ),
       s" - © 2016 ",
       a(
         href := s"https://www.47deg.com/",
         target := "_blank",
+        rel := "noopener noreferrer",
         s"47 Degrees"
       )
     )
@@ -223,6 +225,7 @@ abstract class Layout(config: MicrositeSettings) {
             a(
               href := s"${config.identity.organizationHomepage}",
               target := "_blank",
+              rel := "noopener noreferrer",
               s"${config.identity.author}"))
         ),
         div(
