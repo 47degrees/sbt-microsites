@@ -328,7 +328,7 @@ micrositeConfigYaml := ConfigYml(
 )
 ```
 
-- `micrositeFooterText`: This setting allows the optional configuration of the second line in the footer. By default, it is set to `Some("""Website built with "Sbt-microsites © 2016 47 Degrees""")`. **This string is passed in unsanitized to the templating engine.**. If this setting is set to `None`, the second line is not displayed.
+- `micrositeFooterText`: This setting allows the optional configuration of the second line in the footer. By default, it is set to `Some("""Website built with "Sbt-microsites © 2019 47 Degrees""")`. **This string is passed in unsanitized to the templating engine.**. If this setting is set to `None`, the second line is not displayed.
 
 ```
 micrositeFooterText := Some("<b>Bob</b> the <i>Builder</i>")
