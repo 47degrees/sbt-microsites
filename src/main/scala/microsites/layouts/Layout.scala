@@ -33,8 +33,8 @@ object Layout {
       a(
         href := s"https://47deg.github.io/sbt-microsites/",
         target := "_blank",
-        s"Sbt-microsites"
         rel := "noopener noreferrer",
+        s"sbt-microsites"
       ),
       s" - © 2016 ",
       a(
