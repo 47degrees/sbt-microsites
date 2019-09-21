@@ -226,7 +226,8 @@ abstract class Layout(config: MicrositeSettings) {
               href := s"${config.identity.organizationHomepage}",
               target := "_blank",
               rel := "noopener noreferrer",
-              s"${config.identity.author}"))
+              s"${config.identity.author}")
+          )
         ),
         div(
           cls := "col-xs-6",
