@@ -1,5 +1,28 @@
 # Changelog
 
+## 09/25/2019 - Version 0.9.6
+
+Release changes:
+
+* Add {% raw %} directive to embedded {{page.path}} ([#326](https://github.com/47deg/sbt-microsites/pull/326))
+* Update layouts.md ([#329](https://github.com/47deg/sbt-microsites/pull/329))
+* Update customize.md ([#328](https://github.com/47deg/sbt-microsites/pull/328))
+* Update README.md ([#327](https://github.com/47deg/sbt-microsites/pull/327))
+* Added Mocked Streams library to list of projects using sbt-microsites ([#330](https://github.com/47deg/sbt-microsites/pull/330))
+* Update publish-with-travis.md ([#331](https://github.com/47deg/sbt-microsites/pull/331))
+* Update settings.md ([#332](https://github.com/47deg/sbt-microsites/pull/332))
+* Add rel attribute to external links to avoid security problems ([#333](https://github.com/47deg/sbt-microsites/pull/333))
+* Update moultingyaml to 0.4.1 ([#339](https://github.com/47deg/sbt-microsites/pull/339))
+* Update sbt-microsites to 0.9.4 ([#337](https://github.com/47deg/sbt-microsites/pull/337))
+* Update sbt to 1.3.2 ([#340](https://github.com/47deg/sbt-microsites/pull/340))
+* Update scalacheck to 1.14.1 ([#341](https://github.com/47deg/sbt-microsites/pull/341))
+* Update org-policies-core, ... to 0.12.0-M3 ([#336](https://github.com/47deg/sbt-microsites/pull/336))
+* Update prerequisites versions doc info ([#342](https://github.com/47deg/sbt-microsites/pull/342))
+* Release version 0.9.5 ([#343](https://github.com/47deg/sbt-microsites/pull/343))
+* Supporting ExtraMDFiles with Mdoc ([#320](https://github.com/47deg/sbt-microsites/pull/320))
+* Release version 0.9.6 ([#344](https://github.com/47deg/sbt-microsites/pull/344))
+
+
 ## 09/25/2019 - Version 0.9.5
 
 Release changes:
