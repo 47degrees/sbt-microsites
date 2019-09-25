@@ -216,7 +216,10 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           micrositeDataDirectory = micrositeDataDirectory.value,
           micrositeStaticDirectory = micrositeStaticDirectory.value,
           micrositeExtraMdFiles = micrositeExtraMdFiles.value,
-          micrositeExtraMdFilesOutput = micrositeExtraMdFilesOutput.value,
+          micrositeExtraMdFilesOutput = micrositeCompilingDocsTool.value match {
+            case WithTut  => micrositeExtraMdFilesOutput.value
+            case WithMdoc => tutTargetDirectory.value
+          },
           micrositePluginsDirectory = micrositePluginsDirectory.value
         ),
         urlSettings = MicrositeUrlSettings(
@@ -266,7 +269,12 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       Def.sequential(microsite, tut, micrositeTutExtraMdFiles, makeSite, micrositeConfig)
     }.value,
     makeMdoc := {
-      Def.sequential(microsite, mdoc.toTask(""), makeSite, micrositeConfig)
+      Def.sequential(
+        microsite,
+        mdoc.toTask(""),
+        micrositeMakeExtraMdFiles,
+        makeSite,
+        micrositeConfig)
     }.value,
     makeMicrosite := Def.taskDyn {
       micrositeCompilingDocsTool.value match {
