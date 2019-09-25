@@ -5,8 +5,8 @@ title: Getting Started
 
 # Prerequisites
 
-* [sbt](http://www.scala-sbt.org/) 0.13.8+
-* [jekyll](https://jekyllrb.com/) 3.2.1+
+* [sbt](http://www.scala-sbt.org/) 1.3.2+
+* [jekyll](https://jekyllrb.com/) 3.8.5+
 
 Here are a few hints for local and travis environments to satisfy the `jekyll` requirement.
 
