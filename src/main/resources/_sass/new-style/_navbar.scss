@@ -1,0 +1,51 @@
+// Navbar
+// -----------------------------------------------
+// -----------------------------------------------
+
+#navigation {
+  .navbar-wrapper {
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    padding: ($base-point-grid * 5) 0;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    .navigation-brand {
+      font-size: ($font-size-large - 1);
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+
+        .icon-wrapper {
+          width: 44px;
+          height: 44px;
+          background: url("../img/navbar_brand.png") no-repeat;
+          @include image-2x('../img/navbar_brand2x.png', 44px, 44px);
+        }
+      }
+    }
+
+    .navigation-menu {
+      li {
+        display: inline-block;
+
+        a {
+          padding: 0 ($base-point-grid * 2);
+
+          &:focus,
+          &:hover {
+            opacity: 0.5;
+          }
+
+          i {
+            font-size: 21px;
+            margin-right: 6px;
+          }
+        }
+      }
+    }
+  }
+}

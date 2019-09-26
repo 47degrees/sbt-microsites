@@ -71,6 +71,37 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
       "{% include menu.html %}"
     )
 
+  def newHomeNav: TypedTag[String] =
+    nav(
+      id := "navigation",
+      div(
+        cls := "navbar-wrapper container",
+          div(
+            cls := "navigation-brand",
+            a(
+              href := "{{ site.baseurl }}/",
+              cls := "brand",
+              div(cls := "icon-wrapper"),
+              span(config.identity.name)))
+      )
+    )
+
+  def newHomeHeader: TypedTag[String] =
+    header(
+      id := "masthead"
+        div(
+          cls := "container",
+          h1(cls := "text-center", config.identity.description),
+          h2(),
+          p(
+            cls := "text-center",
+            a(
+              href := config.gitSiteUrl,
+              cls := "btn btn-outline-inverse",
+              s"View on ${config.gitSettings.gitHostingService.name}"))
+        )
+    )
+
   def homeMain: TypedTag[String] =
     main(
       id := "site-main",
