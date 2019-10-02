@@ -1,5 +1,16 @@
 # Changelog
 
+## 10/02/2019 - Version 0.9.7
+
+Release changes:
+
+* Update sbt-microsites to 0.9.6 ([#345](https://github.com/47deg/sbt-microsites/pull/345))
+* Update scalacheck to 1.14.2 ([#346](https://github.com/47deg/sbt-microsites/pull/346))
+* Update sbt-mdoc to 1.3.4 ([#347](https://github.com/47deg/sbt-microsites/pull/347))
+* Update tut-plugin to 0.6.13 ([#348](https://github.com/47deg/sbt-microsites/pull/348))
+* Releases 0.9.7 ([#349](https://github.com/47deg/sbt-microsites/pull/349))
+
+
 ## 09/25/2019 - Version 0.9.6
 
 Release changes:
