@@ -155,6 +155,9 @@ trait MicrositeKeys {
 
   val micrositeCompilingDocsTool =
     settingKey[CompilingDocsTool]("Choose between compiling code snippets with tut or mdoc")
+
+  val micrositeOldStyle: SettingKey[Boolean] = settingKey[Boolean](
+    "Optional. False by default. Set it true to use the old sbt-microsites style.")
 }
 
 object MicrositeKeys extends MicrositeKeys
@@ -200,7 +203,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           highlightLanguages = micrositeHighlightLanguages.value,
           palette = micrositePalette.value,
           favicons = micrositeFavicons.value,
-          shareOnSocial = micrositeShareOnSocial.value
+          shareOnSocial = micrositeShareOnSocial.value,
+          oldStyle = micrositeOldStyle.value
         ),
         templateTexts = MicrositeTemplateTexts(
           micrositeFooterText.value

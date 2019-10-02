@@ -25,12 +25,16 @@ import scalatags.Text.tags2.{main, section}
 class HomeLayout(config: MicrositeSettings) extends Layout(config) {
 
   override def render: TypedTag[String] = {
+    val bodyBlock =
+      if (config.visualSettings.oldStyle)
+        List(homeHeader, homeMain, globalFooter)
+      else
+        List(newHomeNav, newHomeHeader, globalFooter)
+
     html(
       commonHead,
       body(
-        homeHeader,
-        homeMain,
-        globalFooter
+        bodyBlock: _*
       )
     )
   }
@@ -72,34 +76,35 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
     )
 
   def newHomeNav: TypedTag[String] =
-    nav(
+    div(
       id := "navigation",
       div(
         cls := "navbar-wrapper container",
-          div(
-            cls := "navigation-brand",
-            a(
-              href := "{{ site.baseurl }}/",
-              cls := "brand",
-              div(cls := "icon-wrapper"),
-              span(config.identity.name)))
+        div(
+          cls := "navigation-brand",
+          a(
+            href := "{{ site.baseurl }}/",
+            cls := "brand",
+            div(cls := "icon-wrapper"),
+            span(config.identity.name))),
+        div(cls := "navigation-menu", buildNewCollapseMenu)
       )
     )
 
   def newHomeHeader: TypedTag[String] =
     header(
-      id := "masthead"
-        div(
-          cls := "container",
-          h1(cls := "text-center", config.identity.description),
-          h2(),
-          p(
-            cls := "text-center",
-            a(
-              href := config.gitSiteUrl,
-              cls := "btn btn-outline-inverse",
-              s"View on ${config.gitSettings.gitHostingService.name}"))
-        )
+      id := "masthead",
+      div(
+        cls := "container",
+        h1(cls := "text-center", config.identity.description),
+        h2(),
+        p(
+          cls := "text-center",
+          a(
+            href := config.gitSiteUrl,
+            cls := "btn btn-outline-inverse",
+            s"View on ${config.gitSettings.gitHostingService.name}"))
+      )
     )
 
   def homeMain: TypedTag[String] =

@@ -3,13 +3,18 @@
 // -----------------------------------------------
 
 #navigation {
+  background: $white-color;
+
+  a {
+    color: $brand-secondary;
+  }
+
   .navbar-wrapper {
     z-index: 20;
     display: flex;
     align-items: center;
     padding: ($base-point-grid * 5) 0;
     justify-content: space-between;
-    align-items: center;
     position: relative;
 
     .navigation-brand {
@@ -23,14 +28,21 @@
           width: 44px;
           height: 44px;
           background: url("../img/navbar_brand.png") no-repeat;
-          @include image-2x('../img/navbar_brand2x.png', 44px, 44px);
+
+          span {
+            white-space: nowrap;
+          }
         }
       }
     }
 
     .navigation-menu {
+      li:last-child {
+        margin-left: ($base-point-grid * 3);
+      }
       li {
         display: inline-block;
+        list-style: none;
 
         a {
           padding: 0 ($base-point-grid * 2);

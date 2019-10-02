@@ -148,20 +148,36 @@ abstract class Layout(config: MicrositeSettings) {
       link(rel := "stylesheet", href := css)
     }
 
-    List(
-      link(
-        rel := "stylesheet",
-        href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
-      link(
-        rel := "stylesheet",
-        href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"),
-      link(
-        rel := "stylesheet",
-        href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
-      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/style.css"),
-      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/palette.css"),
-      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css")
-    ) ++ customCssList ++ customCDNList ++ ganalytics.toList
+    val cssStyles =
+      if (config.visualSettings.oldStyle)
+        List(
+          link(
+            rel := "stylesheet",
+            href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
+          link(
+            rel := "stylesheet",
+            href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"),
+          link(
+            rel := "stylesheet",
+            href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
+          link(rel := "stylesheet", href := s"{{site.baseurl}}/css/style.css"),
+          link(rel := "stylesheet", href := s"{{site.baseurl}}/css/palette.css"),
+          link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css")
+        )
+      else
+        List(
+          link(
+            rel := "stylesheet",
+            href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"),
+          link(
+            rel := "stylesheet",
+            href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
+          link(rel := "stylesheet", href := s"{{site.baseurl}}/css/new-palette.css"),
+          link(rel := "stylesheet", href := s"{{site.baseurl}}/css/new-style.css"),
+          link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css")
+        )
+
+    cssStyles ++ customCssList ++ customCDNList ++ ganalytics.toList
   }
 
   def scripts: List[TypedTag[String]] = {
@@ -285,6 +301,22 @@ abstract class Layout(config: MicrositeSettings) {
           )
         else ()
       )
+    )
+
+  def buildNewCollapseMenu: TypedTag[String] =
+    ul(
+      cls := "",
+      li(
+        a(href := config.gitSiteUrl, span(config.gitSettings.gitHostingService.name))
+      ),
+      if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
+        li(
+          a(
+            href := s"${config.urlSettings.micrositeDocumentationUrl}",
+            span(config.urlSettings.micrositeDocumentationLabelDescription)
+          )
+        )
+      else ()
     )
 
   private[this] def validFile(extension: String)(file: File): Boolean =
