@@ -16,7 +16,7 @@ object ProjectPlugin extends AutoPlugin {
   object autoImport {
 
     lazy val V = new {
-      val mdoc: String         = "1.3.2"
+      val mdoc: String         = "1.3.5"
       val moultingyaml: String = "0.4.1"
       val orgPolicies: String  = "0.12.0-M2"
       val scala: String        = "2.12.9"
