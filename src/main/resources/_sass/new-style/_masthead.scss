@@ -2,5 +2,34 @@
 // -----------------------------------------------
 // -----------------------------------------------
 #masthead {
-  background-color: $brand-secondary;
+  background-color: $background-color;
+  color: $white-color;
+  padding: 50px 0 110px;
+  font-family: $title-font-family;
+
+  .text-center {
+    text-align: center;
+
+    .masthead-description {
+      font-size: 3rem;
+      margin-bottom: $base-point-grid * 7;
+      font-weight: 600;
+    }
+  }
+
+  .masthead-button {
+    color: $white-color;
+    padding: 11px ($base-point-grid * 5);
+    border: 2px solid;
+    font-weight: 600;
+    border-radius: 2px;
+    transition: all 350ms ease;
+
+    &:hover {
+      background-color: $white-color;
+      color: $background-color;
+      border-color: $background-color;
+      padding: 13px 42px;
+    }
+  }
 }

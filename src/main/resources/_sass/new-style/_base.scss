@@ -5,8 +5,9 @@
 // -----------------------------------------------
 
 body {
-  color: $brand-primary;
-  background: $background-color;
+  margin: 0;
+  color: #333;
+  background: $white-color;
   font-family: $font-family;
 }
 
@@ -16,5 +17,27 @@ a {
 }
 
 .container {
-  max-width: 920px;
+  max-width: $content-width;
+  margin: 0 auto;
+  padding: 0 ($base-point-grid * 3);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: $title-font-family;
+}
+h1 {
+  font-size: 2.2rem;
+}
+h2 {
+  font-size: 2rem;
+}
+h3 {
+  font-size: 1.6rem;
+}
+h4 {
+  font-size: 1.3rem;
 }

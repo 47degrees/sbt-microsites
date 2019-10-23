@@ -156,7 +156,7 @@ trait MicrositeKeys {
   val micrositeCompilingDocsTool =
     settingKey[CompilingDocsTool]("Choose between compiling code snippets with tut or mdoc")
 
-  val micrositeOldStyle: SettingKey[Boolean] = settingKey[Boolean](
+  val micrositeTheme: SettingKey[String] = settingKey[String](
     "Optional. False by default. Set it true to use the old sbt-microsites style.")
 }
 
@@ -179,6 +179,15 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       "docs"        -> true,
       "markdown"    -> "kramdown",
       "highlighter" -> "rouge",
+      "exclude"     -> List("css"),
+      "include" -> List(
+        "css/monokai.css",
+        "css/codemirror.css",
+        s"css/${micrositeTheme.value}-palette.css",
+        s"css/${micrositeTheme.value}-palette.scss",
+        s"css/${micrositeTheme.value}-style.css",
+        s"css/${micrositeTheme.value}-style.scss"
+      ),
       "collections" -> Map("tut" -> Map("output" -> true))
     )
 
@@ -204,7 +213,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           palette = micrositePalette.value,
           favicons = micrositeFavicons.value,
           shareOnSocial = micrositeShareOnSocial.value,
-          oldStyle = micrositeOldStyle.value
+          theme = micrositeTheme.value
         ),
         templateTexts = MicrositeTemplateTexts(
           micrositeFooterText.value

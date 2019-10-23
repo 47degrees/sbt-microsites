@@ -149,7 +149,7 @@ abstract class Layout(config: MicrositeSettings) {
     }
 
     val cssStyles =
-      if (config.visualSettings.oldStyle)
+      if (config.visualSettings.theme == "pattern")
         List(
           link(
             rel := "stylesheet",
@@ -160,8 +160,12 @@ abstract class Layout(config: MicrositeSettings) {
           link(
             rel := "stylesheet",
             href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
-          link(rel := "stylesheet", href := s"{{site.baseurl}}/css/style.css"),
-          link(rel := "stylesheet", href := s"{{site.baseurl}}/css/palette.css"),
+          link(
+            rel := "stylesheet",
+            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css"),
+          link(
+            rel := "stylesheet",
+            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-palette.css"),
           link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css")
         )
       else
@@ -172,8 +176,12 @@ abstract class Layout(config: MicrositeSettings) {
           link(
             rel := "stylesheet",
             href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
-          link(rel := "stylesheet", href := s"{{site.baseurl}}/css/new-palette.css"),
-          link(rel := "stylesheet", href := s"{{site.baseurl}}/css/new-style.css"),
+          link(
+            rel := "stylesheet",
+            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-palette.css"),
+          link(
+            rel := "stylesheet",
+            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css"),
           link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css")
         )
 
@@ -214,7 +222,7 @@ abstract class Layout(config: MicrositeSettings) {
       }
 
     List(
-      script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"),
+      script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"),
       script(
         src := "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),
       script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js")
@@ -262,6 +270,43 @@ abstract class Layout(config: MicrositeSettings) {
                 cls := "row",
                 div(
                   cls := "col-xs-6",
+                  raw(text)
+                )
+              )
+            )
+          case None => Nil
+        }
+      }
+
+    footer(
+      id := "site-footer",
+      div(
+        cls := "container",
+        divs,
+        highLightingScript
+      )
+    )
+  }
+
+  def newFooter: TypedTag[String] = {
+    val divs: Seq[TypedTag[String]] =
+      div(
+        cls := "row",
+        p(
+          "{{ site.name }} is designed and developed by ",
+          a(
+            href := s"${config.identity.organizationHomepage}",
+            target := "_blank",
+            rel := "noopener noreferrer",
+            s"${config.identity.author}")
+        )
+      ) +: {
+        config.templateTexts.footer match {
+          case Some(text) =>
+            Seq(
+              div(
+                cls := "row",
+                div(
                   raw(text)
                 )
               )

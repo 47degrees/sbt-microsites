@@ -26,10 +26,10 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
 
   override def render: TypedTag[String] = {
     val bodyBlock =
-      if (config.visualSettings.oldStyle)
+      if (config.visualSettings.theme == "pattern")
         List(homeHeader, homeMain, globalFooter)
       else
-        List(newHomeNav, newHomeHeader, globalFooter)
+        List(newHomeNav, newHomeHeader, newHomeMain, newFooter)
 
     html(
       commonHead,
@@ -95,16 +95,19 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
     header(
       id := "masthead",
       div(
-        cls := "container",
-        h1(cls := "text-center", config.identity.description),
-        h2(),
-        p(
-          cls := "text-center",
-          a(
-            href := config.gitSiteUrl,
-            cls := "btn btn-outline-inverse",
-            s"View on ${config.gitSettings.gitHostingService.name}"))
+        cls := "container text-center",
+        h1(cls := "masthead-description", config.identity.description),
+        a(
+          href := config.gitSiteUrl,
+          cls := "masthead-button",
+          s"View on ${config.gitSettings.gitHostingService.name}")
       )
+    )
+
+  def newHomeMain: TypedTag[String] =
+    main(
+      id := "site-main",
+      section(cls := "main-content", div(cls := "container", div(id := "content", "{{ content }}")))
     )
 
   def homeMain: TypedTag[String] =

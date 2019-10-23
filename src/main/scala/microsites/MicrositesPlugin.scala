@@ -86,16 +86,28 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeExtraMdFiles := Map.empty,
     micrositeExtraMdFilesOutput := (resourceManaged in Compile).value / "jekyll" / "_extra_md",
     micrositePluginsDirectory := (resourceDirectory in Compile).value / "microsite" / "plugins",
-    micrositePalette := Map(
-      "brand-primary"   -> "#02B4E5",
-      "brand-secondary" -> "#1C2C52",
-      "brand-tertiary"  -> "#162341",
-      "gray-dark"       -> "#453E46",
-      "gray"            -> "#837F84",
-      "gray-light"      -> "#E3E2E3",
-      "gray-lighter"    -> "#F4F3F4",
-      "white-color"     -> "#FFFFFF"
-    ),
+    micrositePalette := {
+
+      val theme = (Compile / micrositeTheme).value
+
+      if (theme == "pattern")
+        Map(
+          "brand-primary"   -> "#02B4E5",
+          "brand-secondary" -> "#1C2C52",
+          "brand-tertiary"  -> "#162341",
+          "gray-dark"       -> "#453E46",
+          "gray"            -> "#837F84",
+          "gray-light"      -> "#E3E2E3",
+          "gray-lighter"    -> "#F4F3F4",
+          "white-color"     -> "#FFFFFF"
+        )
+      else
+        Map(
+          "background-color" -> "#013567",
+          "link-color"       -> "#009ADA",
+          "white-color"      -> "#FFFFFF"
+        )
+    },
     micrositeFavicons := Seq(),
     micrositeGithubOwner := "47deg",
     micrositeGithubRepo := "sbt-microsites",

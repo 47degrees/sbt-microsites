@@ -4,32 +4,39 @@
 
 #navigation {
   background: $white-color;
+  padding: 12px 0;
+  font-family: $title-font-family;
 
   a {
-    color: $brand-secondary;
+    color: $background-color;
   }
 
   .navbar-wrapper {
     z-index: 20;
     display: flex;
     align-items: center;
-    padding: ($base-point-grid * 5) 0;
     justify-content: space-between;
     position: relative;
 
     .navigation-brand {
-      font-size: ($font-size-large - 1);
+      font-size: 18px;
 
       .brand {
         display: inline-flex;
         align-items: center;
 
+        &:hover {
+          background: none;
+        }
+
         .icon-wrapper {
-          width: 44px;
-          height: 44px;
-          background: url("../img/navbar_brand.png") no-repeat;
+          width: 46px;
+          height: 34px;
+          background: url("../img/new-style/navbar-brand.svg") no-repeat;
+          margin-right: $base-point-grid;
 
           span {
+            font-weight: 500;
             white-space: nowrap;
           }
         }
@@ -45,11 +52,9 @@
         list-style: none;
 
         a {
-          padding: 0 ($base-point-grid * 2);
-
           &:focus,
           &:hover {
-            opacity: 0.5;
+            border-bottom: 2px solid;
           }
 
           i {
