@@ -30,6 +30,7 @@ import sbt.complete.DefaultParsers.OptNotSpace
 import sbtorgpolicies.github.GitHubOps
 import tut.TutPlugin.autoImport._
 import mdoc.MdocPlugin.autoImport._
+import scala.sys.process._
 
 trait MicrositeKeys {
 
@@ -59,6 +60,10 @@ trait MicrositeKeys {
   val makeTut: TaskKey[Unit]       = taskKey[Unit]("Sequential tasks to compile tut and move the result")
   val makeMdoc: TaskKey[Unit] =
     taskKey[Unit]("Sequential tasks to compile mdoc and move the result")
+  val makeVersionedSites: TaskKey[Unit]     = taskKey[Unit]("makeVersionedSites")     // TODO: makeVersionedSites description
+  val makeVersionedMicrosite: TaskKey[Unit] = taskKey[Unit]("makeVersionedMicrosite") //TODO: makeVersionedMicrosite description
+  val pushMicrosite: TaskKey[Unit] =
+    taskKey[Unit]("Task to just push files up.")
   val publishMicrosite: TaskKey[Unit] =
     taskKey[Unit]("Task helper that wraps the `publishMicrositeCommand`.")
   val microsite: TaskKey[Seq[File]] = taskKey[Seq[File]]("Create microsite files")
@@ -282,7 +287,46 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         case WithMdoc => Def.task(makeMdoc.value)
       }
     }.value,
-    publishMicrosite := Def.taskDyn {
+    makeVersionedSites := {
+      def makeMicrositeBaseUrl(baseUrl: String): Int =
+        Seq("sbt", s"""set micrositeBaseUrl := "$baseUrl"""", "makeMicrosite").!
+
+//      val executable = "which git".lineStream_!.headOption
+//      println(executable)
+//      val executables = "which gits".lineStream_!.headOption
+//      println(executables)
+//      val tags = "git tag".!!.trim
+//      println("tags")
+//      println(tags)
+//      tags.foreach(x => println(s"tag: ${x}"))
+
+      val gitTags = Process("git tag").lineStream
+//      println(s"The tags present in the repo are $gitTags")
+//      gitTags.foreach(t => println(s"$t"))
+
+//      println(s"The tags present in the repo are $gitTags")
+
+//      println("sbt 'set micrositeBaseUrl := \"test\"' makeMicrosite")
+//      """sbt 'set micrositeBaseUrl := test' makeMicrosite""".!
+
+      gitTags.foreach(t => {
+//        println("== Processing tag")
+//        Process(s"echo $t").run
+//        Process(s"git checkout -f $t").run
+        s"git checkout -f $t".!
+        println(s"== Current branch/tag is now $t")
+        println(s"== Generating site for $t")
+        println(s"== current micrositeBaseUrl is ${micrositeBaseUrl.value}")
+        println(s"== micrositeBaseUrl will become ${micrositeBaseUrl.value}/$t")
+
+        makeMicrositeBaseUrl(s"${micrositeBaseUrl.value}/$t")
+
+      })
+    },
+    makeVersionedMicrosite := Def.taskDyn {
+      Def.sequential(makeMicrosite)
+    }.value,
+    pushMicrosite := {
       val siteDir: File                 = (target in makeSite).value
       val noJekyll: Boolean             = ghpagesNoJekyll.value
       val branch: String                = ghpagesBranch.value
@@ -292,14 +336,12 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val githubRepo: String            = micrositeGithubRepo.value
       val githubToken: Option[String]   = micrositeGithubToken.value
 
-      val cleanAndMakeMicroSite: Unit = Def.sequential(clean, makeMicrosite).value
-
       lazy val log: Logger = streams.value.log
 
-      (pushSiteWith.name, gitHosting.name, cleanAndMakeMicroSite) match {
-        case (GHPagesPlugin.name, _, _) =>
+      (pushSiteWith.name, gitHosting.name) match {
+        case (GHPagesPlugin.name, _) =>
           Def.task(ghpagesPushSite.value)
-        case (GitHub4s.name, GitHub.name, _) if githubToken.nonEmpty =>
+        case (GitHub4s.name, GitHub.name) if githubToken.nonEmpty =>
           val commitMessage = sys.env.getOrElse("SBT_GHPAGES_COMMIT_MESSAGE", "updated site")
 
           log.info(s"""Committing files from ${siteDir.getAbsolutePath} into branch '$branch'
@@ -316,20 +358,66 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
               log.error(s"Error committing files")
               e.printStackTrace()
           }
-
-          Def.task(cleanAndMakeMicroSite)
-        case (GitHub4s.name, GitHub.name, _) =>
+        case (GitHub4s.name, GitHub.name) =>
           log.error(
             s"You must provide a GitHub token through the `micrositeGithubToken` setting for pushing with github4s")
-          Def.task(cleanAndMakeMicroSite)
-        case (GitHub4s.name, hosting, _) =>
+        case (GitHub4s.name, hosting) =>
           log.warn(s"github4s doens't have support for $hosting")
-          Def.task(cleanAndMakeMicroSite)
         case _ =>
           log.error(
             s"""Unexpected match case (pushSiteWith, gitHosting) = ("${pushSiteWith.name}", "${gitHosting.name}")""")
-          Def.task(cleanAndMakeMicroSite)
       }
+    },
+    publishMicrosite := Def.taskDyn {
+      // val siteDir: File                 = (target in makeSite).value
+      // val noJekyll: Boolean             = ghpagesNoJekyll.value
+      // val branch: String                = ghpagesBranch.value
+      // val pushSiteWith: PushWith        = micrositePushSiteWith.value
+      // val gitHosting: GitHostingService = micrositeGitHostingService.value
+      // val githubOwner: String           = micrositeGithubOwner.value
+      // val githubRepo: String            = micrositeGithubRepo.value
+      // val githubToken: Option[String]   = micrositeGithubToken.value
+
+      // val cleanAndMakeMicroSite: Unit = Def.sequential(clean, makeMicrosite, pushMicrosite).value
+
+      Def.sequential(clean, makeMicrosite, pushMicrosite)
+
+      // lazy val log: Logger = streams.value.log
+      //
+      // (pushSiteWith.name, gitHosting.name, cleanAndMakeMicroSite) match {
+      //   case (GHPagesPlugin.name, _, _) =>
+      //     Def.task(ghpagesPushSite.value)
+      //   case (GitHub4s.name, GitHub.name, _) if githubToken.nonEmpty =>
+      //     val commitMessage = sys.env.getOrElse("SBT_GHPAGES_COMMIT_MESSAGE", "updated site")
+      //
+      //     log.info(s"""Committing files from ${siteDir.getAbsolutePath} into branch '$branch'
+      //            | * repo: $githubOwner/$githubRepo
+      //            | * commitMessage: $commitMessage""".stripMargin)
+      //
+      //     val ghOps: GitHubOps = new GitHubOps(githubOwner, githubRepo, githubToken)
+      //
+      //     if (noJekyll) IO.touch(siteDir / ".nojekyll")
+      //
+      //     ghOps.commitDir(branch, commitMessage, siteDir) match {
+      //       case Right(_) => log.info("Success committing files")
+      //       case Left(e) =>
+      //         log.error(s"Error committing files")
+      //         e.printStackTrace()
+      //     }
+      //
+      //     Def.task(cleanAndMakeMicroSite)
+      //   case (GitHub4s.name, GitHub.name, _) =>
+      //     log.error(
+      //       s"You must provide a GitHub token through the `micrositeGithubToken` setting for pushing with github4s")
+      //     Def.task(cleanAndMakeMicroSite)
+      //   case (GitHub4s.name, hosting, _) =>
+      //     log.warn(s"github4s doens't have support for $hosting")
+      //     Def.task(cleanAndMakeMicroSite)
+      //   case _ =>
+      //     log.error(
+      //       s"""Unexpected match case (pushSiteWith, gitHosting) = ("${pushSiteWith.name}", "${gitHosting.name}")""")
+      //     Def.task(cleanAndMakeMicroSite)
+      // }
     }.value
   )
 
