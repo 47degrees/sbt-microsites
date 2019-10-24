@@ -288,40 +288,152 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       }
     }.value,
     makeVersionedSites := {
-      def makeMicrositeBaseUrl(baseUrl: String): Int =
+
+      // Initial check
+      // val executable = "which git".lineStream_!.headOption
+      // println(executable)
+
+      // If you want a specific version to be served as default, set this value to the
+      // branch/tag you want. Otherwise it will be the latest version on alphabetical order.
+      // If there's no tags, then `master` branch content will be served at root path.
+      val default_version = "0.2.0"
+
+      // If you want to build the current branch (usually `master`) and serve it,
+      // set the path/name in here. If you leave it empty no site will be built for it.
+      val current_branch_path = "next"
+
+      // This is a list to filter -out- tags we know are not valuable to generate docs
+      // for. If you set one tag in the default_version, you can add it here, so it's
+      // not generated twice. Unless you want to have the same content at two paths.
+//      val invalid_tags = ["0.2.0"]
+
+      // This is a list to filter -in- tags. Unless it's empty, where it will be ignored.
+      // If you want an empty tags list in the end (for some reason ¯\_(ツ)_/¯)
+      // you can cancel these filterings with both lists having the same values:
+      // invalid_tags = ["0.1.0"], valid_tags = ["0.1.0"]
+//      val valid_tags = []
+
+      // The path of the dir where the Jekyll site is located.
+      val source_dir = "target/site"
+
+      // The path of the dir that will be published. Check out GitHub Pages/Travis for this.
+      val publishing_dir = "target/site"
+
+      // The path of the dir to temporarily store the different sites content.
+      val gen_docs_dir = "gen-docs"
+
+      // Generate the Jekyll site through sbt-microsites based on the contents source.
+      //
+      // @param version [String] The version for which the sbt-microsites site will be generated.
+      // @param versions_list [Array] The list of versions available to select in the whole project.
+      // @return [nil] nil.
+      def generateMicrosite(version: String): Int = {
+        println(s"== Generating site for $version")
+        println(s"== current micrositeBaseUrl is ${micrositeBaseUrl.value}")
+        println(s"== micrositeBaseUrl will become ${micrositeBaseUrl.value}/$version")
+        val baseUrl = s"${micrositeBaseUrl.value}/$version"
         Seq("sbt", s"""set micrositeBaseUrl := "$baseUrl"""", "makeMicrosite").!
+        s"mv $source_dir $gen_docs_dir/$version".!
+      }
 
-//      val executable = "which git".lineStream_!.headOption
-//      println(executable)
-//      val executables = "which gits".lineStream_!.headOption
-//      println(executables)
+      // Initially, we save the name of the current branch/tag to be used later
+      val current_branch_tag = "git name-rev --name-only HEAD".!!.trim
+      println(s"== Current branch/tag is $current_branch_tag")
+
+//      This is the list of versions that will be built, and used, as part of the process
+//      versions = []
+//      versions.unshift({
+//        "title" => $default_version,
+//      })
+
+//      Besides default, another version that will be available to select will be
+//      the current branch/tag, if desired through the use of $current_branch_path
+//      if !$current_branch_path.to_s.empty?
+//        versions.push({
+//          "title" => $current_branch_path,
+//        })
+//      end
+
+      // Directory initialization
+//      "mkdir -p $publishing_dir".!
+      s"rm -rf $gen_docs_dir".!
+      s"mkdir -p $gen_docs_dir".!
+//      `touch #{$gen_docs_dir}/.gitkeep`
+
+      // Following logic will process and generate the different releases specific sites
+
+      // Then, tags will contain the list of Git tags present in the repo
 //      val tags = "git tag".!!.trim
-//      println("tags")
-//      println(tags)
-//      tags.foreach(x => println(s"tag: ${x}"))
-
       val gitTags = Process("git tag").lineStream
-//      println(s"The tags present in the repo are $gitTags")
-//      gitTags.foreach(t => println(s"$t"))
+      println(s"The tags present in the repo are $gitTags")
+      gitTags.foreach(t => println(s"$t"))
 
-//      println(s"The tags present in the repo are $gitTags")
+      // This is done to avoid the need to write down all the tags when we want everything in
+//      if !$valid_tags.any?
+//        $valid_tags = tags
+//      end
 
-//      println("sbt 'set micrositeBaseUrl := \"test\"' makeMicrosite")
-//      """sbt 'set micrositeBaseUrl := test' makeMicrosite""".!
+//      filtered_out_tags = tags.reject { |t| $invalid_tags.include? t }
+//      filtered_tags = filtered_out_tags.select { |t| $valid_tags.include? t }
+//      system "echo == And the tags that will be actually processed are #{filtered_tags}"
+//      # First iteration is done to have the list of versions available
+//      filtered_tags.each { |t|
+//        versions.push({
+//          "title" => t,
+//        })
+//      }
 
       gitTags.foreach(t => {
-//        println("== Processing tag")
-//        Process(s"echo $t").run
-//        Process(s"git checkout -f $t").run
+        println("== == ==")
+
         s"git checkout -f $t".!
         println(s"== Current branch/tag is now $t")
-        println(s"== Generating site for $t")
-        println(s"== current micrositeBaseUrl is ${micrositeBaseUrl.value}")
-        println(s"== micrositeBaseUrl will become ${micrositeBaseUrl.value}/$t")
 
-        makeMicrositeBaseUrl(s"${micrositeBaseUrl.value}/$t")
+        generateMicrosite(t)
 
       })
+
+//      if filtered_tags.any?
+//      if $default_version.to_s.empty?
+//        $default_version = filtered_tags.last
+//      end
+//      else
+//      $default_version = "master"
+//      end
+
+      // Now, we generate the content available at the initial branch (master?)
+      // to be at $current_branch_path (/next?) path
+//      if !$current_branch_path.to_s.empty?
+      s"git checkout -f $current_branch_tag".!
+      println(s"== Current branch/tag is now $current_branch_tag")
+      generateMicrosite(current_branch_path)
+
+//      (makeMicrosite)
+
+      // Finally, we generate the docs for the default version
+      s"git checkout -f $default_version"
+      println(s"== Current branch/tag is now $default_version")
+      println(s"== Generating default site for $default_version")
+
+      // Let's create the versions file for the default version
+//      # `mkdir -p #{$source_dir}/_data`
+//      # this_versions = versions.dup;
+//      # this_versions[this_versions.find_index("title" => $default_version)] = {
+//        #   "title" => $default_version,
+//        #   "this" => true
+//        # };
+//      # File.write("#{$source_dir}/_data/versions.json", JSON.pretty_generate(this_versions))
+
+      "sbt makeMicrosite".!
+
+      // We also move the rest of version generated sites to its publishing destination
+//      "mv gen-docs/tags/* target/site".!
+      gitTags.foreach(t => {
+        s"mv gen-docs/$t $publishing_dir".!
+      })
+
+//      "sbt pushMicrosite".!
+
     },
     makeVersionedMicrosite := Def.taskDyn {
       Def.sequential(makeMicrosite)
