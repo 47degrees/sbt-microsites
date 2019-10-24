@@ -34,11 +34,13 @@
           height: 34px;
           background: url("../img/new-style/navbar-brand.svg") no-repeat;
           margin-right: $base-point-grid;
+        }
 
-          span {
-            font-weight: 500;
-            white-space: nowrap;
-          }
+        .brand-title {
+          position: absolute;
+          font-weight: 500;
+          white-space: nowrap;
+          left: 70px;
         }
       }
     }
@@ -47,20 +49,35 @@
       li:last-child {
         margin-left: ($base-point-grid * 3);
       }
+
       li {
         display: inline-block;
         list-style: none;
 
-        a {
+        a span {
           &:focus,
           &:hover {
             border-bottom: 2px solid;
           }
-
-          i {
-            font-size: 21px;
-            margin-right: 6px;
+        }
+        a i {
+          &:focus,
+          &:hover {
+            opacity: 0.7;
           }
+        }
+      }
+
+      .nav-item-text {
+        @include bp(medium) {
+          display: none;
+        }
+      }
+
+      .nav-item-icon {
+        display: none;
+        @include bp(medium) {
+          display: inline-block;
         }
       }
     }

@@ -86,7 +86,7 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
             href := "{{ site.baseurl }}/",
             cls := "brand",
             div(cls := "icon-wrapper"),
-            span(config.identity.name))),
+            span(cls := "brand-title", config.identity.name))),
         div(cls := "navigation-menu", buildNewCollapseMenu)
       )
     )

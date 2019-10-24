@@ -112,7 +112,10 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
       div(id := "sidebar-brand",
       a(href := "{{ site.baseurl }}/", cls := "brand",
         div(cls := "brand-wrapper", span(config.identity.name))
-        )
+      ),
+        button(id := "main-toggle", cls := "sidebar-toggle",
+        span(cls := "close"),
+      )
       ),
       ul(cls := "sidebar-nav",
         "{% if site.data.menu.options %}",

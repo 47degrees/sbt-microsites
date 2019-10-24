@@ -350,15 +350,19 @@ abstract class Layout(config: MicrositeSettings) {
 
   def buildNewCollapseMenu: TypedTag[String] =
     ul(
-      cls := "",
       li(
-        a(href := config.gitSiteUrl, span(config.gitSettings.gitHostingService.name))
+        a(
+          href := config.gitSiteUrl,
+          i(cls := s"nav-item-icon fa fa-lg ${config.gitHostingIconClass}", hidden := "true"),
+          span(cls := "nav-item-text", config.gitSettings.gitHostingService.name)
+        )
       ),
       if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
         li(
           a(
             href := s"${config.urlSettings.micrositeDocumentationUrl}",
-            span(config.urlSettings.micrositeDocumentationLabelDescription)
+            i(cls := "nav-item-icon fa fa-lg fa fa-file-text", hidden := "true"),
+            span(cls := "nav-item-text", config.urlSettings.micrositeDocumentationLabelDescription)
           )
         )
       else ()
