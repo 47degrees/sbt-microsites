@@ -245,7 +245,6 @@
       // Code
       // -----------------------------------------------------
       code {
-        background-color: $code-bg;
         font-size: 110%;
         padding: 2px 4px;
         border-radius: 4px;
@@ -254,21 +253,17 @@
       pre {
         padding: 0;
         font-size: ($font-size-base - 2);
-        background: $light-background-color;
         margin-top: 20px;
 
         code {
           font-family: $code-font-family;
           font-size: inherit;
-          color: inherit;
           white-space: pre-wrap;
-          background-color: transparent;
           border-radius: 0;
         }
 
         .hljs {
           padding: $base-point-grid * 3;
-          background: none;
         }
       }
 
@@ -365,4 +360,8 @@
       display: none;
     }
   }
+}
+
+code[class="highlighter-rouge"] {
+    background-color: $code-bg;
 }

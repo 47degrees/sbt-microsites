@@ -29,7 +29,7 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
       if (config.visualSettings.theme == "pattern")
         List(homeHeader, homeMain, globalFooter)
       else
-        List(newHomeNav, newHomeHeader, newHomeMain, newFooter)
+        List(lightHomeNav, lightHomeHeader, lightHomeMain, lightFooter)
 
     html(
       commonHead,
@@ -75,7 +75,7 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
       "{% include menu.html %}"
     )
 
-  def newHomeNav: TypedTag[String] =
+  def lightHomeNav: TypedTag[String] =
     div(
       id := "navigation",
       div(
@@ -87,11 +87,11 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
             cls := "brand",
             div(cls := "icon-wrapper"),
             span(cls := "brand-title", config.identity.name))),
-        div(cls := "navigation-menu", buildNewCollapseMenu)
+        div(cls := "navigation-menu", buildLightCollapseMenu)
       )
     )
 
-  def newHomeHeader: TypedTag[String] =
+  def lightHomeHeader: TypedTag[String] =
     header(
       id := "masthead",
       div(
@@ -104,7 +104,7 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
       )
     )
 
-  def newHomeMain: TypedTag[String] =
+  def lightHomeMain: TypedTag[String] =
     main(
       id := "site-main",
       section(cls := "main-content", div(cls := "container", div(id := "content", "{{ content }}")))

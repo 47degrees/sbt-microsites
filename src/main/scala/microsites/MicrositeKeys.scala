@@ -157,7 +157,7 @@ trait MicrositeKeys {
     settingKey[CompilingDocsTool]("Choose between compiling code snippets with tut or mdoc")
 
   val micrositeTheme: SettingKey[String] = settingKey[String](
-    "Optional. False by default. Set it true to use the old sbt-microsites style.")
+    "Optional. 'light' by default. Set it to 'pattern' to generate the pattern theme design.")
 }
 
 object MicrositeKeys extends MicrositeKeys

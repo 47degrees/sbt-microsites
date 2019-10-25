@@ -71,7 +71,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeTwitter := "",
     micrositeTwitterCreator := "",
     micrositeShareOnSocial := true,
-    micrositeHighlightTheme := "default",
+    micrositeHighlightTheme := "atelier-forest-light",
     micrositeHighlightLanguages := Seq("scala", "java", "bash"),
     micrositeConfigYaml := ConfigYml(
       yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "_config.yml")),
@@ -86,6 +86,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeExtraMdFiles := Map.empty,
     micrositeExtraMdFilesOutput := (resourceManaged in Compile).value / "jekyll" / "_extra_md",
     micrositePluginsDirectory := (resourceDirectory in Compile).value / "microsite" / "plugins",
+    micrositeTheme := "light",
     micrositePalette := {
 
       val theme = (Compile / micrositeTheme).value

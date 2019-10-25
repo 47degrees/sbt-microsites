@@ -288,7 +288,7 @@ abstract class Layout(config: MicrositeSettings) {
     )
   }
 
-  def newFooter: TypedTag[String] = {
+  def lightFooter: TypedTag[String] = {
     val divs: Seq[TypedTag[String]] =
       div(
         cls := "row",
@@ -348,7 +348,7 @@ abstract class Layout(config: MicrositeSettings) {
       )
     )
 
-  def buildNewCollapseMenu: TypedTag[String] =
+  def buildLightCollapseMenu: TypedTag[String] =
     ul(
       li(
         a(
