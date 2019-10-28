@@ -2,15 +2,15 @@
 # Main
 ---
 
-@import "new-style/utils/mixins/breakpoint";
-@import "new-style/utils/mixins/table-row";
-@import "new-style/utils/mixins/helpers";
+@import "light-style/utils/mixins/breakpoint";
+@import "light-style/utils/mixins/table-row";
+@import "light-style/utils/mixins/helpers";
 @import "variables_palette";
-@import "new-style/variables_style";
-@import "new-style/base";
-@import "new-style/navbar";
-@import "new-style/masthead";
-@import "new-style/main";
-@import "new-style/footer";
-@import "new-style/light-docs";
-@import "new-style/utils/tables";
+@import "light-style/variables_style";
+@import "light-style/base";
+@import "light-style/navbar";
+@import "light-style/masthead";
+@import "light-style/main";
+@import "light-style/footer";
+@import "light-style/light-docs";
+@import "light-style/utils/tables";

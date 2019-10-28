@@ -310,7 +310,7 @@ micrositePalette := Map(
         "gray-lighter"      -> "#F4F3F4",
         "white-color"       -> "#FFFFFF")
 ```
-- `micrositeFavicons`: List of filenames and sizes for the PNG/ICO files to be used as favicons for the generated site, located in the default image directory. The sizes should be described with a string (i.e.: \"16x16\"). If not provided, favicons with different sizes will be generated from the navbar_brand2x.jpg file.
+- `micrositeFavicons`: List of filenames and sizes for the PNG/ICO files to be used as favicons for the generated site, located in the default image directory. The sizes should be described with a string (i.e.: \"16x16\"). If not provided, favicons with different sizes will be generated from the navbar_brand2x.png file for the `pattern` style and from the light_navbar_brand.png in case we are using the `light` style.
 
 ```
 micrositeFavicons := Seq(MicrositeFavicon("favicon16x16.png", "16x16"), MicrositeFavicon("favicon32x32.png", "32x32"))
