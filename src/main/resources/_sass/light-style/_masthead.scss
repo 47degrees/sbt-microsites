@@ -2,7 +2,7 @@
 // -----------------------------------------------
 // -----------------------------------------------
 #masthead {
-  background-color: $background-color;
+  background-color: $brand-primary;
   color: $white-color;
   padding: 50px 0 110px;
   font-family: $title-font-family;
@@ -28,7 +28,7 @@
 
     &:hover {
       background-color: $white-color;
-      color: $background-color;
+      color: $brand-primary;
     }
   }
 }

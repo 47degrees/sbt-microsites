@@ -35,7 +35,7 @@
   }
 
   #sidebar-wrapper {
-    background: $background-color;
+    background: $brand-primary;
     z-index: 1000;
     position: fixed;
     left: 0;
@@ -187,7 +187,7 @@
       }
 
       a {
-        color: $background-color;
+        color: $brand-primary;
         padding: 26px 15px;
         display: block;
 
@@ -216,7 +216,7 @@
             font-weight: bold;
             line-height: 1;
             color: $white-color;
-            background: $background-color;
+            background: $brand-primary;
             text-align: center;
             white-space: nowrap;
             vertical-align: baseline;

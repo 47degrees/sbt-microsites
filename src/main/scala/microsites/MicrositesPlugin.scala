@@ -104,9 +104,9 @@ object MicrositesPlugin extends AutoPlugin {
         )
       else
         Map(
-          "background-color" -> "#013567",
-          "link-color"       -> "#009ADA",
-          "white-color"      -> "#FFFFFF"
+          "brand-primary"   -> "#013567",
+          "brand-secondary" -> "#009ADA",
+          "white-color"     -> "#FFFFFF"
         )
     },
     micrositeFavicons := Seq(),

@@ -292,8 +292,8 @@ Default palette used by the `light` theme:
 
 ```
 micrositePalette := Map(
-        "background-color" -> "#013567",
-        "link-color"       -> "#009ADA",
+        "brand-primary" -> "#013567",
+        "brand-secondary"       -> "#009ADA",
         "white-color"      -> "#FFFFFF")
 ```
 
