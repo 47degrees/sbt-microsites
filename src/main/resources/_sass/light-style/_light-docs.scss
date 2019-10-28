@@ -148,7 +148,7 @@
           align-items: center;
           height: ($base-point-grid * 7);
           padding: 0 ($base-point-grid * 3);
-          @include links($white-color, $white-color, $white-color, $white-color);
+          @include links($white-color, $white-color, rgba($white-color, 0.8), $white-color);
 
           &:hover {
             text-decoration: none;
@@ -260,6 +260,7 @@
           font-size: inherit;
           white-space: pre-wrap;
           border-radius: 0;
+          border: solid 1px #ddd;
         }
 
         .hljs {

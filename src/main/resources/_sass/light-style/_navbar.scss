@@ -3,12 +3,13 @@
 // -----------------------------------------------
 
 #navigation {
+
   background: $white-color;
   padding: 12px 0;
   font-family: $title-font-family;
 
   a {
-    color: $background-color;
+    color: $text-color;
   }
 
   .navbar-wrapper {

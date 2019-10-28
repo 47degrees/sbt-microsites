@@ -9,7 +9,7 @@
 
   .text-center {
     text-align: center;
-    width: $masthead-description;
+    max-width: $masthead-description;
 
     .masthead-description {
       font-size: 3rem;
@@ -21,7 +21,7 @@
   .masthead-button {
     color: $white-color;
     padding: 11px ($base-point-grid * 5);
-    border: 2px solid;
+    border: 2px solid $white-color;
     font-weight: 600;
     border-radius: 2px;
     transition: all 350ms ease;
@@ -29,8 +29,6 @@
     &:hover {
       background-color: $white-color;
       color: $background-color;
-      border-color: $background-color;
-      padding: 13px 42px;
     }
   }
 }
