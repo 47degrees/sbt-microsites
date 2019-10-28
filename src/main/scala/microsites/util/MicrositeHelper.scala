@@ -158,11 +158,22 @@ class MicrositeHelper(config: MicrositeSettings) {
   }
 
   def createLayouts(targetDir: String): List[File] =
-    List(
-      "home" -> new HomeLayout(config),
-      "docs" -> new DocsLayout(config),
-      "page" -> new PageLayout(config)
-    ) map {
+    val layoutList =
+      if (config.visualSettings.theme == "pattern")
+        List(
+          "home" -> new HomeLayout(config),
+          "docs" -> new DocsLayout(config),
+          "page" -> new PageLayout(config)
+        )
+      else
+        List(
+          "home"          -> new HomeLayout(config),
+          "docs"          -> new DocsLayout(config),
+          "homeFeatures"  -> new FeaturesLayout(config),
+          "page"          -> new PageLayout(config)
+        )
+
+     layoutList map {
       case (layoutName, layout) =>
         val targetPath = s"$targetDir$jekyllDir/_layouts/$layoutName.html"
         createFile(targetPath)
