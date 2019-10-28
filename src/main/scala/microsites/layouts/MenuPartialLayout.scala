@@ -27,7 +27,7 @@ class MenuPartialLayout(config: MicrositeSettings) extends Layout(config) {
     div(
       "{% assign pages = site.pages | sort:'position'  %}",
       ul(
-        cls := "horizontalNav",
+        cls := "horizontal-nav",
         "{% for p in pages %} {% if p.position != null %}",
         li(
           a(
