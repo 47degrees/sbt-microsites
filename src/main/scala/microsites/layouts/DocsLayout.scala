@@ -111,7 +111,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
     Seq(
       div(id := "sidebar-brand",
       a(href := "{{ site.baseurl }}/", cls := "brand",
-        div(cls := "brand-wrapper", span(config.identity.name))
+        div(cls := "brand-wrapper"), span(config.identity.name)
       ),
         button(id := "main-toggle", cls := "sidebar-toggle",
         span(cls := "close"),

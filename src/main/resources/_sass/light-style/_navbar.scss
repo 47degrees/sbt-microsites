@@ -5,8 +5,10 @@
 #navigation {
 
   background: $white-color;
-  padding: 12px 0;
+  padding: $base-point-grid 0;
   font-family: $title-font-family;
+  height: $top-bar-size;
+  display: flex;
 
   a {
     color: $text-color;
@@ -18,6 +20,7 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
+    width: 100%;
 
     .navigation-brand {
       font-size: 18px;
