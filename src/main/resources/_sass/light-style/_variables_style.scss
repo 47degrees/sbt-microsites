@@ -15,10 +15,10 @@ $font-size-large:   ceil(($font-size-base * 1.35));    // 22px
 // Colors
 // -----------------------------------------------
 $text-color: #333;
-$light-background-color: rgba($brand-primary, 0.04);
+$light-background-color: rgba($brand-primary, 0.05);
 $sidebar-active-color: lighten($brand-primary, 5%);
 $sidebar-head-active-color: lighten($brand-primary, 8%);
-$code-bg: rgba($brand-primary, 0.15);
+$code-bg: rgba($brand-primary, 0.10);
 // Sizes
 // -----------------------------------------------
 $base-point-grid: 8px;

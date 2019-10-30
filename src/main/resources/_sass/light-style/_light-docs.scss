@@ -41,7 +41,7 @@
     left: 0;
     height: 100%;
     width: $sidebar-width;
-    overflow-y: auto;
+    overflow: hidden auto;
     transition: all 0.5s ease;
 
     .sidebar-toggle {
@@ -179,7 +179,16 @@
     width: 100%;
 
     .nav {
-      background: #FFF;
+      background: #fff;
+
+      .action-menu a {
+        font-size: 24px;
+        padding: 0 $base-point-grid / 2;
+
+        &:hover {
+          transform: scaleX(1.5);
+        }
+      }
 
       .col-lg-12 {
         padding: $base-point-grid $base-point-grid * 3;
@@ -191,11 +200,13 @@
 
       a {
         color: $brand-primary;
-        padding: 26px 15px;
+        padding: 0 $base-point-grid * 2;
         display: block;
+        font-size: 16px;
+        transition: color 0.3s ease, transform 0.3s ease;
 
-        i {
-          font-size: 18px;
+        &:hover {
+          color: $sidebar-head-active-color;
         }
       }
 
@@ -208,32 +219,25 @@
           display: inline-block;
 
           span {
-            margin-left: 10px;
+            display: inline-flex;
+            flex-direction: row-reverse;
             font-size: 14px;
           }
 
           .label {
-            display: inline;
-            padding: 0.2em 0.8em 0.3em;
-            font-size: 85%;
+            margin: 0 $base-point-grid;
             font-weight: bold;
-            line-height: 1;
-            color: $white-color;
-            background: $brand-primary;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: baseline;
-            border-radius: 0.25em;
+            color: $brand-primary;
           }
         }
       }
     }
 
     section {
-      background: #FFF;
-      margin: 30px;
+      background: #fff;
+      margin: $base-point-grid * 3;
       border-radius: 2px;
-      padding: 30px;
+      padding: $base-point-grid * 4;
 
       a {
         &:focus,
@@ -248,9 +252,8 @@
       // Code
       // -----------------------------------------------------
       code {
-        font-size: 110%;
         padding: 2px 4px;
-        border-radius: 4px;
+        border-radius: 2px;
       }
 
       pre {
@@ -262,7 +265,7 @@
           font-family: $code-font-family;
           font-size: inherit;
           white-space: pre-wrap;
-          border-radius: 0;
+          border-radius: 2px;
           border: solid 1px #ddd;
         }
 
