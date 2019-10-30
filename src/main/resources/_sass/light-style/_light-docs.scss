@@ -49,8 +49,9 @@
     }
 
     #sidebar-brand {
-      padding: 0 $base-point-grid * 3;
-      font-size: 17px;
+      padding: $base-point-grid $base-point-grid * 3;
+      font-family: $title-font-family;
+      font-size: 18px;
       height: $top-bar-size;
       display: flex;
       justify-content: space-between;
@@ -58,21 +59,23 @@
       background-color: $sidebar-active-color;
 
       a {
-        color: #FFF;
+        display: inline-flex;
+        align-items: center;
+        color: #fff;
 
         .brand-wrapper {
           position: relative;
           width: 36px;
           height: 36px;
           background: url("../img/light-sidebar-brand.svg") no-repeat;
+        }
 
-          span {
-            position: absolute;
-            top: 0;
-            left: 48px;
-            z-index: 30;
-            white-space: nowrap;
-          }
+        span {
+          z-index: 30;
+          white-space: nowrap;
+          position: absolute;
+          left: 70px;
+          font-weight: 500;
         }
       }
 
@@ -177,13 +180,13 @@
 
     .nav {
       background: #FFF;
-      height: $top-bar-size;
 
       .col-lg-12 {
-        padding: 0 $base-point-grid * 3;
+        padding: $base-point-grid $base-point-grid * 3;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        height: $top-bar-size;
       }
 
       a {
