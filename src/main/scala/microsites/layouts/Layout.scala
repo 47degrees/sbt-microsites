@@ -163,9 +163,6 @@ abstract class Layout(config: MicrositeSettings) {
           link(
             rel := "stylesheet",
             href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css"),
-          link(
-            rel := "stylesheet",
-            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-palette.css"),
           link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css")
         )
       else
@@ -176,9 +173,6 @@ abstract class Layout(config: MicrositeSettings) {
           link(
             rel := "stylesheet",
             href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
-          link(
-            rel := "stylesheet",
-            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-palette.css"),
           link(
             rel := "stylesheet",
             href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css"),
