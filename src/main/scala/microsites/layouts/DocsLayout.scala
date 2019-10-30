@@ -44,14 +44,14 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
             a(
               href := config.gitSiteUrl,
               i(cls := "fa fa-eye"),
-              span("WATCH", span(id := "eyes", cls := "label label-default", "--")))),
+              span("Watchers", span(id := "eyes", cls := "label label-default", "--")))),
           li(
             id := "gh-stars-item",
             cls := "hidden-xs",
             a(
               href := config.gitSiteUrl,
               i(cls := "fa fa-star-o"),
-              span("STARS", span(id := "stars", cls := "label label-default", "--")))
+              span("Stars", span(id := "stars", cls := "label label-default", "--")))
           )
         )
       } else Seq.empty
