@@ -186,6 +186,10 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         s"css/${micrositeTheme.value}-style.css",
         s"css/${micrositeTheme.value}-style.scss"
       ),
+      "sass" -> Map(
+        "style"     -> "compressed",
+        "sourcemap" -> "never",
+      ),
       "collections" -> Map("tut" -> Map("output" -> true))
     )
 
