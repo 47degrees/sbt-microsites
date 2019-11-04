@@ -153,7 +153,7 @@ micrositeGitterChannelUrl := "47deg/sbt-microsites"
 micrositeShareOnSocial := true
 ```
 
-- `micrositeHighlightTheme`: By default, the theme of Highlight.js is [atelier-forest-light](https://highlightjs.org/static/demo/). However, you can configure it to a different theme thanks to this setting:
+- `micrositeHighlightTheme`: By default, the theme of Highlight.js is [vs](https://highlightjs.org/static/demo/). However, you can configure it to a different theme thanks to this setting:
 
 ```
 micrositeHighlightTheme := "monokai"
@@ -292,8 +292,8 @@ Default palette used by the `light` theme:
 
 ```
 micrositePalette := Map(
-        "background-color" -> "#013567",
-        "link-color"       -> "#009ADA",
+        "brand-primary" -> "#013567",
+        "brand-secondary"       -> "#009ADA",
         "white-color"      -> "#FFFFFF")
 ```
 

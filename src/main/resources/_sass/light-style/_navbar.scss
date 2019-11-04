@@ -4,11 +4,13 @@
 
 #navigation {
   background: $white-color;
-  padding: 12px 0;
+  padding: $base-point-grid 0;
   font-family: $title-font-family;
+  height: $top-bar-size;
+  display: flex;
 
   a {
-    color: $background-color;
+    color: $text-color;
   }
 
   .navbar-wrapper {
@@ -17,6 +19,7 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
+    width: 100%;
 
     .navigation-brand {
       font-size: 18px;
@@ -32,8 +35,20 @@
         .icon-wrapper {
           width: 36px;
           height: 36px;
-          background: url("../img/light-navbar-brand.svg") no-repeat;
+          -webkit-mask: url("../img/light-navbar-brand.svg") no-repeat;
+          mask: url("../img/light-navbar-brand.svg") no-repeat;
+          background-color: $brand-primary;
           margin-right: $base-point-grid;
+          animation: subtle-transition 6.66s infinite linear;
+        }
+        @keyframes subtle-transition {
+          80% {
+            background-color: $brand-primary;
+          }
+
+          95% {
+            background-color: $text-color;
+          }
         }
 
         .brand-title {
@@ -60,6 +75,7 @@
             border-bottom: 2px solid;
           }
         }
+
         a i {
           &:focus,
           &:hover {

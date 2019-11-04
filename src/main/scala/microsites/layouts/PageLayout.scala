@@ -25,12 +25,16 @@ import scalatags.Text.tags2.{main, section}
 class PageLayout(config: MicrositeSettings) extends Layout(config) {
 
   override def render: TypedTag[String] = {
+    val pageBodyBlock =
+      if (config.visualSettings.theme == "pattern")
+        List(pageHeader, pageMain, globalFooter)
+      else
+        List(lightPageNav, pageMain, lightFooter)
+
     html(
       commonHead,
       body(
-        pageHeader,
-        pageMain,
-        globalFooter,
+        pageBodyBlock,
         scripts
       )
     )
@@ -70,9 +74,33 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
       "{% include menu.html %}"
     )
 
+  def lightPageNav: TypedTag[String] =
+    div(
+      id := "page",
+      div(
+        id := "navigation",
+        cls := "page-navigation",
+        div(
+          cls := "navbar-wrapper container",
+          div(
+            cls := "navigation-brand",
+            a(
+              href := "{{ site.baseurl }}/",
+              cls := "brand",
+              div(cls := "page-icon-wrapper"),
+              span(cls := "brand-title", config.identity.name))),
+          div(cls := "navigation-menu", buildLightCollapseMenu)
+        ),
+      ),
+      "{% if page.position != null %}",
+      div(cls := "menu-cotainer", "{% include menu.html %}"),
+      "{% endif %}",
+    )
+
   def pageMain: TypedTag[String] =
     main(
       id := "site-main",
+      cls := "page-site-main",
       section(cls := "use", div(cls := "container", div(id := "content", "{{ content }}"))))
 
 }

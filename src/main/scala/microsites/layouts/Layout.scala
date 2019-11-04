@@ -163,9 +163,6 @@ abstract class Layout(config: MicrositeSettings) {
           link(
             rel := "stylesheet",
             href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css"),
-          link(
-            rel := "stylesheet",
-            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-palette.css"),
           link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css")
         )
       else
@@ -176,9 +173,6 @@ abstract class Layout(config: MicrositeSettings) {
           link(
             rel := "stylesheet",
             href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
-          link(
-            rel := "stylesheet",
-            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-palette.css"),
           link(
             rel := "stylesheet",
             href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css"),
@@ -220,13 +214,21 @@ abstract class Layout(config: MicrositeSettings) {
         script(
           src := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/${lang}.min.js")
       }
+    val jQueryScripts =
+      if (config.visualSettings.theme == "pattern")
+        List(
+          script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"),
+          script(
+            src := "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),
+          script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js")
+        )
+      else
+        List(
+          script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"),
+          script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js")
+        )
 
-    List(
-      script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"),
-      script(
-        src := "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),
-      script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js")
-    ) ++ languageScripts ++ List(script(s"""hljs.configure({languages:${languages}});
+    jQueryScripts ++ languageScripts ++ List(script(s"""hljs.configure({languages:${languages}});
                 |hljs.initHighlighting();
               """.stripMargin)) ++ customJsList ++ customCDNList ++ gitSidecar
   }

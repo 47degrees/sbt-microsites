@@ -92,16 +92,21 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
     )
 
   def lightHomeHeader: TypedTag[String] =
-    header(
-      id := "masthead",
-      div(
-        cls := "container text-center",
-        h1(cls := "masthead-description", config.identity.description),
-        a(
-          href := config.gitSiteUrl,
-          cls := "masthead-button",
-          s"View on ${config.gitSettings.gitHostingService.name}")
-      )
+    div(
+      header(
+        id := "masthead",
+        div(
+          cls := "container text-center",
+          h1(cls := "masthead-description", config.identity.description),
+          a(
+            href := config.gitSiteUrl,
+            cls := "masthead-button",
+            s"View on ${config.gitSettings.gitHostingService.name}")
+        )
+      ),
+      "{% if page.position != null %}",
+      div(cls := "menu-container", "{% include menu.html %}"),
+      "{% endif %}",
     )
 
   def lightHomeMain: TypedTag[String] =

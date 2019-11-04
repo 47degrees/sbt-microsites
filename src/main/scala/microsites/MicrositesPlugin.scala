@@ -71,7 +71,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeTwitter := "",
     micrositeTwitterCreator := "",
     micrositeShareOnSocial := true,
-    micrositeHighlightTheme := "atelier-forest-light",
+    micrositeHighlightTheme := "vs",
     micrositeHighlightLanguages := Seq("scala", "java", "bash"),
     micrositeConfigYaml := ConfigYml(
       yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "_config.yml")),
@@ -104,9 +104,9 @@ object MicrositesPlugin extends AutoPlugin {
         )
       else
         Map(
-          "background-color" -> "#013567",
-          "link-color"       -> "#009ADA",
-          "white-color"      -> "#FFFFFF"
+          "brand-primary"   -> "#013567",
+          "brand-secondary" -> "#009ADA",
+          "white-color"     -> "#FFFFFF"
         )
     },
     micrositeFavicons := Seq(),

@@ -7,7 +7,7 @@ matrix:
   include:
     - scala: 2.12.9
       env:
-        - SBT_VERSION=1.2.8
+        - SBT_VERSION=1.3.3
 
 before_install:
   - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
@@ -19,7 +19,7 @@ install:
   - rvm use 2.6.0 --install --fuzzy
   - gem update --system
   - gem install sass
-  - gem install jekyll -v 3.8.5
+  - gem install jekyll -v 4.0.0
 
 script:
   - sbt ++$TRAVIS_SCALA_VERSION ^^$SBT_VERSION clean compile test
@@ -30,7 +30,7 @@ after_success:
       if grep -q "SNAPSHOT" version.sbt; then
         sbt ^^$SBT_VERSION publish;
       else
-        if [ "$SBT_VERSION" = "1.2.8" ]; then
+        if [ "$SBT_VERSION" = "1.3.3" ]; then
           sbt ^^$SBT_VERSION orgUpdateDocFiles;
           git reset --hard HEAD;
           git clean -f;
