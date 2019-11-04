@@ -157,7 +157,7 @@ class MicrositeHelper(config: MicrositeSettings) {
     targetPath.toFile
   }
 
-  def createLayouts(targetDir: String): List[File] =
+  def createLayouts(targetDir: String): List[File] = {
     val layoutList =
       if (config.visualSettings.theme == "pattern")
         List(
@@ -167,13 +167,13 @@ class MicrositeHelper(config: MicrositeSettings) {
         )
       else
         List(
-          "home"          -> new HomeLayout(config),
-          "docs"          -> new DocsLayout(config),
-          "homeFeatures"  -> new FeaturesLayout(config),
-          "page"          -> new PageLayout(config)
+          "home"         -> new HomeLayout(config),
+          "docs"         -> new DocsLayout(config),
+          "homeFeatures" -> new FeaturesLayout(config),
+          "page"         -> new PageLayout(config)
         )
 
-     layoutList map {
+    layoutList map {
       case (layoutName, layout) =>
         val targetPath = s"$targetDir$jekyllDir/_layouts/$layoutName.html"
         createFile(targetPath)
@@ -181,6 +181,7 @@ class MicrositeHelper(config: MicrositeSettings) {
         writeContentToFile(layout.render.toString(), targetPath)
         targetPath.toFile
     }
+  }
 
   def createPartialLayout(targetDir: String): List[File] =
     List("menu" -> new MenuPartialLayout(config)) map {
