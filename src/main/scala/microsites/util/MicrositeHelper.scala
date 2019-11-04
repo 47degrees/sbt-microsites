@@ -180,13 +180,7 @@ class MicrositeHelper(config: MicrositeSettings) {
     }
 
   def createFavicons(targetDir: String): List[File] = {
-
-    val sourceFile =
-      if (config.visualSettings.theme == "pattern")
-        s"$targetDir$jekyllDir/img/navbar_brand2x.png"
-      else
-        s"$targetDir$jekyllDir/img/light_navbar_brand.png"
-
+    val sourceFile = s"$targetDir$jekyllDir/img/navbar_brand2x.png"
     createFile(sourceFile)
 
     (faviconFilenames zip faviconSizes)
