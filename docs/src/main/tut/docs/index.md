@@ -5,8 +5,8 @@ title: Getting Started
 
 # Prerequisites
 
-* [sbt](http://www.scala-sbt.org/) 1.3.2+
-* [jekyll](https://jekyllrb.com/) 3.8.5+
+* [sbt](http://www.scala-sbt.org/) 1.3.3+
+* [jekyll](https://jekyllrb.com/) 4.0.0+
 
 Here are a few hints for local and travis environments to satisfy the `jekyll` requirement.
 
@@ -42,7 +42,7 @@ install:
   - rvm use 2.6.0 --install --fuzzy
   - gem update --system
   - gem install sass
-  - gem install jekyll -v 3.8.5
+  - gem install jekyll -v 4.0.0
 ```
 
 # Set it up in your Project

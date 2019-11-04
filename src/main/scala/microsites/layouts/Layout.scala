@@ -148,20 +148,38 @@ abstract class Layout(config: MicrositeSettings) {
       link(rel := "stylesheet", href := css)
     }
 
-    List(
-      link(
-        rel := "stylesheet",
-        href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
-      link(
-        rel := "stylesheet",
-        href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"),
-      link(
-        rel := "stylesheet",
-        href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
-      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/style.css"),
-      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/palette.css"),
-      link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css")
-    ) ++ customCssList ++ customCDNList ++ ganalytics.toList
+    val cssStyles =
+      if (config.visualSettings.theme == "pattern")
+        List(
+          link(
+            rel := "stylesheet",
+            href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
+          link(
+            rel := "stylesheet",
+            href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"),
+          link(
+            rel := "stylesheet",
+            href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
+          link(
+            rel := "stylesheet",
+            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css"),
+          link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css")
+        )
+      else
+        List(
+          link(
+            rel := "stylesheet",
+            href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"),
+          link(
+            rel := "stylesheet",
+            href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
+          link(
+            rel := "stylesheet",
+            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css"),
+          link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css")
+        )
+
+    cssStyles ++ customCssList ++ customCDNList ++ ganalytics.toList
   }
 
   def scripts: List[TypedTag[String]] = {
@@ -196,13 +214,21 @@ abstract class Layout(config: MicrositeSettings) {
         script(
           src := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/${lang}.min.js")
       }
+    val jQueryScripts =
+      if (config.visualSettings.theme == "pattern")
+        List(
+          script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"),
+          script(
+            src := "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),
+          script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js")
+        )
+      else
+        List(
+          script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"),
+          script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js")
+        )
 
-    List(
-      script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"),
-      script(
-        src := "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),
-      script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js")
-    ) ++ languageScripts ++ List(script(s"""hljs.configure({languages:${languages}});
+    jQueryScripts ++ languageScripts ++ List(script(s"""hljs.configure({languages:${languages}});
                 |hljs.initHighlighting();
               """.stripMargin)) ++ customJsList ++ customCDNList ++ gitSidecar
   }
@@ -264,6 +290,43 @@ abstract class Layout(config: MicrositeSettings) {
     )
   }
 
+  def lightFooter: TypedTag[String] = {
+    val divs: Seq[TypedTag[String]] =
+      div(
+        cls := "row",
+        p(
+          "{{ site.name }} is designed and developed by ",
+          a(
+            href := s"${config.identity.organizationHomepage}",
+            target := "_blank",
+            rel := "noopener noreferrer",
+            s"${config.identity.author}")
+        )
+      ) +: {
+        config.templateTexts.footer match {
+          case Some(text) =>
+            Seq(
+              div(
+                cls := "row",
+                div(
+                  raw(text)
+                )
+              )
+            )
+          case None => Nil
+        }
+      }
+
+    footer(
+      id := "site-footer",
+      div(
+        cls := "container",
+        divs,
+        highLightingScript
+      )
+    )
+  }
+
   def buildCollapseMenu: TypedTag[String] =
     nav(
       cls := "text-right",
@@ -285,6 +348,26 @@ abstract class Layout(config: MicrositeSettings) {
           )
         else ()
       )
+    )
+
+  def buildLightCollapseMenu: TypedTag[String] =
+    ul(
+      li(
+        a(
+          href := config.gitSiteUrl,
+          i(cls := s"nav-item-icon fa fa-lg ${config.gitHostingIconClass}", hidden := "true"),
+          span(cls := "nav-item-text", config.gitSettings.gitHostingService.name)
+        )
+      ),
+      if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
+        li(
+          a(
+            href := s"${config.urlSettings.micrositeDocumentationUrl}",
+            i(cls := "nav-item-icon fa fa-lg fa fa-file-text", hidden := "true"),
+            span(cls := "nav-item-text", config.urlSettings.micrositeDocumentationLabelDescription)
+          )
+        )
+      else ()
     )
 
   private[this] def validFile(extension: String)(file: File): Boolean =
