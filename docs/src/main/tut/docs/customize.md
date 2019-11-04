@@ -13,36 +13,29 @@ As you can see in the [Configuring the Microsite](settings.html) section, everyt
 
 If you create your own images (which makes sense) and override the default ones, you can do it with these names and properties, placing them in your image directory:
 
-- Light style:
-  - Microsite logo for the home page:
-    - `light_navbar_brand.svg` -> **[36x36]**
-  - Microsite logo for the documentation page:
-    - `light_sidebar_brand.svg` -> **[36x36]**
-
-- Pattern style:
-  - Microsite logos in two different sizes for the home page:
-      - `navbar_brand.png` -> **[44x44]**
-      - `navbar_brand2x.png` -> **[88x88]**
-  - Microsite logos in two different sizes for the documentation page:
-      - `sidebar_brand.png` -> **[36x36]**
-      - `sidebar_brand2x.png` -> **[72x72]**
-  - Background pattern image for home's Jumbotron. Jumbotron is a [Bootstrap](http://getbootstrap.com/) component. You can read more about it [here](http://getbootstrap.com/components/#jumbotron).
-      - `jumbotron_pattern.png` -> In this case, there isn't a size requirement for this image. The pattern is repeated according to the screen size.
-  - Icons used by the `technologies` meta tag that we saw in the [Layouts](layouts.html) section. These technologies and their icons will be shown in the sub-footer in the home page.
-      - First icon:
-          - `first_icon.png` -> **[40x40]**
-          - `first_icon2x.png` -> **[80x80]**
-      - Second icon:
-          - `second_icon.png` -> **[40x40]**
-          - `second_icon2x.png` -> **[80x80]**
-      - Third icon:
-          - `third_icon.png` -> **[40x40]**
-          - `third_icon2x.png` -> **[80x80]**
-  - Optionally, you might want to specify your `favicon.png` image.
+- Microsite logos in two different sizes for the home page:
+    - `navbar_brand.png` -> **[44x44]**
+    - `navbar_brand2x.png` -> **[88x88]**
+- Microsite logos in two different sizes for the documentation page:
+    - `sidebar_brand.png` -> **[36x36]**
+    - `sidebar_brand2x.png` -> **[72x72]**
+- Background pattern image for home's Jumbotron. Jumbotron is a [Bootstrap](http://getbootstrap.com/) component. You can read more about it [here](http://getbootstrap.com/components/#jumbotron).
+    - `jumbotron_pattern.png` -> In this case, there isn't a size requirement for this image. The pattern is repeated according to the screen size.
+- Icons used by the `technologies` meta tag that we saw in the [Layouts](layouts.html) section. These technologies and their icons will be shown in the sub-footer in the home page.
+    - First icon:
+        - `first_icon.png` -> **[40x40]**
+        - `first_icon2x.png` -> **[80x80]**
+    - Second icon:
+        - `second_icon.png` -> **[40x40]**
+        - `second_icon2x.png` -> **[80x80]**
+    - Third icon:
+        - `third_icon.png` -> **[40x40]**
+        - `third_icon2x.png` -> **[80x80]**
+- Optionally, you might want to specify your `favicon.png` image.
 
 ## Styles
 
-`sbt-microsites` is completely based on [Bootstrap](http://getbootstrap.com/), adding some extra styles that make the microsites even more beautiful.
+`sbt-microsites` is completely based on [Bootstrap](http://getbootstrap.com/), adding some extra styles that make the microsites even more beautiful. 
 
 That being said, you can personalize your microsite even further by using your own css files. In the same manner, as we've just seen for images, all the css files that you place in the directory associated with the `micrositeCssDirectory` setting (`src/main/resources/microsite/css` by default) will be copied to the generated microsite. Therefore, you can add new styles, or even override existing ones.
 
@@ -60,7 +53,7 @@ https://highlightjs.org/static/demo/ provides the ability to preview the differe
 
 ## Permalinks and GitHub integration
 
-Users may want to navigate through your site docs, but they can also just use GitHub to do so.
+Users may want to navigate through your site docs, but they can also just use GitHub to do so. 
 In order to achieve linkable documents that work in both Jekyll and GitHub, follow a few
 simple steps:
 

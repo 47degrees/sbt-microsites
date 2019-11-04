@@ -63,8 +63,7 @@ case class MicrositeVisualSettings(
     highlightLanguages: Seq[String],
     palette: Map[String, String],
     favicons: Seq[MicrositeFavicon],
-    shareOnSocial: Boolean,
-    theme: String)
+    shareOnSocial: Boolean)
 
 case class MicrositeTemplateTexts(footer: Option[String])
 

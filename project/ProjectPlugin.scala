@@ -66,8 +66,9 @@ object ProjectPlugin extends AutoPlugin {
       micrositeGithubOwner := "47deg",
       micrositeGithubRepo := "sbt-microsites",
       micrositeGithubToken := sys.env.get(orgGithubTokenSetting.value),
+      micrositeHighlightTheme := "color-brewer",
       micrositePushSiteWith := GitHub4s,
-      includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.svg"
+      includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
     )
 
   }
