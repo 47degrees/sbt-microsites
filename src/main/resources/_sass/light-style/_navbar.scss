@@ -3,7 +3,6 @@
 // -----------------------------------------------
 
 #navigation {
-
   background: $white-color;
   padding: $base-point-grid 0;
   font-family: $title-font-family;
@@ -42,10 +41,14 @@
           margin-right: $base-point-grid;
           animation: subtle-transition 6.66s infinite linear;
         }
-
         @keyframes subtle-transition {
-          80% { background-color: $brand-primary; }
-          95% { background-color: $text-color; }
+          80% {
+            background-color: $brand-primary;
+          }
+
+          95% {
+            background-color: $text-color;
+          }
         }
 
         .brand-title {
@@ -72,6 +75,7 @@
             border-bottom: 2px solid;
           }
         }
+
         a i {
           &:focus,
           &:hover {

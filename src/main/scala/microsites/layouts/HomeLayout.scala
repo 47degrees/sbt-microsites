@@ -104,7 +104,9 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
             s"View on ${config.gitSettings.gitHostingService.name}")
         )
       ),
-      "{% include menu.html %}"
+      "{% if page.position != null %}",
+      div(cls := "menu-container", "{% include menu.html %}"),
+      "{% endif %}",
     )
 
   def lightHomeMain: TypedTag[String] =

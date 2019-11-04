@@ -25,6 +25,7 @@ class MenuPartialLayout(config: MicrositeSettings) extends Layout(config) {
 
   override def render: TypedTag[String] =
     div(
+      id := "horizontal-menu",
       "{% assign pages = site.pages | sort:'position'  %}",
       ul(
         cls := "horizontal-nav",
