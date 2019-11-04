@@ -93,7 +93,7 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
         ),
       ),
       "{% if page.position != null %}",
-      div(cls := "menu-cotainer", "{% include menu.html %}"),
+      div(cls := "menu-container", "{% include menu.html %}"),
       "{% endif %}",
     )
 
