@@ -55,7 +55,7 @@ function activeToggle() {
     elem.onclick = (e) => {
       e.preventDefault();
       console.log('click');
-      activateParent('#wrapper', 'toggled');
+      toggleClass('#wrapper', 'toggled');
     }
   })
 }
@@ -90,7 +90,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     elem.onclick = (e) => {
       e.preventDefault();
       console.log('click menu item');
-      activate(elem, 'open');
+      activateParent(elem, 'open');
     }
   })
 

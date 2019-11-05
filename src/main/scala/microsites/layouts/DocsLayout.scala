@@ -133,7 +133,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
                   "{% else %}",
                   button(`type` := "button",
                     title := "Open {{ x.title }}",
-                    cls := "drop-nested",
+                    cls := "button drop-nested",
                     span("{{x.title}}"),
                     i(cls := "fa fa-angle-right"),
                   ),
