@@ -11,6 +11,7 @@ As has been mentioned a couple of times throughout this tutorial, this plugin su
 
 [tut](https://github.com/tpolecat/tut) has been deprecated, please switch to mdoc (see next section). If for some reason you want to keep using it, here there are some recommendations:
 
+- Set this property accordingly: `micrositeCompilingDocsTool := WithTut`.
 - Add your markdown files in this path by default: `src/main/tut/`.
 - If you want to place your documments in a different path, just set the sbt property `tutSourceDirectory := your-path` being _your-path_ a `SettingKey[File]`.
 - Mark the snippets that you want to compile, following this convention: **_```tut_** or any of its [modifiers](http://tpolecat.github.io/tut//modifiers.html)
@@ -21,7 +22,7 @@ As has been mentioned a couple of times throughout this tutorial, this plugin su
 `mdoc` is the option by default, so no special action is required from your side. See the scalameta site for more information [here](https://scalameta.org/mdoc/). Here is some advice for using this in your microsite:
 
 - Add your markdown files in this path by default: `docs/`.
-- Set this property accordingly: `micrositeCompilingDocsTool := WithMdoc`
+- By default, the setting `micrositeCompilingDocsTool` will be `WithMdoc`, so no action would be required.
 - If you want to place your documents in a different path, just set the sbt property `mdocIn := your-path` being _your-path_ a `SettingKey[File]`.
 - Mark the snippets that you want to compile, following this convention: **_```scala mdoc_** or any of its [modifiers](https://scalameta.org/mdoc/docs/modifiers.html)
 
