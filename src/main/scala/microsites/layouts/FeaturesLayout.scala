@@ -28,6 +28,7 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
     html(
       commonHead,
       body(
+        lightHomeNav,
         homeHeaderFeatures,
         homeMainFeatures,
         globalFooter
@@ -36,47 +37,25 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
   }
 
   def homeHeaderFeatures: TypedTag[String] =
-    header(
-      id := "site-header",
-      div(
-        cls := "navbar-wrapper",
+    div(
+      header(
+        id := "masthead",
         div(
-          cls := "container",
+          cls := "container feature-header",
           div(
-            cls := "row",
-            div(
-              cls := "col-xs-6",
-              a(
-                href := "{{ site.baseurl }}/",
-                cls := "brand",
-                div(cls := "icon-wrapper", span(config.identity.name)))),
-            div(cls := "col-xs-6", buildCollapseMenu)
-          )
-        )
+            cls := "features-header-description",
+            h1(cls := "masthead-description", config.identity.description),
+            a(
+              href := config.gitSiteUrl,
+              cls := "masthead-button",
+              s"View on ${config.gitSettings.gitHostingService.name}")
+          ),
+          div(cls := "features-image"),
+        ),
       ),
-      div(
-        cls := "jumbotron jumbotron-features",
-        div(
-          cls := "container",
-          div(
-            cls := "masthead-top",
-            div(
-              cls := "masthead-text",
-              h1(config.identity.description),
-              p(
-                a(
-                  href := config.gitSiteUrl,
-                  cls := "btn btn-outline-inverse",
-                  s"View on ${config.gitSettings.gitHostingService.name}"))
-            ),
-            div(
-              cls := "masthead-brand",
-              img(cls := "main-logo-wrapper")
-            ),
-          )
-        )
-      ),
-      "{% include menu.html %}"
+      "{% if page.position != null %}",
+      div(cls := "menu-container", "{% include menu.html %}"),
+      "{% endif %}",
     )
 
   def homeMainFeatures: TypedTag[String] =
@@ -91,7 +70,7 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
             {% for feature in feature_hash %}""",
             div(
               cls := "feature-item",
-              img(cls := "{{ feature[0] }}-feature-icon-wrapper"),
+              div(cls := "{{ feature[0] }}-feature-icon-wrapper"),
               h4("{{ feature[1][0] }}"),
               p("{{ feature[1][1] }}")),
             """{% endfor %}

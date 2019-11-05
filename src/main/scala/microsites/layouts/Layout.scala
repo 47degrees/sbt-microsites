@@ -290,6 +290,22 @@ abstract class Layout(config: MicrositeSettings) {
     )
   }
 
+  def lightHomeNav: TypedTag[String] =
+    div(
+      id := "navigation",
+      div(
+        cls := "navbar-wrapper container",
+        div(
+          cls := "navigation-brand",
+          a(
+            href := "{{ site.baseurl }}/",
+            cls := "brand",
+            div(cls := "icon-wrapper"),
+            span(cls := "brand-title", config.identity.name))),
+        div(cls := "navigation-menu", buildLightCollapseMenu)
+      )
+    )
+
   def lightFooter: TypedTag[String] = {
     val divs: Seq[TypedTag[String]] =
       div(

@@ -1,0 +1,74 @@
+// Features Header
+// -----------------------------------------------------
+
+.features-image {
+  margin-top: 0;
+  margin-bottom: ($base-point-grid * 3);
+  width: 550px;
+  height: 350px;
+  background: url("../img/features-header.svg") no-repeat;
+}
+
+.feature-header {
+  display: flex;
+  align-items: center;
+}
+
+.features-header-description {
+  max-width: 43%;
+}
+
+.features {
+  display: flex;
+  padding: 80px 0;
+
+  .feature-item {
+    flex: 1;
+    margin-right: ($base-point-grid * 5);
+
+    h4, p {
+      margin: $base-point-grid 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    .first-feature-icon-wrapper,
+    .fourth-feature-icon-wrapper,
+    .second-feature-icon-wrapper,
+    .third-feature-icon-wrapper {
+      margin-top: 0;
+      width: 70px;
+      height: 70px;
+      background-color: $brand-primary;
+      margin-right: $base-point-grid;
+      animation: subtle-transition 6.66s infinite linear;
+    }
+
+    @keyframes subtle-transition {
+      80% {
+        background-color: $brand-primary;
+      }
+
+      95% {
+        background-color: $text-color;
+      }
+    }
+
+    .first-feature-icon-wrapper {
+      -webkit-mask: url("../img/first-feature-icon.svg") no-repeat;
+      mask: url("../img/first-feature-icon.svg") no-repeat;
+    }
+
+    .second-feature-icon-wrapper {
+      -webkit-mask: url("../img/second-feature-icon.svg") no-repeat;
+      mask: url("../img/second-feature-icon.svg") no-repeat;
+    }
+
+    .third-feature-icon-wrapper {
+      -webkit-mask: url("../img/third-feature-icon") no-repeat;
+      mask: url("../img/third-feature-icon.svg") no-repeat;
+    }
+  }
+}
