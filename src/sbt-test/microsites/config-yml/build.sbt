@@ -6,7 +6,7 @@ scalaVersion := sys.props("scala.version")
 micrositeConfigYaml := ConfigYml(
   yamlCustomProperties = Map("org" -> "Test"),
   yamlInline =
-    """exclude: [README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffee, node_modules]
+    """exclude: [css, README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffee, node_modules]
       |""".stripMargin,
   yamlPath = Some((resourceDirectory in Compile).value / "myconfig.yml")
 )
