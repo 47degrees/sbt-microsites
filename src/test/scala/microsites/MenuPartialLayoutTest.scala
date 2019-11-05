@@ -19,7 +19,7 @@ package microsites
 import microsites.layouts.MenuPartialLayout
 import microsites.util.Arbitraries
 import org.scalacheck.Prop._
-import org.scalatest.prop.Checkers
+import org.scalatestplus.scalacheck.Checkers
 import org.scalatest.{FunSuite, Matchers}
 
 class MenuPartialLayoutTest extends FunSuite with Checkers with Matchers with Arbitraries {
