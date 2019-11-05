@@ -101,6 +101,7 @@ trait Arbitraries {
       analytics                              ← Arbitrary.arbitrary[String]
       highlightTheme                         ← Arbitrary.arbitrary[String]
       highlightLanguages                     ← Arbitrary.arbitrary[Seq[String]]
+      theme                                  ← Arbitrary.arbitrary[String]
       micrositeConfigYaml                    ← configYamlArbitrary.arbitrary
       micrositeImgDirectory                  ← Arbitrary.arbitrary[File]
       micrositeCssDirectory                  ← Arbitrary.arbitrary[File]
@@ -145,7 +146,8 @@ trait Arbitraries {
           highlightLanguages,
           palette,
           favicon,
-          shareOnSocial),
+          shareOnSocial,
+          theme),
         MicrositeTemplateTexts(
           micrositeFooterText
         ),

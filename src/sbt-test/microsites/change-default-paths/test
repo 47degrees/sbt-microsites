@@ -14,8 +14,7 @@ $ exists target/scala-2.12/resource_managed/main/jekyll/_plugins/GitterTag.rb
 
 $ exists target/site/img/scala.png
 $ exists target/site/img/sbt.png
-$ exists target/site/css/palette.css
-$ exists target/site/css/style.css
+$ exists target/site/css/light-style.css
 $ exists target/site/css/override-1.css
 $ exists target/site/css/override-2.css
 $ exists target/extra_md_override/index.md
