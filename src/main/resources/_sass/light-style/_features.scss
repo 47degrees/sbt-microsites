@@ -24,7 +24,12 @@
 
   .feature-item {
     flex: 1;
+    min-height: $feature-item-height;
     margin-right: ($base-point-grid * 5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: $brand-primary;
 
     h4, p {
       margin: $base-point-grid 0;
@@ -69,6 +74,25 @@
     .third-feature-icon-wrapper {
       -webkit-mask: url("../img/third-feature-icon") no-repeat;
       mask: url("../img/third-feature-icon.svg") no-repeat;
+    }
+  }
+}
+
+#site-main {
+  .learn-more-button {
+    padding: 6px ($base-point-grid * 3);
+    font-size: $footer-font-size;
+    color: $brand-primary;
+    border: 2px solid $brand-primary;
+    font-weight: 600;
+    border-radius: 2px;
+    transition: all 350ms ease;
+    width: 80px;
+    text-decoration: none;
+
+    &:hover {
+      background-color: $brand-primary;
+      color: $white-color;
     }
   }
 }

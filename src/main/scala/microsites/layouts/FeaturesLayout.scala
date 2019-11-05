@@ -31,7 +31,7 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
         lightHomeNav,
         homeHeaderFeatures,
         homeMainFeatures,
-        globalFooter
+        lightFooter
       )
     )
   }
@@ -70,9 +70,17 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
             {% for feature in feature_hash %}""",
             div(
               cls := "feature-item",
-              div(cls := "{{ feature[0] }}-feature-icon-wrapper"),
-              h4("{{ feature[1][0] }}"),
-              p("{{ feature[1][1] }}")),
+              div(
+                div(cls := "{{ feature[0] }}-feature-icon-wrapper"),
+                h4("{{ feature[1][0] }}"),
+                p("{{ feature[1][1] }}"),
+              ),
+              if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
+                a(
+                  cls := "learn-more-button",
+                  href := s"${config.urlSettings.micrositeDocumentationUrl}",
+                  span(cls := "learn-more", "Learn More")),
+            ),
             """{% endfor %}
           {% endfor %}"""
           )
