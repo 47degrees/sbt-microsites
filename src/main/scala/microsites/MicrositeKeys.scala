@@ -155,6 +155,9 @@ trait MicrositeKeys {
 
   val micrositeCompilingDocsTool =
     settingKey[CompilingDocsTool]("Choose between compiling code snippets with tut or mdoc")
+
+  val micrositeTheme: SettingKey[String] = settingKey[String](
+    "Optional. 'light' by default. Set it to 'pattern' to generate the pattern theme design.")
 }
 
 object MicrositeKeys extends MicrositeKeys
@@ -176,6 +179,17 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       "docs"        -> true,
       "markdown"    -> "kramdown",
       "highlighter" -> "rouge",
+      "exclude"     -> List("css"),
+      "include" -> List(
+        "css/monokai.css",
+        "css/codemirror.css",
+        s"css/${micrositeTheme.value}-style.css",
+        s"css/${micrositeTheme.value}-style.scss"
+      ),
+      "sass" -> Map(
+        "style"     -> "compressed",
+        "sourcemap" -> "never",
+      ),
       "collections" -> Map("tut" -> Map("output" -> true))
     )
 
@@ -200,7 +214,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           highlightLanguages = micrositeHighlightLanguages.value,
           palette = micrositePalette.value,
           favicons = micrositeFavicons.value,
-          shareOnSocial = micrositeShareOnSocial.value
+          shareOnSocial = micrositeShareOnSocial.value,
+          theme = micrositeTheme.value
         ),
         templateTexts = MicrositeTemplateTexts(
           micrositeFooterText.value

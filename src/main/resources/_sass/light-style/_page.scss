@@ -1,0 +1,24 @@
+// Page Navbar
+// -----------------------------------------------
+// -----------------------------------------------
+
+#page {
+  #navigation {
+    background: $brand-primary;
+
+    a {
+      color: $white-color;
+    }
+
+    .page-icon-wrapper {
+      width: 36px;
+      height: 36px;
+      background: url("../img/light-sidebar-brand.svg") no-repeat;
+      margin-right: $base-point-grid;
+    }
+  }
+}
+
+.page-site-main {
+  padding: ($base-point-grid * 5) 0;
+}
