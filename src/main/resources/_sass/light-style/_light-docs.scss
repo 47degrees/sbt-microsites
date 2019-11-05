@@ -61,7 +61,7 @@
       a {
         display: inline-flex;
         align-items: center;
-        color: #fff;
+        color: $white-color;
 
         .brand-wrapper {
           position: relative;
@@ -136,10 +136,15 @@
           &:hover {
             text-decoration: none;
           }
+        }
 
-          .fa {
-            transition: all 0.3s;
-          }
+        .fa {
+          position: absolute;
+          color: $white-color;
+          font-size: 1.5rem;
+          right: $base-point-grid;
+          top: $base-point-grid * 2;
+          transition: all 0.3s;
         }
 
         &.active {
