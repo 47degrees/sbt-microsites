@@ -49,7 +49,7 @@ object MicrositesPlugin extends AutoPlugin {
         sourceDirectory in Jekyll := resourceManaged.value / "main" / "jekyll",
         tutSourceDirectory := sourceDirectory.value / "main" / "tut",
         tutTargetDirectory := resourceManaged.value / "main" / "jekyll",
-        mdocIn := baseDirectory.in(ThisBuild).value / "docs",
+        mdocIn := baseDirectory.value / "docs",
         mdocOut := resourceManaged.value / "main" / "jekyll",
       )
 
