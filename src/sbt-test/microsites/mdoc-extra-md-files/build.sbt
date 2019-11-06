@@ -3,6 +3,8 @@ enablePlugins(MicrositesPlugin)
 scalaVersion := sys.props("scala.version")
 micrositeCompilingDocsTool := WithMdoc
 
+micrositeExtraMdFilesOutput := (resourceManaged in Compile).value / "jekyll"
+
 micrositeExtraMdFiles := Map(
   file("README.md") -> ExtraMdFileConfig(
     "readme.md",

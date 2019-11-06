@@ -216,10 +216,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           micrositeDataDirectory = micrositeDataDirectory.value,
           micrositeStaticDirectory = micrositeStaticDirectory.value,
           micrositeExtraMdFiles = micrositeExtraMdFiles.value,
-          micrositeExtraMdFilesOutput = micrositeCompilingDocsTool.value match {
-            case WithTut  => micrositeExtraMdFilesOutput.value
-            case WithMdoc => tutTargetDirectory.value
-          },
+          micrositeExtraMdFilesOutput = micrositeExtraMdFilesOutput.value,
           micrositePluginsDirectory = micrositePluginsDirectory.value
         ),
         urlSettings = MicrositeUrlSettings(
