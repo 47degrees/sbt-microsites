@@ -112,6 +112,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeCompilingDocsTool := WithTut,
     includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json",
     includeFilter in Jekyll := (includeFilter in makeSite).value,
-    commands ++= Seq(publishMicrositeCommand)
+    commands ++= Seq(publishMicrositeCommand),
+    javaOptions += "-Djava.awt.headless=true"
   )
 }
