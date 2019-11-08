@@ -41,8 +41,12 @@
     left: 0;
     height: 100%;
     width: $sidebar-width;
-    overflow: hidden auto;
+    overflow: hidden hidden;
     transition: all 0.5s ease;
+
+    &:hover {
+      overflow: hidden auto;
+    }
 
     .sidebar-toggle {
       display: none;
@@ -81,57 +85,47 @@
     }
 
     .sidebar-nav {
-      margin-top: ($base-point-grid * 3);
+      margin-top: ($base-point-grid * 2);
       padding: 0;
-
-      ul {
-        display: none;
-        padding: ($base-point-grid * 2) ($base-point-grid * 3);
-        background: $sidebar-active-color;
-        list-style: none;
-
-        li {
-          a {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            border-left: 2px solid rgba($white-color, 0.5);
-            padding: $base-point-grid;
-            font-size: 0.875rem;
-
-            .fa {
-              margin-right: ($base-point-grid * 1.5);
-              font-size: 0.25rem;
-            }
-            @include links(rgba($white-color, 0.5), $white-color, rgba($white-color, 0.8), $white-color);
-
-            &.active {
-              color: $white-color;
-              border-left: 2px solid $white-color;
-            }
-
-            &:hover {
-              text-decoration: none;
-            }
-          }
-        }
-      }
 
       .sidebar-nav-item {
         display: flex;
         flex-direction: column;
         position: relative;
 
-        > a, button {
+        .sub-section {
+          background: $sidebar-active-color;
+          max-height: 0;
+          transition: max-height 0.3s ease-in-out;
+          overflow: hidden;
+
+          a {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: $base-point-grid * 2 $base-point-grid * 4;
+            font-size: 0.875rem;
+            height: auto;
+
+            &.active {
+              color: $white-color;
+              box-shadow: 3px 0 $brand-secondary inset;
+            }
+          }
+        }
+
+        a, button {
+          box-sizing: border-box;
           font-family: "Open Sans", sans-serif;
-          font-size: 1rem;
+          font-size: 0.95rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          height: ($base-point-grid * 7);
-          padding: 0 ($base-point-grid * 3);
+          padding: $base-point-grid * 2 $base-point-grid * 3;
+          line-height: $base-point-grid * 2;
           width: 100%;
           @include links($white-color, $white-color, rgba($white-color, 0.8), $white-color);
+          transition: background 0.33s ease-in-out;
 
           &:hover {
             text-decoration: none;
@@ -139,21 +133,33 @@
         }
 
         .fa {
+          pointer-events: none;
           position: absolute;
           color: $white-color;
-          font-size: 1.5rem;
-          right: $base-point-grid;
+          font-size: 1.2rem;
+          right: $base-point-grid * 2;
           top: $base-point-grid * 2;
-          transition: all 0.3s;
+          transition: transform 0.25s;
+          line-height: $base-point-grid * 2;
         }
 
         &.active {
-          > a {
-            background: $sidebar-head-active-color;
+          > a, button {
+            box-shadow: 3px 0 $brand-secondary inset;
+          }
+        }
 
-            .fa {
-              @include rotate(90deg);
-            }
+        &.open {
+          > a, button {
+            background: $sidebar-head-active-color;
+          }
+
+          .fa {
+            @include rotate(90deg);
+          }
+
+          .sub-section {
+            max-height: 1600px;
           }
         }
       }
@@ -188,7 +194,7 @@
         padding: 0 $base-point-grid * 2;
         display: block;
         font-size: 16px;
-        transition: color 0.3s ease, transform 0.3s ease;
+        transition: color 0.25s ease, transform 0.25s ease;
 
         &:hover {
           color: $sidebar-head-active-color;
@@ -302,7 +308,7 @@
     border: none;
     color: $light-background-color;
     display: inline-block;
-    padding: 24px 32px;
+    padding: ($base-point-grid * 3) ($base-point-grid * 4);
     position: relative;
     text-align: center;
     text-decoration: none;

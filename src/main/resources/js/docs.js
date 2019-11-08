@@ -41,16 +41,27 @@ function activateParent(element, activeClass = 'active') {
 	activate(elemParent, activeClass);
 }
 
+/**
+ * Remove active class from siblings parent DOM elements and apply it to element target parent.
+ * @param {Element}		element The element receiving the class, and whose siblings will lose it.
+ * @param {string}		[activeClass='active'] The class to be applied.
+ */
+function toggleParent(element, activeClass = 'active') {
+	const elemParent = element.parentNode;
+	if (elemParent) {
+		elemParent.classList.toggle(activeClass);
+	}
+}
+
 
 /**
  * dfidhfidhfidhfdfhdifhd
  */
 
 
-function activeToggle() {
-  console.log('activeToggle');
+function activateToggle() {
+  console.log('activateToggle');
   const menuToggles = document.querySelectorAll('#menu-toggle, #main-toggle');
-  console.log(menuToggles);
   [...menuToggles].map(elem => {
     elem.onclick = (e) => {
       e.preventDefault();
@@ -60,86 +71,25 @@ function activeToggle() {
   })
 }
 
-/**
- * This function generates the “unrolling” of the secction by adding
- * some classes to the element and applying a jQuery slide action
- *
- * @param el The DOM element on which to perform the action
- * @param speed The desired speed to slide up/down the section
- */
-// function activate(el, speed) {
-//   if (!el.parent().hasClass('active')) {
-//     $('.sidebar-nav li ul').slideUp(speed);
-//     el.next().slideToggle(speed);
-//     $('.sidebar-nav li').removeClass('active');
-//     el.parent().addClass('active');
-//   } else {
-//     el.next().slideToggle(speed);
-//     $('.sidebar-nav li').removeClass('active');
-//   }
-// }
-
 
 window.addEventListener('DOMContentLoaded', (event) => {
   console.log('DOM fully loaded and parsed');
-  activeToggle();
+  activateToggle();
 
   const menuParents = document.querySelectorAll('.drop-nested');
   console.log(menuParents);
   [...menuParents].map(elem => {
     elem.onclick = (e) => {
       e.preventDefault();
-      console.log('click menu item');
-      activateParent(elem, 'open');
+			toggleParent(elem, 'open');
+			const elementType = e.currentTarget.tagName.toLowerCase();
+			console.log(elementType);
+			if (elementType === 'a') {
+				console.log('This is a link');
+				const destination = e.currentTarget.href;
+				console.log(destination);
+				window.location.href = destination;
+			}
     }
   })
-
 });
-
-
-// /**
-//  * This function generates the “unrolling” of the secction by adding
-//  * some classes to the element and applying a jQuery slide action
-//  *
-//  * @param el The DOM element on which to perform the action
-//  * @param speed The desired speed to slide up/down the section
-//  */
-// function activate(el, speed) {
-//   if (!el.parent().hasClass('active')) {
-//     $('.sidebar-nav li ul').slideUp(speed);
-//     el.next().slideToggle(speed);
-//     $('.sidebar-nav li').removeClass('active');
-//     el.parent().addClass('active');
-//   } else {
-//     el.next().slideToggle(speed);
-//     $('.sidebar-nav li').removeClass('active');
-//   }
-// }
-//
-// On click slide down or up the links section
-// $('.drop-nested').click(function(e) {
-//   e.preventDefault();
-//   activate($(this), 300);
-// });
-
-// This detects the path to activate the current link accordingly
-var current = location.pathname;
-$('.sidebar-nav > li > ul a').each(function() {
-  var $this = $(this);
-
-  // If the current path is like this link, make it active
-  if ($this.attr('href') === current) {
-    $this.addClass('active');
-    activate($this.closest('.sidebar-nav > li').children('a'), 0);
-  }
-})
-
-$('.sidebar-nav > li > a').each(function() {
-  var $this = $(this);
-
-  // If the current path is like this link, make it active
-  if ($this.attr('href') === current) {
-    $this.addClass('active');
-    activate($this.closest('.sidebar-nav > li').children('a'), 0);
-  }
-})
