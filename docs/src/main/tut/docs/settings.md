@@ -153,7 +153,7 @@ micrositeGitterChannelUrl := "47deg/sbt-microsites"
 micrositeShareOnSocial := true
 ```
 
-- `micrositeHighlightTheme`: By default, the theme of Highlight.js is [default](https://highlightjs.org/static/demo/). However, you can configure it to a different theme thanks to this setting:
+- `micrositeHighlightTheme`: By default, the theme of Highlight.js is [vs](https://highlightjs.org/static/demo/). However, you can configure it to a different theme thanks to this setting:
 
 ```
 micrositeHighlightTheme := "monokai"
@@ -281,7 +281,23 @@ Each file (the map key) can be related to a specific configuration through the `
 micrositePluginsDirectory := (resourceDirectory in Compile).value / "site" / "plugins"
 ```
 
-- `micrositePalette`: The default microsite style essentially uses eight colors. You can configure all of them, as seen below:
+- `micrositeTheme`: You can choose two different themes to generate your microsite. By default it will display the `light` theme but you have the option of choosing the classic `pattern` theme.
+
+```
+micrositeTheme := "pattern"
+```
+- `micrositePalette`: The default microsite style essentially uses three colors. You can configure all of them, as seen below.
+
+Default palette used by the `light` theme:
+
+```
+micrositePalette := Map(
+        "brand-primary" -> "#013567",
+        "brand-secondary"       -> "#009ADA",
+        "white-color"      -> "#FFFFFF")
+```
+
+Palette used by the `pattern` theme:
 
 ```
 micrositePalette := Map(
@@ -294,7 +310,7 @@ micrositePalette := Map(
         "gray-lighter"      -> "#F4F3F4",
         "white-color"       -> "#FFFFFF")
 ```
-- `micrositeFavicons`: List of filenames and sizes for the PNG/ICO files to be used as favicons for the generated site, located in the default image directory. The sizes should be described with a string (i.e.: \"16x16\"). If not provided, favicons with different sizes will be generated from the navbar_brand2x.jpg file.
+- `micrositeFavicons`: List of filenames and sizes for the PNG/ICO files to be used as favicons for the generated site, located in the default image directory. The sizes should be described with a string (i.e.: \"16x16\"). If not provided, favicons with different sizes will be generated from the navbar_brand2x.png file for the `pattern` style and from the light_navbar_brand.png in case we are using the `light` style.
 
 ```
 micrositeFavicons := Seq(MicrositeFavicon("favicon16x16.png", "16x16"), MicrositeFavicon("favicon32x32.png", "32x32"))
