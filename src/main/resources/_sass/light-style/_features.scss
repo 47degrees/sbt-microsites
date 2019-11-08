@@ -1,17 +1,39 @@
 // Features Header
 // -----------------------------------------------------
+.features-masthead {
+    padding: 130px 0;
+}
 
 .features-image {
   margin-top: 0;
-  margin-bottom: ($base-point-grid * 3);
-  width: 550px;
-  height: 350px;
+  width: 494px;
+  height: 327px;
   background: url("../img/features-header.svg") no-repeat;
 }
 
 .feature-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+
+  .features-header-description {
+    display: flex;
+    flex-direction: column;
+
+    .masthead-title {
+      font-size: 3.5rem;
+      font-weight: 600;
+      margin: 0;
+    }
+    .masthead-description {
+      font-size: 1.65rem;
+      margin: 0 0 10px 0;
+    }
+    .masthead-button {
+      width: 106px;
+      margin-top: $base-point-grid * 2;
+    }
+  }
 }
 
 .features-header-description {
@@ -20,7 +42,7 @@
 
 .features {
   display: flex;
-  padding: 80px 0;
+  padding: 100px 0;
 
   .feature-item {
     flex: 1;
@@ -29,10 +51,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    color: $brand-primary;
+    color: $text-color;
 
-    h4, p {
-      margin: $base-point-grid 0;
+    h4,
+    p {
+      margin: $base-point-grid 0 0 0;
     }
 
     &:last-child {
@@ -44,13 +67,10 @@
     .second-feature-icon-wrapper,
     .third-feature-icon-wrapper {
       margin-top: 0;
-      width: 70px;
-      height: 70px;
-      background-color: $brand-primary;
-      margin-right: $base-point-grid;
-      animation: subtle-transition 6.66s infinite linear;
+      width: 56px;
+      height: 56px;
+      padding-bottom: $base-point-grid;
     }
-
     @keyframes subtle-transition {
       80% {
         background-color: $brand-primary;
@@ -61,19 +81,46 @@
       }
     }
 
-    .first-feature-icon-wrapper {
-      -webkit-mask: url("../img/first-feature-icon.svg") no-repeat;
-      mask: url("../img/first-feature-icon.svg") no-repeat;
+    .background-mask {
+      .first-feature-icon-wrapper {
+        -webkit-mask: url("../img/first-feature-icon.svg") no-repeat;
+        mask: url("../img/first-feature-icon.svg") no-repeat;
+        background-color: $brand-primary;
+        animation: subtle-transition 6.66s infinite linear;
+      }
+
+      .second-feature-icon-wrapper {
+        -webkit-mask: url("../img/second-feature-icon.svg") no-repeat;
+        mask: url("../img/second-feature-icon.svg") no-repeat;
+        background-color: $brand-primary;
+        animation: subtle-transition 6.66s infinite linear;
+      }
+
+      .third-feature-icon-wrapper {
+        -webkit-mask: url("../img/third-feature-icon") no-repeat;
+        mask: url("../img/third-feature-icon.svg") no-repeat;
+        background-color: $brand-primary;
+        animation: subtle-transition 6.66s infinite linear;
+      }
     }
 
-    .second-feature-icon-wrapper {
-      -webkit-mask: url("../img/second-feature-icon.svg") no-repeat;
-      mask: url("../img/second-feature-icon.svg") no-repeat;
+    .custom-feature-icon {
+      .first-feature-icon-wrapper {
+        background: url("../img/first-feature-icon.svg") no-repeat;
+      }
+
+      .second-feature-icon-wrapper {
+        background: url("../img/second-feature-icon.svg") no-repeat;
+      }
+
+      .third-feature-icon-wrapper {
+        background: url("../img/third-feature-icon.svg") no-repeat;
+      }
     }
 
-    .third-feature-icon-wrapper {
-      -webkit-mask: url("../img/third-feature-icon") no-repeat;
-      mask: url("../img/third-feature-icon.svg") no-repeat;
+    .feature-item-header {
+      display: flex;
+      flex-direction: column;
     }
   }
 }
@@ -89,10 +136,51 @@
     transition: all 350ms ease;
     width: 80px;
     text-decoration: none;
+    margin-top: $base-point-grid * 2;
 
     &:hover {
       background-color: $brand-primary;
       color: $white-color;
+    }
+  }
+}
+// Responsive
+// -----------------------------------------------------
+@include bp(medium) {
+  .features {
+    flex-direction: column;
+    padding: 0;
+
+    .feature-item {
+      align-items: center;
+      min-height: 220px;
+      width: 80%;
+      margin: ($base-point-grid * 6) auto;
+      text-align: center;
+
+      &:last-child {
+        margin-right: auto;
+      }
+
+      .feature-item-header {
+        align-items: center;
+      }
+    }
+  }
+}
+
+@include bp(feature) {
+  .feature-header {
+    justify-content: center;
+    text-align: center;
+
+    .features-image {
+      display: none;
+    }
+
+    .features-header-description {
+      max-width: 100%;
+      align-items: center;
     }
   }
 }

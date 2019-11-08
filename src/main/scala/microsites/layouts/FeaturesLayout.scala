@@ -17,7 +17,6 @@
 package microsites.layouts
 
 import microsites.MicrositeSettings
-
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
 import scalatags.Text.tags2.{main, section}
@@ -40,11 +39,13 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
     div(
       header(
         id := "masthead",
+        cls := "features-masthead",
         div(
           cls := "container feature-header",
           div(
             cls := "features-header-description",
-            h1(cls := "masthead-description", config.identity.description),
+            h1(cls := "masthead-title", config.identity.name),
+            p(cls := "masthead-description", config.identity.description),
             a(
               href := config.gitSiteUrl,
               cls := "masthead-button",
@@ -67,10 +68,11 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
           div(
             cls := "features",
             """{% for feature_hash in page.features %}
-            {% for feature in feature_hash %}""",
+                {% for feature in feature_hash %}""",
             div(
               cls := "feature-item",
               div(
+                cls := s"feature-item-header ${backgroundFeatureCssMask}",
                 div(cls := "{{ feature[0] }}-feature-icon-wrapper"),
                 h4("{{ feature[1][0] }}"),
                 p("{{ feature[1][1] }}"),
