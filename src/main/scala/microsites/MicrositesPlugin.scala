@@ -49,7 +49,7 @@ object MicrositesPlugin extends AutoPlugin {
         sourceDirectory in Jekyll := resourceManaged.value / "main" / "jekyll",
         tutSourceDirectory := sourceDirectory.value / "main" / "tut",
         tutTargetDirectory := resourceManaged.value / "main" / "jekyll",
-        mdocIn := baseDirectory.in(ThisBuild).value / "docs",
+        mdocIn := baseDirectory.value / "docs",
         mdocOut := resourceManaged.value / "main" / "jekyll",
       )
 
@@ -122,9 +122,10 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeFooterText := Some(layouts.Layout.footer.toString),
     micrositeEditButton := None,
     micrositeGithubLinks := true,
-    micrositeCompilingDocsTool := WithTut,
+    micrositeCompilingDocsTool := WithMdoc,
     includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json",
     includeFilter in Jekyll := (includeFilter in makeSite).value,
-    commands ++= Seq(publishMicrositeCommand)
+    commands ++= Seq(publishMicrositeCommand),
+    javaOptions += "-Djava.awt.headless=true"
   )
 }

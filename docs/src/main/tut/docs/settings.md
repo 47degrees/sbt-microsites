@@ -361,7 +361,7 @@ compiles the site.  **The strings are passed in unsanitized to the templating en
 {% raw %}micrositeEditButton := Some(MicrositeEditButton("Improve this Page", "/edit/master/docs/src/main/tut/{{ page.path }}")){% endraw %}
 ```
 
-- `micrositeCompilingDocsTool`: Choose between compiling code snippets with [**tut**](https://github.com/tpolecat/tut) or [**mdoc**](https://github.com/scalameta/mdoc). By default, it's set to `WithTut` in order to preserve compatibility with previous versions of your markdown files. But `WithMdoc` and all the features it includes is now also supported.
+- `micrositeCompilingDocsTool`: Choose between compiling code snippets with [**tut**](https://github.com/tpolecat/tut) or [**mdoc**](https://github.com/scalameta/mdoc). By default, it's set to `WithMdoc` since the sbt-microsites 1.0.0 release. But you could use `WithTut` if you want to preserve the compatibility with previous versions of your markdown files.
 
 ```scala
 micrositeCompilingDocsTool := WithMdoc
