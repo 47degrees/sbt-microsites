@@ -292,9 +292,9 @@ Default palette used by the `light` theme:
 
 ```
 micrositePalette := Map(
-        "brand-primary" -> "#013567",
+        "brand-primary"         -> "#013567",
         "brand-secondary"       -> "#009ADA",
-        "white-color"      -> "#FFFFFF")
+        "white-color"           -> "#FFFFFF")
 ```
 
 Palette used by the `pattern` theme:

@@ -290,6 +290,23 @@ abstract class Layout(config: MicrositeSettings) {
     )
   }
 
+  def lightHomeNav: TypedTag[String] =
+    div(
+      id := "navigation",
+      div(
+        cls := "navbar-wrapper container",
+        div(
+          cls := "navigation-brand",
+          a(
+            href := "{{ site.baseurl }}/",
+            cls := s"brand ${backgroundLogoCssMask}",
+            div(cls := "icon-wrapper"),
+            span(cls := "brand-title", config.identity.name))
+        ),
+        div(cls := "navigation-menu", buildLightCollapseMenu)
+      )
+    )
+
   def lightFooter: TypedTag[String] = {
     val divs: Seq[TypedTag[String]] =
       div(
@@ -369,6 +386,31 @@ abstract class Layout(config: MicrositeSettings) {
         )
       else ()
     )
+
+  val customFeatureImg =
+    fr.fetchFilesRecursively(
+      List(config.fileLocations.micrositeImgDirectory),
+      validFeatureFile("feature-icon.svg")) match {
+      case Right(svgFeatureIconList) => svgFeatureIconList
+      case _                         => Nil
+    }
+
+  val backgroundFeatureCssMask =
+    if (customFeatureImg.nonEmpty) "custom-feature-icon" else "background-mask"
+
+  val customLogoImg =
+    fr.fetchFilesRecursively(
+      List(config.fileLocations.micrositeImgDirectory),
+      validFeatureFile("navbar-brand.svg")) match {
+      case Right(svgLogoIconList) => svgLogoIconList
+      case _                      => Nil
+    }
+
+  val backgroundLogoCssMask =
+    if (customLogoImg.nonEmpty) "custom-feature-icon" else "background-mask"
+
+  private[this] def validFeatureFile(name: String)(file: File): Boolean =
+    file.getName.endsWith(name)
 
   private[this] def validFile(extension: String)(file: File): Boolean =
     file.getName.endsWith(s".$extension")

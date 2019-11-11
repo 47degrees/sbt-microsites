@@ -5,8 +5,15 @@
   .row {
     margin: 0 auto;
 
+    p {
+      margin: 8px 0;
+    }
+
     a {
       text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 }

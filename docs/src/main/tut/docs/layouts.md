@@ -5,9 +5,11 @@ title: Layouts
 
 # Layouts
 
-Currently, the sbt-microsites plugin includes four different layouts:
+Currently, the sbt-microsites plugin includes five different layouts:
 
-- `home`: The landing page—the public face of your library or project.
+- There are two different options for the home section:
+    - `home`: The landing page, the public face of your library or project.
+    - `homeFeatures`: Another option for the landing page, choosing this option you could highlight some special features you consider your library offers. (This layout is not available for the classic pattern style)
 - `docs` (Optional): The page where the documentation for your library should be included. Most likely, you are seeing the `Documentation` page of this repo right now. It's optional, depending on the `micrositeDocumentationUrl` setting. Take a look at the [Configuring the Microsite](settings.html) section for an in-depth explanation.
 - `page` (Optional): Similar to `home`, but reducing the jumbotron layer and taking into account the submenu (jumbotron and other concepts related to style are explained in the [Customize](customize.html) section).
 - Menu Partial: This abstract layout reads all the files in your project that fit a set of requirements, and sets up a menu under the jumbotron image. We'll see more details on this later.
@@ -19,19 +21,41 @@ Usually, the `home` layout is related to the `index.md` file. In this document, 
 For instance:
 
 ```
-
 ---
 layout: home
 title:  "Home"
 section: "home"
 technologies:
- - first: ["Scala", "sbt-microsites plugin is completely written in Scala"]
+ - first:  ["Scala", "sbt-microsites plugin is completely written in Scala"]
  - second: ["SBT", "sbt-microsites plugin uses SBT and other sbt plugins to generate microsites easily"]
- - third: ["Jekyll", "Jekyll allows for the transformation of plain text into static websites and blogs."]
+ - third:  ["Jekyll", "Jekyll allows for the transformation of plain text into static websites and blogs."]
 ---
 ```
 
 The technology list is optional. These three technologies will be shown as a sub-footer in your home page. These technologies are identified for the set of keys (`first`, `second`, `third`). You can specify to include all of them or none of them. There are no other choices at this time.
+This list is only available in the `pattern` theme, but for the `light` theme we have included the `homeFeatures` layout where you can highlight similar characteristics of your library.
+
+
+## HomeFeatures Layout
+
+As the `home` layout `homeFeatures` is related to the `index.md` file.
+This layout is designed to show a main title beside a big logo, and then a series of features that can be highlighted from the library.
+
+For instance:
+
+```
+---
+layout: homeFeatures
+features:
+  - first: ["Patterns", "Solutions to recurrent problems, in a purely Functional Programming manner."]
+  - second: ["Typeclasses", "Enable ad-hoc polymorphism with protocols like Functor, Applicative, Monad and many others."]
+  - third: ["Data Types", "Take advantage of numerous data types based on algebraic properties."]
+---
+```
+
+Basically this is all you´ll need to add to your `index.md` file using the `homeFeatures` layout.
+You can add up to three different features and sbt-microsites will dispose them after the masthead layer, every feature will be accompained by an icon that can be overridden as explained in the [Customize](customize.html) section.
+These features are identified for the set of keys (`first`, `second`, `third`).
 
 ## Docs Layout
 
@@ -169,7 +193,7 @@ position: 2
 ```
 
 In this case, thanks to Jekyll and the MenuPartial Layout implemented as a part of the **sbt-microsites** plugin, it will automatically generate a menu with three items:
- 
-        Home | Section 3 | Section 2 
-        
+
+        Home | Section 3 | Section 2
+
 As you can see, the menu is ordered by the tag `position`.
