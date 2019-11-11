@@ -18,6 +18,8 @@ If you create your own images (which makes sense) and override the default ones,
     - `light_navbar_brand.svg` -> **[36x36]**
   - Microsite logo for the documentation page:
     - `light_sidebar_brand.svg` -> **[36x36]**
+  - Microsite logo for the masthead in the `Features` layout:
+    - `features-header.svg` -> **[500x330]**
 
   - Icons used by the `features` meta tag that we saw in the [Layouts](layouts.html) section. These features and their icons will be shown in features section in the homeFeatures page.
     - First feature icon:
