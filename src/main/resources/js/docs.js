@@ -3,8 +3,8 @@
  * @param {string}	elemSelector The query selector specifying the target element.
  * @param {string}	[activeClass='active'] The class to be applied/removed.
  */
-function toggleClass(elemSelector, activeClass = 'active') {
-	const elem = document.querySelector(elemSelector);
+function toggleClass(elemSelector, activeClass = "active") {
+  const elem = document.querySelector(elemSelector);
   if (elem) {
     elem.classList.toggle(activeClass);
   }
@@ -17,8 +17,8 @@ function toggleClass(elemSelector, activeClass = 'active') {
  */
 function toggleClasses(elemSelectors, activeClasses) {
   elemSelectors.map((elemSelector, idx) => {
-		toggleClass(elemSelector, activeClasses[idx]);
-	});
+    toggleClass(elemSelector, activeClasses[idx]);
+  });
 }
 
 /**
@@ -26,9 +26,11 @@ function toggleClasses(elemSelectors, activeClasses) {
  * @param {Element}		element The element receiving the class, and whose siblings will lose it.
  * @param {string}		[activeClass='active'] The class to be applied.
  */
-function activate(element, activeClass = 'active') {
-	[...element.parentNode.children].map((elem) => elem.classList.remove(activeClass));
-	element.classList.add(activeClass);
+function activate(element, activeClass = "active") {
+  [...element.parentNode.children].map(elem =>
+    elem.classList.remove(activeClass)
+  );
+  element.classList.add(activeClass);
 }
 
 /**
@@ -36,9 +38,9 @@ function activate(element, activeClass = 'active') {
  * @param {Element}		element The element receiving the class, and whose siblings will lose it.
  * @param {string}		[activeClass='active'] The class to be applied.
  */
-function activateParent(element, activeClass = 'active') {
-	const elemParent = element.parentNode;
-	activate(elemParent, activeClass);
+function activateParent(element, activeClass = "active") {
+  const elemParent = element.parentNode;
+  activate(elemParent, activeClass);
 }
 
 /**
@@ -46,50 +48,106 @@ function activateParent(element, activeClass = 'active') {
  * @param {Element}		element The element receiving the class, and whose siblings will lose it.
  * @param {string}		[activeClass='active'] The class to be applied.
  */
-function toggleParent(element, activeClass = 'active') {
-	const elemParent = element.parentNode;
-	if (elemParent) {
-		elemParent.classList.toggle(activeClass);
-	}
+function toggleParent(element, activeClass = "active") {
+  const elemParent = element.parentNode;
+  if (elemParent) {
+    elemParent.classList.toggle(activeClass);
+  }
 }
 
-
 /**
- * dfidhfidhfidhfdfhdifhd
+ * This will make the specified elements click event to show/hide the menu sidebar.
  */
-
-
 function activateToggle() {
-  console.log('activateToggle');
-  const menuToggles = document.querySelectorAll('#menu-toggle, #main-toggle');
-  [...menuToggles].map(elem => {
-    elem.onclick = (e) => {
-      e.preventDefault();
-      console.log('click');
-      toggleClass('#wrapper', 'toggled');
-    }
-  })
+  const menuToggles = document.querySelectorAll("#menu-toggle, #main-toggle");
+  if (menuToggles) {
+    [...menuToggles].map(elem => {
+      elem.onclick = e => {
+        e.preventDefault();
+        toggleClass("#wrapper", "toggled");
+      };
+    });
+  }
 }
 
+/**
+ * This will make the specified elements click event to behave as a menu
+ * parent entry, or a link, or sometimes both, depending on the context.
+ */
+function activateMenuNesting() {
+  const menuParents = document.querySelectorAll(".drop-nested");
+  if (menuParents) {
+    [...menuParents].map(elem => {
+      elem.onclick = e => {
+        e.preventDefault();
+        toggleParent(elem, "open");
+        const elementType = e.currentTarget.tagName.toLowerCase();
+        if (elementType === "a") {
+          const linkElement = e.currentTarget;
+          const linkElementParent = linkElement.parentNode;
+          const destination = linkElement.href;
+          if (
+            destination !== window.location.href &&
+            !linkElementParent.classList.contains("active")
+          ) {
+            window.location.href = destination;
+          }
+        }
+      };
+    });
+  }
+}
 
-window.addEventListener('DOMContentLoaded', (event) => {
-  console.log('DOM fully loaded and parsed');
-  activateToggle();
+/**
+ * Aux function to retrieve repository stars and watchers count info from
+ * GitHub API and set it on its proper nodes.
+ */
+async function loadGitHubStats() {
+  const content = document.querySelector("#content");
+  const ghOwner = content.dataset.githubOwner;
+  const ghRepo = content.dataset.githubRepo;
 
-  const menuParents = document.querySelectorAll('.drop-nested');
-  console.log(menuParents);
-  [...menuParents].map(elem => {
-    elem.onclick = (e) => {
-      e.preventDefault();
-			toggleParent(elem, 'open');
-			const elementType = e.currentTarget.tagName.toLowerCase();
-			console.log(elementType);
-			if (elementType === 'a') {
-				console.log('This is a link');
-				const destination = e.currentTarget.href;
-				console.log(destination);
-				window.location.href = destination;
-			}
+  if (ghOwner && ghRepo) {
+    const ghAPI = `https://api.github.com/repos/${ghOwner}/${ghRepo}`;
+    const ghDataResponse = await fetch(ghAPI);
+    const ghData = await ghDataResponse.json();
+		console.log(ghData);
+    const watchersElement = document.querySelector("#eyes");
+    const starsElement = document.querySelector("#stars");
+    watchersElement.textContent = ghData.subscribers_count;
+    starsElement.textContent = ghData.stargazers_count;
+  }
+}
+
+function anchorForId(id) {
+  var anchor = document.createElement("a");
+  anchor.className = "header-link";
+  anchor.href = `#${id}`;
+  anchor.innerHTML = '<i class="fa fa-link"></i>';
+  return anchor;
+}
+
+function linkifyAnchors(level, containingElement) {
+  const headers = containingElement.getElementsByTagName(`h${level}`);
+  for (var h = 0; h < headers.length; h++) {
+    const header = headers[h];
+    if (typeof header.id !== "undefined" && header.id !== "") {
+      header.appendChild(anchorForId(header.id));
     }
-  })
+  }
+}
+
+function linkifyAllLevels() {
+  const content = document.querySelector("#content");
+  for (var level = 1; level <= 6; level++) {
+    linkifyAnchors(level, content);
+  }
+	console.log("linkify completed");
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  activateToggle();
+  activateMenuNesting();
+  loadGitHubStats();
+  linkifyAllLevels();
 });

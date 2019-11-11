@@ -267,14 +267,10 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
     if (config.visualSettings.theme == "pattern") scriptsDocsPattern else scriptsDocsLight
 
   def scriptsDocsPattern: List[TypedTag[String]] =
-    scripts ++
-      List(script(src := "{{ site.baseurl }}/js/main.js"))
+    scripts ++ List(script(src := "{{ site.baseurl }}/js/main.js"))
 
   def scriptsDocsLight: List[TypedTag[String]] =
-    scripts ++
-      List(
-        script(src := "{{ site.baseurl }}/js/docs.js"),
-        script(src := "{{ site.baseurl }}/js/main.js"))
+    scripts ++ List(script(src := "{{ site.baseurl }}/js/docs.js"))
 
   def editButton: Option[TypedTag[String]] =
     config.editButtonSettings.button match {

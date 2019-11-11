@@ -1,17 +1,17 @@
 jQuery(document).ready(function() {
   hljs.initHighlightingOnLoad();
-  // activeToggle();
+  activeToggle();
   loadGitHubStats();
   linkifyAllLevels(".docs .content-wrapper");
 });
 
 
-// function activeToggle() {
-//   $("#menu-toggle").click(function(e) {
-//     e.preventDefault();
-//     $("#wrapper").toggleClass("toggled");
-//   });
-// }
+function activeToggle() {
+  $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+  });
+}
 
 var anchorForId = function (id) {
   var anchor = document.createElement("a");
