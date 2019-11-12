@@ -212,7 +212,7 @@ abstract class Layout(config: MicrositeSettings) {
         script(
           src := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/${lang}.min.js")
       }
-    val jQueryScripts =
+    val auxScripts =
       if (config.visualSettings.theme == "pattern")
         List(
           script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"),
