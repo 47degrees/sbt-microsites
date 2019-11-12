@@ -9,7 +9,7 @@
 
   #wrapper {
     padding-left: $sidebar-width;
-    transition: all 0.5s ease;
+    transition: padding-left 0.5s ease;
 
     &.toggled {
       padding-left: 0;
@@ -42,7 +42,7 @@
     height: 100%;
     width: $sidebar-width;
     overflow: hidden hidden;
-    transition: all 0.5s ease;
+    transition: left 0.5s ease;
 
     &:hover {
       overflow: hidden auto;
@@ -303,11 +303,6 @@
     }
   }
 
-  #wrapper.toggled #page-content-wrapper {
-    position: absolute;
-    margin-right: -$sidebar-width;
-  }
-
   .sidebar-toggle {
     background: none;
     border: none;
@@ -334,7 +329,7 @@
   @include bp(medium) {
     #wrapper {
       padding-left: 0;
-      transition: all 0.4s ease-in-out;
+      transition: padding-left 0.4s ease;
     }
 
     #sidebar-wrapper {
@@ -357,10 +352,6 @@
           }
         }
       }
-    }
-
-    .pull-right {
-      display: none;
     }
   }
 }
