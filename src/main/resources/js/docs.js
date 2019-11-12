@@ -111,7 +111,6 @@ async function loadGitHubStats() {
     const ghAPI = `https://api.github.com/repos/${ghOwner}/${ghRepo}`;
     const ghDataResponse = await fetch(ghAPI);
     const ghData = await ghDataResponse.json();
-		console.log(ghData);
     const watchersElement = document.querySelector("#eyes");
     const starsElement = document.querySelector("#stars");
     watchersElement.textContent = ghData.subscribers_count;
@@ -119,30 +118,41 @@ async function loadGitHubStats() {
   }
 }
 
+/**
+ * Function to create an anchor with an specific id
+ * @param {string}    id The corresponding id from which the href will be created.
+ * @returns {Element} The new created anchor.
+ */
 function anchorForId(id) {
-  var anchor = document.createElement("a");
+  const anchor = document.createElement("a");
   anchor.className = "header-link";
   anchor.href = `#${id}`;
   anchor.innerHTML = '<i class="fa fa-link"></i>';
   return anchor;
 }
 
+/**
+ * Aux function to retrieve repository stars and watchers count info from
+ * @param {string}	level The specific level to select header from.
+ * @param {Element}	containingElement The element receiving the anchor.
+ */
 function linkifyAnchors(level, containingElement) {
   const headers = containingElement.getElementsByTagName(`h${level}`);
-  for (var h = 0; h < headers.length; h++) {
-    const header = headers[h];
+  [...headers].map(header => {
     if (typeof header.id !== "undefined" && header.id !== "") {
-      header.appendChild(anchorForId(header.id));
+      header.append(anchorForId(header.id));
     }
-  }
+  });
 }
 
+/**
+ * Function
+ */
 function linkifyAllLevels() {
   const content = document.querySelector("#content");
-  for (var level = 1; level <= 6; level++) {
+  [...Array(7).keys()].map(level => {
     linkifyAnchors(level, content);
-  }
-	console.log("linkify completed");
+  });
 }
 
 window.addEventListener("DOMContentLoaded", () => {
