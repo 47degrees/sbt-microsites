@@ -225,15 +225,15 @@ abstract class Layout(config: MicrositeSettings) {
           script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js")
         )
 
-    jQueryScripts ++ languageScripts ++ List(script(s"""hljs.configure({languages:${languages}});
-                |hljs.initHighlighting();
+    auxScripts ++ languageScripts ++ List(script(s"""hljs.configure({languages:${languages}});
+                |hljs.initHighlightingOnLoad();
               """.stripMargin)) ++ customJsList ++ customCDNList ++ gitSidecar
   }
 
   def highLightingScript: List[TypedTag[String]] = {
     List(
       script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js")
-    ) ++ List(script(s"""hljs.initHighlighting();
+    ) ++ List(script(s"""hljs.initHighlightingOnLoad();
               """.stripMargin))
   }
 
