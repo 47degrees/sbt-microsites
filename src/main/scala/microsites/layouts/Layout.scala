@@ -333,7 +333,10 @@ abstract class Layout(config: MicrositeSettings) {
           a(
             href := config.gitSiteUrl,
             i(cls := s"fa ${config.gitHostingIconClass}"),
-            span(cls := "hidden-xs", config.gitSettings.gitHostingService.name))
+            target := "_blank",
+            rel := "noopener noreferrer",
+            span(cls := "hidden-xs", config.gitSettings.gitHostingService.name)
+          )
         ),
         if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
           li(
@@ -353,6 +356,8 @@ abstract class Layout(config: MicrositeSettings) {
         a(
           href := config.gitSiteUrl,
           i(cls := s"nav-item-icon fa fa-lg ${config.gitHostingIconClass}", hidden := "true"),
+          target := "_blank",
+          rel := "noopener noreferrer",
           span(cls := "nav-item-text", config.gitSettings.gitHostingService.name)
         )
       ),
