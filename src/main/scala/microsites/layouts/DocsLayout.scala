@@ -46,7 +46,9 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
               target := "_blank",
               rel := "noopener noreferrer",
               i(cls := "fa fa-eye"),
-              span("Watchers", span(id := "eyes", cls := "label label-default", "--")))),
+              span("Watchers", span(id := "eyes", cls := "label label-default", "--"))
+            )
+          ),
           li(
             id := "gh-stars-item",
             cls := "hidden-xs",
@@ -55,7 +57,8 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
               target := "_blank",
               rel := "noopener noreferrer",
               i(cls := "fa fa-star-o"),
-              span("Stars", span(id := "stars", cls := "label label-default", "--")))
+              span("Stars", span(id := "stars", cls := "label label-default", "--"))
+            )
           )
         )
       } else Seq.empty
