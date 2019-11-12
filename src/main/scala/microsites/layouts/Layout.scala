@@ -210,7 +210,7 @@ abstract class Layout(config: MicrositeSettings) {
     val languageScripts =
       config.visualSettings.highlightLanguages.filterNot(BuiltinLanguages.contains).map { lang =>
         script(
-          src := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/${lang}.min.js")
+          src := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/${lang}.min.js")
       }
     val auxScripts =
       if (config.visualSettings.theme == "pattern")
