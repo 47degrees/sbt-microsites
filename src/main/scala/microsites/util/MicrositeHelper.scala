@@ -62,7 +62,12 @@ class MicrositeHelper(config: MicrositeSettings) {
     copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "css")
     copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "img")
     copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "js")
-    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "highlight")
+    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "highlight/highlight.pack.js")
+    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "highlight/LICENSE")
+    copyJARResourcesTo(
+      pluginURL,
+      s"$targetDir$jekyllDir/",
+      s"highlight/styles/${config.visualSettings.highlightTheme}.css")
     copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "plugins")
 
     copyFilesRecursively(
