@@ -162,8 +162,7 @@ abstract class Layout(config: MicrositeSettings) {
             href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
           link(
             rel := "stylesheet",
-            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css"),
-          link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css")
+            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css")
         )
       else
         List(
@@ -175,8 +174,7 @@ abstract class Layout(config: MicrositeSettings) {
             href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
           link(
             rel := "stylesheet",
-            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css"),
-          link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css")
+            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css")
         )
 
     cssStyles ++ customCssList ++ customCDNList ++ ganalytics.toList
