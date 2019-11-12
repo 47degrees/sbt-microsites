@@ -43,6 +43,8 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
             cls := "hidden-xs",
             a(
               href := config.gitSiteUrl,
+              target := "_blank",
+              rel := "noopener noreferrer",
               i(cls := "fa fa-eye"),
               span("Watchers", span(id := "eyes", cls := "label label-default", "--")))),
           li(
@@ -50,6 +52,8 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
             cls := "hidden-xs",
             a(
               href := config.gitSiteUrl,
+              target := "_blank",
+              rel := "noopener noreferrer",
               i(cls := "fa fa-star-o"),
               span("Stars", span(id := "stars", cls := "label label-default", "--")))
           )
