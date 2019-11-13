@@ -261,7 +261,9 @@ abstract class Layout(config: MicrositeSettings) {
               target := "_blank",
               rel := "noopener noreferrer",
               span(cls := s"fa ${config.gitHostingIconClass}"),
-              s"View on ${config.gitSettings.gitHostingService.name}"))
+              s"View on ${config.gitSettings.gitHostingService.name}"
+            )
+          )
         )
       ) +: {
         config.templateTexts.footer match {

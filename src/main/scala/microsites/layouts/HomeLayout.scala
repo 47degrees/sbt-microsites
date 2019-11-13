@@ -71,7 +71,9 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
               target := "_blank",
               rel := "noopener noreferrer",
               cls := "btn btn-outline-inverse",
-              s"View on ${config.gitSettings.gitHostingService.name}"))
+              s"View on ${config.gitSettings.gitHostingService.name}"
+            )
+          )
         )
       ),
       "{% include menu.html %}"
