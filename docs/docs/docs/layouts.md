@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Layouts
+permalink: docs/layouts/
 ---
 
 # Layouts

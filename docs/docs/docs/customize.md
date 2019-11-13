@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Customize
+permalink: docs/customize/
 ---
 
 # Customize

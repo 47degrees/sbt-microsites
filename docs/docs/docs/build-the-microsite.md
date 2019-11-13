@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Build the Microsite
+permalink: docs/build-the-microsite/
 ---
 
 # Build the microsite
@@ -41,7 +42,7 @@ Once both requirements are satisfied, you can just run:
 sbt> publishMicrosite
 ```
 
-And that's all. Behind the scenes, `makeMicrosite` and `pushSite` are invoked. 
+And that's all. Behind the scenes, `makeMicrosite` and `pushSite` are invoked.
 
 By default, the second task uses the [`sbt-ghpages` plugin](https://github.com/sbt/sbt-ghpages).
 

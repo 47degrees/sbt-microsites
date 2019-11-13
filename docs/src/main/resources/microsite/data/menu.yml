@@ -1,21 +1,24 @@
 options:
+  - title: Intro
+    url: docs/
+
   - title: Getting Started
-    url: docs/index.html
+    url: docs/getting-started/
 
   - title: Configuring the Microsite
-    url: docs/settings.html
+    url: docs/settings/
 
   - title: Typechecked Snippets
-    url: docs/typechecked-snippets.html
+    url: docs/typechecked-snippets/
 
   - title: Layouts
-    url: docs/layouts.html
+    url: docs/layouts/
 
   - title: Customize
-    url: docs/customize.html
+    url: docs/customize/
 
   - title: Build the microsite
-    url: docs/build-the-microsite.html
+    url: docs/build-the-microsite/
 
   - title: Publish with Travis
-    url: docs/publish-with-travis.html
+    url: docs/publish-with-travis/
