@@ -49,7 +49,7 @@ micrositeBaseUrl := "/yoursite"
 
 In this case, your microsite would be placed on: https://yourdomain.io/yoursite.
 
-- `micrositeDocumentationUrl`: You might need documentation pages in a specific section of your microsite. This setting allows you to personalize this URL to fit your needs. As the **sbt-microsites** plugin provides a specific layout to improve the look of your documentation, we strongly recommend having a look at the [layouts](layouts.html) section. It's empty by default. Hence your `Documentation` link won't appear in the microsite in that case.
+- `micrositeDocumentationUrl`: You might need documentation pages in a specific section of your microsite. This setting allows you to personalize this URL to fit your needs. As the **sbt-microsites** plugin provides a specific layout to improve the look of your documentation, we strongly recommend having a look at the [layouts]({% link docs/layouts.md %}) section. It's empty by default. Hence your `Documentation` link won't appear in the microsite in that case.
 
 ```
 micrositeDocumentationUrl := "/yoursite/docs"
@@ -244,7 +244,7 @@ These will be available to your pages by using `Jekyll`'s [include](https://jeky
 micrositeDataDirectory := (resourceDirectory in Compile).value / "site" / "mydatafiles"
 ```
 
-In the Documentation **Menu** case, as you can see in the [layouts](layouts.html) section, you need to create a file named `menu.yml` under the `micrositeDataDirectory` setting.
+In the Documentation **Menu** case, as you can see in the [layouts]({% link docs/layouts.md %}) section, you need to create a file named `menu.yml` under the `micrositeDataDirectory` setting.
 
 - `micrositeStaticDirectory`: You can also provide a static directory to your Jekyll site through the `micrositeStaticDirectory` setting. It's based on the idea of [Jekyll Static Files](https://jekyllrb.com/docs/static-files/). The default value is `(resourceDirectory in Compile).value / "microsite" / "static"`, but you can override it like this:
 
@@ -367,7 +367,7 @@ compiles the site.  **The strings are passed in unsanitized to the templating en
 ```scala
 micrositeCompilingDocsTool := WithMdoc
 ```
-If you are interested in learning where to place the markdown files according to the compilation tool chosen, please take a look at the [Typechecked Snippets](typechecked-snippets.html) section.
+If you are interested in learning where to place the markdown files according to the compilation tool chosen, please take a look at the [Typechecked Snippets]({% link docs/typechecked-snippets.md %}) section.
 
 - `includeFilter in makeSite`: Restrict the type of files that are included during the microsite build. The default value is `"*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json"` but you can override it like this:
 

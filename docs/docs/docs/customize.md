@@ -10,7 +10,7 @@ The sbt-microsites plugin brings in different resources related to styles, image
 
 ## Images
 
-As you can see in the [Configuring the Microsite](settings.html) section, everything that you put in the directory associated with the `micrositeImgDirectory` setting  (`src/main/resources/microsite/img` by default) will be copied to the generated microsite. Therefore, you can add new images in that directory, which you would reference from your markdown documents, or, you could override the default images.
+As you can see in the [Configuring the Microsite]({% link docs/settings.md %}) section, everything that you put in the directory associated with the `micrositeImgDirectory` setting  (`src/main/resources/microsite/img` by default) will be copied to the generated microsite. Therefore, you can add new images in that directory, which you would reference from your markdown documents, or, you could override the default images.
 
 If you create your own images (which makes sense) and override the default ones, you can do it with these names and properties, placing them in your image directory:
 
@@ -22,7 +22,7 @@ If you create your own images (which makes sense) and override the default ones,
   - Microsite logo for the masthead in the `Features` layout:
     - `features-header.svg` -> **[500x330]**
 
-  - Icons used by the `features` meta tag that we saw in the [Layouts](layouts.html) section. These features and their icons will be shown in features section in the homeFeatures page.
+  - Icons used by the `features` meta tag that we saw in the [Layouts]({% link docs/layouts.md %}) section. These features and their icons will be shown in features section in the homeFeatures page.
     - First feature icon:
         - `first-feature-icon.svg` -> **[56x56]**
     - Second feature icon:
@@ -39,7 +39,7 @@ If you create your own images (which makes sense) and override the default ones,
       - `sidebar_brand2x.png` -> **[72x72]**
   - Background pattern image for home's Jumbotron. Jumbotron is a [Bootstrap](https://getbootstrap.com/) component. You can read more about it [here](https://getbootstrap.com/components/#jumbotron).
       - `jumbotron_pattern.png` -> In this case, there isn't a size requirement for this image. The pattern is repeated according to the screen size.
-  - Icons used by the `technologies` meta tag that we saw in the [Layouts](layouts.html) section. These technologies and their icons will be shown in the sub-footer in the home page.
+  - Icons used by the `technologies` meta tag that we saw in the [Layouts]({% link docs/layouts.md %}) section. These technologies and their icons will be shown in the sub-footer in the home page.
       - First icon:
           - `first_icon.png` -> **[40x40]**
           - `first_icon2x.png` -> **[80x80]**
@@ -60,11 +60,11 @@ That being said, you can personalize your microsite even further by using your o
 
 ## Colors
 
-Colors can be customized through the `micrositePalette` setting (take a look at the [Configuring the Microsite](settings.html) section for a deeper explanation).
+Colors can be customized through the `micrositePalette` setting (take a look at the [Configuring the Microsite]({% link docs/settings.md %}) section for a deeper explanation).
 
 ## Syntax Highlighting
 
-As we mentioned in the [Configuring the Microsite](settings.html) section, `micrositeHighlightTheme` sbt setting allows you to specify the theme you want to use to highlight your code.
+As we mentioned in the [Configuring the Microsite]({% link docs/settings.md %}) section, `micrositeHighlightTheme` sbt setting allows you to specify the theme you want to use to highlight your code.
 
 It's important to mention that the theme name should match with the one located at https://cdnjs.com/libraries/highlight.js/.
 

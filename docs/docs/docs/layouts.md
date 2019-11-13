@@ -11,8 +11,8 @@ Currently, the sbt-microsites plugin includes five different layouts:
 - There are two different options for the home section:
     - `home`: The landing page, the public face of your library or project.
     - `homeFeatures`: Another option for the landing page, choosing this option you could highlight some special features you consider your library offers. (This layout is not available for the classic pattern style)
-- `docs` (Optional): The page where the documentation for your library should be included. Most likely, you are seeing the `Documentation` page of this repo right now. It's optional, depending on the `micrositeDocumentationUrl` setting. Take a look at the [Configuring the Microsite](settings.html) section for an in-depth explanation.
-- `page` (Optional): Similar to `home`, but reducing the jumbotron layer and taking into account the submenu (jumbotron and other concepts related to style are explained in the [Customize](customize.html) section).
+- `docs` (Optional): The page where the documentation for your library should be included. Most likely, you are seeing the `Documentation` page of this repo right now. It's optional, depending on the `micrositeDocumentationUrl` setting. Take a look at the [Configuring the Microsite]({% link docs/settings.md %}) section for an in-depth explanation.
+- `page` (Optional): Similar to `home`, but reducing the jumbotron layer and taking into account the submenu (jumbotron and other concepts related to style are explained in the [Customize]({% link docs/customize.md %}) section).
 - Menu Partial: This abstract layout reads all the files in your project that fit a set of requirements, and sets up a menu under the jumbotron image. We'll see more details on this later.
 
 ## Home Layout
@@ -55,7 +55,7 @@ features:
 ```
 
 Basically this is all you´ll need to add to your `index.md` file using the `homeFeatures` layout.
-You can add up to three different features and sbt-microsites will dispose them after the masthead layer, every feature will be accompained by an icon that can be overridden as explained in the [Customize](customize.html) section.
+You can add up to three different features and sbt-microsites will dispose them after the masthead layer, every feature will be accompained by an icon that can be overridden as explained in the [Customize]({% link docs/customize.md %}) section.
 These features are identified for the set of keys (`first`, `second`, `third`).
 
 ## Docs Layout
@@ -88,26 +88,26 @@ title: <Document Title>
 
 ### How to setup the Docs Menu
 
-Looking at the [Configuring the Microsite](settings.html) section, in the directory configured under the `micrositeDataDirectory` setting, you need to create a new file named `menu.yml`. This `YAML` file will be accessed by the `Docs Layout` in order to create the menu. Let's see an example:
+Looking at the [Configuring the Microsite]({% link docs/settings.md %}) section, in the directory configured under the `micrositeDataDirectory` setting, you need to create a new file named `menu.yml`. This `YAML` file will be accessed by the `Docs Layout` in order to create the menu. Let's see an example:
 
 ```
 options:
   - title: Getting Started
-    url: docs/index.html
+    url: docs/index
     section: intro
 
   - title: Configuring the Microsite
-    url: docs/settings.html
+    url: docs/settings
 
   - title: Layouts
-    url: docs/layouts.html
+    url: docs/layouts
     section: resources
 
   - title: Customize
-    url: docs/customize.html
+    url: docs/customize
 
   - title: Build the microsite
-    url: docs/build-the-microsite.html
+    url: docs/build-the-microsite
 ```
 
 * The `options` key is mandatory. It'll be the parent of all the options defined here. Each `option` or menu item will contain:
@@ -120,17 +120,17 @@ options:
 ```
 options:
   - title: Introduction
-    url: index.html
+    url: index
     menu_section: intro
 
     nested_options:
      - title: Submenu 1
-       url: subfolder/submenu1.html
+       url: subfolder/submenu1
      - title: Submenu 2
-       url: subfolder/submenu2.html
+       url: subfolder/submenu2
 
   - title: Configuring the Microsite
-    url: settings.html
+    url: settings
 ```
 
 In this example, `Submenu 1` and `Submenu 2` will be nested under the `Introduction` menu option. At the same time, `submenu1` and `submenu2` would have the same section name as the parent. For instance, `submenu1.md` would have a header like this, where the `section` field matches the one defined in `menu.yml`:

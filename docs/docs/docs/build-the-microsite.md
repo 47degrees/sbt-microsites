@@ -34,7 +34,7 @@ Before publishing, a couple of requirements should be satisfied:
 
 1. Initialize the **gh-pages** branch, you can follow the instructions defined in the [sbt-ghpages](https://github.com/sbt/sbt-ghpages/blob/master/README.md#initializing-the-gh-pages-branch) repository.
 2. Define `micrositeGithubOwner` and `micrositeGithubRepo` settings and maybe the `micrositePushSiteWith` and `micrositeGithubRepo` settings.
-You can see more details regarding this in the [Configuring the Microsite](settings.html) section.
+You can see more details regarding this in the [Configuring the Microsite]({% link docs/settings.md %}) section.
 
 Once both requirements are satisfied, you can just run:
 
