@@ -68,6 +68,8 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
             cls := "text-center",
             a(
               href := config.gitSiteUrl,
+              target := "_blank",
+              rel := "noopener noreferrer",
               cls := "btn btn-outline-inverse",
               s"View on ${config.gitSettings.gitHostingService.name}"))
         )
@@ -100,6 +102,8 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
           h1(cls := "masthead-description", config.identity.description),
           a(
             href := config.gitSiteUrl,
+            target := "_blank",
+            rel := "noopener noreferrer",
             cls := "masthead-button",
             s"View on ${config.gitSettings.gitHostingService.name}")
         )

@@ -258,6 +258,8 @@ abstract class Layout(config: MicrositeSettings) {
             cls := "text-right",
             a(
               href := config.gitSiteUrl,
+              target := "_blank",
+              rel := "noopener noreferrer",
               span(cls := s"fa ${config.gitHostingIconClass}"),
               s"View on ${config.gitSettings.gitHostingService.name}"))
         )

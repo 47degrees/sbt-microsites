@@ -287,6 +287,8 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
             cls := "edit-button",
             a(
               href := s"${config.gitSiteUrl}${button.basePath}",
+              target := "_blank",
+              rel := "noopener noreferrer",
               cls := "btn-sm btn-info",
               button.text
             )
