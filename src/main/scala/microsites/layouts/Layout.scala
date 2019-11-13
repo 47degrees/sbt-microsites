@@ -292,7 +292,7 @@ abstract class Layout(config: MicrositeSettings) {
   }
 
   def lightHomeNav: TypedTag[String] =
-    div(
+    nav(
       id := "navigation",
       div(
         cls := "navbar-wrapper container",

@@ -35,7 +35,7 @@
   }
 
   #sidebar-wrapper {
-    background: $brand-primary;
+    background-image: linear-gradient(to bottom, $brand-primary 0%, darken($brand-primary, 3%) 33%);
     z-index: 1000;
     position: fixed;
     left: 0;

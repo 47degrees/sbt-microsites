@@ -5,16 +5,19 @@
 }
 
 .features-image {
-  margin-top: 0;
-  width: 500px;
-  height: 330px;
+  margin: auto;
+  width: 49%;
+  height: 100%;
   background: url("../img/features-header.svg") no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 .feature-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 100%;
 
   .features-header-description {
     display: flex;
@@ -37,7 +40,7 @@
 }
 
 .features-header-description {
-  max-width: 43%;
+  max-width: 49%;
 }
 
 .features {
@@ -46,6 +49,8 @@
 
   .feature-item {
     flex: 1;
+    align-items: center;
+    text-align: center;
     min-height: $feature-item-height;
     margin-right: ($base-point-grid * 5);
     display: flex;
@@ -121,6 +126,7 @@
     .feature-item-header {
       display: flex;
       flex-direction: column;
+      align-items: center;
     }
   }
 }
@@ -147,29 +153,6 @@
 // Responsive
 // -----------------------------------------------------
 @include bp(medium) {
-  .features {
-    flex-direction: column;
-    padding: 0;
-
-    .feature-item {
-      align-items: center;
-      min-height: 220px;
-      width: 80%;
-      margin: ($base-point-grid * 6) auto;
-      text-align: center;
-
-      &:last-child {
-        margin-right: auto;
-      }
-
-      .feature-item-header {
-        align-items: center;
-      }
-    }
-  }
-}
-
-@include bp(feature) {
   .feature-header {
     justify-content: center;
     text-align: center;
@@ -181,6 +164,22 @@
     .features-header-description {
       max-width: 100%;
       align-items: center;
+      padding: $base-point-grid * 6 0;
+    }
+  }
+
+  .features {
+    flex-direction: column;
+    padding: 0;
+
+    .feature-item {
+      min-height: 220px;
+      width: 80%;
+      margin: ($base-point-grid * 6) auto;
+
+      &:last-child {
+        margin-right: auto;
+      }
     }
   }
 }

@@ -1,9 +1,20 @@
 // Main
 // -----------------------------------------------
 // -----------------------------------------------
+
+.home {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 #site-main {
   background-color: $light-background-color;
   font-family: $font-family;
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   .main-content {
     padding: ($base-point-grid * 6) 0;

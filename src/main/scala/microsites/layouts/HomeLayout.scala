@@ -29,7 +29,7 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
       if (config.visualSettings.theme == "pattern")
         List(homeHeader, homeMain, globalFooter)
       else
-        List(lightHomeNav, lightHomeHeader, lightHomeMain, lightFooter)
+        List(cls := "home", lightHomeNav, lightHomeHeader, lightHomeMain, lightFooter)
 
     html(
       commonHead,
@@ -80,19 +80,17 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
     )
 
   def lightHomeHeader: TypedTag[String] =
-    div(
-      header(
-        id := "masthead",
-        div(
-          cls := "container text-center",
-          h1(cls := "masthead-description", config.identity.description),
-          a(
-            href := config.gitSiteUrl,
-            target := "_blank",
-            rel := "noopener noreferrer",
-            cls := "masthead-button",
-            s"View on ${config.gitSettings.gitHostingService.name}")
-        )
+    header(
+      id := "masthead",
+      div(
+        cls := "container text-center",
+        h1(cls := "masthead-description", config.identity.description),
+        a(
+          href := config.gitSiteUrl,
+          target := "_blank",
+          rel := "noopener noreferrer",
+          cls := "masthead-button",
+          s"View on ${config.gitSettings.gitHostingService.name}")
       ),
       "{% if page.position != null %}",
       div(cls := "menu-container", "{% include menu.html %}"),

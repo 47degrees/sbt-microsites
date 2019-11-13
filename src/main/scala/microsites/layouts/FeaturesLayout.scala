@@ -27,6 +27,7 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
     html(
       commonHead,
       body(
+        cls := "home",
         lightHomeNav,
         homeHeaderFeatures,
         homeMainFeatures,
@@ -36,25 +37,23 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
   }
 
   def homeHeaderFeatures: TypedTag[String] =
-    div(
-      header(
-        id := "masthead",
-        cls := "features-masthead",
+    header(
+      id := "masthead",
+      cls := "features-masthead",
+      div(
+        cls := "container feature-header",
         div(
-          cls := "container feature-header",
-          div(
-            cls := "features-header-description",
-            h1(cls := "masthead-title", config.identity.name),
-            p(cls := "masthead-description", config.identity.description),
-            a(
-              href := config.gitSiteUrl,
-              target := "_blank",
-              rel := "noopener noreferrer",
-              cls := "masthead-button",
-              s"View on ${config.gitSettings.gitHostingService.name}")
-          ),
-          div(cls := "features-image"),
+          cls := "features-header-description",
+          h1(cls := "masthead-title", config.identity.name),
+          p(cls := "masthead-description", config.identity.description),
+          a(
+            href := config.gitSiteUrl,
+            target := "_blank",
+            rel := "noopener noreferrer",
+            cls := "masthead-button",
+            s"View on ${config.gitSettings.gitHostingService.name}")
         ),
+        div(cls := "features-image"),
       ),
       "{% if page.position != null %}",
       div(cls := "menu-container", "{% include menu.html %}"),

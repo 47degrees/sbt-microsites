@@ -25,10 +25,4 @@
       @content;
     }
   }
-
-  @if $point==feature {
-    @media (max-width: $bp-head-features) {
-      @content;
-    }
-  }
 }

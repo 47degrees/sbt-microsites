@@ -1,4 +1,5 @@
 #site-footer {
+  font-family: $title-font-family;
   padding: ($base-point-grid * 5) 0;
   font-size: $footer-font-size;
 
@@ -11,9 +12,14 @@
 
     a {
       text-decoration: underline;
+
       &:hover {
         text-decoration: none;
       }
     }
+  }
+
+  @include bp(medium) {
+    text-align: center;
   }
 }
