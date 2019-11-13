@@ -48,6 +48,8 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
             p(cls := "masthead-description", config.identity.description),
             a(
               href := config.gitSiteUrl,
+              target := "_blank",
+              rel := "noopener noreferrer",
               cls := "masthead-button",
               s"View on ${config.gitSettings.gitHostingService.name}")
           ),
