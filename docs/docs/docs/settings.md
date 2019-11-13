@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Configuring the Microsite
+permalink: docs/settings/
 ---
 
 # Configuring the Microsite

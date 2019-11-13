@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Typechecked Snippets
+permalink: docs/typechecked-snippets/
 ---
 
 # Typechecked Snippets
