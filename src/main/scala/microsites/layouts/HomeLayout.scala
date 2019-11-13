@@ -79,22 +79,6 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
       "{% include menu.html %}"
     )
 
-  def lightHomeNav: TypedTag[String] =
-    div(
-      id := "navigation",
-      div(
-        cls := "navbar-wrapper container",
-        div(
-          cls := "navigation-brand",
-          a(
-            href := "{{ site.baseurl }}/",
-            cls := "brand",
-            div(cls := "icon-wrapper"),
-            span(cls := "brand-title", config.identity.name))),
-        div(cls := "navigation-menu", buildLightCollapseMenu)
-      )
-    )
-
   def lightHomeHeader: TypedTag[String] =
     div(
       header(

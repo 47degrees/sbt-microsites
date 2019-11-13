@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Publish with Travis
+permalink: docs/publish-with-travis/
 ---
 
 # Publish with Travis

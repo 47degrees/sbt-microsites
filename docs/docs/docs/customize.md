@@ -1,6 +1,7 @@
 ---
 layout: docs
 title: Customize
+permalink: docs/customize/
 ---
 
 # Customize
@@ -18,6 +19,16 @@ If you create your own images (which makes sense) and override the default ones,
     - `light_navbar_brand.svg` -> **[36x36]**
   - Microsite logo for the documentation page:
     - `light_sidebar_brand.svg` -> **[36x36]**
+  - Microsite logo for the masthead in the `Features` layout:
+    - `features-header.svg` -> **[500x330]**
+
+  - Icons used by the `features` meta tag that we saw in the [Layouts](layouts.html) section. These features and their icons will be shown in features section in the homeFeatures page.
+    - First feature icon:
+        - `first-feature-icon.svg` -> **[56x56]**
+    - Second feature icon:
+        - `second-feature-icon.svg` -> **[56x56]**
+    - Third feature icon:
+        - `third-feature-icon.svg` -> **[56x56]**
 
 - Pattern style:
   - Microsite logos in two different sizes for the home page:
@@ -38,11 +49,12 @@ If you create your own images (which makes sense) and override the default ones,
       - Third icon:
           - `third_icon.png` -> **[40x40]**
           - `third_icon2x.png` -> **[80x80]**
-  - Optionally, you might want to specify your `favicon.png` image.
+
+- Optionally, you might want to specify your `favicon.png` image.
 
 ## Styles
 
-`sbt-microsites` is completely based on [Bootstrap](http://getbootstrap.com/), adding some extra styles that make the microsites even more beautiful.
+`sbt-microsites` `pattern` style is completely based on [Bootstrap](http://getbootstrap.com/), adding some extra styles that make the microsites even more beautiful.
 
 That being said, you can personalize your microsite even further by using your own css files. In the same manner, as we've just seen for images, all the css files that you place in the directory associated with the `micrositeCssDirectory` setting (`src/main/resources/microsite/css` by default) will be copied to the generated microsite. Therefore, you can add new styles, or even override existing ones.
 
