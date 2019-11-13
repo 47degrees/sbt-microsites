@@ -32,7 +32,7 @@ From version [`0.5.4`](https://github.com/47deg/sbt-microsites/releases/tag/v0.5
 
 Before publishing, a couple of requirements should be satisfied:
 
-1. Initialize the **gh-pages** branch, you can follow the instructions defined in the [sbt-ghpages](https://goo.gl/G0Ffv0) repository.
+1. Initialize the **gh-pages** branch, you can follow the instructions defined in the [sbt-ghpages](https://github.com/sbt/sbt-ghpages/blob/master/README.md#initializing-the-gh-pages-branch) repository.
 2. Define `micrositeGithubOwner` and `micrositeGithubRepo` settings and maybe the `micrositePushSiteWith` and `micrositeGithubRepo` settings.
 You can see more details regarding this in the [Configuring the Microsite](settings.html) section.
 
@@ -48,6 +48,6 @@ By default, the second task uses the [`sbt-ghpages` plugin](https://github.com/s
 
 If you don't have any domain names pointing to your site, you can see your microsite at:
 
-[http://username.github.io/your-microsite](http://username.github.io/your-microsite)
+[https://username.github.io/your-microsite](https://username.github.io/your-microsite)
 
 Enjoy!

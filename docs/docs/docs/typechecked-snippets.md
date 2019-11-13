@@ -15,7 +15,7 @@ As has been mentioned a couple of times throughout this tutorial, this plugin su
 - Set this property accordingly: `micrositeCompilingDocsTool := WithTut`.
 - Add your markdown files in this path by default: `src/main/tut/`.
 - If you want to place your documments in a different path, just set the sbt property `tutSourceDirectory := your-path` being _your-path_ a `SettingKey[File]`.
-- Mark the snippets that you want to compile, following this convention: **_```tut_** or any of its [modifiers](http://tpolecat.github.io/tut//modifiers.html)
+- Mark the snippets that you want to compile, following this convention: **_```tut_** or any of its [modifiers](https://tpolecat.github.io/tut//modifiers.html)
 
 
 ## mdoc

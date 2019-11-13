@@ -38,7 +38,7 @@ micrositeDescription := "This is the description of my Awesome Library"
 - `micrositeUrl`: The URL prefix of your site. This setting is necessary if you need to show a poster image `{micrositeUrl}{micrositeBaseUrl}/img/poster.png` of your site on Twitter. See also [Twitter Cards](https://cards-dev.twitter.com/validator) for more details.
 
 ```
-micrositeUrl := "http://yourdomain.io"
+micrositeUrl := "https://yourdomain.io"
 ```
 
 - `micrositeBaseUrl`: This setting brings the ability to set up a site base URL for your microsite. It's empty by default. However, you might need something like this:
@@ -47,7 +47,7 @@ micrositeUrl := "http://yourdomain.io"
 micrositeBaseUrl := "/yoursite"
 ```
 
-In this case, your microsite would be placed on: http://yourdomain.io/yoursite.
+In this case, your microsite would be placed on: https://yourdomain.io/yoursite.
 
 - `micrositeDocumentationUrl`: You might need documentation pages in a specific section of your microsite. This setting allows you to personalize this URL to fit your needs. As the **sbt-microsites** plugin provides a specific layout to improve the look of your documentation, we strongly recommend having a look at the [layouts](layouts.html) section. It's empty by default. Hence your `Documentation` link won't appear in the microsite in that case.
 
@@ -55,7 +55,7 @@ In this case, your microsite would be placed on: http://yourdomain.io/yoursite.
 micrositeDocumentationUrl := "/yoursite/docs"
 ```
 
-Therefore, considering the example above, your microsite documentation would be placed on: http://yourdomain.io/yoursite/docs. Moreover, the layouts supplied by the plugin will provide a link in the upper-right area pointing to this URL (if it isn't empty).
+Therefore, considering the example above, your microsite documentation would be placed on: https://yourdomain.io/yoursite/docs. Moreover, the layouts supplied by the plugin will provide a link in the upper-right area pointing to this URL (if it isn't empty).
 
 
 - `micrositeDocumentationLabelDescription`: The default label description for the `micrositeDocumentationUrl` link in the homepage is `Documentation`. You can change it through this setting.
@@ -79,7 +79,7 @@ micrositeHomepage := "https://47deg.github.io/sbt-microsites/"
 - `micrositeOrganizationHomepage`: This particular setting is used for organizing the homepage URL, similar to the way we've seen in other properties. This link is used in the footer-left link in the microsite. By default, the value is taken from the sbt setting `organizationHomepage`. If you don´t provide any value for that setting, it will take it from the sbt setting `homepage`:
 
 ```
-micrositeOrganizationHomepage := "http://www.47deg.com"
+micrositeOrganizationHomepage := "https://www.47deg.com"
 ```
 
 - `micrositeTwitter`: This setting is used for the Twitter integration. This generates a meta that Twitter uses in its [Twitter Cards](https://cards-dev.twitter.com/validator).
