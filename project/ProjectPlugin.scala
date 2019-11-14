@@ -78,6 +78,7 @@ object ProjectPlugin extends AutoPlugin {
     Seq(
       name := "sbt-microsites",
       description := "An sbt plugin to create awesome microsites for your project",
+      homepage := Some(url(orgGithubSetting.value.home)),
       startYear := Some(2016),
       scalaVersion := V.scala,
       crossScalaVersions := Seq(V.scala),
