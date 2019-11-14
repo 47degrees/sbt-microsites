@@ -20,16 +20,16 @@ import microsites.MicrositeSettings
 
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
-import scalatags.Text.tags2.{main, section}
+import scalatags.Text.tags2.{main, nav, section}
 
 class PageLayout(config: MicrositeSettings) extends Layout(config) {
 
   override def render: TypedTag[String] = {
     val pageBodyBlock =
       if (config.visualSettings.theme == "pattern")
-        List(pageHeader, pageMain, globalFooter)
+        modifier(pageHeader, pageMain, globalFooter)
       else
-        List(lightPageNav, pageMain, lightFooter)
+        modifier(cls := "page", lightPageNav, pageMain, lightFooter)
 
     html(
       commonHead,
@@ -74,27 +74,26 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
       "{% include menu.html %}"
     )
 
-  def lightPageNav: TypedTag[String] =
-    div(
-      id := "page",
-      div(
+  def lightPageNav: Seq[Frag] =
+    Seq(
+      nav(
         id := "navigation",
-        cls := "page-navigation",
         div(
           cls := "navbar-wrapper container",
           div(
             cls := "navigation-brand",
             a(
               href := "{{ site.baseurl }}/",
-              cls := "brand",
+              cls := s"brand ${backgroundLogoCssMask}",
               div(cls := "page-icon-wrapper"),
-              span(cls := "brand-title", config.identity.name))),
+              span(cls := "brand-title", config.identity.name))
+          ),
           div(cls := "navigation-menu", buildLightCollapseMenu)
         ),
       ),
       "{% if page.position != null %}",
       div(cls := "menu-container", "{% include menu.html %}"),
-      "{% endif %}",
+      "{% endif %}"
     )
 
   def pageMain: TypedTag[String] =

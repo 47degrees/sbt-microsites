@@ -16,12 +16,18 @@
   flex-direction: column;
   justify-content: center;
 
+  &.page-site-main {
+    flex: 1 1 100%;
+  }
+
   .main-content {
+    flex: 1 1 auto;
     padding: ($base-point-grid * 6) 0;
   }
 
   a {
     text-decoration: underline;
+
     &:hover {
       text-decoration: none;
     }

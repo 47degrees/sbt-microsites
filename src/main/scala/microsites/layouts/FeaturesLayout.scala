@@ -64,29 +64,27 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
     main(
       id := "site-main",
       section(
+        cls := "container",
         div(
-          cls := "container",
+          cls := "features",
+          """{% for feature_hash in page.features %}
+              {% for feature in feature_hash %}""",
           div(
-            cls := "features",
-            """{% for feature_hash in page.features %}
-                {% for feature in feature_hash %}""",
+            cls := "feature-item",
             div(
-              cls := "feature-item",
-              div(
-                cls := s"feature-item-header ${backgroundFeatureCssMask}",
-                div(cls := "{{ feature[0] }}-feature-icon-wrapper"),
-                h4("{{ feature[1][0] }}"),
-                p("{{ feature[1][1] }}"),
-              ),
-              if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
-                a(
-                  cls := "learn-more-button",
-                  href := s"${config.urlSettings.micrositeDocumentationUrl}",
-                  span(cls := "learn-more", "Learn More")),
+              cls := s"feature-item-header ${backgroundFeatureCssMask}",
+              div(cls := "{{ feature[0] }}-feature-icon-wrapper"),
+              h4("{{ feature[1][0] }}"),
+              p("{{ feature[1][1] }}"),
             ),
-            """{% endfor %}
-          {% endfor %}"""
-          )
+            if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
+              a(
+                cls := "learn-more-button",
+                href := s"${config.urlSettings.micrositeDocumentationUrl}",
+                span(cls := "learn-more", "Learn More")),
+          ),
+          """{% endfor %}
+        {% endfor %}"""
         )
       )
     )
