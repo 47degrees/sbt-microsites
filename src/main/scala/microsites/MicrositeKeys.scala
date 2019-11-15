@@ -454,6 +454,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       gitTags.foreach(t => {
         s"mv gen-docs/$t $publishing_dir".!
       })
+      // if !$current_branch_path.to_s.empty?
+      s"mv gen-docs/$current_branch_path $publishing_dir".!
 
 //      "sbt pushMicrosite".!
 
