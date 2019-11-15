@@ -56,3 +56,30 @@ h5 {
 h6 {
   font-size: 1.1rem;
 }
+
+
+@keyframes bg-gradient {
+  0% {
+    background-position: 50%;
+  }
+
+  36% {
+    background-position: 60%;
+  }
+
+  40% {
+    background-position: 80%;
+  }
+
+  50% {
+    background-position: 40%;
+  }
+
+  66% {
+    background-position: 15%;
+  }
+
+  100% {
+    background-position: 50%;
+  }
+}

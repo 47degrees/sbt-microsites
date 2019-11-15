@@ -8,7 +8,10 @@
   flex-direction: column;
 
   #navigation {
-    background: $brand-primary;
+    background: linear-gradient(160deg, transparent 66%, darken($brand-primary, 9%) 97%), linear-gradient(130deg, darken($brand-primary, 6%), $brand-primary 16%);
+    background-position: center;
+    background-size: 200% 100%;
+    animation: bg-gradient 12s ease infinite;
 
     a {
       color: $white-color;

@@ -3,43 +3,17 @@
 // -----------------------------------------------
 
 #masthead {
-  background: linear-gradient(160deg, transparent 66%, darken($brand-primary, 8%) 97%), linear-gradient(130deg, darken($brand-primary, 6%), $brand-primary 16%);
+  background: linear-gradient(160deg, transparent 66%, darken($brand-primary, 9%) 97%), linear-gradient(130deg, darken($brand-primary, 6%), $brand-primary 16%);
   background-position: center;
   background-size: 200% 100%;
-  animation: gradient 12s ease infinite;
+  animation: bg-gradient 12s ease infinite;
   color: $white-color;
-  flex: 1 1 50%;
+  flex: 1 1 25%;
   padding: $base-point-grid * 6 0;
   font-family: $title-font-family;
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  @keyframes gradient {
-    0% {
-      background-position: 50%;
-    }
-
-    36% {
-      background-position: 60%;
-    }
-
-    40% {
-      background-position: 80%;
-    }
-
-    50% {
-      background-position: 40%;
-    }
-
-    66% {
-      background-position: 15%;
-    }
-
-    100% {
-      background-position: 50%;
-    }
-  }
 
   .text-center {
     text-align: center;

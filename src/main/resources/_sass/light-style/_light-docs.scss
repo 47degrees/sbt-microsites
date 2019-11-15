@@ -53,7 +53,7 @@
     }
 
     #sidebar-brand {
-      padding: $base-point-grid $base-point-grid * 3;
+      padding: $base-point-grid + 4 $base-point-grid * 3;
       font-family: $title-font-family;
       font-size: 18px;
       height: $top-bar-size;
@@ -182,7 +182,7 @@
       }
 
       .col-lg-12 {
-        padding: $base-point-grid $base-point-grid * 3;
+        padding: $base-point-grid + 4 $base-point-grid * 3;
         display: flex;
         justify-content: space-between;
         align-items: center;
