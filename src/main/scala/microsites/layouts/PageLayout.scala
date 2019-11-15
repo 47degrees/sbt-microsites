@@ -27,9 +27,9 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
   override def render: TypedTag[String] = {
     val pageBodyBlock =
       if (config.visualSettings.theme == "pattern")
-        modifier(pageHeader, pageMain, globalFooter)
+        List(pageHeader, pageMain, globalFooter)
       else
-        modifier(cls := "page", lightPageNav, pageMain, lightFooter)
+        (cls := "page") :: lightPageNav ++ List(pageMain, lightFooter)
 
     html(
       commonHead,
@@ -74,8 +74,8 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
       "{% include menu.html %}"
     )
 
-  def lightPageNav: Seq[Frag] =
-    Seq(
+  def lightPageNav: List[Frag] =
+    List(
       nav(
         id := "navigation",
         div(
@@ -92,7 +92,7 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
         ),
       ),
       "{% if page.position != null %}",
-      div(cls := "menu-container", "{% include menu.html %}"),
+      nav(cls := "menu-container", "{% include menu.html %}"),
       "{% endif %}"
     )
 

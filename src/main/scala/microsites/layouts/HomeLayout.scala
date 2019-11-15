@@ -20,7 +20,7 @@ import microsites.MicrositeSettings
 
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
-import scalatags.Text.tags2.{main, section}
+import scalatags.Text.tags2.{main, nav, section}
 
 class HomeLayout(config: MicrositeSettings) extends Layout(config) {
 
@@ -29,7 +29,7 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
       if (config.visualSettings.theme == "pattern")
         List(homeHeader, homeMain, globalFooter)
       else
-        List(cls := "home", lightHomeNav, lightHomeHeader, lightHomeMain, lightFooter)
+        List(cls := "home", lightHomeNav) ++ lightHomeHeader ++ List(lightHomeMain, lightFooter)
 
     html(
       commonHead,
@@ -79,22 +79,24 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
       "{% include menu.html %}"
     )
 
-  def lightHomeHeader: TypedTag[String] =
-    header(
-      id := "masthead",
-      div(
-        cls := "container text-center",
-        h1(cls := "masthead-description", config.identity.description),
-        a(
-          href := config.gitSiteUrl,
-          target := "_blank",
-          rel := "noopener noreferrer",
-          cls := "masthead-button",
-          s"View on ${config.gitSettings.gitHostingService.name}")
+  def lightHomeHeader: List[Frag] =
+    List(
+      header(
+        id := "masthead",
+        div(
+          cls := "container text-center",
+          h1(cls := "masthead-description", config.identity.description),
+          a(
+            href := config.gitSiteUrl,
+            target := "_blank",
+            rel := "noopener noreferrer",
+            cls := "masthead-button",
+            s"View on ${config.gitSettings.gitHostingService.name}")
+        ),
       ),
       "{% if page.position != null %}",
-      div(cls := "menu-container", "{% include menu.html %}"),
-      "{% endif %}",
+      nav(cls := "menu-container", "{% include menu.html %}"),
+      "{% endif %}"
     )
 
   def lightHomeMain: TypedTag[String] =
