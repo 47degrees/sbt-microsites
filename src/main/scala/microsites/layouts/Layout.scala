@@ -294,6 +294,7 @@ abstract class Layout(config: MicrositeSettings) {
   def lightHomeNav: TypedTag[String] =
     nav(
       id := "navigation",
+      aria.labelledby := "main-navigation",
       div(
         cls := "navbar-wrapper container",
         div(
