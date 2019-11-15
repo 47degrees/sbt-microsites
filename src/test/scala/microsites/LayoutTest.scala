@@ -18,7 +18,7 @@ package microsites
 
 import microsites.layouts.Layout
 import microsites.util.Arbitraries
-import org.scalatest.prop.Checkers
+import org.scalatestplus.scalacheck.Checkers
 import org.scalacheck.Prop._
 import org.scalatest.{FunSuite, Matchers}
 

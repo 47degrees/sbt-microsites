@@ -49,7 +49,7 @@ object MicrositesPlugin extends AutoPlugin {
         sourceDirectory in Jekyll := resourceManaged.value / "main" / "jekyll",
         tutSourceDirectory := sourceDirectory.value / "main" / "tut",
         tutTargetDirectory := resourceManaged.value / "main" / "jekyll",
-        mdocIn := baseDirectory.in(ThisBuild).value / "docs",
+        mdocIn := baseDirectory.value / "docs",
         mdocOut := resourceManaged.value / "main" / "jekyll",
       )
 
@@ -71,7 +71,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeTwitter := "",
     micrositeTwitterCreator := "",
     micrositeShareOnSocial := true,
-    micrositeHighlightTheme := "default",
+    micrositeHighlightTheme := "vs",
     micrositeHighlightLanguages := Seq("scala", "java", "bash"),
     micrositeConfigYaml := ConfigYml(
       yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "_config.yml")),
@@ -86,16 +86,29 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeExtraMdFiles := Map.empty,
     micrositeExtraMdFilesOutput := (resourceManaged in Compile).value / "jekyll" / "_extra_md",
     micrositePluginsDirectory := (resourceDirectory in Compile).value / "microsite" / "plugins",
-    micrositePalette := Map(
-      "brand-primary"   -> "#02B4E5",
-      "brand-secondary" -> "#1C2C52",
-      "brand-tertiary"  -> "#162341",
-      "gray-dark"       -> "#453E46",
-      "gray"            -> "#837F84",
-      "gray-light"      -> "#E3E2E3",
-      "gray-lighter"    -> "#F4F3F4",
-      "white-color"     -> "#FFFFFF"
-    ),
+    micrositeTheme := "light",
+    micrositePalette := {
+
+      val theme = (Compile / micrositeTheme).value
+
+      if (theme == "pattern")
+        Map(
+          "brand-primary"   -> "#02B4E5",
+          "brand-secondary" -> "#1C2C52",
+          "brand-tertiary"  -> "#162341",
+          "gray-dark"       -> "#453E46",
+          "gray"            -> "#837F84",
+          "gray-light"      -> "#E3E2E3",
+          "gray-lighter"    -> "#F4F3F4",
+          "white-color"     -> "#FFFFFF"
+        )
+      else
+        Map(
+          "brand-primary"   -> "#013567",
+          "brand-secondary" -> "#009ADA",
+          "white-color"     -> "#FFFFFF"
+        )
+    },
     micrositeFavicons := Seq(),
     micrositeGithubOwner := "47deg",
     micrositeGithubRepo := "sbt-microsites",
@@ -109,9 +122,10 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeFooterText := Some(layouts.Layout.footer.toString),
     micrositeEditButton := None,
     micrositeGithubLinks := true,
-    micrositeCompilingDocsTool := WithTut,
+    micrositeCompilingDocsTool := WithMdoc,
     includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json",
     includeFilter in Jekyll := (includeFilter in makeSite).value,
-    commands ++= Seq(publishMicrositeCommand)
+    commands ++= Seq(publishMicrositeCommand),
+    javaOptions += "-Djava.awt.headless=true"
   )
 }

@@ -20,17 +20,21 @@ import microsites.MicrositeSettings
 
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
-import scalatags.Text.tags2.{main, section}
+import scalatags.Text.tags2.{main, nav, section}
 
 class PageLayout(config: MicrositeSettings) extends Layout(config) {
 
   override def render: TypedTag[String] = {
+    val pageBodyBlock =
+      if (config.visualSettings.theme == "pattern")
+        List(pageHeader, pageMain, globalFooter)
+      else
+        (cls := "page") :: lightPageNav ++ List(pageMain, lightFooter)
+
     html(
       commonHead,
       body(
-        pageHeader,
-        pageMain,
-        globalFooter,
+        pageBodyBlock,
         scripts
       )
     )
@@ -70,9 +74,32 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
       "{% include menu.html %}"
     )
 
+  def lightPageNav: List[Frag] =
+    List(
+      nav(
+        id := "navigation",
+        div(
+          cls := "navbar-wrapper container",
+          div(
+            cls := "navigation-brand",
+            a(
+              href := "{{ site.baseurl }}/",
+              cls := s"brand ${backgroundLogoCssMask}",
+              div(cls := "page-icon-wrapper"),
+              span(cls := "brand-title", config.identity.name))
+          ),
+          div(cls := "navigation-menu", buildLightCollapseMenu)
+        ),
+      ),
+      "{% if page.position != null %}",
+      nav(cls := "menu-container", "{% include menu.html %}"),
+      "{% endif %}"
+    )
+
   def pageMain: TypedTag[String] =
     main(
       id := "site-main",
+      cls := "page-site-main",
       section(cls := "use", div(cls := "container", div(id := "content", "{{ content }}"))))
 
 }

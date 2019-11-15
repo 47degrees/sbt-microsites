@@ -43,33 +43,49 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
             cls := "hidden-xs",
             a(
               href := config.gitSiteUrl,
+              target := "_blank",
+              rel := "noopener noreferrer",
               i(cls := "fa fa-eye"),
-              span("WATCH", span(id := "eyes", cls := "label label-default", "--")))),
+              span("Watchers", span(id := "eyes", cls := "label label-default", "--"))
+            )
+          ),
           li(
             id := "gh-stars-item",
             cls := "hidden-xs",
             a(
               href := config.gitSiteUrl,
+              target := "_blank",
+              rel := "noopener noreferrer",
               i(cls := "fa fa-star-o"),
-              span("STARS", span(id := "stars", cls := "label label-default", "--")))
+              span("Stars", span(id := "stars", cls := "label label-default", "--"))
+            )
           )
         )
       } else Seq.empty
     }
 
     def shareOnSocial: Seq[TypedTag[String]] = {
-      if (config.visualSettings.shareOnSocial) {
-        Seq(
-          li(a(href := "#", onclick := s"shareSiteTwitter('$text');", i(cls := "fa fa-twitter"))),
-          li(a(href := "#", onclick := s"shareSiteFacebook('$text');", i(cls := "fa fa-facebook"))),
-          li(a(href := "#", onclick := "shareSiteGoogle();", i(cls := "fa fa-google-plus")))
-        )
+      if (config.visualSettings.theme == "pattern") {
+        if (config.visualSettings.shareOnSocial) {
+          Seq(
+            li(a(href := "#", onclick := s"shareSiteTwitter('$text');", i(cls := "fa fa-twitter"))),
+            li(
+              a(
+                href := "#",
+                onclick := s"shareSiteFacebook('$text');",
+                i(cls := "fa fa-facebook"))),
+            li(a(href := "#", onclick := "shareSiteGoogle();", i(cls := "fa fa-google-plus")))
+          )
+        } else Seq.empty
       } else Seq.empty
     }
 
+    val sidebar =
+      if (config.visualSettings.theme == "pattern") buildSidebar else buildLightSidebar
+
     // format: off
     div(id := "wrapper",
-      div(id := "sidebar-wrapper", buildSidebar),
+      div(id := "sidebar-wrapper", sidebar),
       div(id := "page-content-wrapper",
         div(cls := "nav",
           div(cls := "container-fluid",
@@ -97,63 +113,171 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
     // format: on
   }
 
-  def buildSidebar: TypedTag[String] = {
+  def buildLightSidebar: Seq[TypedTag[String]] = {
     // format: off
-    ul(id := "sidebar", cls := "sidebar-nav",
-      li(cls := "sidebar-brand",
-        a(href := "{{ site.baseurl }}/", cls := "brand",
-          div(cls := "brand-wrapper", span(config.identity.name))
-        )
+    Seq(
+      div(id := "sidebar-brand",
+      a(href := "{{ site.baseurl }}/", cls := "brand",
+        div(cls := "brand-wrapper"), span(config.identity.name)
       ),
-      "{% if site.data.menu.options %}",
-        "{% assign items = site.data.menu.options %}",
-        "{% for x in items %} ",
-          "{% assign x_title = x.title | downcase %}",
-          "{% assign page_title = page.title | downcase %}",
-          "{% if x.menu_type.size == false or x.menu_type == page.section %}",
-            li(
-              a(href := "{{ site.baseurl }}/{{ x.url }}",
-                cls := "{% if x_title == page_title %} active {% endif %}", "{{x.title}}"),
-                "{% if x.nested_options %} ",
-                  ul(
-                    cls := "sub_section",
-                    "{% for sub in x.nested_options %} ",
-                    "{% assign sub_title = sub.title | downcase %}",
-                    li(
-                      a(href := "{{ site.baseurl }}/{{ sub.url }}",
-                        cls := "{% if sub_title == page_title and x.section == sub.section %} active {% endif %}",
-                        "{{sub.title}}"
-                      )
+        button(id := "main-toggle", cls := "sidebar-toggle",
+        span(cls := "close"),
+      )
+      ),
+      div(cls := "sidebar-nav",
+        "{% if site.data.menu.options %}",
+          "{% for item in site.data.menu.options %} ",
+
+            "{% assign item_url = item.url | relative_url %}",
+            "{% assign item_url_slash = item_url | append: '/' %}",
+            "{% assign page_url = page.url | relative_url %}",
+            "{% assign page_url_index = page_url | append: 'index.html' %}",
+
+            "{% assign open_submenu = '' %}",
+            "{% assign active_item = '' %}",
+
+            "{% if item_url == page_url or item_url_slash == page_url or item_url == page_url_index %}",
+              "{% assign active_item = 'active' %}",
+            "{% endif %}",
+
+            "{% if item.nested_options %}",
+              "{% if item_url == page_url or item_url_slash == page_url %}",
+                "{% assign open_submenu = 'open' %}",
+              "{% else %}",
+                "{% for sub in item.nested_options %}",
+                  "{% assign sub_url = sub.url | relative_url %}",
+                  "{% assign sub_url_slash = sub_url | append: '/' %}",
+                  "{% if sub_url == page_url or sub_url_slash == page_url %}",
+                    "{% assign open_submenu = 'open' %}",
+                  "{% endif %}",
+                "{% endfor %}",
+              "{% endif %}",
+            "{% endif %}",
+
+            "{% if item.menu_type.size == false or item.menu_type == page.section %}",
+              div(cls := "sidebar-nav-item {{ active_item }} {{ open_submenu }}",
+                "{% if item.nested_options %}",
+                  "{% if item.url %}",
+                    a(href := "{{ item.url | relative_url }}",
+                      title := "{{ item.title }}",
+                      cls := "drop-nested",
+                      "{{item.title}}",
                     ),
-                    "{% endfor %}"
+                    i(cls := "fa fa-angle-right"),
+                  "{% else %}",
+                    button(`type` := "button",
+                      title := "{{ item.title }}",
+                      cls := "button drop-nested",
+                      "{{item.title}}",
+                    ),
+                    i(cls := "fa fa-angle-right"),
+                  "{% endif %}",
+                    div(
+                      cls := "sub-section",
+                      "{% for sub in item.nested_options %} ",
+                        "{% assign sub_url = sub.url | relative_url %}",
+                        "{% assign sub_url_slash = sub_url | append: '/' %}",
+                        a(href := "{{ sub.url | relative_url }}",
+                          title := "{{ sub.title }}",
+                          cls := "{% if sub_url == page_url or sub_url_slash == page_url or sub_url == page_url_index %}active{% endif %}",
+                          "{{sub.title}}",
+                        ),
+                      "{% endfor %}"
+                    ),
+                "{% else %}",
+                  a(href := "{{ item.url | relative_url }}",
+                    title := "{{ item.title }}",
+                    cls := "{{ active_item }}",
+                    "{{item.title}}",
                   ),
-                "{% endif %}"
-            ),
-          "{% endif %}",
-        "{% endfor %}",
-      "{% else %}",
-        "{% assign items = site.pages | sort: 'weight' %}",
-        "{% for x in items %}",
-          "{% assign x_title = x.title | downcase %}",
-          "{% assign page_title = page.title | downcase %}",
-          "{% if x.section == page.section %}",
-            li(
-              a(
-                href := "{{ site.baseurl }}{{x.url}}",
-                cls := "{% if x_title == page_title %} active {% endif %}",
-                "{{x.title}}"
-              )
-            ),
-          "{% endif %}",
-        "{% endfor %}",
-      "{% endif %}"
+                "{% endif %}",
+              ),
+            "{% endif %}",
+          "{% endfor %}",
+        "{% else %}",
+          "{% assign items = site.pages | sort: 'weight' %}",
+          "{% for item in items %}",
+            "{% assign item_title = item.title | downcase %}",
+            "{% assign page_title = page.title | downcase %}",
+            "{% if item.section == page.section %}",
+              li(
+                a(
+                  href := "{{ site.baseurl }}{{item.url}}",
+                  cls := "{% if item_title == page_title %}active{% endif %}",
+                  "{{item.title}}"
+                )
+              ),
+            "{% endif %}",
+          "{% endfor %}",
+        "{% endif %}"
+      )
+    )
+  }
+
+  def buildSidebar: Seq[TypedTag[String]] = {
+    // format: off
+    Seq(
+        ul(id := "sidebar", cls := "sidebar-nav",
+        li(cls := "sidebar-brand",
+          a(href := "{{ site.baseurl }}/", cls := "brand",
+            div(cls := "brand-wrapper", span(config.identity.name))
+          )
+        ),
+        "{% if site.data.menu.options %}",
+          "{% assign items = site.data.menu.options %}",
+          "{% for x in items %} ",
+            "{% assign x_title = x.title | downcase %}",
+            "{% assign page_title = page.title | downcase %}",
+            "{% if x.menu_type.size == false or x.menu_type == page.section %}",
+              li(
+                a(href := "{{ site.baseurl }}/{{ x.url }}",
+                  cls := "{% if x_title == page_title %} active {% endif %}", "{{x.title}}"),
+                  "{% if x.nested_options %} ",
+                    ul(
+                      cls := "sub-section",
+                      "{% for sub in x.nested_options %} ",
+                      "{% assign sub_title = sub.title | downcase %}",
+                      li(
+                        a(href := "{{ site.baseurl }}/{{ sub.url }}",
+                          cls := "{% if sub_title == page_title and x.section == sub.section %} active {% endif %}",
+                          "{{sub.title}}"
+                        )
+                      ),
+                      "{% endfor %}"
+                    ),
+                  "{% endif %}"
+              ),
+            "{% endif %}",
+          "{% endfor %}",
+        "{% else %}",
+          "{% assign items = site.pages | sort: 'weight' %}",
+          "{% for x in items %}",
+            "{% assign x_title = x.title | downcase %}",
+            "{% assign page_title = page.title | downcase %}",
+            "{% if x.section == page.section %}",
+              li(
+                a(
+                  href := "{{ site.baseurl }}{{x.url}}",
+                  cls := "{% if x_title == page_title %} active {% endif %}",
+                  "{{x.title}}"
+                )
+              ),
+            "{% endif %}",
+          "{% endfor %}",
+        "{% endif %}"
+      )
     )
     // format: on
   }
 
-  def scriptsDocs: List[TypedTag[String]] =
-    scripts ++
-      List(script(src := "{{ site.baseurl }}/js/main.js"))
+  val scriptsDocs =
+    if (config.visualSettings.theme == "pattern") scriptsDocsPattern else scriptsDocsLight
+
+  def scriptsDocsPattern: List[TypedTag[String]] =
+    scripts ++ List(script(src := "{{ site.baseurl }}/js/main.js"))
+
+  def scriptsDocsLight: List[TypedTag[String]] =
+    scripts ++ List(script(src := "{{ site.baseurl }}/js/docs.js"))
 
   def editButton: Option[TypedTag[String]] =
     config.editButtonSettings.button match {
@@ -163,6 +287,8 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
             cls := "edit-button",
             a(
               href := s"${config.gitSiteUrl}${button.basePath}",
+              target := "_blank",
+              rel := "noopener noreferrer",
               cls := "btn-sm btn-info",
               button.text
             )

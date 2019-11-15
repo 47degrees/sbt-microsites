@@ -62,7 +62,12 @@ class MicrositeHelper(config: MicrositeSettings) {
     copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "css")
     copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "img")
     copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "js")
-    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "highlight")
+    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "highlight/highlight.pack.js")
+    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "highlight/LICENSE")
+    copyJARResourcesTo(
+      pluginURL,
+      s"$targetDir$jekyllDir/",
+      s"highlight/styles/${config.visualSettings.highlightTheme}.css")
     copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "plugins")
 
     copyFilesRecursively(
@@ -157,12 +162,23 @@ class MicrositeHelper(config: MicrositeSettings) {
     targetPath.toFile
   }
 
-  def createLayouts(targetDir: String): List[File] =
-    List(
-      "home" -> new HomeLayout(config),
-      "docs" -> new DocsLayout(config),
-      "page" -> new PageLayout(config)
-    ) map {
+  def createLayouts(targetDir: String): List[File] = {
+    val layoutList =
+      if (config.visualSettings.theme == "pattern")
+        List(
+          "home" -> new HomeLayout(config),
+          "docs" -> new DocsLayout(config),
+          "page" -> new PageLayout(config)
+        )
+      else
+        List(
+          "home"         -> new HomeLayout(config),
+          "docs"         -> new DocsLayout(config),
+          "homeFeatures" -> new FeaturesLayout(config),
+          "page"         -> new PageLayout(config)
+        )
+
+    layoutList map {
       case (layoutName, layout) =>
         val targetPath = s"$targetDir$jekyllDir/_layouts/$layoutName.html"
         createFile(targetPath)
@@ -170,6 +186,7 @@ class MicrositeHelper(config: MicrositeSettings) {
         writeContentToFile(layout.render.toString(), targetPath)
         targetPath.toFile
     }
+  }
 
   def createPartialLayout(targetDir: String): List[File] =
     List("menu" -> new MenuPartialLayout(config)) map {
@@ -180,7 +197,13 @@ class MicrositeHelper(config: MicrositeSettings) {
     }
 
   def createFavicons(targetDir: String): List[File] = {
-    val sourceFile = s"$targetDir$jekyllDir/img/navbar_brand2x.png"
+
+    val sourceFile =
+      if (config.visualSettings.theme == "pattern")
+        s"$targetDir$jekyllDir/img/navbar_brand2x.png"
+      else
+        s"$targetDir$jekyllDir/img/light_navbar_brand.png"
+
     createFile(sourceFile)
 
     (faviconFilenames zip faviconSizes)

@@ -20,17 +20,21 @@ import microsites.MicrositeSettings
 
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
-import scalatags.Text.tags2.{main, section}
+import scalatags.Text.tags2.{main, nav, section}
 
 class HomeLayout(config: MicrositeSettings) extends Layout(config) {
 
   override def render: TypedTag[String] = {
+    val bodyBlock =
+      if (config.visualSettings.theme == "pattern")
+        List(homeHeader, homeMain, globalFooter)
+      else
+        List(cls := "home", lightHomeNav) ++ lightHomeHeader ++ List(lightHomeMain, lightFooter)
+
     html(
       commonHead,
       body(
-        homeHeader,
-        homeMain,
-        globalFooter
+        bodyBlock: _*
       )
     )
   }
@@ -64,11 +68,41 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
             cls := "text-center",
             a(
               href := config.gitSiteUrl,
+              target := "_blank",
+              rel := "noopener noreferrer",
               cls := "btn btn-outline-inverse",
-              s"View on ${config.gitSettings.gitHostingService.name}"))
+              s"View on ${config.gitSettings.gitHostingService.name}"
+            )
+          )
         )
       ),
       "{% include menu.html %}"
+    )
+
+  def lightHomeHeader: List[Frag] =
+    List(
+      header(
+        id := "masthead",
+        div(
+          cls := "container text-center",
+          h1(cls := "masthead-description", config.identity.description),
+          a(
+            href := config.gitSiteUrl,
+            target := "_blank",
+            rel := "noopener noreferrer",
+            cls := "masthead-button",
+            s"View on ${config.gitSettings.gitHostingService.name}")
+        ),
+      ),
+      "{% if page.position != null %}",
+      nav(cls := "menu-container", "{% include menu.html %}"),
+      "{% endif %}"
+    )
+
+  def lightHomeMain: TypedTag[String] =
+    main(
+      id := "site-main",
+      section(cls := "main-content", div(cls := "container", div(id := "content", "{{ content }}")))
     )
 
   def homeMain: TypedTag[String] =

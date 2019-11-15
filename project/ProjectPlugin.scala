@@ -16,7 +16,7 @@ object ProjectPlugin extends AutoPlugin {
   object autoImport {
 
     lazy val V = new {
-      val mdoc: String         = "1.3.5"
+      val mdoc: String         = "2.0.0"
       val moultingyaml: String = "0.4.1"
       val orgPolicies: String  = "0.12.0-M2"
       val scala: String        = "2.12.9"
@@ -25,14 +25,14 @@ object ProjectPlugin extends AutoPlugin {
       val scalacheck: String   = "1.14.2"
       val scalatags: String    = "0.7.0"
       val scrimage: String     = "2.1.8"
-      val tut: String          = "0.6.12"
+      val tut: String          = "0.6.13"
     }
 
     lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
       sbtPlugin := true,
       resolvers ++= Seq(
         Resolver.sonatypeRepo("snapshots"),
-        "jgit-repo" at "http://download.eclipse.org/jgit/maven"),
+        "jgit-repo" at "https://download.eclipse.org/jgit/maven"),
       addSbtPlugin("org.tpolecat"  % "tut-plugin" % V.tut),
       addSbtPlugin("org.scalameta" % "sbt-mdoc"   % V.mdoc),
       addSbtPlugin(%("sbt-ghpages", isSbtPlugin = true)),
@@ -66,9 +66,8 @@ object ProjectPlugin extends AutoPlugin {
       micrositeGithubOwner := "47deg",
       micrositeGithubRepo := "sbt-microsites",
       micrositeGithubToken := sys.env.get(orgGithubTokenSetting.value),
-      micrositeHighlightTheme := "color-brewer",
       micrositePushSiteWith := GitHub4s,
-      includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md"
+      includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.svg"
     )
 
   }

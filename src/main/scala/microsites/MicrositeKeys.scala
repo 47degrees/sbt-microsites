@@ -30,6 +30,7 @@ import sbt.complete.DefaultParsers.OptNotSpace
 import sbtorgpolicies.github.GitHubOps
 import tut.TutPlugin.autoImport._
 import mdoc.MdocPlugin.autoImport._
+import sbtorgpolicies.io.FileReader
 import scala.sys.process._
 
 trait MicrositeKeys {
@@ -160,17 +161,35 @@ trait MicrositeKeys {
 
   val micrositeCompilingDocsTool =
     settingKey[CompilingDocsTool]("Choose between compiling code snippets with tut or mdoc")
+
+  val micrositeTheme: SettingKey[String] = settingKey[String](
+    "Optional. 'light' by default. Set it to 'pattern' to generate the pattern theme design.")
 }
 
 object MicrositeKeys extends MicrositeKeys
 
 trait MicrositeAutoImportSettings extends MicrositeKeys {
 
+  lazy val fr = new FileReader
+
   lazy val micrositeHelper: Def.Initialize[MicrositeHelper] = Def.setting {
     val baseUrl =
       if (!micrositeBaseUrl.value.isEmpty && !micrositeBaseUrl.value.startsWith("/"))
         s"/${micrositeBaseUrl.value}"
       else micrositeBaseUrl.value
+
+    val baseCssList = List(
+      s"css/${micrositeTheme.value}-style.css",
+      s"css/${micrositeTheme.value}-style.scss"
+    )
+
+    val customCssList =
+      fr.fetchFilesRecursively(List(micrositeCssDirectory.value), validFile("css")) match {
+        case Right(cssList) => cssList.map(css => s"css/${css.getName}")
+        case _              => Nil
+      }
+
+    val fullCssList = baseCssList ++ customCssList
 
     val defaultYamlCustomVariables = Map(
       "name"        -> micrositeName.value,
@@ -181,6 +200,12 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       "docs"        -> true,
       "markdown"    -> "kramdown",
       "highlighter" -> "rouge",
+      "exclude"     -> List("css"),
+      "include"     -> fullCssList,
+      "sass" -> Map(
+        "style"     -> "compressed",
+        "sourcemap" -> "never",
+      ),
       "collections" -> Map("tut" -> Map("output" -> true))
     )
 
@@ -205,7 +230,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           highlightLanguages = micrositeHighlightLanguages.value,
           palette = micrositePalette.value,
           favicons = micrositeFavicons.value,
-          shareOnSocial = micrositeShareOnSocial.value
+          shareOnSocial = micrositeShareOnSocial.value,
+          theme = micrositeTheme.value
         ),
         templateTexts = MicrositeTemplateTexts(
           micrositeFooterText.value
@@ -221,10 +247,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           micrositeDataDirectory = micrositeDataDirectory.value,
           micrositeStaticDirectory = micrositeStaticDirectory.value,
           micrositeExtraMdFiles = micrositeExtraMdFiles.value,
-          micrositeExtraMdFilesOutput = micrositeCompilingDocsTool.value match {
-            case WithTut  => micrositeExtraMdFilesOutput.value
-            case WithMdoc => tutTargetDirectory.value
-          },
+          micrositeExtraMdFilesOutput = micrositeExtraMdFilesOutput.value,
           micrositePluginsDirectory = micrositePluginsDirectory.value
         ),
         urlSettings = MicrositeUrlSettings(
@@ -539,4 +562,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 
       extracted.runTask(publishMicrosite, st)._1
   }
+
+  private[this] def validFile(extension: String)(file: File): Boolean =
+    file.getName.endsWith(s".$extension")
 }

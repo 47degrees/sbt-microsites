@@ -5,6 +5,7 @@ scalaVersion := sys.props("scala.version")
 
 micrositeGitHostingService := GitLab
 micrositeGitHostingUrl := "https://gitlab.com/gitlab-org/gitlab-ce"
+micrositeExtraMdFilesOutput := (resourceManaged in Compile).value / "jekyll"
 
 micrositeExtraMdFiles := Map(
   file("README.md") -> ExtraMdFileConfig(

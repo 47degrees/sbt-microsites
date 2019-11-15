@@ -25,17 +25,21 @@ class MenuPartialLayout(config: MicrositeSettings) extends Layout(config) {
 
   override def render: TypedTag[String] =
     div(
-      "{% assign pages = site.pages | sort:'position'  %}",
+      id := "horizontal-menu",
+      aria.labelledby := "section-navigation",
+      "{% assign pages = site.pages | sort:'position' %}",
       ul(
-        cls := "horizontalNav",
-        "{% for p in pages %} {% if p.position != null %}",
+        cls := "horizontal-nav",
+        "{% for p in pages %}",
+        "{% if p.position != null %}",
         li(
           a(
             cls := "{% if p.url == page.url %} active {% endif %}",
             href := "{{ site.baseurl }}{{ p.url }}",
             "{{ p.title }}")
         ),
-        "{% endif %} {% endfor %}"
+        "{% endif %}",
+        "{% endfor %}"
       )
     )
 
