@@ -434,7 +434,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 //      (makeMicrosite)
 
       // Finally, we generate the docs for the default version
-      s"git checkout -f $default_version"
+      s"git checkout -f $default_version".!
       println(s"== Current branch/tag is now $default_version")
       println(s"== Generating default site for $default_version")
 
