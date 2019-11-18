@@ -19,7 +19,7 @@ package microsites.layouts
 import microsites.MicrositeSettings
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
-import scalatags.Text.tags2.{main, section}
+import scalatags.Text.tags2.{main, nav, section}
 
 class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
 
@@ -36,28 +36,30 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
     )
   }
 
-  def homeHeaderFeatures: TypedTag[String] =
-    header(
-      id := "masthead",
-      cls := "features-masthead",
-      div(
-        cls := "container feature-header",
+  def homeHeaderFeatures: List[Frag] =
+    List(
+      header(
+        id := "masthead",
+        cls := "features-masthead",
         div(
-          cls := "features-header-description",
-          h1(cls := "masthead-title", config.identity.name),
-          p(cls := "masthead-description", config.identity.description),
-          a(
-            href := config.gitSiteUrl,
-            target := "_blank",
-            rel := "noopener noreferrer",
-            cls := "masthead-button",
-            s"View on ${config.gitSettings.gitHostingService.name}")
+          cls := "container feature-header",
+          div(
+            cls := "features-header-description",
+            h1(cls := "masthead-title", config.identity.name),
+            p(cls := "masthead-description", config.identity.description),
+            a(
+              href := config.gitSiteUrl,
+              target := "_blank",
+              rel := "noopener noreferrer",
+              cls := "masthead-button",
+              s"View on ${config.gitSettings.gitHostingService.name}")
+          ),
+          div(cls := "features-image"),
         ),
-        div(cls := "features-image"),
       ),
       "{% if page.position != null %}",
-      div(cls := "menu-container", "{% include menu.html %}"),
-      "{% endif %}",
+      nav(cls := "menu-container", "{% include menu.html %}"),
+      "{% endif %}"
     )
 
   def homeMainFeatures: TypedTag[String] =
