@@ -16,7 +16,7 @@ object ProjectPlugin extends AutoPlugin {
   object autoImport {
 
     lazy val V = new {
-      val mdoc: String         = "2.0.0"
+      val mdoc: String         = "2.0.2"
       val moultingyaml: String = "0.4.1"
       val orgPolicies: String  = "0.12.0-M2"
       val scala: String        = "2.12.9"
@@ -78,6 +78,7 @@ object ProjectPlugin extends AutoPlugin {
     Seq(
       name := "sbt-microsites",
       description := "An sbt plugin to create awesome microsites for your project",
+      homepage := Some(url(orgGithubSetting.value.home)),
       startYear := Some(2016),
       scalaVersion := V.scala,
       crossScalaVersions := Seq(V.scala),

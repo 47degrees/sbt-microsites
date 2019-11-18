@@ -78,6 +78,7 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
     List(
       nav(
         id := "navigation",
+        aria.labelledby := "main-navigation",
         div(
           cls := "navbar-wrapper container",
           div(
@@ -92,7 +93,10 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
         ),
       ),
       "{% if page.position != null %}",
-      nav(cls := "menu-container", "{% include menu.html %}"),
+      nav(
+        cls := "menu-container",
+        aria.labelledby := "section-navigation",
+        "{% include menu.html %}"),
       "{% endif %}"
     )
 
