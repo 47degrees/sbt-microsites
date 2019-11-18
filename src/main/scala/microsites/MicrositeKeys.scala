@@ -174,8 +174,6 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       else micrositeBaseUrl.value
 
     val baseCssList = List(
-      "css/monokai.css",
-      "css/codemirror.css",
       s"css/${micrositeTheme.value}-style.css",
       s"css/${micrositeTheme.value}-style.scss"
     )

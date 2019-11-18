@@ -6,7 +6,7 @@ permalink: docs/getting-started/
 
 # Prerequisites
 
-* [sbt](http://www.scala-sbt.org/) 1.3.3+
+* [sbt](https://www.scala-sbt.org/) 1.3.3+
 * [jekyll](https://jekyllrb.com/) 4.0.0+
 
 Here are a few hints for local and travis environments to satisfy the `jekyll` requirement.

@@ -9,7 +9,7 @@
 
   #wrapper {
     padding-left: $sidebar-width;
-    transition: all 0.5s ease;
+    transition: padding-left 0.5s ease;
 
     &.toggled {
       padding-left: 0;
@@ -35,21 +35,25 @@
   }
 
   #sidebar-wrapper {
-    background: $brand-primary;
+    background-image: linear-gradient(to bottom, $brand-primary 60%, darken($brand-primary, 6%) 100%);
     z-index: 1000;
     position: fixed;
     left: 0;
     height: 100%;
     width: $sidebar-width;
-    overflow: hidden auto;
-    transition: all 0.5s ease;
+    overflow: hidden hidden;
+    transition: left 0.5s ease;
+
+    &:hover {
+      overflow: hidden auto;
+    }
 
     .sidebar-toggle {
       display: none;
     }
 
     #sidebar-brand {
-      padding: $base-point-grid $base-point-grid * 3;
+      padding: $base-point-grid + 4 $base-point-grid * 3;
       font-family: $title-font-family;
       font-size: 18px;
       height: $top-bar-size;
@@ -61,7 +65,7 @@
       a {
         display: inline-flex;
         align-items: center;
-        color: #fff;
+        color: $white-color;
 
         .brand-wrapper {
           position: relative;
@@ -78,97 +82,84 @@
           font-weight: 500;
         }
       }
-
-      .close {
-        height: 28px;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 32px;
-
-        &::after,
-        &::before {
-          background-color: #fff;
-          content: " ";
-          height: 100%;
-          left: 98%;
-          position: absolute;
-          top: 34%;
-          width: 2px;
-        }
-
-        &::before {
-          transform: rotate(45deg);
-        }
-
-        &::after {
-          transform: rotate(-45deg);
-        }
-      }
     }
 
     .sidebar-nav {
-      margin-top: ($base-point-grid * 3);
+      margin-top: ($base-point-grid * 2);
       padding: 0;
 
-      ul {
-        display: none;
-        padding: ($base-point-grid * 2) ($base-point-grid * 3);
-        background: $sidebar-active-color;
-        list-style: none;
+      .sidebar-nav-item {
+        display: flex;
+        flex-direction: column;
+        position: relative;
 
-        li {
+        .sub-section {
+          background: $sidebar-active-color;
+          max-height: 0;
+          transition: max-height 0.3s ease-in-out;
+          overflow: hidden;
+
           a {
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            border-left: 2px solid rgba($white-color, 0.5);
-            padding: $base-point-grid;
+            padding: $base-point-grid * 2 $base-point-grid * 4;
             font-size: 0.875rem;
-
-            .fa {
-              margin-right: ($base-point-grid * 1.5);
-              font-size: 0.25rem;
-            }
-            @include links(rgba($white-color, 0.5), $white-color, rgba($white-color, 0.8), $white-color);
+            height: auto;
 
             &.active {
               color: $white-color;
-              border-left: 2px solid $white-color;
-            }
-
-            &:hover {
-              text-decoration: none;
+              box-shadow: 3px 0 $brand-secondary inset;
             }
           }
         }
-      }
 
-      .sidebar-nav-item {
-        > a {
+        a, button {
+          box-sizing: border-box;
+          font-family: "Open Sans", sans-serif;
+          font-size: 0.95rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          height: ($base-point-grid * 7);
-          padding: 0 ($base-point-grid * 3);
+          padding: $base-point-grid * 2 $base-point-grid * 3;
+          line-height: $base-point-grid * 2;
+          width: 100%;
           @include links($white-color, $white-color, rgba($white-color, 0.8), $white-color);
+          transition: background 0.33s ease-in-out;
 
           &:hover {
             text-decoration: none;
           }
+        }
 
-          .fa {
-            transition: all 0.3s;
-          }
+        .fa {
+          pointer-events: none;
+          position: absolute;
+          color: $white-color;
+          font-size: 1.2rem;
+          right: $base-point-grid * 2;
+          top: $base-point-grid * 2;
+          transition: transform 0.25s;
+          line-height: $base-point-grid * 2;
         }
 
         &.active {
-          > a {
-            background: $sidebar-head-active-color;
+          > a, button {
+            box-shadow: 3px 0 $brand-secondary inset;
+          }
+        }
 
-            .fa {
-              @include rotate(90deg);
-            }
+        &.open {
+          > a, button {
+            background: $sidebar-head-active-color;
+          }
+
+          .fa {
+            @include rotate(90deg);
+          }
+
+          .sub-section {
+            max-height: 1600px;
           }
         }
       }
@@ -191,7 +182,7 @@
       }
 
       .col-lg-12 {
-        padding: $base-point-grid $base-point-grid * 3;
+        padding: $base-point-grid + 4 $base-point-grid * 3;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -203,7 +194,7 @@
         padding: 0 $base-point-grid * 2;
         display: block;
         font-size: 16px;
-        transition: color 0.3s ease, transform 0.3s ease;
+        transition: color 0.25s ease, transform 0.25s ease;
 
         &:hover {
           color: $sidebar-head-active-color;
@@ -266,7 +257,7 @@
           font-size: inherit;
           white-space: pre-wrap;
           border-radius: 2px;
-          border: solid 1px #ddd;
+          border: solid 1px rgba(1, 1, 1, 0.2);
         }
 
         .hljs {
@@ -285,14 +276,18 @@
     }
 
     .header-link {
-      float: left;
-      font-size: 20px;
-      line-height: 1;
-      margin-left: -20px;
-      margin-top: 4px;
+      position: absolute;
+      font-size: 0.6em;
+      left: -2em;
+      top: -0.05em;
       opacity: 0;
-      padding-right: 0;
-      transition: opacity 0.2s ease, color 0.2s ease;
+      padding: 0.8em;
+      transform: scale3d(0.5, 0.5, 0.5);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+
+      .fa {
+        transform: rotate3d(0, 0, 1, 135deg);
+      }
     }
 
     h1:hover,
@@ -303,13 +298,9 @@
     h6:hover {
       .header-link {
         opacity: 1;
+        transform: scale3d(1, 1, 1);
       }
     }
-  }
-
-  #wrapper.toggled #page-content-wrapper {
-    position: absolute;
-    margin-right: -$sidebar-width;
   }
 
   .sidebar-toggle {
@@ -317,7 +308,7 @@
     border: none;
     color: $light-background-color;
     display: inline-block;
-    padding: 24px 32px;
+    padding: ($base-point-grid * 3) ($base-point-grid * 4);
     position: relative;
     text-align: center;
     text-decoration: none;
@@ -338,7 +329,7 @@
   @include bp(medium) {
     #wrapper {
       padding-left: 0;
-      transition: all 0.4s ease-in-out;
+      transition: padding-left 0.4s ease;
     }
 
     #sidebar-wrapper {
@@ -361,10 +352,6 @@
           }
         }
       }
-    }
-
-    .pull-right {
-      display: none;
     }
   }
 }

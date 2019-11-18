@@ -32,7 +32,7 @@ object ProjectPlugin extends AutoPlugin {
       sbtPlugin := true,
       resolvers ++= Seq(
         Resolver.sonatypeRepo("snapshots"),
-        "jgit-repo" at "http://download.eclipse.org/jgit/maven"),
+        "jgit-repo" at "https://download.eclipse.org/jgit/maven"),
       addSbtPlugin("org.tpolecat"  % "tut-plugin" % V.tut),
       addSbtPlugin("org.scalameta" % "sbt-mdoc"   % V.mdoc),
       addSbtPlugin(%("sbt-ghpages", isSbtPlugin = true)),

@@ -8,7 +8,7 @@ permalink: docs/publish-with-travis/
 
 In this section, we’re going to learn how to configure Travis so you can publish your microsite when you merge in master.
 
-There are two options for publishing the site. See [Configuring the Microsite](settings.html) section for more information.
+There are two options for publishing the site. See [Configuring the Microsite]({% link docs/settings.md %}) section for more information.
 
 ## Publish using sbt-ghpages
 

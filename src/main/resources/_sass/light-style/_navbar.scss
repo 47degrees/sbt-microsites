@@ -4,10 +4,11 @@
 
 #navigation {
   background: $white-color;
-  padding: $base-point-grid 0;
+  padding: $base-point-grid * 2 0;
   font-family: $title-font-family;
   height: $top-bar-size;
   display: flex;
+  flex-basis: 0;
 
   a {
     color: $text-color;

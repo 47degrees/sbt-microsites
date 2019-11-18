@@ -21,7 +21,7 @@ A microsite is an instance of Jekyll that's ready to publish a static web page f
 
 This plugin is based on and utilizes other awesome sbt plugins to make it possible. It integrates everything in a few basic steps to automatically create and publish the microsite to [GitHub Pages](https://pages.github.com/).
 
-The plugin provides basic free styles, css, and image resources by default. Everything is based on the [Bootstrap](http://getbootstrap.com/) framework. If you want to personalize the color palette, styles, and images for your project, you can easily do so by viewing the steps in the [documentation](docs/).
+The plugin provides basic free styles, css, and image resources by default. Everything is based on the [Bootstrap](https://getbootstrap.com/) framework. If you want to personalize the color palette, styles, and images for your project, you can easily do so by viewing the steps in the [documentation]({% link docs/getting-started.md %}).
 
 In order to create microsites, this plugin directly uses the following plugins and libraries:
 

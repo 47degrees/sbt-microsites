@@ -16,8 +16,8 @@ $font-size-large:   ceil(($font-size-base * 1.35));    // 22px
 // -----------------------------------------------
 $text-color: #333;
 $light-background-color: rgba($brand-primary, 0.05);
-$sidebar-active-color: lighten($brand-primary, 5%);
-$sidebar-head-active-color: lighten($brand-primary, 8%);
+$sidebar-active-color: lighten($brand-primary, 2%);
+$sidebar-head-active-color: lighten($brand-primary, 4%);
 $code-bg: rgba($brand-primary, 0.10);
 // Sizes
 // -----------------------------------------------
@@ -52,5 +52,4 @@ $body-bg:                       $white-color;
 $bp-small: 480px;
 $bp-medium: 768px;
 $bp-large: 992px;
-$bp-head-features: 910px;
 $bp-xlarge: 1130px;

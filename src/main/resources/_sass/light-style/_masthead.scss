@@ -3,10 +3,17 @@
 // -----------------------------------------------
 
 #masthead {
-  background-color: $brand-primary;
+  background: linear-gradient(160deg, transparent 66%, darken($brand-primary, 9%) 97%), linear-gradient(130deg, darken($brand-primary, 6%), $brand-primary 16%);
+  background-position: center;
+  background-size: 200% 100%;
+  animation: bg-gradient 12s ease infinite;
   color: $white-color;
-  padding: 50px 0 110px;
+  flex: 1 1 25%;
+  padding: $base-point-grid * 6 0;
   font-family: $title-font-family;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
   .text-center {
     text-align: center;

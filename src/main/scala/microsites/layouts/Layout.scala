@@ -162,21 +162,19 @@ abstract class Layout(config: MicrositeSettings) {
             href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
           link(
             rel := "stylesheet",
-            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css"),
-          link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css")
+            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css")
         )
       else
         List(
           link(
             rel := "stylesheet",
-            href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"),
+            href := "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"),
           link(
             rel := "stylesheet",
             href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
           link(
             rel := "stylesheet",
-            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css"),
-          link(rel := "stylesheet", href := s"{{site.baseurl}}/css/codemirror.css")
+            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css")
         )
 
     cssStyles ++ customCssList ++ customCDNList ++ ganalytics.toList
@@ -212,9 +210,9 @@ abstract class Layout(config: MicrositeSettings) {
     val languageScripts =
       config.visualSettings.highlightLanguages.filterNot(BuiltinLanguages.contains).map { lang =>
         script(
-          src := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/${lang}.min.js")
+          src := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/${lang}.min.js")
       }
-    val jQueryScripts =
+    val auxScripts =
       if (config.visualSettings.theme == "pattern")
         List(
           script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"),
@@ -224,20 +222,19 @@ abstract class Layout(config: MicrositeSettings) {
         )
       else
         List(
-          script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"),
           script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js")
         )
 
-    jQueryScripts ++ languageScripts ++ List(script(s"""hljs.configure({languages:${languages}});
-                |hljs.initHighlighting();
+    auxScripts ++ languageScripts ++ List(script(s"""hljs.configure({languages:${languages}});
+                |hljs.initHighlightingOnLoad();
               """.stripMargin)) ++ customJsList ++ customCDNList ++ gitSidecar
   }
 
   def highLightingScript: List[TypedTag[String]] = {
     List(
       script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js")
-    ) ++ List(script(s"""hljs.initHighlighting();
-              """.stripMargin))
+    ) ++ List(script("hljs.initHighlightingOnLoad();")) ++ List(script(
+      """console.info('\x57\x65\x62\x73\x69\x74\x65\x20\x62\x75\x69\x6c\x74\x20\x77\x69\x74\x68\x3a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x5f\x5f\x0a\x20\x20\x20\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x5f\x20\x20\x2f\x20\x2f\x5f\x20\x20\x20\x20\x20\x20\x5f\x5f\x5f\x5f\x20\x5f\x5f\x5f\x20\x20\x28\x5f\x29\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x28\x5f\x29\x20\x2f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x0a\x20\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x60\x5f\x5f\x20\x5c\x2f\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x20\x2f\x20\x5f\x5f\x2f\x20\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x0a\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x5f\x2f\x20\x2f\x20\x2f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x5f\x5f\x2f\x20\x2f\x20\x20\x2f\x20\x2f\x5f\x2f\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x20\x2f\x5f\x2f\x20\x20\x5f\x5f\x28\x5f\x5f\x20\x20\x29\x0a\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2e\x5f\x5f\x5f\x2f\x5c\x5f\x5f\x2f\x20\x20\x20\x20\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x2f\x20\x20\x20\x5c\x5f\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x0a\x0a\x68\x74\x74\x70\x73\x3a\x2f\x2f\x34\x37\x64\x65\x67\x2e\x67\x69\x74\x68\x75\x62\x2e\x69\x6f\x2f\x73\x62\x74\x2d\x6d\x69\x63\x72\x6f\x73\x69\x74\x65\x73')"""))
   }
 
   def globalFooter: TypedTag[String] = {
@@ -261,8 +258,12 @@ abstract class Layout(config: MicrositeSettings) {
             cls := "text-right",
             a(
               href := config.gitSiteUrl,
+              target := "_blank",
+              rel := "noopener noreferrer",
               span(cls := s"fa ${config.gitHostingIconClass}"),
-              s"View on ${config.gitSettings.gitHostingService.name}"))
+              s"View on ${config.gitSettings.gitHostingService.name}"
+            )
+          )
         )
       ) +: {
         config.templateTexts.footer match {
@@ -291,8 +292,9 @@ abstract class Layout(config: MicrositeSettings) {
   }
 
   def lightHomeNav: TypedTag[String] =
-    div(
+    nav(
       id := "navigation",
+      aria.labelledby := "main-navigation",
       div(
         cls := "navbar-wrapper container",
         div(
@@ -353,7 +355,10 @@ abstract class Layout(config: MicrositeSettings) {
           a(
             href := config.gitSiteUrl,
             i(cls := s"fa ${config.gitHostingIconClass}"),
-            span(cls := "hidden-xs", config.gitSettings.gitHostingService.name))
+            target := "_blank",
+            rel := "noopener noreferrer",
+            span(cls := "hidden-xs", config.gitSettings.gitHostingService.name)
+          )
         ),
         if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
           li(
@@ -373,6 +378,8 @@ abstract class Layout(config: MicrositeSettings) {
         a(
           href := config.gitSiteUrl,
           i(cls := s"nav-item-icon fa fa-lg ${config.gitHostingIconClass}", hidden := "true"),
+          target := "_blank",
+          rel := "noopener noreferrer",
           span(cls := "nav-item-text", config.gitSettings.gitHostingService.name)
         )
       ),

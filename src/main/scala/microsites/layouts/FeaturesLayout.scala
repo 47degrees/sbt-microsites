@@ -19,7 +19,7 @@ package microsites.layouts
 import microsites.MicrositeSettings
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
-import scalatags.Text.tags2.{main, section}
+import scalatags.Text.tags2.{main, nav, section}
 
 class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
 
@@ -27,6 +27,7 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
     html(
       commonHead,
       body(
+        cls := "home",
         lightHomeNav,
         homeHeaderFeatures,
         homeMainFeatures,
@@ -35,8 +36,8 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
     )
   }
 
-  def homeHeaderFeatures: TypedTag[String] =
-    div(
+  def homeHeaderFeatures: List[Frag] =
+    List(
       header(
         id := "masthead",
         cls := "features-masthead",
@@ -48,6 +49,8 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
             p(cls := "masthead-description", config.identity.description),
             a(
               href := config.gitSiteUrl,
+              target := "_blank",
+              rel := "noopener noreferrer",
               cls := "masthead-button",
               s"View on ${config.gitSettings.gitHostingService.name}")
           ),
@@ -55,37 +58,38 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
         ),
       ),
       "{% if page.position != null %}",
-      div(cls := "menu-container", "{% include menu.html %}"),
-      "{% endif %}",
+      nav(
+        cls := "menu-container",
+        aria.labelledby := "section-navigation",
+        "{% include menu.html %}"),
+      "{% endif %}"
     )
 
   def homeMainFeatures: TypedTag[String] =
     main(
       id := "site-main",
       section(
+        cls := "container",
         div(
-          cls := "container",
+          cls := "features",
+          """{% for feature_hash in page.features %}
+              {% for feature in feature_hash %}""",
           div(
-            cls := "features",
-            """{% for feature_hash in page.features %}
-                {% for feature in feature_hash %}""",
+            cls := "feature-item",
             div(
-              cls := "feature-item",
-              div(
-                cls := s"feature-item-header ${backgroundFeatureCssMask}",
-                div(cls := "{{ feature[0] }}-feature-icon-wrapper"),
-                h4("{{ feature[1][0] }}"),
-                p("{{ feature[1][1] }}"),
-              ),
-              if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
-                a(
-                  cls := "learn-more-button",
-                  href := s"${config.urlSettings.micrositeDocumentationUrl}",
-                  span(cls := "learn-more", "Learn More")),
+              cls := s"feature-item-header ${backgroundFeatureCssMask}",
+              div(cls := "{{ feature[0] }}-feature-icon-wrapper"),
+              h4("{{ feature[1][0] }}"),
+              p("{{ feature[1][1] }}"),
             ),
-            """{% endfor %}
-          {% endfor %}"""
-          )
+            if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
+              a(
+                cls := "learn-more-button",
+                href := s"${config.urlSettings.micrositeDocumentationUrl}",
+                span(cls := "learn-more", "Learn More")),
+          ),
+          """{% endfor %}
+        {% endfor %}"""
         )
       )
     )
