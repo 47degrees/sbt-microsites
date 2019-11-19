@@ -56,7 +56,6 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
           ),
           div(cls := "features-image"),
         ),
-        div(cls := "features-image"),
       ),
       "{% if page.position != null %}",
       nav(
