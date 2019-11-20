@@ -16,9 +16,9 @@ If you create your own images (which makes sense) and override the default ones,
 
 - Light style:
   - Microsite logo for the home page:
-    - `light_navbar_brand.svg` -> **[36x36]**
+    - `light-navbar-brand.svg` -> **[36x36]**
   - Microsite logo for the documentation page:
-    - `light_sidebar_brand.svg` -> **[36x36]**
+    - `light-sidebar-brand.svg` -> **[36x36]**
   - Microsite logo for the masthead in the `Features` layout:
     - `features-header.svg` -> **[500x330]**
 
