@@ -63,8 +63,6 @@ trait MicrositeKeys {
   val publishMicrosite: TaskKey[Unit] =
     taskKey[Unit]("Task helper that wraps the `publishMicrositeCommand`.")
   val microsite: TaskKey[Seq[File]] = taskKey[Seq[File]]("Create microsite files")
-  val micrositeConfig: TaskKey[Unit] =
-    taskKey[Unit]("Copy microsite config to the site folder")
   val micrositeMakeExtraMdFiles: TaskKey[File] =
     taskKey[File]("Create microsite extra md files")
   val micrositeTutExtraMdFiles: TaskKey[Seq[File]] =
@@ -285,8 +283,6 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
   lazy val micrositeTasksSettings = Seq(
     microsite := micrositeHelper.value.createResources(
       resourceManagedDir = (resourceManaged in Compile).value),
-    micrositeConfig := micrositeHelper.value
-      .copyConfigurationFile((sourceDirectory in Jekyll).value, siteDirectory.value),
     micrositeMakeExtraMdFiles := micrositeHelper.value.buildAdditionalMd(),
     micrositeTutExtraMdFiles := {
       val r     = (runner in Tut).value
