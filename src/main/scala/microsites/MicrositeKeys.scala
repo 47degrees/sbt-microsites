@@ -206,8 +206,9 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       "exclude"     -> List("css"),
       "include"     -> fullCssList,
       "sass" -> Map(
-        "style"     -> "compressed",
-        "sourcemap" -> "never",
+        "load_paths" -> List("_sass", "_sass_custom"),
+        "style"      -> "compressed",
+        "sourcemap"  -> "never",
       ),
       "collections" -> Map("tut" -> Map("output" -> true))
     )
