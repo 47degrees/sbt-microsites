@@ -45,7 +45,6 @@ object MicrositesPlugin extends AutoPlugin {
       micrositeTasksSettings ++
       Seq(
         git.remoteRepo := s"git@github.com:${micrositeGithubOwner.value}/${micrositeGithubRepo.value}.git",
-        mappings in Jekyll ++= micrositeHelper.value.directory("src/main/resources/microsite"),
         sourceDirectory in Jekyll := resourceManaged.value / "main" / "jekyll",
         tutSourceDirectory := sourceDirectory.value / "main" / "tut",
         tutTargetDirectory := resourceManaged.value / "main" / "jekyll",
