@@ -17,7 +17,7 @@ def getLines(fileName: String) =
 lazy val check = TaskKey[Unit]("check")
 
 check := {
-  val content = getLines("target/site/_config.yml").mkString
+  val content = getLines(s"${(resourceManaged in Compile).value}/jekyll/_config.yml").mkString
 
   if (!content.contains("org: Test"))
     sys.error("custom properties not found")
