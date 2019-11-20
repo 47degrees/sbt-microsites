@@ -144,6 +144,16 @@ abstract class Layout(config: MicrositeSettings) {
         case _ => Nil
       }
 
+    val customScssList =
+      fr.fetchFilesRecursively(List(config.fileLocations.micrositeCssDirectory), validFile("scss")) match {
+        case Right(scssList) =>
+          scssList.map(scss => {
+            val fileNameWithOutExt = scss.getName.replaceFirst("[.][^.]+$", "")
+            link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${fileNameWithOutExt}.css")
+          })
+        case _ => Nil
+      }
+
     val customCDNList = config.fileLocations.micrositeCDNDirectives.cssList map { css =>
       link(rel := "stylesheet", href := css)
     }
@@ -177,7 +187,7 @@ abstract class Layout(config: MicrositeSettings) {
             href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css")
         )
 
-    cssStyles ++ customCssList ++ customCDNList ++ ganalytics.toList
+    cssStyles ++ customCssList ++ customScssList ++ customCDNList ++ ganalytics.toList
   }
 
   def scripts: List[TypedTag[String]] = {

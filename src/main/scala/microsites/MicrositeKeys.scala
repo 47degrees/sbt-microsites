@@ -186,7 +186,13 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         case _              => Nil
       }
 
-    val fullCssList = baseCssList ++ customCssList
+    val customScssList =
+      fr.fetchFilesRecursively(List(micrositeCssDirectory.value), validFile("scss")) match {
+        case Right(scssList) => scssList.map(scss => s"css/${scss.getName}")
+        case _               => Nil
+      }
+
+    val fullCssList = baseCssList ++ customCssList ++ customScssList
 
     val defaultYamlCustomVariables = Map(
       "name"        -> micrositeName.value,
