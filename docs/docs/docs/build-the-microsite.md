@@ -20,9 +20,9 @@ If you're running the microsite locally, you can follow these steps:
 
 1. In a shell, navigate to the generated site directory in `target/site`.
 
-2. Start Jekyll with `jekyll serve`.
+2. Start Jekyll with `jekyll serve`. Bear in mind that depending on your `micrositeBaseUrl` setting, you might need to serve the site [setting the base url](https://jekyllrb.com/docs/configuration/options/#serve-command-options). Execute Jekyll appending that value `jekyll serve -b /yourbase_url`
 
-3. Navigate to [http://localhost:4000/yourbase_url/](http://localhost:4000/yourbase_url/) in your browser, where `yourbase_url` depends on your own preferences (see `micrositeBaseUrl` setting). Note, if you haven't specified any `micrositeBaseUrl` setting, it'll be empty by default so you can navigate to the site following this url [http://localhost:4000](http://localhost:4000/).  
+3. Navigate to [http://localhost:4000/](http://localhost:4000/) or [http://localhost:4000/yourbase_url/](http://localhost:4000/yourbase_url/) in your browser, where `yourbase_url` depends on your own preferences (see `micrositeBaseUrl` setting). Note, if you haven't specified any `micrositeBaseUrl` setting, it'll be empty by default.
 
 # Publish the microsite
 
