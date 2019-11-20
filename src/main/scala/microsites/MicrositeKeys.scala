@@ -95,6 +95,8 @@ trait MicrositeKeys {
     "Optional. Microsite images directory. By default, it'll be the resourcesDirectory + '/microsite/img'")
   val micrositeCssDirectory: SettingKey[File] = settingKey[File](
     "Optional. Microsite CSS directory. By default, it'll be the resourcesDirectory + '/microsite/css'")
+  val micrositeSassDirectory: SettingKey[File] = settingKey[File](
+    "Optional. Microsite SASS directory. By default, it'll be the resourcesDirectory + '/microsite/sass'")
   val micrositeJsDirectory: SettingKey[File] = settingKey[File](
     "Optional. Microsite Javascript directory. By default, it'll be the resourcesDirectory + '/microsite/js'")
   val micrositeCDNDirectives: SettingKey[CdnDirectives] = settingKey[CdnDirectives](
@@ -235,6 +237,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         fileLocations = MicrositeFileLocations(
           micrositeImgDirectory = micrositeImgDirectory.value,
           micrositeCssDirectory = micrositeCssDirectory.value,
+          micrositeSassDirectory = micrositeSassDirectory.value,
           micrositeJsDirectory = micrositeJsDirectory.value,
           micrositeCDNDirectives = micrositeCDNDirectives.value,
           micrositeExternalLayoutsDirectory = micrositeExternalLayoutsDirectory.value,

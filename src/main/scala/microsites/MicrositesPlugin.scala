@@ -77,6 +77,7 @@ object MicrositesPlugin extends AutoPlugin {
       yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "_config.yml")),
     micrositeImgDirectory := (resourceDirectory in Compile).value / "microsite" / "img",
     micrositeCssDirectory := (resourceDirectory in Compile).value / "microsite" / "css",
+    micrositeSassDirectory := (resourceDirectory in Compile).value / "microsite" / "sass",
     micrositeJsDirectory := (resourceDirectory in Compile).value / "microsite" / "js",
     micrositeCDNDirectives := CdnDirectives(),
     micrositeExternalLayoutsDirectory := (resourceDirectory in Compile).value / "microsite" / "layouts",
