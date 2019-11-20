@@ -299,15 +299,10 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       _root_.tut.TutPlugin.tutOne(streams.value, r, in, out, cp, opts, pOpts, re).map(_._1)
     },
     makeTut := {
-      Def.sequential(microsite, tut, micrositeTutExtraMdFiles, makeSite, micrositeConfig)
+      Def.sequential(microsite, tut, micrositeTutExtraMdFiles, makeSite)
     }.value,
     makeMdoc := {
-      Def.sequential(
-        microsite,
-        mdoc.toTask(""),
-        micrositeMakeExtraMdFiles,
-        makeSite,
-        micrositeConfig)
+      Def.sequential(microsite, mdoc.toTask(""), micrositeMakeExtraMdFiles, makeSite)
     }.value,
     makeMicrosite := Def.taskDyn {
       micrositeCompilingDocsTool.value match {
