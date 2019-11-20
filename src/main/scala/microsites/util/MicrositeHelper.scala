@@ -77,6 +77,9 @@ class MicrositeHelper(config: MicrositeSettings) {
       config.fileLocations.micrositeCssDirectory.getAbsolutePath,
       s"$targetDir$jekyllDir/css/")
     copyFilesRecursively(
+      config.fileLocations.micrositeSassDirectory.getAbsolutePath,
+      s"$targetDir$jekyllDir/_sass_custom/")
+    copyFilesRecursively(
       config.fileLocations.micrositeJsDirectory.getAbsolutePath,
       s"$targetDir$jekyllDir/js/")
     copyFilesRecursively(

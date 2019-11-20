@@ -191,6 +191,12 @@ micrositeImgDirectory := (resourceDirectory in Compile).value / "site" / "images
 micrositeCssDirectory := (resourceDirectory in Compile).value / "site" / "styles"
 ```
 
+- `micrositeSassDirectory`: If you want to use SCSS files, you might want to override the place to put the partials. This can be done through the `micrositeSassDirectory` setting. The main SCSS files need to go into the CSS directory, where they will be transformed into CSS files, and the partials will be loaded from this directory. The default value is `(resourceDirectory in Compile).value / "microsite" / "sass"`, but you can override it like this:
+
+```
+micrositeSassDirectory := (resourceDirectory in Compile).value / "site" / "partials"
+```
+
 - `micrositeJsDirectory`: You can also introduce custom javascript files in the generated microsite through the `micrositeJsDirectory` setting by using the same method. The javascript files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "js"`, but you can override it like this:
 
 ```

@@ -105,6 +105,7 @@ trait Arbitraries {
       micrositeConfigYaml                    ← configYamlArbitrary.arbitrary
       micrositeImgDirectory                  ← Arbitrary.arbitrary[File]
       micrositeCssDirectory                  ← Arbitrary.arbitrary[File]
+      micrositeSassDirectory                 ← Arbitrary.arbitrary[File]
       micrositeJsDirectory                   ← Arbitrary.arbitrary[File]
       micrositeCDNDirectives                 <- cdnDirectivesArbitrary.arbitrary
       micrositeExternalLayoutsDirectory      ← Arbitrary.arbitrary[File]
@@ -155,6 +156,7 @@ trait Arbitraries {
         MicrositeFileLocations(
           micrositeImgDirectory,
           micrositeCssDirectory,
+          micrositeSassDirectory,
           micrositeJsDirectory,
           micrositeCDNDirectives,
           micrositeExternalLayoutsDirectory,
