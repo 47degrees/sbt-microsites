@@ -54,9 +54,13 @@ If you create your own images (which makes sense) and override the default ones,
 
 ## Styles
 
-`sbt-microsites` `pattern` style is completely based on [Bootstrap](https://getbootstrap.com/), adding some extra styles that make the microsites even more beautiful.
+`sbt-microsites` `pattern` style is completely based on [Bootstrap](https://getbootstrap.com/), adding some extra styles that make the microsites look great.
 
-That being said, you can personalize your microsite even further by using your own css files. In the same manner, as we've just seen for images, all the css files that you place in the directory associated with the `micrositeCssDirectory` setting (`src/main/resources/microsite/css` by default) will be copied to the generated microsite. Therefore, you can add new styles, or even override existing ones.
+That being said, you can personalize your microsite even further by using your own CSS files. In the same manner as we've just seen for images, all the css files that you place in the directory associated with the `micrositeCssDirectory` setting (`src/main/resources/microsite/css` by default) will be copied to the generated microsite. Therefore, you can add new styles, or even override existing ones.
+
+You can even use Sass/SCSS directly. For that, following [Jekyll Sass/SCSS support](https://jekyllrb.com/docs/assets/#sassscss), set all your partials in your _sass_ directory, which will be the one specified through the `micrositeSassDirectory` setting (`src/main/resources/microsite/sass` by default). Then, place your main SCSS files in the `micrositeCssDirectory` (`src/main/resources/microsite/css` by default). These main SCSS files need to include a dummy Front Matter section on them for Jekyll to read them properly (basically, any text enclosed by `---` will be valid).
+
+The files, CSS, or SCSS, will be processed and included in the layouts automatically.
 
 ## Colors
 
