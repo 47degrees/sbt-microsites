@@ -21,7 +21,7 @@ import com.typesafe.sbt.sbtghpages.GhpagesPlugin.autoImport.{
   ghpagesNoJekyll,
   ghpagesPushSite
 }
-import com.typesafe.sbt.site.SitePlugin.autoImport.{makeSite, siteDirectory}
+import com.typesafe.sbt.site.SitePlugin.autoImport.makeSite
 import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport._
 import microsites.util.MicrositeHelper
 import sbt.Keys._
@@ -31,6 +31,10 @@ import sbtorgpolicies.github.GitHubOps
 import tut.TutPlugin.autoImport._
 import mdoc.MdocPlugin.autoImport._
 import sbtorgpolicies.io.FileReader
+import sbtorgpolicies.io.FileWriter._
+import sbtorgpolicies.io.syntax._
+import sbtorgpolicies.model.YamlFormats._
+import net.jcazevedo.moultingyaml.{YamlObject, _}
 import scala.sys.process._
 
 trait MicrositeKeys {
@@ -152,6 +156,7 @@ trait MicrositeKeys {
     "Optional. Customize the second line in the footer."
   )
 
+  val pushMicrositeCommandKey: String = "pushMicrositeCommand"
   val publishMicrositeCommandKey: String = "publishMicrositeCommand"
 
   val micrositeEditButton: SettingKey[Option[MicrositeEditButton]] =
@@ -179,7 +184,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       else micrositeBaseUrl.value
 
     val baseCssList = List(
-      s"css/${micrositeTheme.value}-style.css",
+      // s"css/${micrositeTheme.value}-style.css",
       s"css/${micrositeTheme.value}-style.scss"
     )
 
@@ -312,6 +317,14 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
     }.value,
     makeVersionedSites := {
 
+      case class Version(title: String, current: Boolean)
+
+      // Run Jekyll
+      // Process(Seq("jekyll", "build", "-d", target.getAbsolutePath), Some(src)) ! s.log match {
+      //   case 0 => ()
+      //   case n => sys.error("Could not run jekyll, error: " + n)
+      // }
+
       // Initial check
       // val executable = "which git".lineStream_!.headOption
       // println(executable)
@@ -345,6 +358,31 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       // The path of the dir to temporarily store the different sites content.
       val gen_docs_dir = "gen-docs"
 
+      val jekyllDir          = "jekyll"
+      val resourceManagedDir = (resourceManaged in Compile).value
+      val targetDir: String  = resourceManagedDir.getAbsolutePath.ensureFinalSlash
+
+      def createYML(targetDir: String, versions: Map[String, Any]): File = {
+        println(targetDir)
+        val targetPath = s"$targetDir$jekyllDir/_versions.yml"
+//        val targetPath = s"$source_dir/_versions.yml"
+        createFile(targetPath)
+
+        // val yaml             = config.configYaml
+        // val customProperties = yaml.yamlCustomProperties.toYaml.asYamlObject.fields
+        // val inlineYaml =
+        //   if (yaml.yamlInline.nonEmpty)
+        //     yaml.yamlInline.parseYaml.asYamlObject.fields
+        //   else Map.empty[YamlValue, YamlValue]
+
+        // yamlCustomProperties = Map("org" -> "My Org").toYaml.asYamlObject.fields
+        val yamlCustomProperties = versions.toYaml.asYamlObject.fields
+
+        writeContentToFile(YamlObject(yamlCustomProperties).prettyPrint, targetPath)
+
+        targetPath.toFile
+      }
+
       // Generate the Jekyll site through sbt-microsites based on the contents source.
       //
       // @param version [String] The version for which the sbt-microsites site will be generated.
@@ -355,7 +393,15 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         println(s"== current micrositeBaseUrl is ${micrositeBaseUrl.value}")
         println(s"== micrositeBaseUrl will become ${micrositeBaseUrl.value}/$version")
         val baseUrl = s"${micrositeBaseUrl.value}/$version"
-        Seq("sbt", s"""set micrositeBaseUrl := "$baseUrl"""", "makeMicrosite").!
+        List("sbt", s"""clean; set micrositeBaseUrl := "$baseUrl"; makeMicrosite""").!
+        // val versions = Array(
+        //   Version(default_version, false),
+        //   Version(current_branch_path, false),
+        //   Version(version, true),
+        // )
+        val versions = Map(version -> true)
+        createYML(targetDir, versions)
+        println(s"The versions in this site are ${versions.mkString(" ")}");
         s"mv $source_dir $gen_docs_dir/$version".!
       }
 
@@ -369,6 +415,10 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 //        "title" => $default_version,
 //      })
 
+//      var versions = Array(
+//        Version(default_version, false),
+//      )
+
 //      Besides default, another version that will be available to select will be
 //      the current branch/tag, if desired through the use of $current_branch_path
 //      if !$current_branch_path.to_s.empty?
@@ -376,6 +426,10 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 //          "title" => $current_branch_path,
 //        })
 //      end
+
+//      versions = versions :+ Version(current_branch_path, false);
+//
+//      println(s"The versions to be created are ${versions.mkString(" ")}");
 
       // Directory initialization
 //      "mkdir -p $publishing_dir".!
@@ -447,7 +501,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 //        # };
 //      # File.write("#{$source_dir}/_data/versions.json", JSON.pretty_generate(this_versions))
 
-      "sbt makeMicrosite".!
+      List("sbt", s"""clean; makeMicrosite""").!
 
       // We also move the rest of version generated sites to its publishing destination
 //      "mv gen-docs/tags/* target/site".!
@@ -557,6 +611,13 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       // }
     }.value
   )
+
+  val pushMicrositeCommand: Command = Command(pushMicrositeCommandKey)(_ => OptNotSpace) {
+    (st, _) =>
+      val extracted = Project.extract(st)
+
+      extracted.runTask(pushMicrosite, st)._1
+  }
 
   val publishMicrositeCommand: Command = Command(publishMicrositeCommandKey)(_ => OptNotSpace) {
     (st, _) =>
