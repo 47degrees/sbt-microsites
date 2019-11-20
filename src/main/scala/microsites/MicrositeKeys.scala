@@ -72,8 +72,6 @@ trait MicrositeKeys {
   val publishMicrosite: TaskKey[Unit] =
     taskKey[Unit]("Task helper that wraps the `publishMicrositeCommand`.")
   val microsite: TaskKey[Seq[File]] = taskKey[Seq[File]]("Create microsite files")
-  val micrositeConfig: TaskKey[Unit] =
-    taskKey[Unit]("Copy microsite config to the site folder")
   val micrositeMakeExtraMdFiles: TaskKey[File] =
     taskKey[File]("Create microsite extra md files")
   val micrositeTutExtraMdFiles: TaskKey[Seq[File]] =
@@ -104,6 +102,8 @@ trait MicrositeKeys {
     "Optional. Microsite images directory. By default, it'll be the resourcesDirectory + '/microsite/img'")
   val micrositeCssDirectory: SettingKey[File] = settingKey[File](
     "Optional. Microsite CSS directory. By default, it'll be the resourcesDirectory + '/microsite/css'")
+  val micrositeSassDirectory: SettingKey[File] = settingKey[File](
+    "Optional. Microsite SASS directory. By default, it'll be the resourcesDirectory + '/microsite/sass'")
   val micrositeJsDirectory: SettingKey[File] = settingKey[File](
     "Optional. Microsite Javascript directory. By default, it'll be the resourcesDirectory + '/microsite/js'")
   val micrositeCDNDirectives: SettingKey[CdnDirectives] = settingKey[CdnDirectives](
@@ -194,7 +194,13 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         case _              => Nil
       }
 
-    val fullCssList = baseCssList ++ customCssList
+    val customScssList =
+      fr.fetchFilesRecursively(List(micrositeCssDirectory.value), validFile("scss")) match {
+        case Right(scssList) => scssList.map(scss => s"css/${scss.getName}")
+        case _               => Nil
+      }
+
+    val fullCssList = baseCssList ++ customCssList ++ customScssList
 
     val defaultYamlCustomVariables = Map(
       "name"        -> micrositeName.value,
@@ -208,8 +214,9 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       "exclude"     -> List("css"),
       "include"     -> fullCssList,
       "sass" -> Map(
-        "style"     -> "compressed",
-        "sourcemap" -> "never",
+        "load_paths" -> List("_sass", "_sass_custom"),
+        "style"      -> "compressed",
+        "sourcemap"  -> "never",
       ),
       "collections" -> Map("tut" -> Map("output" -> true))
     )
@@ -245,6 +252,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         fileLocations = MicrositeFileLocations(
           micrositeImgDirectory = micrositeImgDirectory.value,
           micrositeCssDirectory = micrositeCssDirectory.value,
+          micrositeSassDirectory = micrositeSassDirectory.value,
           micrositeJsDirectory = micrositeJsDirectory.value,
           micrositeCDNDirectives = micrositeCDNDirectives.value,
           micrositeExternalLayoutsDirectory = micrositeExternalLayoutsDirectory.value,
@@ -285,8 +293,6 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
   lazy val micrositeTasksSettings = Seq(
     microsite := micrositeHelper.value.createResources(
       resourceManagedDir = (resourceManaged in Compile).value),
-    micrositeConfig := micrositeHelper.value
-      .copyConfigurationFile((sourceDirectory in Jekyll).value, siteDirectory.value),
     micrositeMakeExtraMdFiles := micrositeHelper.value.buildAdditionalMd(),
     micrositeTutExtraMdFiles := {
       val r     = (runner in Tut).value
@@ -299,15 +305,10 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       _root_.tut.TutPlugin.tutOne(streams.value, r, in, out, cp, opts, pOpts, re).map(_._1)
     },
     makeTut := {
-      Def.sequential(microsite, tut, micrositeTutExtraMdFiles, makeSite, micrositeConfig)
+      Def.sequential(microsite, tut, micrositeTutExtraMdFiles, makeSite)
     }.value,
     makeMdoc := {
-      Def.sequential(
-        microsite,
-        mdoc.toTask(""),
-        micrositeMakeExtraMdFiles,
-        makeSite,
-        micrositeConfig)
+      Def.sequential(microsite, mdoc.toTask(""), micrositeMakeExtraMdFiles, makeSite)
     }.value,
     makeMicrosite := Def.taskDyn {
       micrositeCompilingDocsTool.value match {

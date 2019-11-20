@@ -6,8 +6,6 @@
 
 > makeSite
 
-> micrositeConfig
-
 # check resource_managed/main/jekyll folder
 
 $ exists target/scala-2.12/resource_managed/main/jekyll
@@ -22,6 +20,6 @@ $ exists target/scala-2.12/resource_managed/main/jekyll/js
 
 # check site folder
 
-$ exists target/site/_config.yml
+$ exists target/scala-2.12/resource_managed/main/jekyll/_config.yml
 $ exists target/site/css
 $ exists target/site/js

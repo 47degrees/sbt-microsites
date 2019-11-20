@@ -45,7 +45,6 @@ object MicrositesPlugin extends AutoPlugin {
       micrositeTasksSettings ++
       Seq(
         git.remoteRepo := s"git@github.com:${micrositeGithubOwner.value}/${micrositeGithubRepo.value}.git",
-        mappings in Jekyll ++= micrositeHelper.value.directory("src/main/resources/microsite"),
         sourceDirectory in Jekyll := resourceManaged.value / "main" / "jekyll",
         tutSourceDirectory := sourceDirectory.value / "main" / "tut",
         tutTargetDirectory := resourceManaged.value / "main" / "jekyll",
@@ -77,6 +76,7 @@ object MicrositesPlugin extends AutoPlugin {
       yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "_config.yml")),
     micrositeImgDirectory := (resourceDirectory in Compile).value / "microsite" / "img",
     micrositeCssDirectory := (resourceDirectory in Compile).value / "microsite" / "css",
+    micrositeSassDirectory := (resourceDirectory in Compile).value / "microsite" / "sass",
     micrositeJsDirectory := (resourceDirectory in Compile).value / "microsite" / "js",
     micrositeCDNDirectives := CdnDirectives(),
     micrositeExternalLayoutsDirectory := (resourceDirectory in Compile).value / "microsite" / "layouts",

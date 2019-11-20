@@ -31,6 +31,7 @@ case class MicrositeIdentitySettings(
 case class MicrositeFileLocations(
     micrositeImgDirectory: File,
     micrositeCssDirectory: File,
+    micrositeSassDirectory: File,
     micrositeJsDirectory: File,
     micrositeCDNDirectives: CdnDirectives,
     micrositeExternalLayoutsDirectory: File,
