@@ -24,6 +24,9 @@ import com.typesafe.sbt.sbtghpages.GhpagesPlugin.autoImport.{
 import com.typesafe.sbt.site.SitePlugin.autoImport.makeSite
 import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport._
 import microsites.util.MicrositeHelper
+import io.circe._
+import io.circe.generic.semiauto._
+import io.circe.syntax._
 import sbt.Keys._
 import sbt._
 import sbt.complete.DefaultParsers.OptNotSpace
@@ -53,6 +56,12 @@ trait MicrositeKeys {
   final case object WithTut               extends CompilingDocsTool
   final case object WithMdoc              extends CompilingDocsTool
 
+  case class Version(name: String, own: Boolean)
+  object Version {
+    implicit val encoder: Encoder[Version] = deriveEncoder[Version]
+    implicit val decoder: Decoder[Version] = deriveDecoder[Version]
+  }
+
   object GitHostingService {
     implicit def string2GitHostingService(name: String): GitHostingService = {
       List(GitHub, GitLab, Bitbucket)
@@ -65,6 +74,10 @@ trait MicrositeKeys {
   val makeTut: TaskKey[Unit]       = taskKey[Unit]("Sequential tasks to compile tut and move the result")
   val makeMdoc: TaskKey[Unit] =
     taskKey[Unit]("Sequential tasks to compile mdoc and move the result")
+  val makeMakeMdoc: TaskKey[Unit] =
+    taskKey[Unit]("Sequential tasks to compile mdoc and move the result")
+  val generateVersions: TaskKey[Unit] =
+    taskKey[Unit]("Task that will generate the JSON with the desired versions")
   val makeVersionedSites: TaskKey[Unit]     = taskKey[Unit]("makeVersionedSites")     // TODO: makeVersionedSites description
   val makeVersionedMicrosite: TaskKey[Unit] = taskKey[Unit]("makeVersionedMicrosite") //TODO: makeVersionedMicrosite description
   val pushMicrosite: TaskKey[Unit] =
@@ -156,7 +169,7 @@ trait MicrositeKeys {
     "Optional. Customize the second line in the footer."
   )
 
-  val pushMicrositeCommandKey: String = "pushMicrositeCommand"
+  val pushMicrositeCommandKey: String    = "pushMicrositeCommand"
   val publishMicrositeCommandKey: String = "publishMicrositeCommand"
 
   val micrositeEditButton: SettingKey[Option[MicrositeEditButton]] =
@@ -310,16 +323,36 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
     makeMdoc := {
       Def.sequential(microsite, mdoc.toTask(""), micrositeMakeExtraMdFiles, makeSite)
     }.value,
+    makeMakeMdoc := {
+      Def.sequential(mdoc.toTask(""), micrositeMakeExtraMdFiles, makeSite)
+    }.value,
     makeMicrosite := Def.taskDyn {
       micrositeCompilingDocsTool.value match {
         case WithTut  => Def.task(makeTut.value)
         case WithMdoc => Def.task(makeMdoc.value)
       }
     }.value,
+    generateVersions := {
+
+      val current_branch_path = "next"
+      val jekyllDir           = "jekyll"
+      val resourceManagedDir  = (resourceManaged in Compile).value
+      val targetDir: String   = resourceManagedDir.getAbsolutePath.ensureFinalSlash
+
+      def createJson(targetDir: String, versions: List[Version]): File = {
+        val targetPath = s"$targetDir$jekyllDir/_data/versions.json"
+        // val targetPath = s"$source_dir/_versions.yml"
+        println(targetPath)
+        createFile(targetPath)
+
+        writeContentToFile(versions.asJson.toString, targetPath)
+        targetPath.toFile
+      }
+
+      val versions = List(Version("0.2.0", own = false), Version(current_branch_path, own = false))
+      createJson(targetDir, versions)
+    },
     makeVersionedSites := {
-
-      case class Version(title: String, current: Boolean)
-
       // Run Jekyll
       // Process(Seq("jekyll", "build", "-d", target.getAbsolutePath), Some(src)) ! s.log match {
       //   case 0 => ()
@@ -333,7 +366,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       // If you want a specific version to be served as default, set this value to the
       // branch/tag you want. Otherwise it will be the latest version on alphabetical order.
       // If there's no tags, then `master` branch content will be served at root path.
-      val default_version = "0.2.0"
+      // val default_version = "0.2.0"
+      val default_version = "master"
 
       // If you want to build the current branch (usually `master`) and serve it,
       // set the path/name in here. If you leave it empty no site will be built for it.
@@ -363,24 +397,13 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val resourceManagedDir = (resourceManaged in Compile).value
       val targetDir: String  = resourceManagedDir.getAbsolutePath.ensureFinalSlash
 
-      def createYML(targetDir: String, versions: Map[String, Any]): File = {
-        println(targetDir)
-        val targetPath = s"$targetDir$jekyllDir/_versions.yml"
-//        val targetPath = s"$source_dir/_versions.yml"
+      def createJson(targetDir: String, versions: List[Version]): File = {
+        val targetPath = s"$targetDir$jekyllDir/_data/versions.json"
+        // val targetPath = s"$source_dir/_versions.yml"
+        println(targetPath)
         createFile(targetPath)
 
-        // val yaml             = config.configYaml
-        // val customProperties = yaml.yamlCustomProperties.toYaml.asYamlObject.fields
-        // val inlineYaml =
-        //   if (yaml.yamlInline.nonEmpty)
-        //     yaml.yamlInline.parseYaml.asYamlObject.fields
-        //   else Map.empty[YamlValue, YamlValue]
-
-        // yamlCustomProperties = Map("org" -> "My Org").toYaml.asYamlObject.fields
-        val yamlCustomProperties = versions.toYaml.asYamlObject.fields
-
-        writeContentToFile(YamlObject(yamlCustomProperties).prettyPrint, targetPath)
-
+        writeContentToFile(versions.asJson.toString, targetPath)
         targetPath.toFile
       }
 
@@ -395,13 +418,13 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         println(s"== micrositeBaseUrl will become ${micrositeBaseUrl.value}/$version")
         val baseUrl = s"${micrositeBaseUrl.value}/$version"
         List("sbt", s"""clean; set micrositeBaseUrl := "$baseUrl"; makeMicrosite""").!
-        // val versions = Array(
-        //   Version(default_version, false),
-        //   Version(current_branch_path, false),
-        //   Version(version, true),
-        // )
-        val versions = Map(version -> true)
-        createYML(targetDir, versions)
+
+        val versions = List(
+          Version(default_version, own = false),
+          Version(current_branch_path, own = false),
+          Version(version, own = true),
+        )
+        createJson(targetDir, versions)
         println(s"The versions in this site are ${versions.mkString(" ")}");
         s"mv $source_dir $gen_docs_dir/$version".!
       }
@@ -415,10 +438,6 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 //      versions.unshift({
 //        "title" => $default_version,
 //      })
-
-//      var versions = Array(
-//        Version(default_version, false),
-//      )
 
 //      Besides default, another version that will be available to select will be
 //      the current branch/tag, if desired through the use of $current_branch_path
@@ -443,6 +462,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       // Then, tags will contain the list of Git tags present in the repo
 //      val tags = "git tag".!!.trim
       val gitTags = Process("git tag").lineStream
+//      val gitTags = Seq("0.2.0")
       println(s"The tags present in the repo are $gitTags")
       gitTags.foreach(t => println(s"$t"))
 
@@ -464,10 +484,10 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       gitTags.foreach(t => {
         println("== == ==")
 
-        s"git checkout -f $t".!
+//        s"git checkout -f $t".!
         println(s"== Current branch/tag is now $t")
 
-        generateMicrosite(t)
+//        generateMicrosite(t)
 
       })
 
@@ -482,14 +502,14 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       // Now, we generate the content available at the initial branch (master?)
       // to be at $current_branch_path (/next?) path
 //      if !$current_branch_path.to_s.empty?
-      s"git checkout -f $current_branch_tag".!
-      println(s"== Current branch/tag is now $current_branch_tag")
-      generateMicrosite(current_branch_path)
+//      s"git checkout -f $current_branch_tag".!
+//      println(s"== Current branch/tag is now $current_branch_tag")
+//      generateMicrosite(current_branch_path)
 
 //      (makeMicrosite)
 
       // Finally, we generate the docs for the default version
-      s"git checkout -f $default_version".!
+//      s"git checkout -f $default_version".!
       println(s"== Current branch/tag is now $default_version")
       println(s"== Generating default site for $default_version")
 
@@ -502,17 +522,22 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 //        # };
 //      # File.write("#{$source_dir}/_data/versions.json", JSON.pretty_generate(this_versions))
 
-      List("sbt", s"""clean; makeMicrosite""").!
+//      List("sbt", s"""clean; microsite""").!
+//      micrositeHelper.value.createResources(resourceManagedDir = (resourceManaged in Compile).value)
+      microsite.value
+      generateVersions.value
+      makeMakeMdoc.value
 
       // We also move the rest of version generated sites to its publishing destination
 //      "mv gen-docs/tags/* target/site".!
       gitTags.foreach(t => {
-        s"mv gen-docs/$t $publishing_dir".!
+//        s"mv gen-docs/$t $publishing_dir".!
       })
       // if !$current_branch_path.to_s.empty?
-      s"mv gen-docs/$current_branch_path $publishing_dir".!
+      // s"mv gen-docs/$current_branch_path $publishing_dir".!
 
 //      "sbt pushMicrosite".!
+//      Def.sequential(makeSite)
 
     },
     makeVersionedMicrosite := Def.taskDyn {

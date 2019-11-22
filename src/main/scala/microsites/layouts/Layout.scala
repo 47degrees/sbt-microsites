@@ -393,15 +393,52 @@ abstract class Layout(config: MicrositeSettings) {
           span(cls := "nav-item-text", config.gitSettings.gitHostingService.name)
         )
       ),
-      if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
-        li(
-          a(
-            href := s"${config.urlSettings.micrositeDocumentationUrl}",
-            i(cls := "nav-item-icon fa fa-lg fa fa-file-text", hidden := "true"),
-            span(cls := "nav-item-text", config.urlSettings.micrositeDocumentationLabelDescription)
+//      if (!config.urlSettings.micrositeDocumentationUrl.isEmpty) {
+//        li(
+//          a(
+//            href := s"${config.urlSettings.micrositeDocumentationUrl}",
+//            i(cls := "nav-item-icon fa fa-lg fa fa-file-text", hidden := "true"),
+//            span(cls := "nav-item-text", config.urlSettings.micrositeDocumentationLabelDescription)
+//          )
+//        )
+//      },
+      "{% if site.data.versions %}",
+      li(
+        div(
+          id := "version-dropdown",
+          button(
+            attr("title") := "{{ site.data.menu.nav[0].title }}",
+            cls := "button link-like",
+            span("Version"),
+            span(
+              id := "bow-version",
+              raw("""{% assign bow_version = site.data.versions | where: "own", true | first %}"""),
+              "{{ bow_version.name }}")
+          ),
+          ul(
+            cls := "dropdown dropdown-content",
+            li(
+              cls := "dropdown-item",
+              a(
+                cls := "dropdown-item-link",
+                href := "{{ site.data.menu.nav[0].url }}",
+                span(
+                  "{{ site.data.versions[0].name }}"
+                ))),
+            raw("""{% for item in site.data.versions offset: 1 %}"""),
+            li(
+              cls := "dropdown-item",
+              a(
+                cls := "dropdown-item-link",
+                href := "/{{ item.name | append: site.data.menu.nav[0].url }}",
+                span(
+                  "{{ item.name }}"
+                ))),
+            "{% endfor %}",
           )
         )
-      else ()
+      ),
+      "{% endif %}",
     )
 
   val customFeatureImg =
