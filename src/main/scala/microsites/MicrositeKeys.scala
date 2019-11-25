@@ -74,8 +74,8 @@ trait MicrositeKeys {
   val makeTut: TaskKey[Unit]       = taskKey[Unit]("Sequential tasks to compile tut and move the result")
   val makeMdoc: TaskKey[Unit] =
     taskKey[Unit]("Sequential tasks to compile mdoc and move the result")
-  val makeMakeMdoc: TaskKey[Unit] =
-    taskKey[Unit]("Sequential tasks to compile mdoc and move the result")
+  val makeDocs: TaskKey[Unit] =
+    taskKey[Unit]("makeDocs description") // TODO: makeDocs description
   val generateVersions: TaskKey[Unit] =
     taskKey[Unit]("Task that will generate the JSON with the desired versions")
   val makeVersionedSites: TaskKey[Unit]     = taskKey[Unit]("makeVersionedSites")     // TODO: makeVersionedSites description
@@ -318,19 +318,19 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       _root_.tut.TutPlugin.tutOne(streams.value, r, in, out, cp, opts, pOpts, re).map(_._1)
     },
     makeTut := {
-      Def.sequential(microsite, tut, micrositeTutExtraMdFiles, makeSite)
+      Def.sequential(tut, micrositeTutExtraMdFiles)
     }.value,
     makeMdoc := {
-      Def.sequential(microsite, mdoc.toTask(""), micrositeMakeExtraMdFiles, makeSite)
+      Def.sequential(mdoc.toTask(""), micrositeMakeExtraMdFiles)
     }.value,
-    makeMakeMdoc := {
-      Def.sequential(mdoc.toTask(""), micrositeMakeExtraMdFiles, makeSite)
-    }.value,
-    makeMicrosite := Def.taskDyn {
+    makeDocs := Def.taskDyn {
       micrositeCompilingDocsTool.value match {
-        case WithTut  => Def.task(makeTut.value)
-        case WithMdoc => Def.task(makeMdoc.value)
+        case WithTut  => Def.sequential(makeTut)
+        case WithMdoc => Def.sequential(makeMdoc)
       }
+    }.value,
+    makeMicrosite := {
+      Def.sequential(microsite, makeDocs, makeSite)
     }.value,
     generateVersions := {
 
@@ -526,7 +526,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 //      micrositeHelper.value.createResources(resourceManagedDir = (resourceManaged in Compile).value)
       microsite.value
       generateVersions.value
-      makeMakeMdoc.value
+      makeDocs.value
 
       // We also move the rest of version generated sites to its publishing destination
 //      "mv gen-docs/tags/* target/site".!
