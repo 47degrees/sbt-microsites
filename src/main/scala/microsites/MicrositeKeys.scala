@@ -349,7 +349,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         targetPath.toFile
       }
 
-      val versions = List(Version("0.2.0", own = false), Version(current_branch_path, own = false))
+      val versions = List(Version("0.2.0", own = true), Version(current_branch_path, own = false))
       createJson(targetDir, versions)
     },
     makeVersionedSites := {

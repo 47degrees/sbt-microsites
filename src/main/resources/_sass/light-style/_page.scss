@@ -17,6 +17,18 @@
       color: $white-color;
     }
 
+    button.link-like {
+      color: $white-color;
+
+     &:hover, &:focus {
+       box-shadow: 0 2px $white-color;
+     }
+    }
+
+    .dropdown-content {
+      background: $brand-primary;
+    }
+
     .page-icon-wrapper {
       width: 36px;
       height: 36px;
