@@ -407,7 +407,7 @@ abstract class Layout(config: MicrositeSettings) {
               a(
                 attr("title") := "{{ item.name }}",
                 cls := "dropdown-item-link",
-                href := "/{{ item.url }}",
+                href := "{{ item.name | relative_url }}",
                 span(
                   "{{ item.name }}"
                 ))),
