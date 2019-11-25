@@ -295,8 +295,7 @@ abstract class Layout(config: MicrositeSettings) {
       id := "site-footer",
       div(
         cls := "container",
-        divs,
-        highLightingScript
+        divs
       )
     )
   }
@@ -350,8 +349,7 @@ abstract class Layout(config: MicrositeSettings) {
       id := "site-footer",
       div(
         cls := "container",
-        divs,
-        highLightingScript
+        divs
       )
     )
   }
@@ -384,6 +382,39 @@ abstract class Layout(config: MicrositeSettings) {
 
   def buildLightCollapseMenu: TypedTag[String] =
     ul(
+      "{% if site.data.versions %}",
+      raw("""{% assign own_version = site.data.versions | where: "own", true | first %}"""),
+      li(
+        div(
+          id := "version-dropdown",
+          button(
+            attr("title") := "Version {{ own_version.name }}",
+            cls := "button link-like",
+            i(cls := s"nav-item-icon fa fa-lg fa-caret-square-o-down", hidden := "true"),
+            span(
+              cls := "nav-item-text",
+              id := "own-version",
+              "Version {{ own_version.name }}"
+            ),
+            i(cls := "nav-item-text fa fa-caret-down"),
+          ),
+          ul(
+            cls := "dropdown dropdown-content",
+            raw("""{% for item in site.data.versions offset: 0 %}"""),
+            li(
+              cls := "dropdown-item",
+              a(
+                attr("title") := "{{ item.name }}",
+                cls := "dropdown-item-link",
+                href := "/{{ item.url }}",
+                span(
+                  "{{ item.name }}"
+                ))),
+            "{% endfor %}",
+          )
+        )
+      ),
+      "{% endif %}",
       li(
         a(
           href := config.gitSiteUrl,
@@ -393,52 +424,14 @@ abstract class Layout(config: MicrositeSettings) {
           span(cls := "nav-item-text", config.gitSettings.gitHostingService.name)
         )
       ),
-//      if (!config.urlSettings.micrositeDocumentationUrl.isEmpty) {
-//        li(
-//          a(
-//            href := s"${config.urlSettings.micrositeDocumentationUrl}",
-//            i(cls := "nav-item-icon fa fa-lg fa fa-file-text", hidden := "true"),
-//            span(cls := "nav-item-text", config.urlSettings.micrositeDocumentationLabelDescription)
-//          )
-//        )
-//      },
-      "{% if site.data.versions %}",
-      li(
-        div(
-          id := "version-dropdown",
-          button(
-            attr("title") := "{{ site.data.menu.nav[0].title }}",
-            cls := "button link-like",
-            span("Version"),
-            span(
-              id := "bow-version",
-              raw("""{% assign bow_version = site.data.versions | where: "own", true | first %}"""),
-              "{{ bow_version.name }}")
-          ),
-          ul(
-            cls := "dropdown dropdown-content",
-            li(
-              cls := "dropdown-item",
-              a(
-                cls := "dropdown-item-link",
-                href := "{{ site.data.menu.nav[0].url }}",
-                span(
-                  "{{ site.data.versions[0].name }}"
-                ))),
-            raw("""{% for item in site.data.versions offset: 1 %}"""),
-            li(
-              cls := "dropdown-item",
-              a(
-                cls := "dropdown-item-link",
-                href := "/{{ item.name | append: site.data.menu.nav[0].url }}",
-                span(
-                  "{{ item.name }}"
-                ))),
-            "{% endfor %}",
+      if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
+        li(
+          a(
+            href := s"${config.urlSettings.micrositeDocumentationUrl}",
+            i(cls := "nav-item-icon fa fa-lg fa-file-text", hidden := "true"),
+            span(cls := "nav-item-text", config.urlSettings.micrositeDocumentationLabelDescription)
           )
         )
-      ),
-      "{% endif %}",
     )
 
   val customFeatureImg =
