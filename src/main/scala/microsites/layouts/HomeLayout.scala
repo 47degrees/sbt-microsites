@@ -27,14 +27,16 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
   override def render: TypedTag[String] = {
     val bodyBlock =
       if (config.visualSettings.theme == "pattern")
-        List(homeHeader, homeMain, globalFooter) ++ scripts
+        List(homeHeader, homeMain, globalFooter)
       else
-        List(cls := "home", lightHomeNav) ++ lightHomeHeader ++ List(lightHomeMain, lightFooter) ++ scripts
+        List(cls := "home", lightHomeNav) ++ lightHomeHeader ++ List(lightHomeMain, lightFooter)
 
     html(
       commonHead,
       body(
-        bodyBlock: _*
+        bodyBlock,
+        scripts,
+        versionScript
       )
     )
   }

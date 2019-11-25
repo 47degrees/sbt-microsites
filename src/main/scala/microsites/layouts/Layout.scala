@@ -244,6 +244,9 @@ abstract class Layout(config: MicrositeSettings) {
               """.stripMargin)) ++ customJsList ++ customCDNList ++ (message :: gitSidecar)
   }
 
+  def versionScript: TypedTag[String] =
+    script(src := "{{site.url}}{{site.baseurl}}/js/version-selector.js")
+
   def globalFooter: TypedTag[String] = {
     val divs: Seq[TypedTag[String]] =
       div(
@@ -385,6 +388,7 @@ abstract class Layout(config: MicrositeSettings) {
         div(
           id := "version-dropdown",
           button(
+            onclick := "displayToggle(event)",
             attr("title") := "Version {{ own_version.name }}",
             cls := "button link-like",
             i(cls := s"nav-item-icon fa fa-lg fa-caret-square-o-down", hidden := "true"),
