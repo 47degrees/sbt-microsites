@@ -260,7 +260,7 @@ micrositeStaticDirectory := (resourceDirectory in Compile).value / "site" / "mys
 
 The directory will be copied as-is, but no process will be applied to any file on it. So the responsibility of loading/linking/using them on a layout is yours. Also, see the `includeFilter in makeSite` config setting for the allowed file types that will be copied.
 
-- `micrositeExtraMdFiles`: This setting can be handy if you want to include additional markdown files in your site, and these files are not located in the same place in your `tut` directory. By default, the setting is set up as an empty map. You can override it in this way:
+- `micrositeExtraMdFiles`: This setting can be handy if you want to include additional markdown files in your site, and these files are not located in the same place in your `mdoc` or `tut` directory. By default, the setting is set up as an empty map. You can override it in this way:
 
 ```
 micrositeExtraMdFiles := Map(
@@ -280,7 +280,9 @@ Each file (the map key) can be related to a specific configuration through the `
 
 1. The target file name. The plugin will copy the file, and it will put it in tut directory each time you build the microsite. Therefore, you might want to include this auto-copied file in the list of ignored files at the `.gitignore` file.
 2. Jekyll `layout` property.
-3. Other custom Jekyll properties that you might want to include in your document.
+3. Other custom Jekyll properties that you might want to include in your document. A good point to highlight here is that through the `permalink` property you can control the place where `Jekyll` is going to move your extra file. The value of this property prevails over the folder where the file is copied.
+
+- `micrositeExtraMdFilesOutput` this is an optional parameter when you are using `mdoc`, and refers to the microsite output location for extra-md files. Default is resourceManaged + `/jekyll/extra_md` although you can modify it.
 
 - `micrositePluginsDirectory`: You can also introduce custom [Jekyll plugins](https://jekyllrb.com/docs/plugins/) in the generated microsite through the `micrositePluginsDirectory` setting. The plugin files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "plugins"`, but you can override it like this:
 

@@ -84,7 +84,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeDataDirectory := (resourceDirectory in Compile).value / "microsite" / "data",
     micrositeStaticDirectory := (resourceDirectory in Compile).value / "microsite" / "static",
     micrositeExtraMdFiles := Map.empty,
-    micrositeExtraMdFilesOutput := (resourceManaged in Compile).value / "jekyll" / "_extra_md",
+    micrositeExtraMdFilesOutput := (resourceManaged in Compile).value / "jekyll" / "extra_md",
     micrositePluginsDirectory := (resourceDirectory in Compile).value / "microsite" / "plugins",
     micrositeTheme := "light",
     micrositePalette := {
