@@ -431,7 +431,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       Def.sequential(microsite, makeVersionsJson, makeDocs, makeSite)
     }.value,
     makeMultiversionMicrosite := {
-      Def.sequential(createMicrositeVersions, makeVersionedMicrosite, moveMicrositeVersions)
+      Def.sequential(createMicrositeVersions, clean, makeVersionedMicrosite, moveMicrositeVersions)
     }.value,
     pushMicrosite := {
       val siteDir: File                 = (target in makeSite).value
