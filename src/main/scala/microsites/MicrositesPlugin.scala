@@ -110,6 +110,7 @@ object MicrositesPlugin extends AutoPlugin {
         )
     },
     micrositeFavicons := Seq(),
+    micrositeVersionList := Seq(),
     micrositeGithubOwner := "47deg",
     micrositeGithubRepo := "sbt-microsites",
     micrositeGithubToken := None,

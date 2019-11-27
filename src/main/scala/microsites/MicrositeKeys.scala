@@ -299,6 +299,9 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         ),
         editButtonSettings = MicrositeEditButtonSettings(
           micrositeEditButton.value
+        ),
+        multiversionSettings = MicrositeMultiversionSettings(
+          micrositeVersionList.value
         )
       ))
   }
