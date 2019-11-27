@@ -401,7 +401,7 @@ abstract class Layout(config: MicrositeSettings) {
           ),
           ul(
             cls := "dropdown dropdown-content",
-            raw("""{% for item in site.data.versions offset: 0 %}"""),
+            raw("""{% for item in site.data.versions offset: 1 %}"""),
             li(
               cls := "dropdown-item",
               a(
