@@ -217,6 +217,17 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       .toList
   }
 
+  def pluginProjects(pluginName: String): Option[Array[String]] = {
+    val sbtPluginsOutput = "sbt --error plugins".lineStream
+    val pluginLine =
+      sbtPluginsOutput.find(line => line.trim.startsWith(s"$pluginName: enabled in "))
+
+    pluginLine match {
+      case Some(line) => Some(line.trim.stripPrefix(s"$pluginName: enabled in ").split(", "))
+      case None       => None
+    }
+  }
+
   // Generate a microsite externally through sbt and sbt-microsites tasks
   def createMicrositeVersion(
       sourceDir: String,
@@ -225,11 +236,20 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       version: String): Unit = {
     val newBaseUrl =
       if (version != "") s"${baseUrl}/$version" else s"${baseUrl}"
-    List("sbt", s"""clean; set micrositeBaseUrl := "$newBaseUrl"; makeMicrosite""").!
-    Files.move(
-      FileSystems.getDefault().getPath(sourceDir),
-      FileSystems.getDefault().getPath(s"$targetDir/$version"),
-      StandardCopyOption.REPLACE_EXISTING)
+    val pluginName            = "microsites.MicrositesPlugin"
+    val sbtMicrositesProjects = pluginProjects(pluginName)
+    sbtMicrositesProjects match {
+      case Some(projects) => {
+        List(
+          "sbt",
+          s"""clean; set micrositeBaseUrl := "$newBaseUrl"; ${projects(0)}/makeMicrosite""").!
+        Files.move(
+          FileSystems.getDefault().getPath(sourceDir),
+          FileSystems.getDefault().getPath(s"$targetDir/$version"),
+          StandardCopyOption.REPLACE_EXISTING)
+      }
+      case None => System.err.println(s"$pluginName not found in version $version")
+    }
   }
 
   lazy val micrositeHelper: Def.Initialize[MicrositeHelper] = Def.setting {
