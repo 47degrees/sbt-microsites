@@ -220,7 +220,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
   def pluginProjects(pluginName: String): Option[Array[String]] = {
     val sbtPluginsOutput = "sbt --error plugins".lineStream
     val pluginLine =
-      sbtPluginsOutput.find(line => line.trim.startsWith(s"$pluginName: enabled in "))
+      sbtPluginsOutput.find(_.trim.startsWith(s"$pluginName: enabled in "))
 
     pluginLine match {
       case Some(line) => Some(line.trim.stripPrefix(s"$pluginName: enabled in ").split(", "))
