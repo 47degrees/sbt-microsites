@@ -235,7 +235,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       baseUrl: String,
       version: String): Unit = {
     val newBaseUrl =
-      if (version != "") s"${baseUrl}/$version" else s"${baseUrl}"
+      if (version.nonEmpty) s"$baseUrl/$version" else baseUrl
     val pluginName            = "microsites.MicrositesPlugin"
     val sbtMicrositesProjects = pluginProjects(pluginName)
     sbtMicrositesProjects match {
