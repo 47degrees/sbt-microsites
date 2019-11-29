@@ -237,7 +237,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       case Some(projects) => {
         List(
           "sbt",
-          s"""clean; set ${projects(0)}/micrositeBaseUrl := "$newBaseUrl"; ${projects(0)}/makeMicrosite""").!
+          s"""clean; project ${projects(0)}; set micrositeBaseUrl := "$newBaseUrl"; makeMicrosite""").!
         Files.move(
           Paths.get(sourceDir),
           Paths.get(s"$targetDir/$version"),
