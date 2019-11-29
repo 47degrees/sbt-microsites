@@ -220,10 +220,6 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
     val pluginLine =
       sbtPluginsOutput.find(_.trim.startsWith(s"$pluginName: enabled in "))
 
-    // pluginLine match {
-    //   case Some(line) => Some(line.trim.stripPrefix(s"$pluginName: enabled in ").split(", "))
-    //   case None       => None
-    // }
     pluginLine.map(_.trim.stripPrefix(s"$pluginName: enabled in ").split(", "))
   }
 
@@ -243,9 +239,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           "sbt",
           s"""clean; set ${projects(0)}/micrositeBaseUrl := "$newBaseUrl"; ${projects(0)}/makeMicrosite""").!
         Files.move(
-          // FileSystems.getDefault().getPath(sourceDir),
           Paths.get(sourceDir),
-          // FileSystems.getDefault().getPath(s"$targetDir/$version"),
           Paths.get(s"$targetDir/$version"),
           StandardCopyOption.REPLACE_EXISTING
         )
@@ -396,36 +390,24 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       }
     }.value,
     makeMicrosite := {
-      // Def.sequential(microsite, makeDocs, makeSite)
-      // }.value,
-      println(pluginProjects("microsites.MicrositesPlugin"))
-      println(pluginProjects("microsites.MicrositesPlugin").getOrElse(""))
-      println(pluginProjects("microsites.MicrositesPlugin").mkString("\n"))
+      Def.sequential(microsite, makeDocs, makeSite)
+    }.value,
+    makeVersionsJson := {
+      "which git".! match {
+        case 0 => ()
+        case n => sys.error("Could not run git, error: " + n)
+      }
 
-      println(pluginProjects("microsites.MicrositesPlu"))
-      println(pluginProjects("microsites.MicrositesPlu").getOrElse(""))
-      println(pluginProjects("microsites.MicrositesPlu").mkString("\n"))
+      val sourceDir         = (resourceManaged in Compile).value
+      val targetDir: String = sourceDir.getAbsolutePath.ensureFinalSlash
+      val currentBranchTag  = "git name-rev --name-only HEAD".!!.trim
 
-      println(pluginProjects("sbt.plugins.IvyPlugin"))
-      println(pluginProjects("sbt.plugins.IvyPlugin").getOrElse(""))
-      println(pluginProjects("sbt.plugins.IvyPlugin").mkString("\n"))
+      val versionList = generateVersionList(
+        (currentBranchTag :: micrositeVersionList.value.toList),
+        currentBranchTag)
+
+      createVersionsJson(targetDir, versionList)
     },
-      makeVersionsJson := {
-        "which git".! match {
-          case 0 => ()
-          case n => sys.error("Could not run git, error: " + n)
-        }
-
-        val sourceDir         = (resourceManaged in Compile).value
-        val targetDir: String = sourceDir.getAbsolutePath.ensureFinalSlash
-        val currentBranchTag  = "git name-rev --name-only HEAD".!!.trim
-
-        val versionList = generateVersionList(
-          (currentBranchTag :: micrositeVersionList.value.toList),
-          currentBranchTag)
-
-        createVersionsJson(targetDir, versionList)
-      },
     createMicrositeVersions := {
       "which git".! match {
         case 0 => ()
@@ -456,9 +438,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 
       micrositeVersionList.value.foreach(tag => {
         Files.move(
-          // FileSystems.getDefault().getPath(s"$genDocsDir/$tag"),
           Paths.get(s"$genDocsDir/$tag"),
-          // FileSystems.getDefault().getPath(s"${publishingDir.getPath()}/$tag"),
           Paths.get(s"${publishingDir.getPath()}/$tag"),
           StandardCopyOption.REPLACE_EXISTING
         )
