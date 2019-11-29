@@ -211,9 +211,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 
   def generateVersionList(versionStringList: List[String], ownVersion: String) = {
     versionStringList
-      .map(version => {
-        Version(version, own = (ownVersion == version))
-      })
+      .map(version => Version(version, own = (ownVersion == version)))
       .toList
   }
 
