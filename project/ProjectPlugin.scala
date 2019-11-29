@@ -21,7 +21,7 @@ object ProjectPlugin extends AutoPlugin {
       val orgPolicies: String  = "0.12.0-M2"
       val scala: String        = "2.12.9"
       val scalactic: String    = "3.0.8"
-      val scalatest: String    = "3.0.8"
+      val scalatest: String    = "3.1.0"
       val scalacheck: String   = "1.14.2"
       val scalatags: String    = "0.7.0"
       val scrimage: String     = "2.1.8"
