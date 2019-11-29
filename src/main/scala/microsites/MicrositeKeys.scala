@@ -37,7 +37,7 @@ import sbtorgpolicies.io.FileWriter._
 import sbtorgpolicies.io.syntax._
 
 import scala.sys.process._
-import java.nio.file.{FileSystems, Files, StandardCopyOption}
+import java.nio.file._
 
 trait MicrositeKeys {
 
@@ -396,8 +396,20 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       }
     }.value,
     makeMicrosite := {
-      Def.sequential(microsite, makeDocs, makeSite)
-    }.value,
+      // Def.sequential(microsite, makeDocs, makeSite)
+    // }.value,
+      println(pluginProjects("microsites.MicrositesPlugin"))
+      println(pluginProjects("microsites.MicrositesPlugin").getOrElse(""))
+      println(pluginProjects("microsites.MicrositesPlugin").mkString("\n"))
+
+      println(pluginProjects("microsites.MicrositesPlu"))
+      println(pluginProjects("microsites.MicrositesPlu").getOrElse(""))
+      println(pluginProjects("microsites.MicrositesPlu").mkString("\n"))
+
+      println(pluginProjects("sbt.plugins.IvyPlugin"))
+      println(pluginProjects("sbt.plugins.IvyPlugin").getOrElse(""))
+      println(pluginProjects("sbt.plugins.IvyPlugin").mkString("\n"))
+    }
     makeVersionsJson := {
       "which git".! match {
         case 0 => ()
