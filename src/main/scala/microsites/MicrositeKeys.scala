@@ -397,7 +397,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
     }.value,
     makeMicrosite := {
       // Def.sequential(microsite, makeDocs, makeSite)
-    // }.value,
+      // }.value,
       println(pluginProjects("microsites.MicrositesPlugin"))
       println(pluginProjects("microsites.MicrositesPlugin").getOrElse(""))
       println(pluginProjects("microsites.MicrositesPlugin").mkString("\n"))
@@ -409,23 +409,23 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       println(pluginProjects("sbt.plugins.IvyPlugin"))
       println(pluginProjects("sbt.plugins.IvyPlugin").getOrElse(""))
       println(pluginProjects("sbt.plugins.IvyPlugin").mkString("\n"))
-    }
-    makeVersionsJson := {
-      "which git".! match {
-        case 0 => ()
-        case n => sys.error("Could not run git, error: " + n)
-      }
-
-      val sourceDir         = (resourceManaged in Compile).value
-      val targetDir: String = sourceDir.getAbsolutePath.ensureFinalSlash
-      val currentBranchTag  = "git name-rev --name-only HEAD".!!.trim
-
-      val versionList = generateVersionList(
-        (currentBranchTag :: micrositeVersionList.value.toList),
-        currentBranchTag)
-
-      createVersionsJson(targetDir, versionList)
     },
+      makeVersionsJson := {
+        "which git".! match {
+          case 0 => ()
+          case n => sys.error("Could not run git, error: " + n)
+        }
+
+        val sourceDir         = (resourceManaged in Compile).value
+        val targetDir: String = sourceDir.getAbsolutePath.ensureFinalSlash
+        val currentBranchTag  = "git name-rev --name-only HEAD".!!.trim
+
+        val versionList = generateVersionList(
+          (currentBranchTag :: micrositeVersionList.value.toList),
+          currentBranchTag)
+
+        createVersionsJson(targetDir, versionList)
+      },
     createMicrositeVersions := {
       "which git".! match {
         case 0 => ()
