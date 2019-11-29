@@ -220,10 +220,11 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
     val pluginLine =
       sbtPluginsOutput.find(_.trim.startsWith(s"$pluginName: enabled in "))
 
-    pluginLine match {
-      case Some(line) => Some(line.trim.stripPrefix(s"$pluginName: enabled in ").split(", "))
-      case None       => None
-    }
+    // pluginLine match {
+    //   case Some(line) => Some(line.trim.stripPrefix(s"$pluginName: enabled in ").split(", "))
+    //   case None       => None
+    // }
+    pluginLine.map(_.trim.stripPrefix(s"$pluginName: enabled in ").split(", "))
   }
 
   // Generate a microsite externally through sbt and sbt-microsites tasks
@@ -242,9 +243,12 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           "sbt",
           s"""clean; set ${projects(0)}/micrositeBaseUrl := "$newBaseUrl"; ${projects(0)}/makeMicrosite""").!
         Files.move(
-          FileSystems.getDefault().getPath(sourceDir),
-          FileSystems.getDefault().getPath(s"$targetDir/$version"),
-          StandardCopyOption.REPLACE_EXISTING)
+          // FileSystems.getDefault().getPath(sourceDir),
+          Paths.get(sourceDir),
+          // FileSystems.getDefault().getPath(s"$targetDir/$version"),
+          Paths.get(s"$targetDir/$version"),
+          StandardCopyOption.REPLACE_EXISTING
+        )
       }
       case None => System.err.println(s"$pluginName not found in version $version")
     }
@@ -420,6 +424,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val genDocsDir       = ".sbt-versioned-docs"
       val currentBranchTag = "git name-rev --name-only HEAD".!!.trim
 
+      scala.reflect.io.Directory(new File(genDocsDir)).deleteRecursively()
       createDir(genDocsDir)
 
       micrositeVersionList.value.foreach(tag => {
@@ -439,8 +444,10 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 
       micrositeVersionList.value.foreach(tag => {
         Files.move(
-          FileSystems.getDefault().getPath(s"$genDocsDir/$tag"),
-          FileSystems.getDefault().getPath(s"${publishingDir.getPath()}/$tag"),
+          // FileSystems.getDefault().getPath(s"$genDocsDir/$tag"),
+          Paths.get(s"$genDocsDir/$tag"),
+          // FileSystems.getDefault().getPath(s"${publishingDir.getPath()}/$tag"),
+          Paths.get(s"${publishingDir.getPath()}/$tag"),
           StandardCopyOption.REPLACE_EXISTING
         )
       })
