@@ -73,6 +73,8 @@ case class MicrositeEditButton(text: String, basePath: String)
 
 case class MicrositeEditButtonSettings(button: Option[MicrositeEditButton])
 
+case class MicrositeMultiversionSettings(versionList: Seq[String])
+
 case class MicrositeSettings(
     identity: MicrositeIdentitySettings,
     visualSettings: MicrositeVisualSettings,
@@ -81,7 +83,8 @@ case class MicrositeSettings(
     fileLocations: MicrositeFileLocations,
     urlSettings: MicrositeUrlSettings,
     gitSettings: MicrositeGitSettings,
-    editButtonSettings: MicrositeEditButtonSettings) {
+    editButtonSettings: MicrositeEditButtonSettings,
+    multiversionSettings: MicrositeMultiversionSettings) {
 
   def gitSiteUrl: String = {
     (gitSettings.gitHostingService, gitSettings.gitHostingUrl) match {

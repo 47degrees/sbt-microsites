@@ -12,7 +12,28 @@ Once you have written your documents, you can build the microsite running this s
 sbt> makeMicrosite
 ```
 
-Internally, it'll sequentially run other tasks including its own, [`tut`](https://github.com/tpolecat/tut), and `makeSite` ([sbt-site](https://github.com/sbt/sbt-site)) tasks.
+Internally, it'll sequentially run other tasks including its own, [`tut`](https://github.com/tpolecat/tut) or [`mdoc`](https://scalameta.org/mdoc/), and `makeSite` ([sbt-site](https://github.com/sbt/sbt-site)) tasks.
+
+
+# Multiversion support
+
+Starting on version `1.0.0` you can build microsites including different versions of your library. This is available for the `light` theme, and you need to have [`git`](https://git-scm.com/) installed and available in your system. Most probably you already have it, but in other case please check your system docs, or go to the [git website](https://git-scm.com/download/) on how to proceed.
+
+The feature is based on the concept of [`git` tags](https://git-scm.com/book/en/Git-Basics-Tagging). If you have different tags on your library repository, and they include `sbt-microsites` as part of their builds, specify the versions you want to serve in a list with their tag names, through the setting `micrositeVersionList`:
+
+```
+micrositeVersionList := List("0.1.0", "0.2.0")
+```
+
+Then, run the following task:
+
+```
+sbt> makeMultiversionMicrosite
+```
+
+And your `home`, `homeFeatures`, and `page` layouts will include a selector pointing to those version specific microsites main sites on their top navbars.
+
+
 
 # View the microsite in your browser
 

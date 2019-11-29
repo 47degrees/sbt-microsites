@@ -35,7 +35,8 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
       commonHead,
       body(
         pageBodyBlock,
-        scripts
+        scripts,
+        versionScript
       )
     )
   }

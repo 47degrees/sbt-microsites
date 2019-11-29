@@ -72,7 +72,7 @@
     }
 
     .navigation-menu {
-      li:last-child {
+      > ul > li:not(:first-child) {
         margin-left: ($base-point-grid * 3);
       }
 
@@ -96,6 +96,10 @@
       }
 
       .nav-item-text {
+        & + .nav-item-text {
+          margin-left: $base-point-grid;
+        }
+
         @include bp(medium) {
           display: none;
         }

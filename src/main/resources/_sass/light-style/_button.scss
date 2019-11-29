@@ -16,6 +16,19 @@
   > img {
     vertical-align: bottom;
   }
+
+   &.link-like {
+     font-size: $font-size-base;
+     text-transform: none;
+     color: $text-color;
+     font-family: $title-font-family;
+     padding: 0;
+
+     &:hover, &:focus {
+       text-decoration: none;
+       box-shadow: 0 2px $text-color;
+     }
+   }
 }
 
 .close {

@@ -34,7 +34,9 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
     html(
       commonHead,
       body(
-        bodyBlock: _*
+        bodyBlock,
+        scripts,
+        versionScript
       )
     )
   }
