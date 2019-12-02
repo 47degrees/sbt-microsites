@@ -20,9 +20,10 @@ import microsites.layouts.DocsLayout
 import microsites.util.Arbitraries
 import org.scalacheck.Prop._
 import org.scalatestplus.scalacheck.Checkers
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-class DocsLayoutTest extends FunSuite with Checkers with Matchers with Arbitraries {
+class DocsLayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitraries {
 
   test("render should return a html document") {
 

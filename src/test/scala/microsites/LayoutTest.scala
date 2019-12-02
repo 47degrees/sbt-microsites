@@ -20,12 +20,13 @@ import microsites.layouts.Layout
 import microsites.util.Arbitraries
 import org.scalatestplus.scalacheck.Checkers
 import org.scalacheck.Prop._
-import org.scalatest.{FunSuite, Matchers}
 
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-class LayoutTest extends FunSuite with Checkers with Matchers with Arbitraries {
+class LayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitraries {
 
   def buildParentLayout(implicit settings: MicrositeSettings) = new Layout(settings) {
     override def render: TypedTag[String] = html
