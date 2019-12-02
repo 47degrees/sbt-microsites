@@ -1,5 +1,38 @@
 # Changelog
 
+## 12/02/2019 - Version 1.0.0
+
+Release changes:
+
+* Update sbt to 1.3.3 ([#352](https://github.com/47deg/sbt-microsites/pull/352))
+* Update sbt-mdoc to 1.3.6 ([#353](https://github.com/47deg/sbt-microsites/pull/353))
+* Revert "New style redesign" ([#359](https://github.com/47deg/sbt-microsites/pull/359))
+* New style redesign ([#354](https://github.com/47deg/sbt-microsites/pull/354))
+* Use project scope for mdoc sources setting, not ThisBuild ([#357](https://github.com/47deg/sbt-microsites/pull/357))
+* Adds java property java.awt.headless=true ([#363](https://github.com/47deg/sbt-microsites/pull/363))
+* mdoc by default ([#362](https://github.com/47deg/sbt-microsites/pull/362))
+* Update sbt-mdoc to 2.0.0 ([#355](https://github.com/47deg/sbt-microsites/pull/355))
+* Revert "Revert "New style redesign"" ([#361](https://github.com/47deg/sbt-microsites/pull/361))
+* Features layout section implementation ([#364](https://github.com/47deg/sbt-microsites/pull/364))
+* Modify sbt-microsites documentation folder ([#365](https://github.com/47deg/sbt-microsites/pull/365))
+* Update sbt-mdoc to 2.0.1 ([#366](https://github.com/47deg/sbt-microsites/pull/366))
+* Site home change ([#368](https://github.com/47deg/sbt-microsites/pull/368))
+* Set homepage setting to be GitHub repo URL explicitely for the project ([#370](https://github.com/47deg/sbt-microsites/pull/370))
+* Update sbt-mdoc to 2.0.2 ([#371](https://github.com/47deg/sbt-microsites/pull/371))
+* Streamline web 3rd party dependencies ([#367](https://github.com/47deg/sbt-microsites/pull/367))
+* Custom Sass/SCSS support ([#373](https://github.com/47deg/sbt-microsites/pull/373))
+* Fix docs typo ([#374](https://github.com/47deg/sbt-microsites/pull/374))
+* Changes micrositeExtraMdFilesOutput default folder ([#377](https://github.com/47deg/sbt-microsites/pull/377))
+* Multiversion support ([#379](https://github.com/47deg/sbt-microsites/pull/379))
+* Update sbt version in Travis, micrositeDocumentationUrl ([#383](https://github.com/47deg/sbt-microsites/pull/383))
+* Update scalatest to 3.1.0 ([#381](https://github.com/47deg/sbt-microsites/pull/381))
+* Revert "Release 1.0.0" ([#384](https://github.com/47deg/sbt-microsites/pull/384))
+* Release 1.0.0 ([#382](https://github.com/47deg/sbt-microsites/pull/382))
+* Update sbt to 1.3.4 ([#378](https://github.com/47deg/sbt-microsites/pull/378))
+* Update scalactic to 3.1.0 ([#380](https://github.com/47deg/sbt-microsites/pull/380))
+* Release version 1.0.0 ([#385](https://github.com/47deg/sbt-microsites/pull/385))
+
+
 ## 10/02/2019 - Version 0.9.7
 
 Release changes:
