@@ -21,9 +21,11 @@ import com.typesafe.sbt.sbtghpages.GhpagesPlugin.autoImport.{
   ghpagesNoJekyll,
   ghpagesPushSite
 }
-import com.typesafe.sbt.site.SitePlugin.autoImport.{makeSite, siteDirectory}
-import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport._
+import com.typesafe.sbt.site.SitePlugin.autoImport.makeSite
 import microsites.util.MicrositeHelper
+import io.circe._
+import io.circe.generic.semiauto._
+import io.circe.syntax._
 import sbt.Keys._
 import sbt._
 import sbt.complete.DefaultParsers.OptNotSpace
@@ -31,6 +33,11 @@ import sbtorgpolicies.github.GitHubOps
 import tut.TutPlugin.autoImport._
 import mdoc.MdocPlugin.autoImport._
 import sbtorgpolicies.io.FileReader
+import sbtorgpolicies.io.FileWriter._
+import sbtorgpolicies.io.syntax._
+
+import scala.sys.process._
+import java.nio.file._
 
 trait MicrositeKeys {
 
@@ -56,10 +63,33 @@ trait MicrositeKeys {
     }
   }
 
-  val makeMicrosite: TaskKey[Unit] = taskKey[Unit]("Main Task to build a Microsite")
+  case class Version(name: String, own: Boolean)
+  object Version {
+    implicit val encoder: Encoder[Version] = deriveEncoder[Version]
+    implicit val decoder: Decoder[Version] = deriveDecoder[Version]
+  }
+
+  val makeMicrosite: TaskKey[Unit] = taskKey[Unit]("Main task to build a microsite")
   val makeTut: TaskKey[Unit]       = taskKey[Unit]("Sequential tasks to compile tut and move the result")
   val makeMdoc: TaskKey[Unit] =
     taskKey[Unit]("Sequential tasks to compile mdoc and move the result")
+  val makeDocs: TaskKey[Unit] =
+    taskKey[Unit]("Dynamic task that will evaluate makeTut or makeMdoc depending on setting")
+  val createMicrositeVersions: TaskKey[Unit] =
+    taskKey[Unit](
+      "Task to create the different microsites going through the list specified in the settings")
+  val moveMicrositeVersions: TaskKey[Unit] =
+    taskKey[Unit](
+      "Task to move the different microsites to their final publishing directory destination")
+  val makeVersionsJson: TaskKey[Unit] =
+    taskKey[Unit](
+      "Task that will create the expected formattted JSON with the versions specified in the settings")
+  val makeVersionedMicrosite: TaskKey[Unit] =
+    taskKey[Unit]("Task similar to makeMicrosite, adding a version selector")
+  val makeMultiversionMicrosite: TaskKey[Unit] = taskKey[Unit](
+    "Main task to build a microsite, including version selector, and microsite different versions")
+  val pushMicrosite: TaskKey[Unit] =
+    taskKey[Unit]("Task to just push files up.")
   val publishMicrosite: TaskKey[Unit] =
     taskKey[Unit]("Task helper that wraps the `publishMicrositeCommand`.")
   val microsite: TaskKey[Seq[File]] = taskKey[Seq[File]]("Create microsite files")
@@ -147,6 +177,7 @@ trait MicrositeKeys {
     "Optional. Customize the second line in the footer."
   )
 
+  val pushMicrositeCommandKey: String    = "pushMicrositeCommand"
   val publishMicrositeCommandKey: String = "publishMicrositeCommand"
 
   val micrositeEditButton: SettingKey[Option[MicrositeEditButton]] =
@@ -159,6 +190,9 @@ trait MicrositeKeys {
 
   val micrositeTheme: SettingKey[String] = settingKey[String](
     "Optional. 'light' by default. Set it to 'pattern' to generate the pattern theme design.")
+
+  val micrositeVersionList: SettingKey[Seq[String]] =
+    settingKey[Seq[String]]("Optional. Microsite available versions")
 }
 
 object MicrositeKeys extends MicrositeKeys
@@ -167,6 +201,53 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 
   lazy val fr = new FileReader
 
+  def createVersionsJson(targetDir: String, content: List[Version]): File = {
+    val jekyllDir  = "jekyll"
+    val targetPath = s"$targetDir$jekyllDir/_data/versions.json"
+    createFile(targetPath)
+    writeContentToFile(content.asJson.toString, targetPath)
+    targetPath.toFile
+  }
+
+  def generateVersionList(versionStringList: List[String], ownVersion: String) = {
+    versionStringList
+      .map(version => Version(version, own = (ownVersion == version)))
+      .toList
+  }
+
+  def pluginProjects(pluginName: String): Option[Array[String]] = {
+    val sbtPluginsOutput = "sbt --error plugins".lineStream
+    val pluginLine =
+      sbtPluginsOutput.find(_.trim.startsWith(s"$pluginName: enabled in "))
+
+    pluginLine.map(_.trim.stripPrefix(s"$pluginName: enabled in ").split(", "))
+  }
+
+  // Generate a microsite externally through sbt and sbt-microsites tasks
+  def createMicrositeVersion(
+      sourceDir: String,
+      targetDir: String,
+      baseUrl: String,
+      version: String): Unit = {
+    val newBaseUrl =
+      if (version.nonEmpty) s"$baseUrl/$version" else baseUrl
+    val pluginName            = "microsites.MicrositesPlugin"
+    val sbtMicrositesProjects = pluginProjects(pluginName)
+    sbtMicrositesProjects match {
+      case Some(projects) => {
+        List(
+          "sbt",
+          s"""clean; project ${projects(0)}; set micrositeBaseUrl := "$newBaseUrl"; makeMicrosite""").!
+        Files.move(
+          Paths.get(sourceDir),
+          Paths.get(s"$targetDir/$version"),
+          StandardCopyOption.REPLACE_EXISTING
+        )
+      }
+      case None => System.err.println(s"$pluginName not found in version $version")
+    }
+  }
+
   lazy val micrositeHelper: Def.Initialize[MicrositeHelper] = Def.setting {
     val baseUrl =
       if (!micrositeBaseUrl.value.isEmpty && !micrositeBaseUrl.value.startsWith("/"))
@@ -174,7 +255,6 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       else micrositeBaseUrl.value
 
     val baseCssList = List(
-      s"css/${micrositeTheme.value}-style.css",
       s"css/${micrositeTheme.value}-style.scss"
     )
 
@@ -276,6 +356,9 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         ),
         editButtonSettings = MicrositeEditButtonSettings(
           micrositeEditButton.value
+        ),
+        multiversionSettings = MicrositeMultiversionSettings(
+          micrositeVersionList.value
         )
       ))
   }
@@ -295,18 +378,79 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       _root_.tut.TutPlugin.tutOne(streams.value, r, in, out, cp, opts, pOpts, re).map(_._1)
     },
     makeTut := {
-      Def.sequential(microsite, tut, micrositeTutExtraMdFiles, makeSite)
+      Def.sequential(tut, micrositeTutExtraMdFiles)
     }.value,
     makeMdoc := {
-      Def.sequential(microsite, mdoc.toTask(""), micrositeMakeExtraMdFiles, makeSite)
+      Def.sequential(mdoc.toTask(""), micrositeMakeExtraMdFiles)
     }.value,
-    makeMicrosite := Def.taskDyn {
+    makeDocs := Def.taskDyn {
       micrositeCompilingDocsTool.value match {
-        case WithTut  => Def.task(makeTut.value)
-        case WithMdoc => Def.task(makeMdoc.value)
+        case WithTut  => Def.sequential(makeTut)
+        case WithMdoc => Def.sequential(makeMdoc)
       }
     }.value,
-    publishMicrosite := Def.taskDyn {
+    makeMicrosite := {
+      Def.sequential(microsite, makeDocs, makeSite)
+    }.value,
+    makeVersionsJson := {
+      "which git".! match {
+        case 0 => ()
+        case n => sys.error("Could not run git, error: " + n)
+      }
+
+      val sourceDir         = (resourceManaged in Compile).value
+      val targetDir: String = sourceDir.getAbsolutePath.ensureFinalSlash
+      val currentBranchTag  = "git name-rev --name-only HEAD".!!.trim
+
+      val versionList = generateVersionList(
+        (currentBranchTag :: micrositeVersionList.value.toList),
+        currentBranchTag)
+
+      createVersionsJson(targetDir, versionList)
+    },
+    createMicrositeVersions := {
+      "which git".! match {
+        case 0 => ()
+        case n => sys.error("Could not run git, error: " + n)
+      }
+
+      val publishingDir    = (target in makeSite).value
+      val genDocsDir       = ".sbt-versioned-docs"
+      val currentBranchTag = "git name-rev --name-only HEAD".!!.trim
+
+      scala.reflect.io.Directory(new File(genDocsDir)).deleteRecursively()
+      createDir(genDocsDir)
+
+      micrositeVersionList.value.foreach(tag => {
+        s"git checkout -f $tag".!
+        createMicrositeVersion(
+          publishingDir.getAbsolutePath,
+          genDocsDir,
+          micrositeBaseUrl.value,
+          tag)
+      })
+
+      s"git checkout -f $currentBranchTag".!
+    },
+    moveMicrositeVersions := {
+      val publishingDir = (target in makeSite).value
+      val genDocsDir    = ".sbt-versioned-docs"
+
+      micrositeVersionList.value.foreach(tag => {
+        Files.move(
+          Paths.get(s"$genDocsDir/$tag"),
+          Paths.get(s"${publishingDir.getPath()}/$tag"),
+          StandardCopyOption.REPLACE_EXISTING
+        )
+      })
+    },
+    makeVersionedMicrosite := {
+      Def.sequential(microsite, makeVersionsJson, makeDocs, makeSite)
+    }.value,
+    makeMultiversionMicrosite := {
+      Def.sequential(createMicrositeVersions, clean, makeVersionedMicrosite, moveMicrositeVersions)
+    }.value,
+    pushMicrosite := {
       val siteDir: File                 = (target in makeSite).value
       val noJekyll: Boolean             = ghpagesNoJekyll.value
       val branch: String                = ghpagesBranch.value
@@ -316,14 +460,12 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val githubRepo: String            = micrositeGithubRepo.value
       val githubToken: Option[String]   = micrositeGithubToken.value
 
-      val cleanAndMakeMicroSite: Unit = Def.sequential(clean, makeMicrosite).value
-
       lazy val log: Logger = streams.value.log
 
-      (pushSiteWith.name, gitHosting.name, cleanAndMakeMicroSite) match {
-        case (GHPagesPlugin.name, _, _) =>
+      (pushSiteWith.name, gitHosting.name) match {
+        case (GHPagesPlugin.name, _) =>
           Def.task(ghpagesPushSite.value)
-        case (GitHub4s.name, GitHub.name, _) if githubToken.nonEmpty =>
+        case (GitHub4s.name, GitHub.name) if githubToken.nonEmpty =>
           val commitMessage = sys.env.getOrElse("SBT_GHPAGES_COMMIT_MESSAGE", "updated site")
 
           log.info(s"""Committing files from ${siteDir.getAbsolutePath} into branch '$branch'
@@ -340,22 +482,27 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
               log.error(s"Error committing files")
               e.printStackTrace()
           }
-
-          Def.task(cleanAndMakeMicroSite)
-        case (GitHub4s.name, GitHub.name, _) =>
+        case (GitHub4s.name, GitHub.name) =>
           log.error(
             s"You must provide a GitHub token through the `micrositeGithubToken` setting for pushing with github4s")
-          Def.task(cleanAndMakeMicroSite)
-        case (GitHub4s.name, hosting, _) =>
+        case (GitHub4s.name, hosting) =>
           log.warn(s"github4s doens't have support for $hosting")
-          Def.task(cleanAndMakeMicroSite)
         case _ =>
           log.error(
             s"""Unexpected match case (pushSiteWith, gitHosting) = ("${pushSiteWith.name}", "${gitHosting.name}")""")
-          Def.task(cleanAndMakeMicroSite)
       }
+    },
+    publishMicrosite := {
+      Def.sequential(clean, makeMicrosite, pushMicrosite)
     }.value
   )
+
+  val pushMicrositeCommand: Command = Command(pushMicrositeCommandKey)(_ => OptNotSpace) {
+    (st, _) =>
+      val extracted = Project.extract(st)
+
+      extracted.runTask(pushMicrosite, st)._1
+  }
 
   val publishMicrositeCommand: Command = Command(publishMicrositeCommandKey)(_ => OptNotSpace) {
     (st, _) =>

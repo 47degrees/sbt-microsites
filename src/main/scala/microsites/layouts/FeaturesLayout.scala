@@ -31,7 +31,9 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
         lightHomeNav,
         homeHeaderFeatures,
         homeMainFeatures,
-        lightFooter
+        lightFooter,
+        scripts,
+        versionScript
       )
     )
   }

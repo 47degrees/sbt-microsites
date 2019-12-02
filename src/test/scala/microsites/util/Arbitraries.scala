@@ -131,6 +131,7 @@ trait Arbitraries {
       shareOnSocial                          ← Arbitrary.arbitrary[Boolean]
       micrositeFooterText                    ← Arbitrary.arbitrary[Option[String]]
       micrositeEditButton                    ← micrositeEditButtonArbitrary.arbitrary
+      micrositeVersionList                   ← Arbitrary.arbitrary[Seq[String]]
     } yield
       MicrositeSettings(
         MicrositeIdentitySettings(
@@ -182,6 +183,9 @@ trait Arbitraries {
           gitSidecarChatUrl),
         MicrositeEditButtonSettings(
           micrositeEditButton
+        ),
+        MicrositeMultiversionSettings(
+          micrositeVersionList
         )
       )
   }

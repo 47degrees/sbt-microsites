@@ -20,9 +20,10 @@ import microsites.layouts.MenuPartialLayout
 import microsites.util.Arbitraries
 import org.scalacheck.Prop._
 import org.scalatestplus.scalacheck.Checkers
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-class MenuPartialLayoutTest extends FunSuite with Checkers with Matchers with Arbitraries {
+class MenuPartialLayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitraries {
 
   test("render should return a div container") {
 
