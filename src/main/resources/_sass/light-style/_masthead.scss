@@ -8,12 +8,8 @@
   background-size: 200% 100%;
   animation: bg-gradient 12s ease infinite;
   color: $white-color;
-  flex: 1 1 25%;
-  padding: $base-point-grid * 6 0;
+  padding: 50px 0 110px;
   font-family: $title-font-family;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 
   .text-center {
     text-align: center;

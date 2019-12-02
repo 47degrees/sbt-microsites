@@ -48,7 +48,6 @@
   padding: 100px 0;
 
   .feature-item {
-    flex: 1;
     align-items: center;
     text-align: center;
     min-height: $feature-item-height;
@@ -102,7 +101,7 @@
       }
 
       .third-feature-icon-wrapper {
-        -webkit-mask: url("../img/third-feature-icon") no-repeat;
+        -webkit-mask: url("../img/third-feature-icon.svg") no-repeat;
         mask: url("../img/third-feature-icon.svg") no-repeat;
         background-color: $brand-primary;
         animation: subtle-transition 6.66s infinite linear;
