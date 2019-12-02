@@ -62,7 +62,7 @@ object ProjectPlugin extends AutoPlugin {
       micrositeName := "sbt-microsites",
       micrositeDescription := "An sbt plugin to create awesome microsites for your project",
       micrositeBaseUrl := "sbt-microsites",
-      micrositeDocumentationUrl := "/sbt-microsites/docs/",
+      micrositeDocumentationUrl := "docs",
       micrositeGithubOwner := "47deg",
       micrositeGithubRepo := "sbt-microsites",
       micrositeGithubToken := sys.env.get(orgGithubTokenSetting.value),
