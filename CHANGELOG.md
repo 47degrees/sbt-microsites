@@ -1,36 +1,95 @@
 # Changelog
 
-## 12/02/2019 - Version 1.0.0
+## 12/02/2019 - Version 1.0.0 :rocket:
 
-Release changes:
+This release includes a completely redesigned style, which is offered through the use of a new feature: _themes_. The initial theme is named `light`, and features clean lines and a minimalistic design. This is the main feature of this new version, but there are many more changes, both small and large, to talk about.
 
-* Update sbt to 1.3.3 ([#352](https://github.com/47deg/sbt-microsites/pull/352))
-* Update sbt-mdoc to 1.3.6 ([#353](https://github.com/47deg/sbt-microsites/pull/353))
-* Revert "New style redesign" ([#359](https://github.com/47deg/sbt-microsites/pull/359))
-* New style redesign ([#354](https://github.com/47deg/sbt-microsites/pull/354))
-* Use project scope for mdoc sources setting, not ThisBuild ([#357](https://github.com/47deg/sbt-microsites/pull/357))
-* Adds java property java.awt.headless=true ([#363](https://github.com/47deg/sbt-microsites/pull/363))
-* mdoc by default ([#362](https://github.com/47deg/sbt-microsites/pull/362))
-* Update sbt-mdoc to 2.0.0 ([#355](https://github.com/47deg/sbt-microsites/pull/355))
-* Revert "Revert "New style redesign"" ([#361](https://github.com/47deg/sbt-microsites/pull/361))
-* Features layout section implementation ([#364](https://github.com/47deg/sbt-microsites/pull/364))
-* Modify sbt-microsites documentation folder ([#365](https://github.com/47deg/sbt-microsites/pull/365))
-* Update sbt-mdoc to 2.0.1 ([#366](https://github.com/47deg/sbt-microsites/pull/366))
-* Site home change ([#368](https://github.com/47deg/sbt-microsites/pull/368))
-* Set homepage setting to be GitHub repo URL explicitely for the project ([#370](https://github.com/47deg/sbt-microsites/pull/370))
-* Update sbt-mdoc to 2.0.2 ([#371](https://github.com/47deg/sbt-microsites/pull/371))
-* Streamline web 3rd party dependencies ([#367](https://github.com/47deg/sbt-microsites/pull/367))
-* Custom Sass/SCSS support ([#373](https://github.com/47deg/sbt-microsites/pull/373))
-* Fix docs typo ([#374](https://github.com/47deg/sbt-microsites/pull/374))
-* Changes micrositeExtraMdFilesOutput default folder ([#377](https://github.com/47deg/sbt-microsites/pull/377))
-* Multiversion support ([#379](https://github.com/47deg/sbt-microsites/pull/379))
-* Update sbt version in Travis, micrositeDocumentationUrl ([#383](https://github.com/47deg/sbt-microsites/pull/383))
-* Update scalatest to 3.1.0 ([#381](https://github.com/47deg/sbt-microsites/pull/381))
-* Revert "Release 1.0.0" ([#384](https://github.com/47deg/sbt-microsites/pull/384))
-* Release 1.0.0 ([#382](https://github.com/47deg/sbt-microsites/pull/382))
-* Update sbt to 1.3.4 ([#378](https://github.com/47deg/sbt-microsites/pull/378))
-* Update scalactic to 3.1.0 ([#380](https://github.com/47deg/sbt-microsites/pull/380))
-* Release version 1.0.0 ([#385](https://github.com/47deg/sbt-microsites/pull/385))
+### Layouts :nail_care: 
+
+`sbt-microsites` is still totally customizable, and users can implement their personal style. Previous style hasn't been discarded, so users have the option of creating a microsite with the previous style, which is named `pattern` style.
+
+These are the main aspects of the new `light` style, for which we have disposed of Bootstrap to use our own CSS styling.
+
+##### Home layout
+
+Default layout when setting the `index.md` as `layout: home`. It is similar to the previous `home` layout, but the main difference you'll notice is that we removed the background pattern from the header. The rest of the elements in this layout remain the same, but in a more stylized and attractive way.
+
+
+##### Features layout
+
+A completely new layout for v1.0.0, and its main characteristic is the _features_ section that is placed after the header, and where the user can highlight three main aspects of a library.
+
+The example below shows how to display this layout:
+
+```
+---
+layout: homeFeatures
+features:
+ - first:   ["Configuration", "sbt-microsites facilitates the creation of fancy microsites for your projects, with minimal tweaks"]
+ - second:  ["Customize", "sbt-microsites provides a considerable scope for improvement and customization in terms of images and styles"]
+ - third:   ["Documentation", "Writing documentation for your own microsites is fast and easy, so you don't have to deal with details"]
+---
+```
+
+The features are identified for the set of keys (`first`, `second`, `third`), and you can add the title and a description for any feature in your library.
+
+##### Docs layout
+
+The default theme for the code highlighting has been changed to [vs](https://highlightjs.org/static/demo/), although this is configurable as described in the [sbt-microsites customize section](https://47deg.github.io/sbt-microsites/docs/customize.html#customize).
+
+### Multiversion Support :1234: 
+
+`sbt-microsites` now offers initial support to build different versions of your library documentation.
+
+To start using this new feature, get a look at the new task `makeMultiversionMicrosite`. This will go through the new `micrositeVersionList` setting, where you can set a list of versions you want to build:
+
+```scala
+micrositeVersionList := List("0.1.0", "0.2.0")
+```
+
+And then the main microsite will now show you a selector of links to those versions microsites.
+
+
+### Breaking changes :rotating_light: 
+
+[mdoc](https://github.com/scalameta/mdoc) is now the default markdown code typechecking tool, currently updated to v2.0.2 [Release Notes/Changelog](https://github.com/scalameta/mdoc/releases/tag/v2.0.2). Because of this, sbt-microsites users who are still using `tut` in their microsites must follow the steps described [here](https://47deg.github.io/sbt-microsites/docs/customize.html#syntax-highlighting) to use `mdoc`, or adapt your build accordingly in order to keep using `tut`.
+
+
+### Other Features ✨
+
+- Custom Sass/SCSS support when overwriting styles.
+- Complete jQuery removal for new default `light` theme, now using vanilla JavaScript.
+- Use ES2015 syntax and newer browser APIs.
+- Sidebar show/hide and current element activation behavior improvements.
+- Update highlightjs to version 9.16.2.
+- Complete streamline of web 3rd party dependencies.
+- Various improvements on the site construction, getting rid of unused files and boilerplate content.
+- Add more semantic tags, and include a11y attributes.
+
+
+Additionally, you can read more information on the [sbt-microsites website](https://47deg.github.io/sbt-microsites/)
+
+
+
+### Notable PRs :woman_technologist: 
+
+- Update `sbt` version in Travis, change `micrositeDocumentationUrl` ([#383](https://github.com/47deg/sbt-microsites/pull/383))
+- Update `scalatest` to 3.1.0 ([#381](https://github.com/47deg/sbt-microsites/pull/381))
+- Update `scalactic` to 3.1.0 ([#380](https://github.com/47deg/sbt-microsites/pull/380))
+- Multiversion support ([#379](https://github.com/47deg/sbt-microsites/pull/379))
+- Update `sbt` to 1.3.4 ([#378](https://github.com/47deg/sbt-microsites/pull/378)) 
+- Changes micrositeExtraMdFilesOutput default folder ([#377](https://github.com/47deg/sbt-microsites/pull/377))
+- Custom Sass/SCSS support ([#373](https://github.com/47deg/sbt-microsites/pull/373))
+- Update `sbt-mdoc` to 2.0.2 ([#371](https://github.com/47deg/sbt-microsites/pull/371))
+- Set homepage setting to be GitHub repo URL explicitely for the project ([#370](https://github.com/47deg/sbt-microsites/pull/370)) 
+- Site home change ([#368](https://github.com/47deg/sbt-microsites/pull/368))
+- Streamline web 3rd party dependencies ([#367](https://github.com/47deg/sbt-microsites/pull/367))
+- Modify `sbt-microsites` documentation folder ([#365](https://github.com/47deg/sbt-microsites/pull/365))
+- Features layout section implementation ([#364](https://github.com/47deg/sbt-microsites/pull/364))
+- Adds Java property `java.awt.headless=true` ([#363](https://github.com/47deg/sbt-microsites/pull/363))
+- `mdoc` by default ([#362](https://github.com/47deg/sbt-microsites/pull/362))
+- Use project scope for `mdoc` sources setting, not ThisBuild ([#357](https://github.com/47deg/sbt-microsites/pull/357)) by @pdalpra
+- New style redesign ([#354](https://github.com/47deg/sbt-microsites/pull/354))
 
 
 ## 10/02/2019 - Version 0.9.7
