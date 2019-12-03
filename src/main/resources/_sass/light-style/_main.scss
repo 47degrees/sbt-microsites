@@ -11,17 +11,17 @@
 #site-main {
   background-color: $light-background-color;
   font-family: $font-family;
-  flex: 1 1 25%;
+  flex: 1 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
 
   &.page-site-main {
-    flex: 1 1 60%;
+    flex: 1 0 auto;
   }
 
   .main-content {
-    flex: 1 1 auto;
+    flex: 1 0 auto;
     padding: ($base-point-grid * 6) 0;
   }
 

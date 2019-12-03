@@ -8,7 +8,8 @@
   background-size: 200% 100%;
   animation: bg-gradient 12s ease infinite;
   color: $white-color;
-  flex: 1 1 25%;
+  flex: 1 0 auto;
+  max-height: 50%;
   padding: $base-point-grid * 6 0;
   font-family: $title-font-family;
   display: flex;

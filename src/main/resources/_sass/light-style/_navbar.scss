@@ -8,7 +8,7 @@
   font-family: $title-font-family;
   height: $top-bar-size;
   display: flex;
-  flex-basis: 0;
+  flex: 0 0 56px;
 
   a {
     color: $text-color;
