@@ -8,9 +8,13 @@
   background-size: 200% 100%;
   animation: bg-gradient 12s ease infinite;
   color: $white-color;
-  padding: 50px 0 110px;
+  flex: 1 0 auto;
+  max-height: 60%;
+  padding: $base-point-grid * 6 0;
   font-family: $title-font-family;
-  height: 400px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
   .text-center {
     text-align: center;
@@ -81,5 +85,11 @@
         }
       }
     }
+  }
+}
+
+@include bp(medium) {
+  #masthead {
+    max-height: 100%;
   }
 }

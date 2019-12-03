@@ -48,6 +48,7 @@
   padding: 100px 0;
 
   .feature-item {
+    flex: 1;
     align-items: center;
     text-align: center;
     min-height: $feature-item-height;
@@ -72,7 +73,7 @@
     .third-feature-icon-wrapper {
       margin-top: 0;
       width: 56px;
-      height: 56px;
+      min-height: 56px;
       padding-bottom: $base-point-grid;
     }
     @keyframes subtle-transition {
@@ -155,6 +156,7 @@
   .feature-header {
     justify-content: center;
     text-align: center;
+    padding: 0;
 
     .features-image {
       display: none;
