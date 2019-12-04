@@ -16,11 +16,7 @@
 
 package microsites
 
-import com.typesafe.sbt.sbtghpages.GhpagesPlugin.autoImport.{
-  ghpagesBranch,
-  ghpagesNoJekyll,
-  ghpagesPushSite
-}
+import com.typesafe.sbt.sbtghpages.GhpagesPlugin.autoImport._
 import com.typesafe.sbt.site.SitePlugin.autoImport.makeSite
 import microsites.util.MicrositeHelper
 import io.circe._
@@ -450,6 +446,9 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
     makeMultiversionMicrosite := {
       Def.sequential(createMicrositeVersions, clean, makeVersionedMicrosite, moveMicrositeVersions)
     }.value,
+    ghpagesPrivateMappings := {
+      sbt.Path.allSubpaths((target in makeSite).value).toList
+    },
     pushMicrosite := {
       val siteDir: File                 = (target in makeSite).value
       val noJekyll: Boolean             = ghpagesNoJekyll.value
