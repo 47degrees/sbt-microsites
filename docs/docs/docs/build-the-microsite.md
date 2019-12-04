@@ -63,7 +63,13 @@ Once both requirements are satisfied, you can just run:
 sbt> publishMicrosite
 ```
 
-And that's all. Behind the scenes, `makeMicrosite` and `pushSite` are invoked.
+or
+
+```bash
+sbt> publishMultiversionMicrosite
+```
+
+And that's all. Behind the scenes, `makeMicrosite` or `makeMultiversionMicrosite`, and `pushSite` are invoked.
 
 By default, the second task uses the [`sbt-ghpages` plugin](https://github.com/sbt/sbt-ghpages).
 
