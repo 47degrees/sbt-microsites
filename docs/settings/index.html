@@ -50,7 +50,7 @@
 <p>In this case, your microsite would be placed on: https://yourdomain.io/yoursite.</p>
 
 <ul>
-  <li><code class="highlighter-rouge">micrositeDocumentationUrl</code>: You might need documentation pages in a specific section of your microsite. This setting allows you to personalize this URL to fit your needs. As the <strong>sbt-microsites</strong> plugin provides a specific layout to improve the look of your documentation, we strongly recommend having a look at the <a href="/docs/layouts/">layouts</a> section. It’s empty by default. Hence your <code class="highlighter-rouge">Documentation</code> link won’t appear in the microsite in that case.</li>
+  <li><code class="highlighter-rouge">micrositeDocumentationUrl</code>: You might need documentation pages in a specific section of your microsite. This setting allows you to personalize this URL to fit your needs. As the <strong>sbt-microsites</strong> plugin provides a specific layout to improve the look of your documentation, we strongly recommend having a look at the <a href="/sbt-microsites/docs/layouts/">layouts</a> section. It’s empty by default. Hence your <code class="highlighter-rouge">Documentation</code> link won’t appear in the microsite in that case.</li>
 </ul>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micrositeDocumentationUrl := "/yoursite/docs"
@@ -273,7 +273,7 @@ layout: extra-layout
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>micrositeDataDirectory := (resourceDirectory in Compile).value / "site" / "mydatafiles"
 </code></pre></div></div>
 
-<p>In the Documentation <strong>Menu</strong> case, as you can see in the <a href="/docs/layouts/">layouts</a> section, you need to create a file named <code class="highlighter-rouge">menu.yml</code> under the <code class="highlighter-rouge">micrositeDataDirectory</code> setting.</p>
+<p>In the Documentation <strong>Menu</strong> case, as you can see in the <a href="/sbt-microsites/docs/layouts/">layouts</a> section, you need to create a file named <code class="highlighter-rouge">menu.yml</code> under the <code class="highlighter-rouge">micrositeDataDirectory</code> setting.</p>
 
 <ul>
   <li><code class="highlighter-rouge">micrositeStaticDirectory</code>: You can also provide a static directory to your Jekyll site through the <code class="highlighter-rouge">micrositeStaticDirectory</code> setting. It’s based on the idea of <a href="https://jekyllrb.com/docs/static-files/">Jekyll Static Files</a>. The default value is <code class="highlighter-rouge">(resourceDirectory in Compile).value / "microsite" / "static"</code>, but you can override it like this:</li>
@@ -413,7 +413,7 @@ compiles the site.  <strong>The strings are passed in unsanitized to the templat
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">micrositeCompilingDocsTool</span> <span class="o">:=</span> <span class="nc">WithMdoc</span>
 </code></pre></div></div>
-<p>If you are interested in learning where to place the markdown files according to the compilation tool chosen, please take a look at the <a href="/docs/typechecked-snippets/">Typechecked Snippets</a> section.</p>
+<p>If you are interested in learning where to place the markdown files according to the compilation tool chosen, please take a look at the <a href="/sbt-microsites/docs/typechecked-snippets/">Typechecked Snippets</a> section.</p>
 
 <ul>
   <li><code class="highlighter-rouge">includeFilter in makeSite</code>: Restrict the type of files that are included during the microsite build. The default value is <code class="highlighter-rouge">"*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json"</code> but you can override it like this:</li>
