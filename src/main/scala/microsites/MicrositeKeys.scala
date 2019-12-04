@@ -486,7 +486,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           log.error(
             s"You must provide a GitHub token through the `micrositeGithubToken` setting for pushing with github4s")
         case (GitHub4s.name, hosting) =>
-          log.warn(s"github4s doens't have support for $hosting")
+          log.warn(s"github4s doesn't have support for $hosting")
         case _ =>
           log.error(
             s"""Unexpected match case (pushSiteWith, gitHosting) = ("${pushSiteWith.name}", "${gitHosting.name}")""")
