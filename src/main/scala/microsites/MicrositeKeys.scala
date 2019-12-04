@@ -465,8 +465,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       lazy val log: Logger = streams.value.log
 
       (pushSiteWith.name, gitHosting.name) match {
-        case (GHPagesPlugin.name, _) =>
-          Def.task(ghpagesPushSite.value)
+        case (GHPagesPlugin.name, _) => ghpagesPushSite.value
         case (GitHub4s.name, GitHub.name) if githubToken.nonEmpty =>
           val commitMessage = sys.env.getOrElse("SBT_GHPAGES_COMMIT_MESSAGE", "updated site")
 
