@@ -1,5 +1,15 @@
 # Changelog
 
+## 12/04/2019 - Version 1.0.1
+
+Release changes:
+
+* Fixes safari styles ([#386](https://github.com/47deg/sbt-microsites/pull/386))
+* Update sbt-mdoc to 2.0.3 ([#387](https://github.com/47deg/sbt-microsites/pull/387))
+* publishMultiversionMicrosite and fix GHPagesPlugin publishing ([#388](https://github.com/47deg/sbt-microsites/pull/388))
+* Release version 1.0.1 ([#389](https://github.com/47deg/sbt-microsites/pull/389))
+
+
 ## 12/02/2019 - Version 1.0.0 :rocket:
 
 This release includes a completely redesigned style, which is offered through the use of a new feature: _themes_. The initial theme is named `light`, and features clean lines and a minimalistic design. This is the main feature of this new version, but there are many more changes, both small and large, to talk about.
