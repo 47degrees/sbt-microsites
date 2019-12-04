@@ -9,8 +9,8 @@
       <li><code class="highlighter-rouge">homeFeatures</code>: Another option for the landing page, choosing this option you could highlight some special features you consider your library offers. (This layout is not available for the classic pattern style)</li>
     </ul>
   </li>
-  <li><code class="highlighter-rouge">docs</code> (Optional): The page where the documentation for your library should be included. Most likely, you are seeing the <code class="highlighter-rouge">Documentation</code> page of this repo right now. It’s optional, depending on the <code class="highlighter-rouge">micrositeDocumentationUrl</code> setting. Take a look at the <a href="/sbt-microsites/docs/settings/">Configuring the Microsite</a> section for an in-depth explanation.</li>
-  <li><code class="highlighter-rouge">page</code> (Optional): Similar to <code class="highlighter-rouge">home</code>, but reducing the jumbotron layer and taking into account the submenu (jumbotron and other concepts related to style are explained in the <a href="/sbt-microsites/docs/customize/">Customize</a> section).</li>
+  <li><code class="highlighter-rouge">docs</code> (Optional): The page where the documentation for your library should be included. Most likely, you are seeing the <code class="highlighter-rouge">Documentation</code> page of this repo right now. It’s optional, depending on the <code class="highlighter-rouge">micrositeDocumentationUrl</code> setting. Take a look at the <a href="/docs/settings/">Configuring the Microsite</a> section for an in-depth explanation.</li>
+  <li><code class="highlighter-rouge">page</code> (Optional): Similar to <code class="highlighter-rouge">home</code>, but reducing the jumbotron layer and taking into account the submenu (jumbotron and other concepts related to style are explained in the <a href="/docs/customize/">Customize</a> section).</li>
   <li>Menu Partial: This abstract layout reads all the files in your project that fit a set of requirements, and sets up a menu under the jumbotron image. We’ll see more details on this later.</li>
 </ul>
 
@@ -51,7 +51,7 @@ features:
 </code></pre></div></div>
 
 <p>Basically this is all you´ll need to add to your <code class="highlighter-rouge">index.md</code> file using the <code class="highlighter-rouge">homeFeatures</code> layout.
-You can add up to three different features and sbt-microsites will dispose them after the masthead layer, every feature will be accompained by an icon that can be overridden as explained in the <a href="/sbt-microsites/docs/customize/">Customize</a> section.
+You can add up to three different features and sbt-microsites will dispose them after the masthead layer, every feature will be accompained by an icon that can be overridden as explained in the <a href="/docs/customize/">Customize</a> section.
 These features are identified for the set of keys (<code class="highlighter-rouge">first</code>, <code class="highlighter-rouge">second</code>, <code class="highlighter-rouge">third</code>).</p>
 
 <h2 id="docs-layout">Docs Layout</h2>
@@ -85,7 +85,7 @@ title: &lt;Document Title&gt;
 
 <h3 id="how-to-setup-the-docs-menu">How to setup the Docs Menu</h3>
 
-<p>Looking at the <a href="/sbt-microsites/docs/settings/">Configuring the Microsite</a> section, in the directory configured under the <code class="highlighter-rouge">micrositeDataDirectory</code> setting, you need to create a new file named <code class="highlighter-rouge">menu.yml</code>. This <code class="highlighter-rouge">YAML</code> file will be accessed by the <code class="highlighter-rouge">Docs Layout</code> in order to create the menu. Let’s see an example:</p>
+<p>Looking at the <a href="/docs/settings/">Configuring the Microsite</a> section, in the directory configured under the <code class="highlighter-rouge">micrositeDataDirectory</code> setting, you need to create a new file named <code class="highlighter-rouge">menu.yml</code>. This <code class="highlighter-rouge">YAML</code> file will be accessed by the <code class="highlighter-rouge">Docs Layout</code> in order to create the menu. Let’s see an example:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>options:
   - title: Getting Started
