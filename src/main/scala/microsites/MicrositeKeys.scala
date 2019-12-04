@@ -88,6 +88,8 @@ trait MicrositeKeys {
     taskKey[Unit]("Task to just push files up.")
   val publishMicrosite: TaskKey[Unit] =
     taskKey[Unit]("Task helper that wraps the `publishMicrositeCommand`.")
+  val publishMultiversionMicrosite: TaskKey[Unit] =
+    taskKey[Unit]("Task helper that wraps the `publishMultiversionMicrositeCommand`.")
   val microsite: TaskKey[Seq[File]] = taskKey[Seq[File]]("Create microsite files")
   val micrositeMakeExtraMdFiles: TaskKey[File] =
     taskKey[File]("Create microsite extra md files")
@@ -173,8 +175,9 @@ trait MicrositeKeys {
     "Optional. Customize the second line in the footer."
   )
 
-  val pushMicrositeCommandKey: String    = "pushMicrositeCommand"
-  val publishMicrositeCommandKey: String = "publishMicrositeCommand"
+  val pushMicrositeCommandKey: String                = "pushMicrositeCommand"
+  val publishMicrositeCommandKey: String             = "publishMicrositeCommand"
+  val publishMultiversionMicrositeCommandKey: String = "publishMultiversionMicrositeCommand"
 
   val micrositeEditButton: SettingKey[Option[MicrositeEditButton]] =
     settingKey[Option[MicrositeEditButton]](
@@ -493,6 +496,9 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
     },
     publishMicrosite := {
       Def.sequential(clean, makeMicrosite, pushMicrosite)
+    }.value,
+    publishMultiversionMicrosite := {
+      Def.sequential(clean, makeMultiversionMicrosite, pushMicrosite)
     }.value
   )
 
@@ -509,6 +515,13 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 
       extracted.runTask(publishMicrosite, st)._1
   }
+
+  val publishMultiversionMicrositeCommand: Command =
+    Command(publishMultiversionMicrositeCommandKey)(_ => OptNotSpace) { (st, _) =>
+      val extracted = Project.extract(st)
+
+      extracted.runTask(publishMultiversionMicrosite, st)._1
+    }
 
   private[this] def validFile(extension: String)(file: File): Boolean =
     file.getName.endsWith(s".$extension")
