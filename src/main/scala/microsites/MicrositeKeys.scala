@@ -452,7 +452,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
     ghpagesPrivateMappings := {
       sbt.Path.allSubpaths((target in makeSite).value).toList
     },
-    pushMicrosite := {
+    pushMicrosite := Def.taskDyn {
       val siteDir: File                 = (target in makeSite).value
       val noJekyll: Boolean             = ghpagesNoJekyll.value
       val branch: String                = ghpagesBranch.value
@@ -465,34 +465,38 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       lazy val log: Logger = streams.value.log
 
       (pushSiteWith.name, gitHosting.name) match {
-        case (GHPagesPlugin.name, _) => ghpagesPushSite.value
+        case (GHPagesPlugin.name, _) => ghpagesPushSite
         case (GitHub4s.name, GitHub.name) if githubToken.nonEmpty =>
-          val commitMessage = sys.env.getOrElse("SBT_GHPAGES_COMMIT_MESSAGE", "updated site")
+          Def.task({
+            val commitMessage = sys.env.getOrElse("SBT_GHPAGES_COMMIT_MESSAGE", "updated site")
 
-          log.info(s"""Committing files from ${siteDir.getAbsolutePath} into branch '$branch'
+            log.info(s"""Committing files from ${siteDir.getAbsolutePath} into branch '$branch'
                  | * repo: $githubOwner/$githubRepo
                  | * commitMessage: $commitMessage""".stripMargin)
 
-          val ghOps: GitHubOps = new GitHubOps(githubOwner, githubRepo, githubToken)
+            val ghOps: GitHubOps = new GitHubOps(githubOwner, githubRepo, githubToken)
 
-          if (noJekyll) IO.touch(siteDir / ".nojekyll")
+            if (noJekyll) IO.touch(siteDir / ".nojekyll")
 
-          ghOps.commitDir(branch, commitMessage, siteDir) match {
-            case Right(_) => log.info("Success committing files")
-            case Left(e) =>
-              log.error(s"Error committing files")
-              e.printStackTrace()
-          }
+            ghOps.commitDir(branch, commitMessage, siteDir) match {
+              case Right(_) => log.info("Success committing files")
+              case Left(e) =>
+                log.error(s"Error committing files")
+                e.printStackTrace()
+            }
+          })
         case (GitHub4s.name, GitHub.name) =>
-          log.error(
-            s"You must provide a GitHub token through the `micrositeGithubToken` setting for pushing with github4s")
+          Def.task(
+            log.error(
+              s"You must provide a GitHub token through the `micrositeGithubToken` setting for pushing with github4s")
+          )
         case (GitHub4s.name, hosting) =>
-          log.warn(s"github4s doesn't have support for $hosting")
+          Def.task(log.warn(s"github4s doesn't have support for $hosting"))
         case _ =>
-          log.error(
-            s"""Unexpected match case (pushSiteWith, gitHosting) = ("${pushSiteWith.name}", "${gitHosting.name}")""")
+          Def.task(log.error(
+            s"""Unexpected match case (pushSiteWith, gitHosting) = ("${pushSiteWith.name}", "${gitHosting.name}")"""))
       }
-    },
+    }.value,
     publishMicrosite := {
       Def.sequential(clean, makeMicrosite, pushMicrosite)
     }.value,
