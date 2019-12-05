@@ -1,5 +1,14 @@
 # Changelog
 
+## 12/05/2019 - Version 1.0.2
+
+Release changes:
+
+* Uses the new version 1.0.1 ([#390](https://github.com/47deg/sbt-microsites/pull/390))
+* Make pushMicrosite a dynamic task and always return a task on it ([#392](https://github.com/47deg/sbt-microsites/pull/392))
+* Release version 1.0.2 ([#393](https://github.com/47deg/sbt-microsites/pull/393))
+
+
 ## 12/04/2019 - Version 1.0.1
 
 Release changes:
