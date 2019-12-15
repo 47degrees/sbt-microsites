@@ -22,7 +22,7 @@ object ProjectPlugin extends AutoPlugin {
       val scala: String        = "2.12.9"
       val scalactic: String    = "3.1.0"
       val scalatest: String    = "3.1.0"
-      val scalacheck: String   = "1.14.2"
+      val scalacheck: String   = "1.14.3"
       val scalatestScalacheck: String =  "3.1.0.0-RC2"
       val scalatags: String    = "0.7.0"
       val scrimage: String     = "2.1.8"
