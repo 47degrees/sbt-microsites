@@ -27,16 +27,7 @@ gem install jekyll
 
 ## Continuous Integration - Travis
 
-If you have [Travis](https://travis-ci.org/) enabled for your project, you might have to tweak parts of your `.travis.yml` file:
-
-If you're working on a Scala project (`language: scala`), you need to add the bundle gems vendor path in the `PATH` environment variable:
-
-```bash
-before_install:
- - export PATH=${PATH}:./vendor/bundle
-```
-
-This is needed in order to install and use the `jekyll` gem from other parts of your travis descriptor file. Once we have the `/vendor/bundle` path in the Travis `PATH` env variable, we have to install the gem in the `install` travis section:
+If you have [Travis](https://travis-ci.org/) enabled for your project, you can install the gem in the Travis `install` section:
 
 ```bash
 install:
