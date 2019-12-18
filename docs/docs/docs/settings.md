@@ -25,25 +25,25 @@ We tried to provide all of the parameters that are potentially needed to configu
 
 - `micrositeName`: The microsite name. As we mentioned previously, by default, it's taken from the sbt setting `name`. Sometimes, it isn't the default behavior, so you can override it like this:
 
-```
+```scala
 micrositeName := "Your Awesome Library Name"
 ```
 
 - `micrositeDescription`: The microsite description. If you don't configure this setting, the value is taken from the sbt setting `description` as we saw earlier. For instance:
 
-```
+```scala
 micrositeDescription := "This is the description of my Awesome Library"
 ```
 
 - `micrositeUrl`: The URL prefix of your site. This setting is necessary if you need to show a poster image `{micrositeUrl}{micrositeBaseUrl}/img/poster.png` of your site on Twitter. See also [Twitter Cards](https://cards-dev.twitter.com/validator) for more details.
 
-```
+```scala
 micrositeUrl := "https://yourdomain.io"
 ```
 
 - `micrositeBaseUrl`: This setting brings the ability to set up a site base URL for your microsite. It's empty by default. However, you might need something like this:
 
-```
+```scala
 micrositeBaseUrl := "/yoursite"
 ```
 
@@ -51,7 +51,7 @@ In this case, your microsite would be placed on: https://yourdomain.io/yoursite.
 
 - `micrositeDocumentationUrl`: You might need documentation pages in a specific section of your microsite. This setting allows you to personalize this URL to fit your needs. As the **sbt-microsites** plugin provides a specific layout to improve the look of your documentation, we strongly recommend having a look at the [layouts]({% link docs/layouts.md %}) section. It's empty by default. Hence your `Documentation` link won't appear in the microsite in that case.
 
-```
+```scala
 micrositeDocumentationUrl := "/yoursite/docs"
 ```
 
@@ -60,51 +60,51 @@ Therefore, considering the example above, your microsite documentation would be 
 
 - `micrositeDocumentationLabelDescription`: The default label description for the `micrositeDocumentationUrl` link in the homepage is `Documentation`. You can change it through this setting.
 
-```
+```scala
 micrositeDocumentationLabelDescription := "Documentation"
 ```
 
 - `micrositeAuthor`: The author of the microsite is taken from this sbt setting. However, if nothing is specified, the default value will be `organizationName`, but you can override it, as we can see in this example:
 
-```
+```scala
 micrositeAuthor := "47 Degrees"
 ```
 
 - `micrositeHomepage`: Used for the homepage URL, similar to the way we've seen in other properties. This link is used in the footer-left link in the microsite. By default, the value is taken from the sbt setting `homepage`.
 
-```
+```scala
 micrositeHomepage := "https://47deg.github.io/sbt-microsites/"
 ```
 
 - `micrositeOrganizationHomepage`: This particular setting is used for organizing the homepage URL, similar to the way we've seen in other properties. This link is used in the footer-left link in the microsite. By default, the value is taken from the sbt setting `organizationHomepage`. If you don´t provide any value for that setting, it will take it from the sbt setting `homepage`:
 
-```
+```scala
 micrositeOrganizationHomepage := "https://www.47deg.com"
 ```
 
 - `micrositeTwitter`: This setting is used for the Twitter integration. This generates a meta that Twitter uses in its [Twitter Cards](https://cards-dev.twitter.com/validator).
 
-```
+```scala
 micrositeTwitter := "@sbt-microsites"
 ```
 
 - `micrositeTwitterCreator`: This particular setting is used for the Twitter integration. This generates a meta that Twitter uses in its [Twitter Cards](https://cards-dev.twitter.com/validator).
 
-```
+```scala
 micrositeTwitterCreator := "@47deg"
 ```
 
 
 - `micrositeGithubOwner` and `micrositeGithubRepo`: Used to add links to the `GitHub` repo. It's also needed for publishing the site when `github4s` is chosen (see `micrositePushSiteWith` setting). Both `micrositeGithubOwner` and `micrositeGithubRepo` are required:
 
-```
+```scala
 micrositeGithubOwner := "47deg"
 micrositeGithubRepo := "sbt-microsites"
 ```
 
 - `micrositeGithubToken`: Used for publishing the site when `github4s` is enabled. A [token with repo scope](https://github.com/settings/tokens/new?scopes=repo&description=sbt-microsites) is needed. None by default, but you can override it in this way:
 
-```
+```scala
 micrositeGithubToken := getEnvVar("GITHUB_TOKEN")
 ```
 
@@ -113,57 +113,57 @@ micrositeGithubToken := getEnvVar("GITHUB_TOKEN")
 * `GHPagesPlugin`: The default value. The plugin will use the `sbt-ghpages` plugin for publishing the site.
 * `GitHub4s`: The [GitHub4s](https://github.com/47deg/github4s) will be used for publishing the site. By now, only GitHub is supported. You need to specify a value for the `micrositeGithubToken` in order to use this publishing method.
 
-```
+```scala
 micrositePushSiteWith := GitHub4s
 ```
 
 - `micrositeGitHostingService` and `micrositeGitHostingUrl`: Used to specify a hosting service other than `GitHub`. If you are using a privately hosted GitHub instance, you can set the `micrositeGitHostingUrl` to override the default github.com and repo name configuration.
 
-```
+```scala
 micrositeGitHostingService := GitLab
 micrositeGitHostingUrl := "https://gitlab.com/gitlab-org/gitlab-ce"
 ```
 
 - `micrositeAnalyticsToken`: Property id of Google Analytics. This is empty by default.
 
-```
+```scala
 micrositeAnalyticsToken := 'UA-XXXXX-Y'
 ```
 
 - `micrositeGithubLinks`: This setting defines whether to show/hide GitHub links for stars and forks in docs layout. By default, it is enabled.
 
-```
+```scala
 micrositeGithubLinks := true
 ```
 
 - `micrositeGitterChannel`: This setting is used to enabled the Gitter sidecar Channel functionality, and it's enabled by default. The chat room is taken from `micrositeGithubOwner` and `micrositeGithubRepo`.
 
-```
+```scala
 micrositeGitterChannel := true
 ```
 
 - `micrositeGitterChannelUrl`: This setting is used to set a custom URL to Gitter sidecar Channel. By default, this is `micrositeGithubOwner/micrositeGithubRepo`.
 
-```
+```scala
 micrositeGitterChannelUrl := "47deg/sbt-microsites"
 ```
 
 - `micrositeShareOnSocial`: This setting defines whether to show/hide the social media buttons in docs layout. By default, it is enabled.
 
-```
+```scala
 micrositeShareOnSocial := true
 ```
 
 - `micrositeHighlightTheme`: By default, the theme of Highlight.js is [vs](https://highlightjs.org/static/demo/). However, you can configure it to a different theme thanks to this setting:
 
-```
+```scala
 micrositeHighlightTheme := "monokai"
 ```
 [Available themes: https://cdnjs.com/libraries/highlight.js/](https://cdnjs.com/libraries/highlight.js/)
 
 - `micrositeHighlightLanguages`: By default, Highlight.js is configured to support syntax highlighting for `java`, `scala`, and `bash`. You can add additional languages:
 
-```
+```scala
 micrositeHighlightLanguages ++= Seq("protobuf", "thrift")
 ```
 
@@ -181,25 +181,25 @@ message MyMessage {
 
 - `micrositeImgDirectory`: The plugin provides some basic images, but you can add new images to personalize the microsite. This is the property where you can specify where they will be placed. The images in this folder will be automatically copied by the plugin, and they will be placed together with the rest of the Jekyll resources. By default, its value is `(resourceDirectory in Compile).value / "microsite" / "img"`, but you can override it. For instance:
 
-```
+```scala
 micrositeImgDirectory := (resourceDirectory in Compile).value / "site" / "images"
 ```
 
 - `micrositeCssDirectory`: You can also override the styles through the `micrositeCssDirectory` setting by using the same method. The css files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "css"`, but you can override it like this:
 
-```
+```scala
 micrositeCssDirectory := (resourceDirectory in Compile).value / "site" / "styles"
 ```
 
 - `micrositeSassDirectory`: If you want to use SCSS files, you might want to override the place to put the partials. This can be done through the `micrositeSassDirectory` setting. The main SCSS files need to go into the CSS directory, where they will be transformed into CSS files, and the partials will be loaded from this directory. The default value is `(resourceDirectory in Compile).value / "microsite" / "sass"`, but you can override it like this:
 
-```
+```scala
 micrositeSassDirectory := (resourceDirectory in Compile).value / "site" / "partials"
 ```
 
 - `micrositeJsDirectory`: You can also introduce custom javascript files in the generated microsite through the `micrositeJsDirectory` setting by using the same method. The javascript files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "js"`, but you can override it like this:
 
-```
+```scala
 micrositeJsDirectory := (resourceDirectory in Compile).value / "site" / "scripts"
 ```
 
@@ -207,7 +207,7 @@ There is a reserved filename that you cannot use in your personal microsite: `ma
 
 - `micrositeCDNDirectives`: This setting provides the ability to include CDN imports (for js and css files) along the different layouts in this way:
 
-```
+```scala
 micrositeCDNDirectives := CdnDirectives(
   jsList = List(
     "https://cdnjs.cloudflare.com/ajax/libs/ag-grid/7.0.2/ag-grid.min.js",
@@ -223,13 +223,13 @@ micrositeCDNDirectives := CdnDirectives(
 
 - `micrositeExternalLayoutsDirectory`: You can also introduce custom html layouts in the generated microsite through the `micrositeExternalLayoutsDirectory` setting. The layout files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "layouts"`, but you can override it like this:
 
-```
+```scala
 micrositeExternalLayoutsDirectory := (resourceDirectory in Compile).value / "site" / "layouts"
 ```
 
 These will be available to your pages by using the `layout` keyword in the YAML front matter block in each of your docs' markdown files (i.e., having included a `extra-layout.html` external layout file):
 
-```
+```markdown
 ---
 title: Foo Bar
 layout: extra-layout
@@ -238,7 +238,7 @@ layout: extra-layout
 
 - `micrositeExternalIncludesDirectory`: You can also introduce custom html partial layouts in the generated microsite through the `micrositeExternalIncludesDirectory` setting. The layout files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "includes"`, but you can override it like this:
 
-```
+```scala
 micrositeExternalIncludesDirectory := (resourceDirectory in Compile).value / "site" / "includes"
 ```
 
@@ -246,7 +246,7 @@ These will be available to your pages by using `Jekyll`'s [include](https://jeky
 
 - `micrositeDataDirectory`: In addition, you can provide new data to your Jekyll site through the `micrositeDataDirectory` setting. It's based on the idea of [Jekyll Data Files](https://jekyllrb.com/docs/datafiles/). It's important to keep in mind that, if you are defining documentation in your microsite, you have to configure the menu through this setting. The default value is `(resourceDirectory in Compile).value / "microsite" / "data"`, but you can override it like this:
 
-```
+```scala
 micrositeDataDirectory := (resourceDirectory in Compile).value / "site" / "mydatafiles"
 ```
 
@@ -254,7 +254,7 @@ In the Documentation **Menu** case, as you can see in the [layouts]({% link docs
 
 - `micrositeStaticDirectory`: You can also provide a static directory to your Jekyll site through the `micrositeStaticDirectory` setting. It's based on the idea of [Jekyll Static Files](https://jekyllrb.com/docs/static-files/). The default value is `(resourceDirectory in Compile).value / "microsite" / "static"`, but you can override it like this:
 
-```
+```scala
 micrositeStaticDirectory := (resourceDirectory in Compile).value / "site" / "mystaticfiles"
 ```
 
@@ -262,7 +262,7 @@ The directory will be copied as-is, but no process will be applied to any file o
 
 - `micrositeExtraMdFiles`: This setting can be handy if you want to include additional markdown files in your site, and these files are not located in the same place in your `mdoc` or `tut` directory. By default, the setting is set up as an empty map. You can override it in this way:
 
-```
+```scala
 micrositeExtraMdFiles := Map(
   file("README.md") -> ExtraMdFileConfig(
     "readme.md",
@@ -286,20 +286,20 @@ Each file (the map key) can be related to a specific configuration through the `
 
 - `micrositePluginsDirectory`: You can also introduce custom [Jekyll plugins](https://jekyllrb.com/docs/plugins/) in the generated microsite through the `micrositePluginsDirectory` setting. The plugin files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "plugins"`, but you can override it like this:
 
-```
+```scala
 micrositePluginsDirectory := (resourceDirectory in Compile).value / "site" / "plugins"
 ```
 
 - `micrositeTheme`: You can choose two different themes to generate your microsite. By default it will display the `light` theme but you have the option of choosing the classic `pattern` theme.
 
-```
+```scala
 micrositeTheme := "pattern"
 ```
 - `micrositePalette`: The default microsite style essentially uses three colors. You can configure all of them, as seen below.
 
 Default palette used by the `light` theme:
 
-```
+```scala
 micrositePalette := Map(
         "brand-primary"         -> "#013567",
         "brand-secondary"       -> "#009ADA",
@@ -308,7 +308,7 @@ micrositePalette := Map(
 
 Palette used by the `pattern` theme:
 
-```
+```scala
 micrositePalette := Map(
         "brand-primary"     -> "#E05236",
         "brand-secondary"   -> "#3F3242",
@@ -321,7 +321,7 @@ micrositePalette := Map(
 ```
 - `micrositeFavicons`: List of filenames and sizes for the PNG/ICO files to be used as favicons for the generated site, located in the default image directory. The sizes should be described with a string (i.e.: \"16x16\"). If not provided, favicons with different sizes will be generated from the navbar_brand2x.png file for the `pattern` style and from the light_navbar_brand.png in case we are using the `light` style.
 
-```
+```scala
 micrositeFavicons := Seq(MicrositeFavicon("favicon16x16.png", "16x16"), MicrositeFavicon("favicon32x32.png", "32x32"))
 ```
 
@@ -344,7 +344,7 @@ case class ConfigYml(
 
 Therefore, the next snippet represents an example that combines these three ways:
 
-```
+```scala
 micrositeConfigYaml := ConfigYml(
   yamlCustomProperties = Map("org" -> "My Org"),
   yamlInline = """exclude: [package.json, grunt.js, Gruntfile.js, node_modules]
@@ -355,7 +355,7 @@ micrositeConfigYaml := ConfigYml(
 
 - `micrositeFooterText`: This setting allows the optional configuration of the second line in the footer. By default, it is set to `Some("""Website built with "Sbt-microsites © 2019 47 Degrees""")`. **This string is passed in unsanitized to the templating engine.**. If this setting is set to `None`, the second line is not displayed.
 
-```
+```scala
 micrositeFooterText := Some("<b>Bob</b> the <i>Builder</i>")
 ```
 
@@ -366,7 +366,7 @@ for the button and the basePath for the file. The basePath is comprised of the f
 repository URL, and should include the dynamic property `{% raw %}{{page.path}}{% endraw %}` that will be generated for each page when Jekyll
 compiles the site.  **The strings are passed in unsanitized to the templating engine.**
 
-```
+```scala
 {% raw %}micrositeEditButton := Some(MicrositeEditButton("Improve this Page", "/edit/master/docs/src/main/tut/{{ page.path }}")){% endraw %}
 ```
 
@@ -379,6 +379,6 @@ If you are interested in learning where to place the markdown files according to
 
 - `includeFilter in makeSite`: Restrict the type of files that are included during the microsite build. The default value is `"*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json"` but you can override it like this:
 
-```
+```scala
 includeFilter in makeSite := "*.csv" | "*.pdf" | *.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json"
 ```
