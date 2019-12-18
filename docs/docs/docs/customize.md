@@ -82,11 +82,9 @@ simple steps:
 
 1. Follow a directory structure where each section corresponds with a folder and a README.md file inside.
 
-```
-README.md
-/content/README.md
-/content/whatever/README.md
-```
+* `README.md`
+* `/content/README.md`
+* `/content/whatever/README.md`
 
 This will make GitHub render `README.MD` files as if they were the index on each section when accesing them trough the GitHub website.
 
@@ -94,8 +92,9 @@ This will make GitHub render `README.MD` files as if they were the index on each
 
 For example:
 
-```
-/content/whatever/README.md
+`/content/whatever/README.md`
+
+```markdown
 ---
 layout: docs
 title: Whatever
@@ -105,6 +104,6 @@ permalink: /docs/whatever/
 
 3. Link to content normally by using Markdown relative links that point to the folder.
 
-```
+```markdown
 [Link to Whatever Content](/content/whatever)
 ```

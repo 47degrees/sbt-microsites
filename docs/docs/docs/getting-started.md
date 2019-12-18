@@ -17,33 +17,26 @@ Depending on your platform, you might do this with:
 
 ```bash
 yum install jekyll
+```
 
+```bash
 apt-get install jekyll
+```
 
+```bash
 gem install jekyll
 ```
 
-*Note*: On MacOS X, `/usr/bin/gem` will install an incompatible version of `jekyll`. It is suggested that you use [Homebrew](https://brew.sh/) to install `ruby` (which provides `gem`) before running `gem install jekyll`.
+*Note*: On MacOS X, `/usr/bin/gem` could install an incompatible version of `jekyll`. It is suggested that you use [Homebrew](https://brew.sh/) to install `ruby` (which provides `gem`) before running `gem install jekyll`. You can also manage your Ruby installation through [rvm](https://rvm.io/).
 
 ## Continuous Integration - Travis
 
-If you have [Travis](https://travis-ci.org/) enabled for your project, you might have to tweak parts of your `.travis.yml` file:
+If you have [Travis](https://travis-ci.org/) enabled for your project, you can install the gem in the Travis `install` section:
 
-If you're working on a Scala project (`language: scala`), you need to add the bundle gems vendor path in the `PATH` environment variable:
-
-```bash
-before_install:
- - export PATH=${PATH}:./vendor/bundle
-```
-
-This is needed in order to install and use the `jekyll` gem from other parts of your travis descriptor file. Once we have the `/vendor/bundle` path in the Travis `PATH` env variable, we have to install the gem in the `install` travis section:
-
-```bash
+```yaml
 install:
-  - rvm use 2.6.0 --install --fuzzy
-  - gem update --system
-  - gem install sass
-  - gem install jekyll -v 4.0.0
+  - rvm use 2.6.5 --install --fuzzy
+  - gem install jekyll -v 4
 ```
 
 # Set it up in your Project
@@ -61,6 +54,7 @@ addSbtPlugin("com.47deg"  % "sbt-microsites" % "1.0.2")
 [comment]: # (End Replace)
 
 Finally, to enable the plugin, add this to your `build.sbt` file:
+
 ```bash
 enablePlugins(MicrositesPlugin)
 ```

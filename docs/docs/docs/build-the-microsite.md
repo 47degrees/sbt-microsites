@@ -27,7 +27,7 @@ micrositeVersionList := List("0.1.0", "0.2.0")
 
 Then, run the following task:
 
-```
+```bash
 sbt> makeMultiversionMicrosite
 ```
 

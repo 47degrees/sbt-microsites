@@ -21,7 +21,7 @@ Usually, the `home` layout is related to the `index.md` file. In this document, 
 
 For instance:
 
-```
+```markdown
 ---
 layout: home
 title:  "Home"
@@ -44,7 +44,7 @@ This layout is designed to show a main title beside a big logo, and then a serie
 
 For instance:
 
-```
+```markdown
 ---
 layout: homeFeatures
 features:
@@ -76,8 +76,7 @@ As an example, you can look at the sbt-microsites documentation at [GitHub](http
 
 All these files contain as a header, something similar to this:
 
-```
-
+```markdown
 ---
 layout: docs
 title: <Document Title>
@@ -90,7 +89,7 @@ title: <Document Title>
 
 Looking at the [Configuring the Microsite]({% link docs/settings.md %}) section, in the directory configured under the `micrositeDataDirectory` setting, you need to create a new file named `menu.yml`. This `YAML` file will be accessed by the `Docs Layout` in order to create the menu. Let's see an example:
 
-```
+```yaml
 options:
   - title: Getting Started
     url: docs/index
@@ -117,7 +116,7 @@ options:
 * `menu_type`: optional parameter. It brings the ability to configure different menus for different sets of documents, defining all the menu options in the same `menu.yml` file. For example, you might want to define two different places in your microsite where the menu might be different. This is the setting you can use in order to group the set of menu options.
 * Optionally, we could define a second level of nested sub-items, thanks to the `nested_options` key, defined at the same level that `title` and `url` of the parent menu. For example:
 
-```
+```yaml
 options:
   - title: Introduction
     url: index
@@ -135,7 +134,7 @@ options:
 
 In this example, `Submenu 1` and `Submenu 2` will be nested under the `Introduction` menu option. At the same time, `submenu1` and `submenu2` would have the same section name as the parent. For instance, `submenu1.md` would have a header like this, where the `section` field matches the one defined in `menu.yml`:
 
-```
+```markdown
 ---
 layout: docs
 title:  "Submenu 2"
@@ -149,8 +148,7 @@ This layout is useful when we want to have different web pages at the same `home
 
 One example:
 
-```
-
+```markdown
 ---
 layout: page
 title:  "<page-menu-title>"
@@ -163,28 +161,32 @@ For each different `section` the framework finds in your source directory, it'll
 
 Let's review this in this example:
 
-```
 
-file1.md contents:
+`file1.md` contents:
 
+```markdown
 ---
 layout: home
 title:  "Home"
 section: "section_home"
 position: 1
 ---
+```
 
-file2.md contents:
+`file2.md` contents:
 
+```markdown
 ---
 layout: page
 title:  "Section 2"
 section: "section2"
 position: 3
 ---
+```
 
-file3.md contents:
+`file3.md` contents:
 
+```markdown
 ---
 layout: page
 title:  "Section 3"
