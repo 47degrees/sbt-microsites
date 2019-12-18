@@ -16,7 +16,7 @@ before_install:
   - export PATH=${PATH}:./vendor/bundle
 
 install:
-  - rvm use 2.6 --install --fuzzy
+  - rvm use 2.6.0 --install --fuzzy
   - gem install jekyll -v 4
 
 script:
