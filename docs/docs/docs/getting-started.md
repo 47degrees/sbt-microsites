@@ -23,7 +23,7 @@ apt-get install jekyll
 gem install jekyll
 ```
 
-*Note*: On MacOS X, `/usr/bin/gem` will install an incompatible version of `jekyll`. It is suggested that you use [Homebrew](https://brew.sh/) to install `ruby` (which provides `gem`) before running `gem install jekyll`.
+*Note*: On MacOS X, `/usr/bin/gem` could install an incompatible version of `jekyll`. It is suggested that you use [Homebrew](https://brew.sh/) to install `ruby` (which provides `gem`) before running `gem install jekyll`. You can also manage your Ruby installation through [rvm](https://rvm.io/).
 
 ## Continuous Integration - Travis
 
@@ -40,10 +40,8 @@ This is needed in order to install and use the `jekyll` gem from other parts of 
 
 ```bash
 install:
-  - rvm use 2.6.0 --install --fuzzy
-  - gem update --system
-  - gem install sass
-  - gem install jekyll -v 4.0.0
+  - rvm use 2.6.5 --install --fuzzy
+  - gem install jekyll -v 4
 ```
 
 # Set it up in your Project
