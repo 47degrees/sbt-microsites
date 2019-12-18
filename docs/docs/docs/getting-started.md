@@ -17,9 +17,13 @@ Depending on your platform, you might do this with:
 
 ```bash
 yum install jekyll
+```
 
+```bash
 apt-get install jekyll
+```
 
+```bash
 gem install jekyll
 ```
 
@@ -29,7 +33,7 @@ gem install jekyll
 
 If you have [Travis](https://travis-ci.org/) enabled for your project, you can install the gem in the Travis `install` section:
 
-```bash
+```yaml
 install:
   - rvm use 2.6.5 --install --fuzzy
   - gem install jekyll -v 4
@@ -50,6 +54,7 @@ addSbtPlugin("com.47deg"  % "sbt-microsites" % "1.0.2")
 [comment]: # (End Replace)
 
 Finally, to enable the plugin, add this to your `build.sbt` file:
+
 ```bash
 enablePlugins(MicrositesPlugin)
 ```
