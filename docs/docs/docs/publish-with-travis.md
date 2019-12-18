@@ -89,18 +89,15 @@ This is the `.travis.yml` in `sbt-microsite` project:
 ```
 language: scala
 scala:
-- 2.12.6
+- 2.12.9
 jdk:
 - oraclejdk8
 before_install:
 - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then bash
   scripts/decrypt-keys.sh; fi
-- export PATH=${PATH}:./vendor/bundle
 install:
-- rvm use 2.6.0 --install --fuzzy
-- gem update --system
-- gem install sass
-- gem install jekyll -v 4.0.0
+- rvm use 2.6.5 --install --fuzzy
+- gem install jekyll -v 4
 script:
 - sbt ++$TRAVIS_SCALA_VERSION test scripted
 after_success:
