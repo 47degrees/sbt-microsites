@@ -18,7 +18,7 @@ When the property `micrositePushSiteWith` is set to `GHPagesPlugin` (by default)
 
 Run this command in your console
 
-```
+```bash
 $ ssh-keygen -t rsa -b 4096 -C "Travis Deploy Key" -f travis-deploy-key
 ```
 
@@ -36,7 +36,7 @@ Navigate to `Settings` > `Deploy Keys`. Make sure you allow write access in orde
 
 Travis needs the keys for publishing the microsite in `gh-pages` branch. It's very important that you encrypt your keys using the `travis` command line. You have to install Travis:
 
-```
+```bash
 $ gem install travis
 ```
 
@@ -46,19 +46,19 @@ We have to encrypt the `travis-deploy-key` file, and we have to add the encrypte
 
 First, we must be logged into Travis:
 
-```
+```bash
 $ travis login
 ```
 
 Secondly, encrypt the file:
 
-```
+```bash
 $ travis encrypt-file travis-deploy-key travis-deploy-key.enc
 ```
 
 You are going to see the following response:
 
-```
+```bash
 encrypting travis-deploy-key for [org]/[project]
 storing result as travis-deploy-key.enc
 
@@ -76,7 +76,7 @@ Commit all changes to your .travis.yml.
 
 Finally, add the encrypted file to your git:
 
-```
+```bash
 $ git add travis-deploy-key.enc
 ```
 
@@ -86,7 +86,7 @@ Our recommendation is that you should use `Bash Scripts` and run the script when
 
 This is the `.travis.yml` in `sbt-microsite` project:
 
-```
+```yaml
 language: scala
 scala:
 - 2.12.9
@@ -111,7 +111,7 @@ You can see that, before we install, we run `decrypt-keys.sh`, then we install `
 
 Next, you can see the `decrypt-keys.sh` script:
 
-```
+```bash
 #!/bin/sh
 
 openssl aes-256-cbc -K $encrypted_[your_number]_key -iv $encrypted_[your_number]_iv -in travis-deploy-key.enc -out travis-deploy-key -d;
@@ -125,7 +125,7 @@ In this script, we decrypt the keys and copy `.ssh` to the folder in order to pu
 
 Next, you can see the `publishMicrosite.sh` script:
 
-```
+```bash
 #!/bin/bash
 set -e
 
