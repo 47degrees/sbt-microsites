@@ -67,7 +67,6 @@ Many Scala projects, libraries, and applications use sbt-microsites to display d
 ![cron4s](https://alonsodomin.github.io/cron4s/img/navbar_brand.png) | [**cron4s**](https://alonsodomin.github.io/cron4s) | A CRON expression parser and AST for Scala
 ![freestyle](http://frees.io/img/navbar_brand.png) | [**freestyle**](http://frees.io/) | A cohesive & pragmatic framework of FP centric Scala libraries
 ![libra](https://to-ithaca.github.io/libra/img/navbar_brand.png) | [**libra**](https://to-ithaca.github.io/libra) |A dimensional analysis library based on dependent types
-![airframe](http://wvlet.org/airframe/img/navbar_brand.png) | [**Airframe**](http://wvlet.org/airframe) |A dependency injection library for Scala and Scala.js
 ![Scanamo](http://www.scanamo.org/img/navbar_brand.png) | [**Scanamo**](http://www.scanamo.org) | Simpler DynamoDB access for Scala
 ![Mocked Streams](https://mockedstreams.madewithtea.com/img/navbar_brand.png) | [**Mocked Streams**](https://mockedstreams.madewithtea.com) | Scala DSL for Unit-Testing Kafka Streams Topologies
 ![sbt-kubeyml](http://sbt-kubeyml.vaslabs.org/img/navbar_brand.png) | [**sbt-kubeyml**](http://sbt-kubeyml.vaslabs.org) | Typesafe Kubernetes manifests to deploy Scala applications 
