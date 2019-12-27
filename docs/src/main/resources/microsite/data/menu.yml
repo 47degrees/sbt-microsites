@@ -22,3 +22,6 @@ options:
 
   - title: Publish with Travis
     url: docs/publish-with-travis/
+
+  - title: Troubleshooting
+    url: docs/troubleshooting/
