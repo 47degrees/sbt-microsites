@@ -1,5 +1,28 @@
 # Changelog
 
+## 01/13/2020 - Version 1.1.0
+
+Release changes:
+
+* Update sbt-microsites to 1.0.2 ([#395](https://github.com/47deg/sbt-microsites/pull/395))
+* Tell hljs the language of code blocks so it doesn't have to guess ([#394](https://github.com/47deg/sbt-microsites/pull/394))
+* Update sbt to 1.3.5 ([#396](https://github.com/47deg/sbt-microsites/pull/396))
+* Update scalacheck to 1.14.3 ([#397](https://github.com/47deg/sbt-microsites/pull/397))
+* Simplify deployment - Improve docs ([#399](https://github.com/47deg/sbt-microsites/pull/399))
+* Update scalatags to 0.8.1 ([#400](https://github.com/47deg/sbt-microsites/pull/400))
+* Update scalatags to 0.8.2 ([#401](https://github.com/47deg/sbt-microsites/pull/401))
+* Please add sbt-kubeyml ([#402](https://github.com/47deg/sbt-microsites/pull/402))
+* Airframe has graduated from sbt-microsite ([#403](https://github.com/47deg/sbt-microsites/pull/403))
+* Update sbt to 1.3.6 ([#405](https://github.com/47deg/sbt-microsites/pull/405))
+* Update scalatags to 0.8.3 ([#404](https://github.com/47deg/sbt-microsites/pull/404))
+* Update sbt-mdoc to 2.1.0 ([#407](https://github.com/47deg/sbt-microsites/pull/407))
+* Add a troubleshooting page ([#408](https://github.com/47deg/sbt-microsites/pull/408))
+* Update sbt-mdoc to 2.1.1 ([#409](https://github.com/47deg/sbt-microsites/pull/409))
+* Update scalatags to 0.8.4 ([#410](https://github.com/47deg/sbt-microsites/pull/410))
+* Update transitive offered mdoc to same in deps ([#411](https://github.com/47deg/sbt-microsites/pull/411))
+* Trigger new minor version (1.1.0) ([#412](https://github.com/47deg/sbt-microsites/pull/412))
+
+
 ## 12/05/2019 - Version 1.0.2
 
 Release changes:
