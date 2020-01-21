@@ -18,7 +18,7 @@ object ProjectPlugin extends AutoPlugin {
     lazy val V = new {
       val mdoc: String         = "2.1.1"
       val moultingyaml: String = "0.4.1"
-      val orgPolicies: String  = "0.12.0-M2"
+      val orgPolicies: String  = "0.12.3"
       val scala: String        = "2.12.9"
       val scalactic: String    = "3.1.0"
       val scalatest: String    = "3.1.0"
