@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2020 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,8 @@ case class MicrositeIdentitySettings(
     organizationHomepage: String,
     twitter: String,
     twitterCreator: String,
-    analytics: String)
+    analytics: String
+)
 
 case class MicrositeFileLocations(
     micrositeImgDirectory: File,
@@ -40,7 +41,8 @@ case class MicrositeFileLocations(
     micrositeStaticDirectory: File,
     micrositeExtraMdFiles: Map[File, ExtraMdFileConfig],
     micrositeExtraMdFilesOutput: File,
-    micrositePluginsDirectory: File)
+    micrositePluginsDirectory: File
+)
 
 case class MicrositeGitSettings(
     githubOwner: String,
@@ -49,13 +51,15 @@ case class MicrositeGitSettings(
     gitHostingService: MicrositeKeys.GitHostingService,
     gitHostingUrl: String,
     gitSidecarChat: Boolean,
-    gitSidecarChatUrl: String)
+    gitSidecarChatUrl: String
+)
 
 case class MicrositeUrlSettings(
     micrositeUrl: String,
     micrositeBaseUrl: String,
     micrositeDocumentationUrl: String,
-    micrositeDocumentationLabelDescription: String)
+    micrositeDocumentationLabelDescription: String
+)
 
 case class MicrositeFavicon(filename: String, sizeDescription: String)
 
@@ -65,7 +69,8 @@ case class MicrositeVisualSettings(
     palette: Map[String, String],
     favicons: Seq[MicrositeFavicon],
     shareOnSocial: Boolean,
-    theme: String)
+    theme: String
+)
 
 case class MicrositeTemplateTexts(footer: Option[String])
 
@@ -84,7 +89,8 @@ case class MicrositeSettings(
     urlSettings: MicrositeUrlSettings,
     gitSettings: MicrositeGitSettings,
     editButtonSettings: MicrositeEditButtonSettings,
-    multiversionSettings: MicrositeMultiversionSettings) {
+    multiversionSettings: MicrositeMultiversionSettings
+) {
 
   def gitSiteUrl: String = {
     (gitSettings.gitHostingService, gitSettings.gitHostingUrl) match {
@@ -107,7 +113,8 @@ case class MicrositeSettings(
 case class ExtraMdFileConfig(
     fileName: String,
     layout: String,
-    metaProperties: Map[String, String] = Map.empty)
+    metaProperties: Map[String, String] = Map.empty
+)
 
 case class CdnDirectives(jsList: List[String] = Nil, cssList: List[String] = Nil)
 

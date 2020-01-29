@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2020 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,36 +67,46 @@ class MicrositeHelper(config: MicrositeSettings) {
     copyJARResourcesTo(
       pluginURL,
       s"$targetDir$jekyllDir/",
-      s"highlight/styles/${config.visualSettings.highlightTheme}.css")
+      s"highlight/styles/${config.visualSettings.highlightTheme}.css"
+    )
     copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "plugins")
 
     copyFilesRecursively(
       config.fileLocations.micrositeImgDirectory.getAbsolutePath,
-      s"$targetDir$jekyllDir/img/")
+      s"$targetDir$jekyllDir/img/"
+    )
     copyFilesRecursively(
       config.fileLocations.micrositeCssDirectory.getAbsolutePath,
-      s"$targetDir$jekyllDir/css/")
+      s"$targetDir$jekyllDir/css/"
+    )
     copyFilesRecursively(
       config.fileLocations.micrositeSassDirectory.getAbsolutePath,
-      s"$targetDir$jekyllDir/_sass_custom/")
+      s"$targetDir$jekyllDir/_sass_custom/"
+    )
     copyFilesRecursively(
       config.fileLocations.micrositeJsDirectory.getAbsolutePath,
-      s"$targetDir$jekyllDir/js/")
+      s"$targetDir$jekyllDir/js/"
+    )
     copyFilesRecursively(
       config.fileLocations.micrositeExternalLayoutsDirectory.getAbsolutePath,
-      s"$targetDir$jekyllDir/_layouts/")
+      s"$targetDir$jekyllDir/_layouts/"
+    )
     copyFilesRecursively(
       config.fileLocations.micrositeExternalIncludesDirectory.getAbsolutePath,
-      s"$targetDir$jekyllDir/_includes/")
+      s"$targetDir$jekyllDir/_includes/"
+    )
     copyFilesRecursively(
       config.fileLocations.micrositeDataDirectory.getAbsolutePath,
-      s"$targetDir$jekyllDir/_data/")
+      s"$targetDir$jekyllDir/_data/"
+    )
     copyFilesRecursively(
       config.fileLocations.micrositeStaticDirectory.getAbsolutePath,
-      s"$targetDir$jekyllDir/${config.fileLocations.micrositeStaticDirectory.getName}/")
+      s"$targetDir$jekyllDir/${config.fileLocations.micrositeStaticDirectory.getName}/"
+    )
     copyFilesRecursively(
       config.fileLocations.micrositePluginsDirectory.getAbsolutePath,
-      s"$targetDir$jekyllDir/_plugins/")
+      s"$targetDir$jekyllDir/_plugins/"
+    )
 
     List(createConfigYML(targetDir), createPalette(targetDir)) ++
       createLayouts(targetDir) ++ createPartialLayout(targetDir) ++ createFavicons(targetDir)
@@ -109,7 +119,8 @@ class MicrositeHelper(config: MicrositeSettings) {
     config.fileLocations.micrositeExtraMdFiles foreach {
       case (sourceFile, targetFileConfig) =>
         println(
-          s"Copying from ${sourceFile.getAbsolutePath} to ${extraMdOutputDir.getAbsolutePath}/$targetFileConfig")
+          s"Copying from ${sourceFile.getAbsolutePath} to ${extraMdOutputDir.getAbsolutePath}/$targetFileConfig"
+        )
 
         val targetFileContent =
           s"""---
@@ -142,11 +153,13 @@ class MicrositeHelper(config: MicrositeSettings) {
     val fileYaml = yaml.yamlPath.fold(Map.empty[YamlValue, YamlValue])(f =>
       if (f.exists()) {
         Source.fromFile(f.getAbsolutePath).mkString.parseYaml.asYamlObject.fields
-      } else Map.empty[YamlValue, YamlValue])
+      } else Map.empty[YamlValue, YamlValue]
+    )
 
     writeContentToFile(
       YamlObject(customProperties ++ fileYaml ++ inlineYaml).prettyPrint,
-      targetPath)
+      targetPath
+    )
 
     targetPath.toFile
   }
@@ -227,7 +240,8 @@ class MicrositeHelper(config: MicrositeSettings) {
 
     copyFilesRecursively(
       s"${sourceDir.getAbsolutePath}/_config.yml",
-      targetPath.toFile.getAbsolutePath)
+      targetPath.toFile.getAbsolutePath
+    )
     ()
   }
 

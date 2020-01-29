@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2020 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,7 +49,7 @@ object MicrositesPlugin extends AutoPlugin {
         tutSourceDirectory := sourceDirectory.value / "main" / "tut",
         tutTargetDirectory := resourceManaged.value / "main" / "jekyll",
         mdocIn := baseDirectory.value / "docs",
-        mdocOut := resourceManaged.value / "main" / "jekyll",
+        mdocOut := resourceManaged.value / "main" / "jekyll"
       )
 
   lazy val micrositeDefaultSettings = Seq(
@@ -73,7 +73,8 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeHighlightTheme := "vs",
     micrositeHighlightLanguages := Seq("scala", "java", "bash"),
     micrositeConfigYaml := ConfigYml(
-      yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "_config.yml")),
+      yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "_config.yml")
+    ),
     micrositeImgDirectory := (resourceDirectory in Compile).value / "microsite" / "img",
     micrositeCssDirectory := (resourceDirectory in Compile).value / "microsite" / "css",
     micrositeSassDirectory := (resourceDirectory in Compile).value / "microsite" / "sass",

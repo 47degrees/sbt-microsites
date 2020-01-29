@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2020 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,16 +54,18 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
               target := "_blank",
               rel := "noopener noreferrer",
               cls := "masthead-button",
-              s"View on ${config.gitSettings.gitHostingService.name}")
+              s"View on ${config.gitSettings.gitHostingService.name}"
+            )
           ),
-          div(cls := "features-image"),
-        ),
+          div(cls := "features-image")
+        )
       ),
       "{% if page.position != null %}",
       nav(
         cls := "menu-container",
         aria.labelledby := "section-navigation",
-        "{% include menu.html %}"),
+        "{% include menu.html %}"
+      ),
       "{% endif %}"
     )
 
@@ -82,13 +84,14 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
               cls := s"feature-item-header ${backgroundFeatureCssMask}",
               div(cls := "{{ feature[0] }}-feature-icon-wrapper"),
               h4("{{ feature[1][0] }}"),
-              p("{{ feature[1][1] }}"),
+              p("{{ feature[1][1] }}")
             ),
             if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
               a(
                 cls := "learn-more-button",
-                href := s"${config.urlSettings.micrositeDocumentationUrl}",
-                span(cls := "learn-more", "Learn More")),
+                href := s"${config.urlSettings.micrositeDocumentationUrl}/{{ feature[1][2] }}",
+                span(cls := "learn-more", "Learn More")
+              )
           ),
           """{% endfor %}
         {% endfor %}"""

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2020 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +55,9 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
               a(
                 href := "{{ site.baseurl }}/",
                 cls := "brand",
-                div(cls := "icon-wrapper", span(config.identity.name)))),
+                div(cls := "icon-wrapper", span(config.identity.name))
+              )
+            ),
             div(cls := "col-xs-6", buildCollapseMenu)
           )
         )
@@ -93,14 +95,16 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
             target := "_blank",
             rel := "noopener noreferrer",
             cls := "masthead-button",
-            s"View on ${config.gitSettings.gitHostingService.name}")
-        ),
+            s"View on ${config.gitSettings.gitHostingService.name}"
+          )
+        )
       ),
       "{% if page.position != null %}",
       nav(
         cls := "menu-container",
         aria.labelledby := "section-navigation",
-        "{% include menu.html %}"),
+        "{% include menu.html %}"
+      ),
       "{% endif %}"
     )
 
@@ -126,7 +130,8 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
               cls := "col-md-4",
               div(cls := "{{ tech[0] }}-icon-wrapper"),
               h3("{{ tech[1][0] }}"),
-              p("{{ tech[1][1] }}")),
+              p("{{ tech[1][1] }}")
+            ),
             """{% endfor %}
           {% endfor %}"""
           )
