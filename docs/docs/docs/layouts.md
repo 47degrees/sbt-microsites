@@ -48,15 +48,16 @@ For instance:
 ---
 layout: homeFeatures
 features:
-  - first: ["Patterns", "Solutions to recurrent problems, in a purely Functional Programming manner."]
-  - second: ["Typeclasses", "Enable ad-hoc polymorphism with protocols like Functor, Applicative, Monad and many others."]
-  - third: ["Data Types", "Take advantage of numerous data types based on algebraic properties."]
+  - first: ["Patterns", "Solutions to recurrent problems, in a purely Functional Programming manner.", "patterns"]
+  - second: ["Typeclasses", "Enable ad-hoc polymorphism with protocols like Functor, Applicative, Monad and many others.", "typeclasses"]
+  - third: ["Data Types", "Take advantage of numerous data types based on algebraic properties.", "datatypes"]
 ---
 ```
 
 Basically this is all you´ll need to add to your `index.md` file using the `homeFeatures` layout.
 You can add up to three different features and sbt-microsites will dispose them after the masthead layer, every feature will be accompained by an icon that can be overridden as explained in the [Customize]({% link docs/customize.md %}) section.
 These features are identified for the set of keys (`first`, `second`, `third`).
+The last value of each feature is optional and will be used to set the link to the docs section, for instance the first feature in the example: `patterns`, this will serve to compose `docs/patterns` link to the docs section.
 
 ## Docs Layout
 
