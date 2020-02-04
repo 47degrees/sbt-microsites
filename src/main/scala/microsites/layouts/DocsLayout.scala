@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2020 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,10 +70,8 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
           Seq(
             li(a(href := "#", onclick := s"shareSiteTwitter('$text');", i(cls := "fa fa-twitter"))),
             li(
-              a(
-                href := "#",
-                onclick := s"shareSiteFacebook('$text');",
-                i(cls := "fa fa-facebook"))),
+              a(href := "#", onclick := s"shareSiteFacebook('$text');", i(cls := "fa fa-facebook"))
+            ),
             li(a(href := "#", onclick := "shareSiteGoogle();", i(cls := "fa fa-google-plus")))
           )
         } else Seq.empty
@@ -121,7 +119,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
         div(cls := "brand-wrapper"), span(config.identity.name)
       ),
         button(id := "main-toggle", cls := "sidebar-toggle",
-        span(cls := "close"),
+        span(cls := "close")
       )
       ),
       div(cls := "sidebar-nav",
@@ -161,14 +159,14 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
                     a(href := "{{ item.url | relative_url }}",
                       title := "{{ item.title }}",
                       cls := "drop-nested",
-                      "{{item.title}}",
+                      "{{item.title}}"
                     ),
                     i(cls := "fa fa-angle-right"),
                   "{% else %}",
                     button(`type` := "button",
                       title := "{{ item.title }}",
                       cls := "button drop-nested",
-                      "{{item.title}}",
+                      "{{item.title}}"
                     ),
                     i(cls := "fa fa-angle-right"),
                   "{% endif %}",
@@ -180,7 +178,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
                         a(href := "{{ sub.url | relative_url }}",
                           title := "{{ sub.title }}",
                           cls := "{% if sub_url == page_url or sub_url_slash == page_url or sub_url == page_url_index %}active{% endif %}",
-                          "{{sub.title}}",
+                          "{{sub.title}}"
                         ),
                       "{% endfor %}"
                     ),
@@ -188,9 +186,9 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
                   a(href := "{{ item.url | relative_url }}",
                     title := "{{ item.title }}",
                     cls := "{{ active_item }}",
-                    "{{item.title}}",
+                    "{{item.title}}"
                   ),
-                "{% endif %}",
+                "{% endif %}"
               ),
             "{% endif %}",
           "{% endfor %}",
@@ -292,7 +290,8 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
               cls := "btn-sm btn-info",
               button.text
             )
-          ))
+          )
+        )
       case _ => None
     }
 }

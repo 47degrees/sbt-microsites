@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2020 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,17 +73,21 @@ trait MicrositeKeys {
     taskKey[Unit]("Dynamic task that will evaluate makeTut or makeMdoc depending on setting")
   val createMicrositeVersions: TaskKey[Unit] =
     taskKey[Unit](
-      "Task to create the different microsites going through the list specified in the settings")
+      "Task to create the different microsites going through the list specified in the settings"
+    )
   val moveMicrositeVersions: TaskKey[Unit] =
     taskKey[Unit](
-      "Task to move the different microsites to their final publishing directory destination")
+      "Task to move the different microsites to their final publishing directory destination"
+    )
   val makeVersionsJson: TaskKey[Unit] =
     taskKey[Unit](
-      "Task that will create the expected formattted JSON with the versions specified in the settings")
+      "Task that will create the expected formattted JSON with the versions specified in the settings"
+    )
   val makeVersionedMicrosite: TaskKey[Unit] =
     taskKey[Unit]("Task similar to makeMicrosite, adding a version selector")
   val makeMultiversionMicrosite: TaskKey[Unit] = taskKey[Unit](
-    "Main task to build a microsite, including version selector, and microsite different versions")
+    "Main task to build a microsite, including version selector, and microsite different versions"
+  )
   val pushMicrosite: TaskKey[Unit] =
     taskKey[Unit]("Task to just push files up.")
   val publishMicrosite: TaskKey[Unit] =
@@ -118,52 +122,69 @@ trait MicrositeKeys {
   val micrositeConfigYaml: SettingKey[ConfigYml] =
     settingKey[ConfigYml]("Microsite _config.yml file configuration.")
   val micrositeImgDirectory: SettingKey[File] = settingKey[File](
-    "Optional. Microsite images directory. By default, it'll be the resourcesDirectory + '/microsite/img'")
+    "Optional. Microsite images directory. By default, it'll be the resourcesDirectory + '/microsite/img'"
+  )
   val micrositeCssDirectory: SettingKey[File] = settingKey[File](
-    "Optional. Microsite CSS directory. By default, it'll be the resourcesDirectory + '/microsite/css'")
+    "Optional. Microsite CSS directory. By default, it'll be the resourcesDirectory + '/microsite/css'"
+  )
   val micrositeSassDirectory: SettingKey[File] = settingKey[File](
-    "Optional. Microsite SASS directory. By default, it'll be the resourcesDirectory + '/microsite/sass'")
+    "Optional. Microsite SASS directory. By default, it'll be the resourcesDirectory + '/microsite/sass'"
+  )
   val micrositeJsDirectory: SettingKey[File] = settingKey[File](
-    "Optional. Microsite Javascript directory. By default, it'll be the resourcesDirectory + '/microsite/js'")
+    "Optional. Microsite Javascript directory. By default, it'll be the resourcesDirectory + '/microsite/js'"
+  )
   val micrositeCDNDirectives: SettingKey[CdnDirectives] = settingKey[CdnDirectives](
-    "Optional. Microsite CDN directives lists (for css and js imports). By default, both lists are empty.")
+    "Optional. Microsite CDN directives lists (for css and js imports). By default, both lists are empty."
+  )
   val micrositeExternalLayoutsDirectory: SettingKey[File] = settingKey[File](
-    "Optional. Microsite external layouts directory. By default, it'll be the resourcesDirectory + '/microsite/layout'")
+    "Optional. Microsite external layouts directory. By default, it'll be the resourcesDirectory + '/microsite/layout'"
+  )
   val micrositeExternalIncludesDirectory: SettingKey[File] = settingKey[File](
-    "Optional. Microsite external includes (partial layouts) directory. By default, it'll be the resourcesDirectory + '/microsite/includes'")
+    "Optional. Microsite external includes (partial layouts) directory. By default, it'll be the resourcesDirectory + '/microsite/includes'"
+  )
   val micrositeDataDirectory: SettingKey[File] = settingKey[File](
     "Optional. Microsite Data directory, useful to define the microsite data files " +
-      "(https://jekyllrb.com/docs/datafiles/). By default, it'll be the resourcesDirectory + '/microsite/data'")
+      "(https://jekyllrb.com/docs/datafiles/). By default, it'll be the resourcesDirectory + '/microsite/data'"
+  )
   val micrositeStaticDirectory: SettingKey[File] = settingKey[File](
-    "Optional. Microsite static files directory. By default, it'll be the resourcesDirectory + '/microsite/static'")
+    "Optional. Microsite static files directory. By default, it'll be the resourcesDirectory + '/microsite/static'"
+  )
   val micrositeExtraMdFiles: SettingKey[Map[File, ExtraMdFileConfig]] =
     settingKey[Map[File, ExtraMdFileConfig]](
-      "Optional. This key is useful when you want to include automatically markdown documents as a part of your microsite, and these files are located in different places from the tutSourceDirectory. The map key is related with the source file, the map value corresponds with the target relative file path and the document meta-information configuration. By default, the map is empty.")
+      "Optional. This key is useful when you want to include automatically markdown documents as a part of your microsite, and these files are located in different places from the tutSourceDirectory. The map key is related with the source file, the map value corresponds with the target relative file path and the document meta-information configuration. By default, the map is empty."
+    )
   val micrositeExtraMdFilesOutput: SettingKey[File] = settingKey[File](
-    "Optional. Microsite output location for extra-md files. Default is resourceManaged + '/jekyll/extra_md'")
+    "Optional. Microsite output location for extra-md files. Default is resourceManaged + '/jekyll/extra_md'"
+  )
   val micrositePluginsDirectory: SettingKey[File] = settingKey[File](
-    "Optional. Microsite Plugins directory. By default, it'll be the resourcesDirectory + '/microsite/plugins'")
+    "Optional. Microsite Plugins directory. By default, it'll be the resourcesDirectory + '/microsite/plugins'"
+  )
   val micrositePalette: SettingKey[Map[String, String]] =
     settingKey[Map[String, String]]("Microsite palette")
   val micrositeFavicons: SettingKey[Seq[MicrositeFavicon]] = settingKey[Seq[MicrositeFavicon]](
-    "Optional. List of filenames and sizes for the PNG/ICO files to be used as favicon for the generated site, located in '/microsite/img'. The sizes should be described with a string (i.e.: \"16x16\"). By default, favicons with different sizes will be generated from the navbar_brand2x.jpg file.")
+    "Optional. List of filenames and sizes for the PNG/ICO files to be used as favicon for the generated site, located in '/microsite/img'. The sizes should be described with a string (i.e.: \"16x16\"). By default, favicons with different sizes will be generated from the navbar_brand2x.jpg file."
+  )
   val micrositeGithubOwner: SettingKey[String] = settingKey[String]("Microsite Github owner")
   val micrositeGithubRepo: SettingKey[String]  = settingKey[String]("Microsite Github repo")
   val micrositeGithubToken: SettingKey[Option[String]] =
     settingKey[Option[String]]("Microsite Github token for pushing the microsite")
   val micrositeGithubLinks: SettingKey[Boolean] = settingKey[Boolean](
-    "Optional. Includes Github links (forks, stars) in the layout. Enabled by default.")
+    "Optional. Includes Github links (forks, stars) in the layout. Enabled by default."
+  )
   val micrositeGitHostingService: SettingKey[GitHostingService] =
     settingKey[GitHostingService]("Service used for git hosting. By default, it'll be GitHub.")
   val micrositeGitHostingUrl: SettingKey[String] = settingKey[String](
-    "In the case where your project isn't hosted on Github, use this setting to point users to git host (e.g. 'https://internal.gitlab.com/<user>/<project>').")
+    "In the case where your project isn't hosted on Github, use this setting to point users to git host (e.g. 'https://internal.gitlab.com/<user>/<project>')."
+  )
   val micrositePushSiteWith: SettingKey[PushWith] =
     settingKey[PushWith](
-      "Determines what will be chosen for pushing the site. The options are sbt-ghpages plugin and github4s library.")
+      "Determines what will be chosen for pushing the site. The options are sbt-ghpages plugin and github4s library."
+    )
 
   val micrositeAnalyticsToken: SettingKey[String] =
     settingKey[String](
-      "Optional. Add your property id of Google Analytics to add a Google Analytics tracker")
+      "Optional. Add your property id of Google Analytics to add a Google Analytics tracker"
+    )
   val micrositeGitterChannel: SettingKey[Boolean] = settingKey[Boolean](
     "Optional. Includes Gitter sidecar Chat functionality. Enabled by default."
   )
@@ -188,7 +209,8 @@ trait MicrositeKeys {
     settingKey[CompilingDocsTool]("Choose between compiling code snippets with tut or mdoc")
 
   val micrositeTheme: SettingKey[String] = settingKey[String](
-    "Optional. 'light' by default. Set it to 'pattern' to generate the pattern theme design.")
+    "Optional. 'light' by default. Set it to 'pattern' to generate the pattern theme design."
+  )
 
   val micrositeVersionList: SettingKey[Seq[String]] =
     settingKey[Seq[String]]("Optional. Microsite available versions")
@@ -227,7 +249,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       sourceDir: String,
       targetDir: String,
       baseUrl: String,
-      version: String): Unit = {
+      version: String
+  ): Unit = {
     val newBaseUrl =
       if (version.nonEmpty) s"$baseUrl/$version" else baseUrl
     val pluginName            = "microsites.MicrositesPlugin"
@@ -236,7 +259,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       case Some(projects) => {
         List(
           "sbt",
-          s"""clean; project ${projects(0)}; set micrositeBaseUrl := "$newBaseUrl"; makeMicrosite""").!
+          s"""clean; project ${projects(0)}; set micrositeBaseUrl := "$newBaseUrl"; makeMicrosite"""
+        ).!
         Files.move(
           Paths.get(sourceDir),
           Paths.get(s"$targetDir/$version"),
@@ -285,14 +309,15 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       "sass" -> Map(
         "load_paths" -> List("_sass", "_sass_custom"),
         "style"      -> "compressed",
-        "sourcemap"  -> "never",
+        "sourcemap"  -> "never"
       ),
       "collections" -> Map("tut" -> Map("output" -> true))
     )
 
     val userCustomVariables = micrositeConfigYaml.value
     val configWithAllCustomVariables = userCustomVariables.copy(
-      yamlCustomProperties = defaultYamlCustomVariables ++ userCustomVariables.yamlCustomProperties)
+      yamlCustomProperties = defaultYamlCustomVariables ++ userCustomVariables.yamlCustomProperties
+    )
 
     new MicrositeHelper(
       MicrositeSettings(
@@ -359,12 +384,13 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         multiversionSettings = MicrositeMultiversionSettings(
           micrositeVersionList.value
         )
-      ))
+      )
+    )
   }
 
   lazy val micrositeTasksSettings = Seq(
-    microsite := micrositeHelper.value.createResources(
-      resourceManagedDir = (resourceManaged in Compile).value),
+    microsite := micrositeHelper.value
+      .createResources(resourceManagedDir = (resourceManaged in Compile).value),
     micrositeMakeExtraMdFiles := micrositeHelper.value.buildAdditionalMd(),
     micrositeTutExtraMdFiles := {
       val r     = (runner in Tut).value
@@ -403,7 +429,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 
       val versionList = generateVersionList(
         (currentBranchTag :: micrositeVersionList.value.toList),
-        currentBranchTag)
+        currentBranchTag
+      )
 
       createVersionsJson(targetDir, versionList)
     },
@@ -420,14 +447,15 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       scala.reflect.io.Directory(new File(genDocsDir)).deleteRecursively()
       createDir(genDocsDir)
 
-      micrositeVersionList.value.foreach(tag => {
+      micrositeVersionList.value.foreach { tag =>
         s"git checkout -f $tag".!
         createMicrositeVersion(
           publishingDir.getAbsolutePath,
           genDocsDir,
           micrositeBaseUrl.value,
-          tag)
-      })
+          tag
+        )
+      }
 
       s"git checkout -f $currentBranchTag".!
     },
@@ -435,13 +463,13 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val publishingDir = (target in makeSite).value
       val genDocsDir    = ".sbt-versioned-docs"
 
-      micrositeVersionList.value.foreach(tag => {
+      micrositeVersionList.value.foreach { tag =>
         Files.move(
           Paths.get(s"$genDocsDir/$tag"),
           Paths.get(s"${publishingDir.getPath()}/$tag"),
           StandardCopyOption.REPLACE_EXISTING
         )
-      })
+      }
     },
     makeVersionedMicrosite := {
       Def.sequential(microsite, makeVersionsJson, makeDocs, makeSite)
@@ -488,13 +516,17 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         case (GitHub4s.name, GitHub.name) =>
           Def.task(
             log.error(
-              s"You must provide a GitHub token through the `micrositeGithubToken` setting for pushing with github4s")
+              s"You must provide a GitHub token through the `micrositeGithubToken` setting for pushing with github4s"
+            )
           )
         case (GitHub4s.name, hosting) =>
           Def.task(log.warn(s"github4s doesn't have support for $hosting"))
         case _ =>
-          Def.task(log.error(
-            s"""Unexpected match case (pushSiteWith, gitHosting) = ("${pushSiteWith.name}", "${gitHosting.name}")"""))
+          Def.task(
+            log.error(
+              s"""Unexpected match case (pushSiteWith, gitHosting) = ("${pushSiteWith.name}", "${gitHosting.name}")"""
+            )
+          )
       }
     }.value,
     publishMicrosite := {

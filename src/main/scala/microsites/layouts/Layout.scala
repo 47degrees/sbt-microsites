@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2020 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -99,7 +99,8 @@ abstract class Layout(config: MicrositeSettings) {
       meta(
         name := "image",
         attr("property") := "og:image",
-        content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
+        content := "{{site.url}}{{site.baseurl}}/img/poster.png"
+      ),
       meta(name := "og:title", content := pageTitle),
       // For Linked-In
       meta(name := "title", attr("property") := "og:title", content := pageTitle),
@@ -110,12 +111,14 @@ abstract class Layout(config: MicrositeSettings) {
       link(
         rel := "icon",
         `type` := "image/png",
-        href := "{{site.url}}{{site.baseurl}}/img/favicon.png"),
+        href := "{{site.url}}{{site.baseurl}}/img/favicon.png"
+      ),
       meta(name := "twitter:title", content := pageTitle),
       meta(
         name := "twitter:image",
         // Twitter image URL must be the absolute path
-        content := s"${config.urlSettings.micrositeUrl}{{site.baseurl}}/img/poster.png"),
+        content := s"${config.urlSettings.micrositeUrl}{{site.baseurl}}/img/poster.png"
+      ),
       meta(name := "twitter:description", content := config.identity.description),
       meta(name := "twitter:card", content := "summary_large_image")
     ) ++ twitter.toList ++ twitterCreator.toList
@@ -131,7 +134,8 @@ abstract class Layout(config: MicrositeSettings) {
         rel := "icon",
         `type` := "image/png",
         attr("sizes") := s"${icon.sizeDescription}",
-        href := s"{{site.url}}{{site.baseurl}}/img/${icon.filename}")
+        href := s"{{site.url}}{{site.baseurl}}/img/${icon.filename}"
+      )
     }.toList
 
   def styles: List[TypedTag[String]] = {
@@ -140,17 +144,18 @@ abstract class Layout(config: MicrositeSettings) {
       fr.fetchFilesRecursively(List(config.fileLocations.micrositeCssDirectory), validFile("css")) match {
         case Right(cssList) =>
           cssList.map(css =>
-            link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${css.getName}"))
+            link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${css.getName}")
+          )
         case _ => Nil
       }
 
     val customScssList =
       fr.fetchFilesRecursively(List(config.fileLocations.micrositeCssDirectory), validFile("scss")) match {
         case Right(scssList) =>
-          scssList.map(scss => {
+          scssList.map { scss =>
             val fileNameWithOutExt = scss.getName.replaceFirst("[.][^.]+$", "")
             link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${fileNameWithOutExt}.css")
-          })
+          }
         case _ => Nil
       }
 
@@ -163,28 +168,35 @@ abstract class Layout(config: MicrositeSettings) {
         List(
           link(
             rel := "stylesheet",
-            href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"),
+            href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          ),
           link(
             rel := "stylesheet",
-            href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"),
+            href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          ),
           link(
             rel := "stylesheet",
-            href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
+            href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"
+          ),
           link(
             rel := "stylesheet",
-            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css")
+            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css"
+          )
         )
       else
         List(
           link(
             rel := "stylesheet",
-            href := "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"),
+            href := "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          ),
           link(
             rel := "stylesheet",
-            href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"),
+            href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"
+          ),
           link(
             rel := "stylesheet",
-            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css")
+            href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css"
+          )
         )
 
     cssStyles ++ customCssList ++ customScssList ++ customCDNList ++ ganalytics.toList
@@ -220,7 +232,8 @@ abstract class Layout(config: MicrositeSettings) {
     val languageScripts =
       config.visualSettings.highlightLanguages.filterNot(builtinLanguages.contains).map { lang =>
         script(
-          src := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/${lang}.min.js")
+          src := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/${lang}.min.js"
+        )
       }
 
     val auxScripts =
@@ -228,7 +241,8 @@ abstract class Layout(config: MicrositeSettings) {
         List(
           script(src := "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"),
           script(
-            src := "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"),
+            src := "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"
+          ),
           script(src := "{{site.url}}{{site.baseurl}}/highlight/highlight.pack.js")
         )
       else
@@ -256,7 +270,8 @@ abstract class Layout(config: MicrositeSettings) {
       """.stripMargin)
 
     val message = script(
-      """console.info('\x57\x65\x62\x73\x69\x74\x65\x20\x62\x75\x69\x6c\x74\x20\x77\x69\x74\x68\x3a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x5f\x5f\x0a\x20\x20\x20\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x5f\x20\x20\x2f\x20\x2f\x5f\x20\x20\x20\x20\x20\x20\x5f\x5f\x5f\x5f\x20\x5f\x5f\x5f\x20\x20\x28\x5f\x29\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x28\x5f\x29\x20\x2f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x0a\x20\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x60\x5f\x5f\x20\x5c\x2f\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x20\x2f\x20\x5f\x5f\x2f\x20\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x0a\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x5f\x2f\x20\x2f\x20\x2f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x5f\x5f\x2f\x20\x2f\x20\x20\x2f\x20\x2f\x5f\x2f\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x20\x2f\x5f\x2f\x20\x20\x5f\x5f\x28\x5f\x5f\x20\x20\x29\x0a\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2e\x5f\x5f\x5f\x2f\x5c\x5f\x5f\x2f\x20\x20\x20\x20\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x2f\x20\x20\x20\x5c\x5f\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x0a\x0a\x68\x74\x74\x70\x73\x3a\x2f\x2f\x34\x37\x64\x65\x67\x2e\x67\x69\x74\x68\x75\x62\x2e\x69\x6f\x2f\x73\x62\x74\x2d\x6d\x69\x63\x72\x6f\x73\x69\x74\x65\x73')""")
+      """console.info('\x57\x65\x62\x73\x69\x74\x65\x20\x62\x75\x69\x6c\x74\x20\x77\x69\x74\x68\x3a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x5f\x5f\x0a\x20\x20\x20\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x5f\x20\x20\x2f\x20\x2f\x5f\x20\x20\x20\x20\x20\x20\x5f\x5f\x5f\x5f\x20\x5f\x5f\x5f\x20\x20\x28\x5f\x29\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x28\x5f\x29\x20\x2f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x0a\x20\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x60\x5f\x5f\x20\x5c\x2f\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x20\x2f\x20\x5f\x5f\x2f\x20\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x0a\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x5f\x2f\x20\x2f\x20\x2f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x5f\x5f\x2f\x20\x2f\x20\x20\x2f\x20\x2f\x5f\x2f\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x20\x2f\x5f\x2f\x20\x20\x5f\x5f\x28\x5f\x5f\x20\x20\x29\x0a\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2e\x5f\x5f\x5f\x2f\x5c\x5f\x5f\x2f\x20\x20\x20\x20\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x2f\x20\x20\x20\x5c\x5f\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x0a\x0a\x68\x74\x74\x70\x73\x3a\x2f\x2f\x34\x37\x64\x65\x67\x2e\x67\x69\x74\x68\x75\x62\x2e\x69\x6f\x2f\x73\x62\x74\x2d\x6d\x69\x63\x72\x6f\x73\x69\x74\x65\x73')"""
+    )
 
     auxScripts ++ languageScripts ++ List(highlightingScript) ++ customJsList ++ customCDNList ++ (message :: gitSidecar)
   }
@@ -276,7 +291,8 @@ abstract class Layout(config: MicrositeSettings) {
               href := s"${config.identity.organizationHomepage}",
               target := "_blank",
               rel := "noopener noreferrer",
-              s"${config.identity.author}")
+              s"${config.identity.author}"
+            )
           )
         ),
         div(
@@ -329,7 +345,8 @@ abstract class Layout(config: MicrositeSettings) {
             href := "{{ site.baseurl }}/",
             cls := s"brand ${backgroundLogoCssMask}",
             div(cls := "icon-wrapper"),
-            span(cls := "brand-title", config.identity.name))
+            span(cls := "brand-title", config.identity.name)
+          )
         ),
         div(cls := "navigation-menu", buildLightCollapseMenu)
       )
@@ -345,7 +362,8 @@ abstract class Layout(config: MicrositeSettings) {
             href := s"${config.identity.organizationHomepage}",
             target := "_blank",
             rel := "noopener noreferrer",
-            s"${config.identity.author}")
+            s"${config.identity.author}"
+          )
         )
       ) +: {
         config.templateTexts.footer match {
@@ -414,7 +432,7 @@ abstract class Layout(config: MicrositeSettings) {
               id := "own-version",
               "Version {{ own_version.name }}"
             ),
-            i(cls := "nav-item-text fa fa-caret-down"),
+            i(cls := "nav-item-text fa fa-caret-down")
           ),
           ul(
             cls := "dropdown dropdown-content",
@@ -427,8 +445,10 @@ abstract class Layout(config: MicrositeSettings) {
                 href := "{{ item.name | relative_url }}",
                 span(
                   "{{ item.name }}"
-                ))),
-            "{% endfor %}",
+                )
+              )
+            ),
+            "{% endfor %}"
           )
         )
       ),
@@ -455,7 +475,8 @@ abstract class Layout(config: MicrositeSettings) {
   val customFeatureImg =
     fr.fetchFilesRecursively(
       List(config.fileLocations.micrositeImgDirectory),
-      validFeatureFile("feature-icon.svg")) match {
+      validFeatureFile("feature-icon.svg")
+    ) match {
       case Right(svgFeatureIconList) => svgFeatureIconList
       case _                         => Nil
     }
@@ -466,7 +487,8 @@ abstract class Layout(config: MicrositeSettings) {
   val customLogoImg =
     fr.fetchFilesRecursively(
       List(config.fileLocations.micrositeImgDirectory),
-      validFeatureFile("navbar-brand.svg")) match {
+      validFeatureFile("navbar-brand.svg")
+    ) match {
       case Right(svgLogoIconList) => svgLogoIconList
       case _                      => Nil
     }
