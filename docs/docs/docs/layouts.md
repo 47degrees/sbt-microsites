@@ -9,15 +9,15 @@ permalink: docs/layouts/
 Currently, the sbt-microsites plugin includes five different layouts:
 
 - There are two different options for the home section:
-    - `home`: The landing page, the public face of your library or project.
-    - `homeFeatures`: Another option for the landing page, choosing this option you could highlight some special features you consider your library offers. (This layout is not available for the classic pattern style)
-- `docs` (Optional): The page where the documentation for your library should be included. Most likely, you are seeing the `Documentation` page of this repo right now. It's optional, depending on the `micrositeDocumentationUrl` setting. Take a look at the [Configuring the Microsite]({% link docs/settings.md %}) section for an in-depth explanation.
+    - `home`: The landing page--the public face of your library or project.
+    - `homeFeatures`: Another option for the landing page. Choosing this option, you could highlight some of the special features your library offers. (This layout is not available for the classic pattern style)
+- `docs` (Optional): The page where the documentation for your library should be included. You are most likely seeing the `Documentation` page of this repo right now. It's optional, depending on the `micrositeDocumentationUrl` setting. Take a look at the [Configuring the Microsite]({% link docs/settings.md %}) section for an in-depth explanation.
 - `page` (Optional): Similar to `home`, but reducing the jumbotron layer and taking into account the submenu (jumbotron and other concepts related to style are explained in the [Customize]({% link docs/customize.md %}) section).
 - Menu Partial: This abstract layout reads all the files in your project that fit a set of requirements, and sets up a menu under the jumbotron image. We'll see more details on this later.
 
 ## Home Layout
 
-Usually, the `home` layout is related to the `index.md` file. In this document, you can put all the markdown content that's related to the landing page.
+The `home` layout is usually related to the `index.md` file. In this document, you can put all the markdown content that's related to the landing page.
 
 For instance:
 
@@ -34,12 +34,12 @@ technologies:
 ```
 
 The technology list is optional. These three technologies will be shown as a sub-footer in your home page. These technologies are identified for the set of keys (`first`, `second`, `third`). You can specify to include all of them or none of them. There are no other choices at this time.
-This list is only available in the `pattern` theme, but for the `light` theme we have included the `homeFeatures` layout where you can highlight similar characteristics of your library.
+This list is only available in the `pattern` theme, but, for the `light` theme, we have included the `homeFeatures` layout where you can highlight similar characteristics of your library.
 
 
 ## HomeFeatures Layout
 
-As the `home` layout `homeFeatures` is related to the `index.md` file.
+Like the `home` layout, `homeFeatures` is related to the `index.md` file.
 This layout is designed to show a main title beside a big logo, and then a series of features that can be highlighted from the library.
 
 For instance:
@@ -49,15 +49,15 @@ For instance:
 layout: homeFeatures
 features:
   - first: ["Patterns", "Solutions to recurrent problems, in a purely Functional Programming manner.", "patterns"]
-  - second: ["Typeclasses", "Enable ad-hoc polymorphism with protocols like Functor, Applicative, Monad and many others.", "typeclasses"]
+  - second: ["Typeclasses", "Enable ad-hoc polymorphism with protocols like Functor, Applicative, Monad, and many others.", "typeclasses"]
   - third: ["Data Types", "Take advantage of numerous data types based on algebraic properties.", "datatypes"]
 ---
 ```
 
-Basically this is all you´ll need to add to your `index.md` file using the `homeFeatures` layout.
-You can add up to three different features and sbt-microsites will dispose them after the masthead layer, every feature will be accompained by an icon that can be overridden as explained in the [Customize]({% link docs/customize.md %}) section.
+This is basically all you´ll need to add to your `index.md` file using the `homeFeatures` layout.
+You can add up to three different features, and sbt-microsites will dispose them after the masthead layer. Every feature will be accompained by an icon that can be overridden, as explained in the [Customize]({% link docs/customize.md %}) section.
 These features are identified for the set of keys (`first`, `second`, `third`).
-The last value of each feature is optional and will be used to set the link to the docs section, for instance the first feature in the example: `patterns`, this will serve to compose `docs/patterns` link to the docs section.
+The last value of each feature is optional and will be used to set the link to the docs section. For instance, the first feature in the example: `patterns`, this will serve to compose `docs/patterns` link to the docs section.
 
 ## Docs Layout
 
