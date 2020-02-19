@@ -1,5 +1,22 @@
 # Changelog
 
+## 02/19/2020 - Version 1.1.1
+
+Release changes:
+
+* Update sbt-microsites to 1.1.0 ([#413](https://github.com/47deg/sbt-microsites/pull/413))
+* Update sbt to 1.3.7 ([#414](https://github.com/47deg/sbt-microsites/pull/414))
+* Update org-policies-core to 0.12.3 ([#415](https://github.com/47deg/sbt-microsites/pull/415))
+* Update sbt-org-policies to 0.12.3 ([#416](https://github.com/47deg/sbt-microsites/pull/416))
+* Update sbt to 1.3.8 ([#419](https://github.com/47deg/sbt-microsites/pull/419))
+* Implement feature links ([#417](https://github.com/47deg/sbt-microsites/pull/417))
+* Update scalatags to 0.8.5 ([#420](https://github.com/47deg/sbt-microsites/pull/420))
+* Update scalafmt-core to 2.4.0 ([#422](https://github.com/47deg/sbt-microsites/pull/422))
+* Update scalafmt-core to 2.4.1 ([#423](https://github.com/47deg/sbt-microsites/pull/423))
+* Update scalatags to 0.8.6 ([#424](https://github.com/47deg/sbt-microsites/pull/424))
+* Release 1.1.1 ([#425](https://github.com/47deg/sbt-microsites/pull/425))
+
+
 ## 01/13/2020 - Version 1.1.0
 
 Release changes:
