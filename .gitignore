@@ -5,4 +5,5 @@ target/
 deploy_key
 .DS_Store
 secring.gpg
+secret_key.asc
 .metals/
