@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 47 Degrees, LLC. <http://www.47deg.com>
+ * Copyright 2016-2020 47 Degrees, LLC. <http://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -132,61 +132,64 @@ trait Arbitraries {
       micrositeFooterText                    ← Arbitrary.arbitrary[Option[String]]
       micrositeEditButton                    ← micrositeEditButtonArbitrary.arbitrary
       micrositeVersionList                   ← Arbitrary.arbitrary[Seq[String]]
-    } yield
-      MicrositeSettings(
-        MicrositeIdentitySettings(
-          name,
-          description,
-          author,
-          homepage,
-          organizationHomepage,
-          twitter,
-          twitterCreator,
-          analytics),
-        MicrositeVisualSettings(
-          highlightTheme,
-          highlightLanguages,
-          palette,
-          favicon,
-          shareOnSocial,
-          theme),
-        MicrositeTemplateTexts(
-          micrositeFooterText
-        ),
-        micrositeConfigYaml,
-        MicrositeFileLocations(
-          micrositeImgDirectory,
-          micrositeCssDirectory,
-          micrositeSassDirectory,
-          micrositeJsDirectory,
-          micrositeCDNDirectives,
-          micrositeExternalLayoutsDirectory,
-          micrositeExternalIncludesDirectory,
-          micrositeDataDirectory,
-          micrositeStaticDirectory,
-          micrositeExtraMdFiles,
-          micrositeExtraMdFilesOutput,
-          micrositePluginsDirectory
-        ),
-        MicrositeUrlSettings(
-          micrositeUrl,
-          micrositeBaseUrl,
-          micrositeDocumentationUrl,
-          micrositeDocumentationLabelDescription),
-        MicrositeGitSettings(
-          githubOwner,
-          githubRepo,
-          githubLinks,
-          gitHostingService,
-          gitHostingUrl,
-          gitSidecarChat,
-          gitSidecarChatUrl),
-        MicrositeEditButtonSettings(
-          micrositeEditButton
-        ),
-        MicrositeMultiversionSettings(
-          micrositeVersionList
-        )
+    } yield MicrositeSettings(
+      MicrositeIdentitySettings(
+        name,
+        description,
+        author,
+        homepage,
+        organizationHomepage,
+        twitter,
+        twitterCreator,
+        analytics
+      ),
+      MicrositeVisualSettings(
+        highlightTheme,
+        highlightLanguages,
+        palette,
+        favicon,
+        shareOnSocial,
+        theme
+      ),
+      MicrositeTemplateTexts(
+        micrositeFooterText
+      ),
+      micrositeConfigYaml,
+      MicrositeFileLocations(
+        micrositeImgDirectory,
+        micrositeCssDirectory,
+        micrositeSassDirectory,
+        micrositeJsDirectory,
+        micrositeCDNDirectives,
+        micrositeExternalLayoutsDirectory,
+        micrositeExternalIncludesDirectory,
+        micrositeDataDirectory,
+        micrositeStaticDirectory,
+        micrositeExtraMdFiles,
+        micrositeExtraMdFilesOutput,
+        micrositePluginsDirectory
+      ),
+      MicrositeUrlSettings(
+        micrositeUrl,
+        micrositeBaseUrl,
+        micrositeDocumentationUrl,
+        micrositeDocumentationLabelDescription
+      ),
+      MicrositeGitSettings(
+        githubOwner,
+        githubRepo,
+        githubLinks,
+        gitHostingService,
+        gitHostingUrl,
+        gitSidecarChat,
+        gitSidecarChatUrl
+      ),
+      MicrositeEditButtonSettings(
+        micrositeEditButton
+      ),
+      MicrositeMultiversionSettings(
+        micrositeVersionList
       )
+    )
   }
 }
