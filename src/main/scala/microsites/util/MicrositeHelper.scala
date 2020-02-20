@@ -199,7 +199,7 @@ class MicrositeHelper(config: MicrositeSettings) {
         val targetPath = s"$targetDir$jekyllDir/_layouts/$layoutName.html"
         createFile(targetPath)
 
-        writeContentToFile(layout.render.toString(), targetPath)
+        writeContentToFile("<!DOCTYPE html>" + layout.render.toString(), targetPath)
         targetPath.toFile
     }
   }
