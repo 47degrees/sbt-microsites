@@ -1,5 +1,18 @@
 # Changelog
 
+## 02/21/2020 - Version 1.1.2
+
+Release changes:
+
+* Setting version to 1.1.2-SNAPSHOT ([#429](https://github.com/47deg/sbt-microsites/pull/429))
+* Remove hardcoded sbt version from Travis config ([#428](https://github.com/47deg/sbt-microsites/pull/428))
+* Declare proper doctype on layouts ([#430](https://github.com/47deg/sbt-microsites/pull/430))
+* Update scalactic to 3.1.1 ([#433](https://github.com/47deg/sbt-microsites/pull/433))
+* Update scalatest to 3.1.1 ([#434](https://github.com/47deg/sbt-microsites/pull/434))
+* Upgrade sbt-org-policies and modify sign key importing ([#431](https://github.com/47deg/sbt-microsites/pull/431))
+* Trigger new patch version (1.1.2) ([#435](https://github.com/47deg/sbt-microsites/pull/435))
+
+
 ## 02/19/2020 - Version 1.1.1
 
 Release changes:
