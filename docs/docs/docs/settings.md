@@ -95,7 +95,7 @@ micrositeTwitterCreator := "@47deg"
 ```
 
 
-- `micrositeGithubOwner` and `micrositeGithubRepo`: Used to add links to the `GitHub` repo. It's also needed for publishing the site when `github4s` is chosen (see `micrositePushSiteWith` setting). Both `micrositeGithubOwner` and `micrositeGithubRepo` are required:
+- `micrositeGithubOwner` and `micrositeGithubRepo`: Used to add links to the `GitHub` repo. It's also needed for publishing the site when `github4s` is chosen (see `micrositePushSiteWith` setting). Defaults to the information found in the 'origin' Git remote, if such remote exists; otherwise they must be set like:
 
 ```scala
 micrositeGithubOwner := "47deg"
