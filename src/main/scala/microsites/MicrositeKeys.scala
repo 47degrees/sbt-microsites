@@ -164,8 +164,12 @@ trait MicrositeKeys {
   val micrositeFavicons: SettingKey[Seq[MicrositeFavicon]] = settingKey[Seq[MicrositeFavicon]](
     "Optional. List of filenames and sizes for the PNG/ICO files to be used as favicon for the generated site, located in '/microsite/img'. The sizes should be described with a string (i.e.: \"16x16\"). By default, favicons with different sizes will be generated from the navbar_brand2x.jpg file."
   )
-  val micrositeGithubOwner: SettingKey[String] = settingKey[String]("Microsite Github owner")
-  val micrositeGithubRepo: SettingKey[String]  = settingKey[String]("Microsite Github repo")
+  val micrositeGithubOwner: SettingKey[String] = settingKey[String](
+    "Microsite Github owner, defaults to the information found in the 'origin' Git remote"
+  )
+  val micrositeGithubRepo: SettingKey[String] = settingKey[String](
+    "Microsite Github repo, defaults to the information found in the 'origin' Git remote"
+  )
   val micrositeGithubToken: SettingKey[Option[String]] =
     settingKey[Option[String]]("Microsite Github token for pushing the microsite")
   val micrositeGithubLinks: SettingKey[Boolean] = settingKey[Boolean](

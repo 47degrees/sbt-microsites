@@ -28,6 +28,8 @@ import tut.TutPlugin.autoImport._
 import mdoc.MdocPlugin
 import mdoc.MdocPlugin.autoImport._
 
+import scala.util.control.NonFatal
+
 object MicrositesPlugin extends AutoPlugin {
 
   object autoImport extends MicrositeAutoImportSettings
@@ -112,8 +114,8 @@ object MicrositesPlugin extends AutoPlugin {
     },
     micrositeFavicons := Seq(),
     micrositeVersionList := Seq(),
-    micrositeGithubOwner := "",
-    micrositeGithubRepo := "",
+    micrositeGithubOwner := gitRemoteInfo._1,
+    micrositeGithubRepo := gitRemoteInfo._2,
     micrositeGithubToken := None,
     micrositeGitHostingService := GitHub,
     micrositeGitHostingUrl := "",
@@ -130,4 +132,27 @@ object MicrositesPlugin extends AutoPlugin {
     commands ++= Seq(publishMicrositeCommand),
     javaOptions += "-Djava.awt.headless=true"
   )
+
+  /** Gets the Github user and repository from the git remote info */
+  private val gitRemoteInfo = {
+    import scala.sys.process._
+
+    val identifier = """([^\/]+)"""
+
+    val GitHubHttps   = s"https://github.com/$identifier/$identifier".r
+    val SSHConnection = s"git@github.com:$identifier/$identifier.git".r
+
+    try {
+      val remote = List("git", "ls-remote", "--get-url", "origin").!!.trim()
+
+      remote match {
+        case GitHubHttps(user, repo)   => (user, repo)
+        case SSHConnection(user, repo) => (user, repo)
+        case _                         => ("", "")
+      }
+    } catch {
+      case NonFatal(_) => ("", "")
+    }
+  }
+
 }
