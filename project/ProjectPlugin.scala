@@ -5,6 +5,7 @@ import sbt.Keys._
 import sbt.ScriptedPlugin.autoImport._
 import sbtorgpolicies.OrgPoliciesPlugin
 import sbtorgpolicies.OrgPoliciesPlugin.autoImport._
+import sbtorgpolicies.model._
 import sbtorgpolicies.runnable.syntax._
 
 object ProjectPlugin extends AutoPlugin {
@@ -79,6 +80,14 @@ object ProjectPlugin extends AutoPlugin {
   override def projectSettings: Seq[Def.Setting[_]] =
     Seq(
       name := "sbt-microsites",
+      orgGithubSetting := GitHubSettings(
+        organization = "47degrees",
+        project = (name in LocalRootProject).value,
+        organizationName = "47 Degrees",
+        groupId = "com.47deg",
+        organizationHomePage = url("http://47deg.com"),
+        organizationEmail = "hello@47deg.com"
+      ),
       description := "An sbt plugin to create awesome microsites for your project",
       homepage := Some(url(orgGithubSetting.value.home)),
       startYear := Some(2016),
