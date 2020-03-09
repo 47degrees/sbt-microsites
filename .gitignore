@@ -6,4 +6,12 @@ deploy_key
 .DS_Store
 secring.gpg
 secret_key.asc
+
+# Metals Specific
+.bloop/
 .metals/
+project/.bloop/
+project/metals.sbt
+
+# Visual Studio Code Specific
+.vscode/
