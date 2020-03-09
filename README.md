@@ -1,7 +1,7 @@
 
 [comment]: # (Start Badges)
 
-[![Build Status](https://travis-ci.org/47deg/sbt-microsites.svg?branch=master)](https://travis-ci.org/47deg/sbt-microsites) [![Maven Central](https://img.shields.io/badge/maven%20central-1.1.2-green.svg)](https://repo1.maven.org/maven2/com/47deg/sbt-microsites_2.12_1.0) [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/47deg/sbt-microsites/master/LICENSE) [![Join the chat at https://gitter.im/47deg/sbt-microsites](https://badges.gitter.im/47deg/sbt-microsites.svg)](https://gitter.im/47deg/sbt-microsites?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![GitHub Issues](https://img.shields.io/github/issues/47deg/sbt-microsites.svg)](https://github.com/47deg/sbt-microsites/issues)
+[![Build Status](https://travis-ci.org/47degrees/sbt-microsites.svg?branch=master)](https://travis-ci.org/47degrees/sbt-microsites) [![Maven Central](https://img.shields.io/badge/maven%20central-1.1.2-green.svg)](https://repo1.maven.org/maven2/com/47deg/sbt-microsites_2.12_1.0) [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/47degrees/sbt-microsites/master/LICENSE) [![Join the chat at https://gitter.im/47deg/sbt-microsites](https://badges.gitter.im/47deg/sbt-microsites.svg)](https://gitter.im/47deg/sbt-microsites?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![GitHub Issues](https://img.shields.io/github/issues/47deg/sbt-microsites.svg)](https://github.com/47deg/sbt-microsites/issues)
 
 [comment]: # (End Badges)
 
@@ -34,11 +34,11 @@ Finally, to enable the plugin, add this to your `build.sbt` file:
 enablePlugins(MicrositesPlugin)
 ```
 
-We recommend taking a look at the `Getting Started` section in the [documentation](https://47deg.github.io/sbt-microsites/docs/) since there are some prerequisites that are needed to build your microsite.
+We recommend taking a look at the `Getting Started` section in the [documentation](https://47degrees.github.io/sbt-microsites/docs/) since there are some prerequisites that are needed to build your microsite.
 
 # Documentation
 
-Microsites comes with a range of options to customize and configure your project's site. Please visit the [documentation](https://47deg.github.io/sbt-microsites/docs/) section for more information.
+Microsites comes with a range of options to customize and configure your project's site. Please visit the [documentation](https://47degrees.github.io/sbt-microsites/docs/) section for more information.
 
 # sbt-microsites in the wild
 

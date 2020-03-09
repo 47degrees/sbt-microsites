@@ -31,7 +31,7 @@ object Layout {
     p(
       s"Website built with ",
       a(
-        href := s"https://47deg.github.io/sbt-microsites/",
+        href := s"https://47degrees.github.io/sbt-microsites/",
         target := "_blank",
         rel := "noopener noreferrer",
         s"sbt-microsites"
