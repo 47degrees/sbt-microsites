@@ -1,5 +1,19 @@
 # Changelog
 
+## 03/10/2020 - Version 1.1.3
+
+Release changes:
+
+* Update sbt-microsites to 1.1.2 ([#436](https://github.com/47degrees/sbt-microsites/pull/436))
+* Update scalafmt-core to 2.4.2 ([#437](https://github.com/47degrees/sbt-microsites/pull/437))
+* Update sbt-org-policies to 0.13.1 ([#438](https://github.com/47degrees/sbt-microsites/pull/438))
+* Update org-policies-core to 0.13.1 ([#439](https://github.com/47degrees/sbt-microsites/pull/439))
+* Populate github owner/repo keys with default values from git remote ([#440](https://github.com/47degrees/sbt-microsites/pull/440))
+* Set absolute position to main features img relative to parent container ([#441](https://github.com/47degrees/sbt-microsites/pull/441))
+* Migrates from 47deg to 47degrees GH organization ([#442](https://github.com/47degrees/sbt-microsites/pull/442))
+* Release 1.1.3 ([#443](https://github.com/47degrees/sbt-microsites/pull/443))
+
+
 ## 02/21/2020 - Version 1.1.2
 
 Release changes:
