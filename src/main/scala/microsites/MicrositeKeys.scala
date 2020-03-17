@@ -31,6 +31,8 @@ import mdoc.MdocPlugin.autoImport._
 import sbtorgpolicies.io.FileReader
 import sbtorgpolicies.io.FileWriter._
 import sbtorgpolicies.io.syntax._
+//import sbtorgpolicies.io.{IO => FIO}
+import cats.effect.{IO}
 
 import scala.sys.process._
 import java.nio.file._
@@ -506,9 +508,9 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
                  | * repo: $githubOwner/$githubRepo
                  | * commitMessage: $commitMessage""".stripMargin)
 
-            val ghOps: GitHubOps = new GitHubOps(githubOwner, githubRepo, githubToken)
+            val ghOps: GitHubOps = new GitHubOps[IO](githubOwner, githubRepo, githubToken)
 
-            if (noJekyll) IO.touch(siteDir / ".nojekyll")
+//            if (noJekyll) FIO.touch(siteDir / ".nojekyll")
 
             ghOps.commitDir(branch, commitMessage, siteDir) match {
               case Right(_) => log.info("Success committing files")
