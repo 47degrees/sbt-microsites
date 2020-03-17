@@ -20,7 +20,7 @@ object ProjectPlugin extends AutoPlugin {
       val catsEffect: String   = "1.1.0"
       val mdoc: String         = "2.1.1"
       val moultingyaml: String = "0.4.1"
-      val orgPolicies: String  = "0.13.1"
+      val orgPolicies: String  = "0.13.2"
       val scala: String        = "2.12.10"
       val scalactic: String    = "3.1.1"
       val scalatest: String    = "3.1.1"
