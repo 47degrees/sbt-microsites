@@ -24,6 +24,7 @@ import io.circe.generic.semiauto._
 import io.circe.syntax._
 import sbt.Keys._
 import sbt._
+import sbt.io.{IO => FIO}
 import sbt.complete.DefaultParsers.OptNotSpace
 import sbtorgpolicies.github.GitHubOps
 import tut.TutPlugin.autoImport._
@@ -31,6 +32,8 @@ import mdoc.MdocPlugin.autoImport._
 import sbtorgpolicies.io.FileReader
 import sbtorgpolicies.io.FileWriter._
 import sbtorgpolicies.io.syntax._
+import cats.effect.{ContextShift, IO, Timer}
+import scala.concurrent.ExecutionContext
 
 import scala.sys.process._
 import java.nio.file._
@@ -494,6 +497,10 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val githubRepo: String            = micrositeGithubRepo.value
       val githubToken: Option[String]   = micrositeGithubToken.value
 
+      implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
+      implicit val ec: ExecutionContext = ExecutionContext.global
+      implicit val t: Timer[IO]         = IO.timer(ExecutionContext.global)
+
       lazy val log: Logger = streams.value.log
 
       (pushSiteWith.name, gitHosting.name) match {
@@ -506,11 +513,11 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
                  | * repo: $githubOwner/$githubRepo
                  | * commitMessage: $commitMessage""".stripMargin)
 
-            val ghOps: GitHubOps = new GitHubOps(githubOwner, githubRepo, githubToken)
+            val ghOps: GitHubOps[IO] = new GitHubOps[IO](githubOwner, githubRepo, githubToken)
 
-            if (noJekyll) IO.touch(siteDir / ".nojekyll")
+            if (noJekyll) FIO.touch(siteDir / ".nojekyll")
 
-            ghOps.commitDir(branch, commitMessage, siteDir) match {
+            ghOps.commitDir(branch, commitMessage, siteDir).value.unsafeRunSync() match {
               case Right(_) => log.info("Success committing files")
               case Left(e) =>
                 log.error(s"Error committing files")
