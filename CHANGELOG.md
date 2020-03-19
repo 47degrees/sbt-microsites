@@ -1,5 +1,19 @@
 # Changelog
 
+## 03/19/2020 - Version 1.1.4
+
+Release changes:
+
+* Update sbt-mdoc to 2.1.3 ([#446](https://github.com/47degrees/sbt-microsites/pull/446))
+* Update org-policies-core, ... to 0.13.2 ([#444](https://github.com/47degrees/sbt-microsites/pull/444))
+* Update sbt-microsites to 1.1.3 ([#445](https://github.com/47degrees/sbt-microsites/pull/445))
+* Update sbt-mdoc to 2.1.4 ([#447](https://github.com/47degrees/sbt-microsites/pull/447))
+* Mergify: configuration update ([#448](https://github.com/47degrees/sbt-microsites/pull/448))
+* Use cats-effect IO data type ([#449](https://github.com/47degrees/sbt-microsites/pull/449))
+* Release 1.1.4 ([#450](https://github.com/47degrees/sbt-microsites/pull/450))
+* Bumping up sbt-org-policies version ([#451](https://github.com/47degrees/sbt-microsites/pull/451))
+
+
 ## 03/10/2020 - Version 1.1.3
 
 Release changes:
