@@ -1,5 +1,14 @@
 # Changelog
 
+## 03/20/2020 - Version 1.1.5
+
+Release changes:
+
+* Update sbt-microsites to 1.1.4 ([#452](https://github.com/47degrees/sbt-microsites/pull/452))
+* Update sbt-mdoc to 2.1.5 ([#453](https://github.com/47degrees/sbt-microsites/pull/453))
+* Releases 1.1.5 ([#454](https://github.com/47degrees/sbt-microsites/pull/454))
+
+
 ## 03/19/2020 - Version 1.1.4
 
 Release changes:
