@@ -10,10 +10,15 @@ lazy val docs = (project in file("docs"))
   .settings(moduleName := "docs")
   .settings(micrositeSettings: _*)
   .settings(noPublishSettings: _*)
-  .settings(Seq(
-    buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
-    buildInfoPackage := "microsites"
-  ): _*)
+  .settings(
+    Seq(
+      buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
+      buildInfoPackage := "microsites"
+    ): _*
+  )
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(TutPlugin)
   .enablePlugins(BuildInfoPlugin)
+
+addCommandAlias("ci-test", "scalafmtCheck; scalafmtSbtCheck; docs/tut; compile; test; scripted")
+addCommandAlias("ci-docs", "docs/tut")

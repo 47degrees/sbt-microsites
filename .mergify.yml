@@ -1,9 +1,24 @@
 pull_request_rules:
-  - name: Automatic merge scala-steward PRs when CI is passing
+  - name: automatically merge & label scala-steward's PRs
     conditions:
       - author=scala-steward
-      - status-success=continuous-integration/travis-ci/pr
-      - body~=labels:.*semver-patch
+      - status-success=test
     actions:
       merge:
         method: squash
+      label:
+        add: [auto-update]
+  - name: automatically merge & label developer47deg's PRs
+    conditions:
+      - author=developer47deg
+      - status-success=test
+    actions:
+      merge:
+        method: squash
+      label:
+        add: [auto-update]
+  - name: delete head branch after merge
+    conditions:
+      - merged
+    actions:
+      delete_head_branch: {}
