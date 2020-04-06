@@ -273,6 +273,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           Paths.get(s"$targetDir/$version"),
           StandardCopyOption.REPLACE_EXISTING
         )
+        ()
       }
       case None => System.err.println(s"$pluginName not found in version $version")
     }

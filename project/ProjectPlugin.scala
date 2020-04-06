@@ -17,25 +17,26 @@ object ProjectPlugin extends AutoPlugin {
   object autoImport {
 
     lazy val V = new {
-      val catsEffect: String   = "2.1.2"
-      val mdoc: String         = "2.1.1"
-      val moultingyaml: String = "0.4.2"
-      val orgPolicies: String  = "0.13.3"
-      val scala: String        = "2.12.10"
-      val scalactic: String    = "3.1.1"
-      val scalatest: String    = "3.1.1"
-      val scalacheck: String   = "1.14.3"
-      val scalatestScalacheck: String =  "3.1.0.0-RC2"
-      val scalatags: String    = "0.8.6"
-      val scrimage: String     = "2.1.8"
-      val tut: String          = "0.6.13"
+      val catsEffect: String          = "2.1.2"
+      val mdoc: String                = "2.1.1"
+      val moultingyaml: String        = "0.4.1"
+      val orgPolicies: String         = "0.13.3"
+      val scala: String               = "2.12.10"
+      val scalactic: String           = "3.1.1"
+      val scalatest: String           = "3.1.1"
+      val scalacheck: String          = "1.14.3"
+      val scalatestScalacheck: String = "3.1.0.0-RC2"
+      val scalatags: String           = "0.8.6"
+      val scrimage: String            = "2.1.8"
+      val tut: String                 = "0.6.13"
     }
 
     lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
       sbtPlugin := true,
       resolvers ++= Seq(
         Resolver.sonatypeRepo("snapshots"),
-        "jgit-repo" at "https://download.eclipse.org/jgit/maven"),
+        "jgit-repo" at "https://download.eclipse.org/jgit/maven"
+      ),
       addSbtPlugin("org.tpolecat"  % "tut-plugin" % V.tut),
       addSbtPlugin("org.scalameta" % "sbt-mdoc"   % V.mdoc),
       addSbtPlugin(%("sbt-ghpages", isSbtPlugin = true)),
@@ -49,7 +50,7 @@ object ProjectPlugin extends AutoPlugin {
         "com.sksamuel.scrimage"        %% "scrimage-core" % V.scrimage,
         %%("scalatest", V.scalatest)   % "test",
         %%("scalacheck", V.scalacheck) % "test",
-        "org.scalatestplus" %% "scalatestplus-scalacheck" % V.scalatestScalacheck % "test"
+        "org.scalatestplus"            %% "scalatestplus-scalacheck" % V.scalatestScalacheck % "test"
       ),
       scriptedLaunchOpts := {
         scriptedLaunchOpts.value ++
