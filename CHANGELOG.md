@@ -244,7 +244,7 @@
 - Update prerequisites versions doc info [\#342](https://github.com/47degrees/sbt-microsites/pull/342) ([calvellido](https://github.com/calvellido))
 - Update scalacheck to 1.14.1 [\#341](https://github.com/47degrees/sbt-microsites/pull/341) ([scala-steward](https://github.com/scala-steward))
 - Update sbt to 1.3.2 [\#340](https://github.com/47degrees/sbt-microsites/pull/340) ([scala-steward](https://github.com/scala-steward))
-- Update moultingyaml to 0.4.1 [\#339](https://github.com/47degrees/sbt-microsites/pull/339) ([scala-steward](https://github.com/scala-steward))
+- Update moultingyaml to 0.4.2 [\#339](https://github.com/47degrees/sbt-microsites/pull/339) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-microsites to 0.9.4 [\#337](https://github.com/47degrees/sbt-microsites/pull/337) ([scala-steward](https://github.com/scala-steward))
 - Update org-policies-core, ... to 0.12.0-M3 [\#336](https://github.com/47degrees/sbt-microsites/pull/336) ([scala-steward](https://github.com/scala-steward))
 - Add rel attribute to external links to avoid security problems [\#333](https://github.com/47degrees/sbt-microsites/pull/333) ([calvellido](https://github.com/calvellido))
