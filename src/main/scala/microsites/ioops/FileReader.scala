@@ -2,6 +2,7 @@ package microsites.ioops
 
 import java.io.File
 
+import cats.effect.Sync
 import cats.syntax.either._
 import microsites.Exceptions._
 import microsites.ioops.syntax._
@@ -10,19 +11,12 @@ import scala.annotation.tailrec
 
 class FileReader {
 
-  def exists(path: String): Boolean =
-    Either
-      .catchNonFatal(IOUtils.file(path).exists()) getOrElse false
-
-  def getFileContent(filePath: String): String =
-    IOUtils.readLines(IOUtils.file(filePath)).mkString("\n")
-
-  def getFileBytes(file: File): Array[Byte] =
-    IOUtils.readBytes(file)
-
   private[this] val defaultValidDirs: (File) => Boolean = (f: File) => {
     !Set("target", "bin", "output").contains(f.getName) && !f.getName.startsWith(".")
   }
+
+  def getFileBytes[F[_]: Sync](file: File): F[Array[Byte]] =
+    Sync[F].delay(IOUtils.readBytes(file))
 
   def fetchFilesRecursivelyFromPath(
       sourcePath: String,
@@ -47,9 +41,8 @@ class FileReader {
             processedDirs: List[String] = Nil
         ): List[File] = {
 
-          val allFiles: List[File] = processedFiles ++ in.filter(f =>
-            f.exists && f.isFile && isFileSupported(f)
-          )
+          val allFiles: List[File] =
+            processedFiles ++ in.filter(f => f.exists && f.isFile && isFileSupported(f))
 
           in.filter { f =>
             f.isDirectory &&
@@ -77,27 +70,27 @@ class FileReader {
       in: List[File],
       isDirSupported: (File) => Boolean = defaultValidDirs
   ): List[File] = {
-        @tailrec
-        def findAllDirs(
-            in: List[File],
-            isDirSupported: (File) => Boolean,
-            processedDirs: List[File] = Nil
-        ): List[File] = {
+    @tailrec
+    def findAllDirs(
+        in: List[File],
+        isDirSupported: (File) => Boolean,
+        processedDirs: List[File] = Nil
+    ): List[File] = {
 
-          in.filter { f =>
-            f.isDirectory &&
-            isDirSupported(f) &&
-            !processedDirs.map(_.getCanonicalPath).contains(f.getCanonicalPath)
-          } match {
-            case Nil => processedDirs
-            case list =>
-              val subDirs = list.flatMap(_.listFiles().toList)
-              findAllDirs(subDirs, isDirSupported, processedDirs ++ list)
-          }
-        }
-
-        findAllDirs(in, isDirSupported)
+      in.filter { f =>
+        f.isDirectory &&
+        isDirSupported(f) &&
+        !processedDirs.map(_.getCanonicalPath).contains(f.getCanonicalPath)
+      } match {
+        case Nil => processedDirs
+        case list =>
+          val subDirs = list.flatMap(_.listFiles().toList)
+          findAllDirs(subDirs, isDirSupported, processedDirs ++ list)
       }
+    }
+
+    findAllDirs(in, isDirSupported)
+  }
 }
 
 object FileReader extends FileReader

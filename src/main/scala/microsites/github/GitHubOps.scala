@@ -32,14 +32,6 @@ import microsites.ioops.{FileReader, IOUtils => FIO}
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 
-class GitHubOpsIO(
-    owner: String,
-    repo: String,
-    accessToken: Option[String],
-    fileReader: FileReader = FileReader
-)(implicit ec: ExecutionContext, ce: ConcurrentEffect[IO], t: Timer[IO])
-    extends GitHubOps[IO](owner, repo, accessToken, fileReader)
-
 class GitHubOps[F[_]: ConcurrentEffect: Timer](
     owner: String,
     repo: String,
@@ -49,114 +41,6 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
 
   val gh: Github[F]                = Github[F](accessToken)
   val headers: Map[String, String] = Map("user-agent" -> "sbt-microsites")
-
-  def commitFiles(
-      baseDir: File,
-      branch: String,
-      message: String,
-      files: List[File]
-  ) = {
-
-    def relativePath(file: File): String =
-      FIO.relativize(baseDir, file).getOrElse(file.getName)
-
-    def readFileContents: F[List[(String, String)]] =
-      files.traverse { file =>
-        for {
-          path         <- Sync[F].delay(file.getAbsolutePath)
-          content      <- Sync[F].delay(fileReader.getFileContent(path))
-          relativePath <- Sync[F].delay(relativePath(file))
-        } yield (content, relativePath)
-      }
-
-    readFileContents
-      .flatMap { filesAndContents =>
-        commitFilesAndContents(branch, message, filesAndContents)
-      }
-  }
-
-  def commitFilesAndContents(
-      branch: String,
-      message: String,
-      filesAndContents: List[(String, String)]
-  ): F[Option[Ref]] = {
-
-    def fetchBaseTreeSha(commitSha: String): F[RefCommit] =
-      run(gh.gitData.getCommit(owner, repo, commitSha))
-
-    def fetchFilesContents(
-        commitSha: String
-    ): F[List[(String, Option[String])]] = {
-      def fetchFileContents(
-          path: String,
-          commitSha: String
-      ): F[(String, Option[String])] =
-        run(
-          gh.repos
-            .getContents(owner = owner, repo = repo, path = path, ref = Some(commitSha))
-        ).map(_.map(content => path -> content.content).head)
-
-      filesAndContents.map(_._1).traverse(fetchFileContents(_, commitSha))
-    }
-
-    def filterNonChangedFiles(remote: List[(String, Option[String])]): List[(String, String)] = {
-      val remoteMap = remote.collect {
-        case (path, Some(c)) => path -> c
-      }.toMap
-      filesAndContents.filterNot {
-        case (path, content) =>
-          remoteMap.get(path).exists { remoteContent =>
-            remoteContent.trim.replaceAll("\n", "") == content.getBytes.toBase64.trim
-          }
-      }
-    }
-
-    def createTree(
-        baseTreeSha: String,
-        filteredFilesContent: List[(String, String)]
-    ): F[TreeResult] = {
-      val treeData: List[TreeDataBlob] = filteredFilesContent.map {
-        case (path, content) => TreeDataBlob(path, blobMode, blobType, content)
-      }
-
-      run(gh.gitData.createTree(owner, repo, Some(baseTreeSha), treeData))
-    }
-
-    def createCommit(
-        treeSha: String,
-        baseCommitSha: String
-    ): F[RefCommit] =
-      run(gh.gitData.createCommit(owner, repo, message, treeSha, List(baseCommitSha), None))
-
-    def commitFilesIfChanged(
-        baseTreeSha: String,
-        parentCommitSha: String,
-        filteredFilesContent: List[(String, String)]
-    ): F[Option[Ref]] =
-      filteredFilesContent match {
-        case Nil =>
-          Sync[F].pure(none[Ref])
-        case list =>
-          for {
-            ghResultTree   <- createTree(baseTreeSha, list)
-            ghResultCommit <- createCommit(ghResultTree.sha, parentCommitSha)
-            ghResultUpdate <- updateHead(branch, ghResultCommit.sha)
-          } yield Option(ghResultUpdate)
-      }
-
-    for {
-      gHResultParentCommit <- fetchHeadCommit(branch)
-      parentCommitSha = gHResultParentCommit.`object`.sha
-      gHResultBaseTree <- fetchBaseTreeSha(parentCommitSha)
-      baseTreeSha = gHResultBaseTree.tree.sha
-      ghResultFilesContent <- fetchFilesContents(parentCommitSha)
-      ghResultUpdate <- commitFilesIfChanged(
-        baseTreeSha,
-        parentCommitSha,
-        filterNonChangedFiles(ghResultFilesContent)
-      )
-    } yield ghResultUpdate
-  }
 
   def commitDir(branch: String, message: String, dir: File): F[Ref] =
     Sync[F]
@@ -180,9 +64,7 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
       updateCommitDir(branch, message, baseDir, dir, blobConfig, sha)
 
     val processAllFiles: F[RefCommit] =
-      dirList.reduceLeftM { dirHead =>
-        updateCommitDirH(dirHead, None)
-      } { (commit, dir) =>
+      dirList.reduceLeftM(dirHead => updateCommitDirH(dirHead, None)) { (commit, dir) =>
         updateCommitDirH(dir, Some(commit.sha))
       }
 
@@ -199,13 +81,11 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
       dirToCommit: File,
       blobConfig: BlobConfig,
       commitSha: Option[String]
-  ) = {
+  ): F[RefCommit] = {
 
     def fetchBaseTreeSha: F[Option[RefCommit]] =
       commitSha
-        .map { sha =>
-          run(gh.gitData.getCommit(owner, repo, sha)).map(Option.apply)
-        }
+        .map(sha => run(gh.gitData.getCommit(owner, repo, sha)).map(Option.apply))
         .getOrElse(Sync[F].pure(none[RefCommit]))
 
     def getAllFiles: List[File] = Option(dirToCommit.listFiles()).toList.flatten.filter(_.isFile)
@@ -213,15 +93,18 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
     def createTreeDataList(files: List[File]): F[List[TreeData]] = {
 
       def readFileAsGithub4sResponse(file: File): F[Array[Byte]] =
-        Sync[F]
-          .delay(fileReader.getFileBytes(file))
+        fileReader
+          .getFileBytes(file)
           .handleError(e =>
-            throw IOException(s"Error loading ${file.getAbsolutePath} content", Some(e)))
+            throw IOException(s"Error loading ${file.getAbsolutePath} content", Some(e))
+          )
 
       def path(file: File): F[String] =
-        Sync[F].delay(FIO
-          .relativize(baseDir, file)
-          .getOrElse(throw GitHub4sException(s"Can't determine path for ${file.getAbsolutePath}")))
+        Sync[F].delay(
+          FIO
+            .relativize(baseDir, file)
+            .getOrElse(throw GitHub4sException(s"Can't determine path for ${file.getAbsolutePath}"))
+        )
 
       def createTreeDataSha(
           filePath: String,
@@ -256,7 +139,8 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
           filePath <- OptionT(path(file).map(Option(_)))
           array    <- OptionT(readFileAsGithub4sResponse(file).map(Option(_)))
           treeData <- createTreeData(file, filePath, array)
-        } yield treeData).value.map(_.getOrElse(throw UnexpectedException("Unable to get the TreeData")))
+        } yield treeData).value
+          .map(_.getOrElse(throw UnexpectedException("Unable to get the TreeData")))
 
       files.traverse(processFile)
     }
@@ -294,9 +178,6 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
       refCommit    <- createCommit(treeResult.sha, parentCommit)
     } yield refCommit
   }
-
-  def fetchReference(ref: String): F[NonEmptyList[Ref]] =
-    run(gh.gitData.getReference(owner, repo, ref))
 
   def fetchHeadCommit(branch: String): F[Ref] = {
     def findReference(refs: NonEmptyList[Ref]): Ref =
