@@ -27,7 +27,10 @@
   description: "This will not be worked on"
 - name: auto-update
   color: 63d11b
-  description: "Dependency auto update created by a bot"
+  description: "Workflow, documentation templates or configuration files auto-updates"
+- name: scala-steward
+  color: c6055c
+  description: "Dependency auto updates created by scala-steward"
 - name: auto-documentation
   color: cce1ff
   description: "Automatic update of documentation files"

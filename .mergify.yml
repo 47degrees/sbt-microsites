@@ -7,7 +7,7 @@ pull_request_rules:
       merge:
         method: squash
       label:
-        add: [auto-update]
+        add: [scala-steward]
   - name: automatically merge & label developer47deg's PRs
     conditions:
       - author=developer47deg
@@ -15,8 +15,6 @@ pull_request_rules:
     actions:
       merge:
         method: squash
-      label:
-        add: [auto-update]
   - name: delete head branch after merge
     conditions:
       - merged
