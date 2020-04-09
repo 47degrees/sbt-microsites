@@ -18,6 +18,6 @@ object Exceptions {
   case class GitHub4sException(msg: String, cause: Option[Throwable] = None)
       extends MicrositesException(msg, cause)
 
-  case class UnexpectedException(msg: String, cause: Option[Throwable] = None)
+  final case class UnexpectedException(msg: String, cause: Option[Throwable] = None)
       extends MicrositesException(msg, cause)
 }
