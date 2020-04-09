@@ -526,7 +526,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
                 log.error(s"Error committing files")
                 e.printStackTrace()
               }
-              .unsafeRunSync
+              .unsafeRunSync()
           })
         case (GitHub4s.name, GitHub.name) =>
           Def.task(
