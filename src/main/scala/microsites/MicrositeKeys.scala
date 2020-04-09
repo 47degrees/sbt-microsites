@@ -26,12 +26,12 @@ import sbt.Keys._
 import sbt._
 import sbt.io.{IO => FIO}
 import sbt.complete.DefaultParsers.OptNotSpace
-import sbtorgpolicies.github.GitHubOps
+import github.GitHubOps
 import tut.TutPlugin.autoImport._
 import mdoc.MdocPlugin.autoImport._
-import sbtorgpolicies.io.FileReader
-import sbtorgpolicies.io.FileWriter._
-import sbtorgpolicies.io.syntax._
+import microsites.ioops._
+import microsites.ioops.syntax._
+import FileWriter._
 import cats.effect.{ContextShift, IO, Timer}
 import scala.concurrent.ExecutionContext
 
@@ -518,12 +518,16 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 
             if (noJekyll) FIO.touch(siteDir / ".nojekyll")
 
-            ghOps.commitDir(branch, commitMessage, siteDir).value.unsafeRunSync() match {
-              case Right(_) => log.info("Success committing files")
-              case Left(e) =>
-                log.error(s"Error committing files")
-                e.printStackTrace()
-            }
+            ghOps
+              .commitDir(branch, commitMessage, siteDir)
+              .map(_ => log.info("Success committing files"))
+              .handleErrorWith { e =>
+                IO {
+                  e.printStackTrace()
+                  log.error(s"Error committing files")
+                }
+              }
+              .unsafeRunSync()
           })
         case (GitHub4s.name, GitHub.name) =>
           Def.task(

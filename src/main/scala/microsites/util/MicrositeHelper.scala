@@ -19,15 +19,15 @@ package microsites.util
 import java.io.File
 
 import com.sksamuel.scrimage._
-import sbtorgpolicies.model.YamlFormats._
+import microsites.util.YamlFormats._
 import microsites._
 import microsites.layouts._
-import net.jcazevedo.moultingyaml.{YamlObject, _}
+import net.jcazevedo.moultingyaml._
 import sbt._
 import sbt.io.Path
 import sbt.io.syntax.file
-import sbtorgpolicies.io.FileWriter._
-import sbtorgpolicies.io.syntax._
+import microsites.ioops.FileWriter._
+import microsites.ioops.syntax._
 
 import scala.io.Source
 
