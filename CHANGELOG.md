@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Update sbt to 1.3.9 [\#458](https://github.com/47degrees/sbt-microsites/pull/458) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-microsites to 1.1.5 [\#455](https://github.com/47degrees/sbt-microsites/pull/455) ([scala-steward](https://github.com/scala-steward))
 - Releases 1.1.5 [\#454](https://github.com/47degrees/sbt-microsites/pull/454) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Update sbt-mdoc to 2.1.5 [\#453](https://github.com/47degrees/sbt-microsites/pull/453) ([scala-steward](https://github.com/scala-steward))
@@ -25,6 +26,7 @@
 - Update sbt-mdoc to 2.1.3 [\#446](https://github.com/47degrees/sbt-microsites/pull/446) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-microsites to 1.1.3 [\#445](https://github.com/47degrees/sbt-microsites/pull/445) ([scala-steward](https://github.com/scala-steward))
 - Update org-policies-core, ... to 0.13.2 [\#444](https://github.com/47degrees/sbt-microsites/pull/444) ([scala-steward](https://github.com/scala-steward))
+- Update scalafmt-core to 2.4.2 [\#437](https://github.com/47degrees/sbt-microsites/pull/437) ([scala-steward](https://github.com/scala-steward))
 
 ## [v1.1.3](https://github.com/47degrees/sbt-microsites/tree/v1.1.3) (2020-03-10)
 
@@ -47,7 +49,6 @@
 - Populate github owner/repo keys with default values from git remote [\#440](https://github.com/47degrees/sbt-microsites/pull/440) ([alejandrohdezma](https://github.com/alejandrohdezma))
 - Update org-policies-core to 0.13.1 [\#439](https://github.com/47degrees/sbt-microsites/pull/439) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-org-policies to 0.13.1 [\#438](https://github.com/47degrees/sbt-microsites/pull/438) ([scala-steward](https://github.com/scala-steward))
-- Update scalafmt-core to 2.4.2 [\#437](https://github.com/47degrees/sbt-microsites/pull/437) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-microsites to 1.1.2 [\#436](https://github.com/47degrees/sbt-microsites/pull/436) ([scala-steward](https://github.com/scala-steward))
 
 ## [v1.1.2](https://github.com/47degrees/sbt-microsites/tree/v1.1.2) (2020-02-21)
@@ -74,7 +75,6 @@
 - Upgrade sbt-org-policies and modify sign key importing [\#431](https://github.com/47degrees/sbt-microsites/pull/431) ([calvellido](https://github.com/calvellido))
 - Setting version to 1.1.2-SNAPSHOT [\#429](https://github.com/47degrees/sbt-microsites/pull/429) ([calvellido](https://github.com/calvellido))
 - Remove hardcoded sbt version from Travis config [\#428](https://github.com/47degrees/sbt-microsites/pull/428) ([calvellido](https://github.com/calvellido))
-- Update scalatags to 0.8.6 [\#424](https://github.com/47degrees/sbt-microsites/pull/424) ([scala-steward](https://github.com/scala-steward))
 
 ## [v1.1.1](https://github.com/47degrees/sbt-microsites/tree/v1.1.1) (2020-02-19)
 
@@ -92,6 +92,7 @@
 **Merged pull requests:**
 
 - Release 1.1.1 [\#425](https://github.com/47degrees/sbt-microsites/pull/425) ([juanpedromoreno](https://github.com/juanpedromoreno))
+- Update scalatags to 0.8.6 [\#424](https://github.com/47degrees/sbt-microsites/pull/424) ([scala-steward](https://github.com/scala-steward))
 - Update scalafmt-core to 2.4.1 [\#423](https://github.com/47degrees/sbt-microsites/pull/423) ([scala-steward](https://github.com/scala-steward))
 - Update scalafmt-core to 2.4.0 [\#422](https://github.com/47degrees/sbt-microsites/pull/422) ([scala-steward](https://github.com/scala-steward))
 - Update scalatags to 0.8.5 [\#420](https://github.com/47degrees/sbt-microsites/pull/420) ([scala-steward](https://github.com/scala-steward))
@@ -934,7 +935,6 @@
 - Add external layouts and partial layouts [\#95](https://github.com/47degrees/sbt-microsites/pull/95) ([jdesiloniz](https://github.com/jdesiloniz))
 - Adds Scala Fork to wild section [\#94](https://github.com/47degrees/sbt-microsites/pull/94) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Bumps version in doc files to 0.3.2 [\#93](https://github.com/47degrees/sbt-microsites/pull/93) ([juanpedromoreno](https://github.com/juanpedromoreno))
-- Update docs to latest version [\#87](https://github.com/47degrees/sbt-microsites/pull/87) ([juanpedromoreno](https://github.com/juanpedromoreno))
 
 ## [v0.3.2](https://github.com/47degrees/sbt-microsites/tree/v0.3.2) (2016-11-09)
 
@@ -948,6 +948,7 @@
 
 - Adds scripted tests to ensure scala 2.12 compatibility [\#90](https://github.com/47degrees/sbt-microsites/pull/90) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - upgrade tut to 0.4.6 [\#89](https://github.com/47degrees/sbt-microsites/pull/89) ([julien-truffaut](https://github.com/julien-truffaut))
+- Update docs to latest version [\#87](https://github.com/47degrees/sbt-microsites/pull/87) ([juanpedromoreno](https://github.com/juanpedromoreno))
 
 ## [v0.3.1](https://github.com/47degrees/sbt-microsites/tree/v0.3.1) (2016-11-07)
 
