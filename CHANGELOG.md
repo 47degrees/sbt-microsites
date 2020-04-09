@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/47degrees/sbt-microsites/compare/v1.1.4...HEAD)
 
+⚠️ **Breaking changes**
+
+- Removes Sbt-org-policies Dependency [\#465](https://github.com/47degrees/sbt-microsites/pull/465) ([juanpedromoreno](https://github.com/juanpedromoreno))
+
 **Merged pull requests:**
 
 - Update sbt to 1.3.9 [\#458](https://github.com/47degrees/sbt-microsites/pull/458) ([scala-steward](https://github.com/scala-steward))
@@ -26,7 +30,6 @@
 - Update sbt-mdoc to 2.1.3 [\#446](https://github.com/47degrees/sbt-microsites/pull/446) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-microsites to 1.1.3 [\#445](https://github.com/47degrees/sbt-microsites/pull/445) ([scala-steward](https://github.com/scala-steward))
 - Update org-policies-core, ... to 0.13.2 [\#444](https://github.com/47degrees/sbt-microsites/pull/444) ([scala-steward](https://github.com/scala-steward))
-- Update scalafmt-core to 2.4.2 [\#437](https://github.com/47degrees/sbt-microsites/pull/437) ([scala-steward](https://github.com/scala-steward))
 
 ## [v1.1.3](https://github.com/47degrees/sbt-microsites/tree/v1.1.3) (2020-03-10)
 
@@ -49,6 +52,7 @@
 - Populate github owner/repo keys with default values from git remote [\#440](https://github.com/47degrees/sbt-microsites/pull/440) ([alejandrohdezma](https://github.com/alejandrohdezma))
 - Update org-policies-core to 0.13.1 [\#439](https://github.com/47degrees/sbt-microsites/pull/439) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-org-policies to 0.13.1 [\#438](https://github.com/47degrees/sbt-microsites/pull/438) ([scala-steward](https://github.com/scala-steward))
+- Update scalafmt-core to 2.4.2 [\#437](https://github.com/47degrees/sbt-microsites/pull/437) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-microsites to 1.1.2 [\#436](https://github.com/47degrees/sbt-microsites/pull/436) ([scala-steward](https://github.com/scala-steward))
 
 ## [v1.1.2](https://github.com/47degrees/sbt-microsites/tree/v1.1.2) (2020-02-21)
@@ -1062,6 +1066,7 @@
 - Placeholder css moved to microsite/css [\#21](https://github.com/47degrees/sbt-microsites/pull/21) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - JP - Creates docs module [\#19](https://github.com/47degrees/sbt-microsites/pull/19) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - JP - Integrates sbt-ghpages plugin [\#18](https://github.com/47degrees/sbt-microsites/pull/18) ([juanpedromoreno](https://github.com/juanpedromoreno))
+- JP - Improves extra MD files settings [\#15](https://github.com/47degrees/sbt-microsites/pull/15) ([juanpedromoreno](https://github.com/juanpedromoreno))
 
 ## [0.1.0](https://github.com/47degrees/sbt-microsites/tree/0.1.0) (2016-09-12)
 
@@ -1075,7 +1080,6 @@
 **Merged pull requests:**
 
 - Bumps initial release version [\#17](https://github.com/47degrees/sbt-microsites/pull/17) ([juanpedromoreno](https://github.com/juanpedromoreno))
-- JP - Improves extra MD files settings [\#15](https://github.com/47degrees/sbt-microsites/pull/15) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - JP - Adds publish settings and more [\#14](https://github.com/47degrees/sbt-microsites/pull/14) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - JP - Creates new makeMicrosite task [\#13](https://github.com/47degrees/sbt-microsites/pull/13) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Fixes Relative Paths pointing to Resources [\#12](https://github.com/47degrees/sbt-microsites/pull/12) ([juanpedromoreno](https://github.com/juanpedromoreno))
