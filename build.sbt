@@ -32,7 +32,7 @@ lazy val docs = (project in file("docs"))
   .enablePlugins(BuildInfoPlugin)
 
 addCommandAlias("ci-test", "scalafmtCheck; scalafmtSbtCheck; docs/tut; compile; test; scripted")
-addCommandAlias("ci-docs", "docs/mdoc; headerCreateAll")
+addCommandAlias("ci-docs", "docs/tut; headerCreateAll")
 
 lazy val V = new {
   val ghPages: String             = "0.6.3"
