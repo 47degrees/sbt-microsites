@@ -20,7 +20,7 @@ import java.io.File
 
 import microsites.MicrositeSettings
 import microsites.util.MicrositeHelper
-import sbtorgpolicies.io.FileReader
+import microsites.ioops.FileReader
 
 import scalatags.Text.TypedTag
 import scalatags.Text.all._
