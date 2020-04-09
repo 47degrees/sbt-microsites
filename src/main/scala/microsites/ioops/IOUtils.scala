@@ -9,11 +9,6 @@ object IOUtils {
 
   def file(path: String): File = new File(path)
 
-  def url(address: String): URL = new URL(address)
-
-  def readLines(file: File): Iterator[String] =
-    Source.fromFile(file).getLines()
-
   def readBytes(file: File): Array[Byte] = {
     val is: InputStream    = new FileInputStream(file)
     val array: Array[Byte] = Stream.continually(is.read).takeWhile(_ != -1).map(_.toByte).toArray

@@ -9,7 +9,7 @@ object Config {
     Set(".md", ".css", ".html", ".properties", ".txt", ".scala", ".sbt")
   val defaultMaximumSize: Int = 4048
 
-  case class BlobConfig(acceptedExtensions: Set[String], maximumSize: Int)
+  final case class BlobConfig(acceptedExtensions: Set[String], maximumSize: Int)
 
   val defaultBlobConfig: BlobConfig = BlobConfig(defaultTextExtensions, defaultMaximumSize)
 
