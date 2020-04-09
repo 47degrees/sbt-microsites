@@ -32,7 +32,6 @@ import mdoc.MdocPlugin.autoImport._
 import microsites.ioops._
 import microsites.ioops.syntax._
 import FileWriter._
-import cats.syntax.applicativeError._
 import cats.effect.{ContextShift, IO, Timer}
 import scala.concurrent.ExecutionContext
 
@@ -522,9 +521,11 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
             ghOps
               .commitDir(branch, commitMessage, siteDir)
               .map(_ => log.info("Success committing files"))
-              .handleError { e =>
-                log.error(s"Error committing files")
-                e.printStackTrace()
+              .handleErrorWith { e =>
+                IO {
+                  e.printStackTrace()
+                  log.error(s"Error committing files")
+                }
               }
               .unsafeRunSync
           })
