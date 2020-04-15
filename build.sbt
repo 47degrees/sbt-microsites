@@ -1,15 +1,13 @@
 inThisBuild(
   List(
-    name := "sbt-microsites",
     organization := "com.47deg",
-    organizationName := "47 Degrees",
-    organizationHomepage := Some(url("https://www.47deg.com")),
-    homepage := Option(url("https://47degrees.github.io/sbt-microsites/")),
-    description := "An sbt plugin to create awesome microsites for your project",
-    startYear := Some(2016),
     scalaVersion := V.scala
   )
 )
+
+addCommandAlias("ci-test", "scalafmtCheck; scalafmtSbtCheck; docs/tut; compile; test; scripted")
+addCommandAlias("ci-docs", "project-docs/mdoc; headerCreateAll")
+addCommandAlias("ci-microsite", "docs/publishMicrosite")
 
 lazy val `sbt-microsites` = (project in file("."))
   .settings(moduleName := "sbt-microsites")
@@ -17,10 +15,10 @@ lazy val `sbt-microsites` = (project in file("."))
   .enablePlugins(JekyllPlugin)
   .enablePlugins(SbtPlugin)
 
-lazy val docs = (project in file("docs"))
+lazy val docs = project
   .settings(moduleName := "docs")
   .settings(micrositeSettings: _*)
-  .settings(noPublishSettings: _*)
+  .settings(skip in publish := true)
   .settings(
     Seq(
       buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
@@ -31,9 +29,14 @@ lazy val docs = (project in file("docs"))
   .enablePlugins(TutPlugin)
   .enablePlugins(BuildInfoPlugin)
 
-addCommandAlias("ci-test", "scalafmtCheck; scalafmtSbtCheck; docs/tut; compile; test; scripted")
-addCommandAlias("ci-docs", "docs/tut; headerCreateAll")
-addCommandAlias("ci-microsite", "docs/publishMicrosite")
+lazy val `project-docs` = (project in file(".docs"))
+  .aggregate(`sbt-microsites`)
+  .dependsOn(`sbt-microsites`)
+  .settings(moduleName := "sbt-microsites-project-docs")
+  .settings(mdocIn := file(".docs"))
+  .settings(mdocOut := file("."))
+  .settings(skip in publish := true)
+  .enablePlugins(MdocPlugin)
 
 lazy val V = new {
   val ghPages: String             = "0.6.3"
@@ -47,13 +50,6 @@ lazy val V = new {
   val scrimage: String            = "2.1.8"
   val tut: String                 = "0.6.13"
 }
-
-lazy val noPublishSettings = Seq(
-  publish := ((): Unit),
-  publishLocal := ((): Unit),
-  publishArtifact := false,
-  publishMavenStyle := false // suppress warnings about intransitive deps (not published anyway)
-)
 
 lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
   sbtPlugin := true,
