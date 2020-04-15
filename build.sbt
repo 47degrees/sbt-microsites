@@ -33,6 +33,7 @@ lazy val docs = (project in file("docs"))
 
 addCommandAlias("ci-test", "scalafmtCheck; scalafmtSbtCheck; docs/tut; compile; test; scripted")
 addCommandAlias("ci-docs", "docs/tut; headerCreateAll")
+addCommandAlias("ci-microsite", "docs/publishMicrosite")
 
 lazy val V = new {
   val ghPages: String             = "0.6.3"
