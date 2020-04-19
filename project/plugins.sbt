@@ -21,6 +21,6 @@ unmanagedSourceDirectories in Compile ++= Seq(
 libraryDependencies ++= Seq(
   "com.47deg"             %% "github4s"      % "0.23.0",
   "net.jcazevedo"         %% "moultingyaml"  % "0.4.2",
-  "com.lihaoyi"           %% "scalatags"     % "0.8.6",
+  "com.lihaoyi"           %% "scalatags"     % "0.9.0",
   "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.8"
 )
