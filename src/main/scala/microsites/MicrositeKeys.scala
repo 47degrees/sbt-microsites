@@ -16,27 +16,29 @@
 
 package microsites
 
+import java.nio.file._
+
+import cats.effect.{ContextShift, IO, Timer}
 import com.typesafe.sbt.sbtghpages.GhpagesPlugin.autoImport._
 import com.typesafe.sbt.site.SitePlugin.autoImport.makeSite
-import microsites.util.MicrositeHelper
 import io.circe._
 import io.circe.generic.semiauto._
 import io.circe.syntax._
-import sbt.Keys._
-import sbt._
-import sbt.io.{IO => FIO}
-import sbt.complete.DefaultParsers.OptNotSpace
-import github.GitHubOps
-import tut.TutPlugin.autoImport._
 import mdoc.MdocPlugin.autoImport._
+import microsites.github.GitHubOps
+import microsites.ioops.FileWriter._
 import microsites.ioops._
 import microsites.ioops.syntax._
-import FileWriter._
-import cats.effect.{ContextShift, IO, Timer}
-import scala.concurrent.ExecutionContext
+import microsites.util.MicrositeHelper
+import org.http4s.client.blaze.BlazeClientBuilder
+import sbt.Keys._
+import sbt._
+import sbt.complete.DefaultParsers.OptNotSpace
+import sbt.io.{IO => FIO}
+import tut.TutPlugin.autoImport._
 
+import scala.concurrent.ExecutionContext
 import scala.sys.process._
-import java.nio.file._
 
 trait MicrositeKeys {
 
@@ -514,20 +516,23 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
                  | * repo: $githubOwner/$githubRepo
                  | * commitMessage: $commitMessage""".stripMargin)
 
-            val ghOps: GitHubOps[IO] = new GitHubOps[IO](githubOwner, githubRepo, githubToken)
+            BlazeClientBuilder[IO](ec).resource.use { client =>
 
-            if (noJekyll) FIO.touch(siteDir / ".nojekyll")
+              val ghOps: GitHubOps[IO] = new GitHubOps[IO](client, githubOwner, githubRepo, githubToken)
 
-            ghOps
-              .commitDir(branch, commitMessage, siteDir)
-              .map(_ => log.info("Success committing files"))
-              .handleErrorWith { e =>
-                IO {
-                  e.printStackTrace()
-                  log.error(s"Error committing files")
+              if (noJekyll) FIO.touch(siteDir / ".nojekyll")
+
+              ghOps
+                .commitDir(branch, commitMessage, siteDir)
+                .map(_ => log.info("Success committing files"))
+                .handleErrorWith { e =>
+                  IO {
+                    e.printStackTrace()
+                    log.error(s"Error committing files")
+                  }
                 }
-              }
-              .unsafeRunSync()
+            }
+            .unsafeRunSync()
           })
         case (GitHub4s.name, GitHub.name) =>
           Def.task(

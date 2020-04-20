@@ -19,27 +19,28 @@ package microsites.github
 import java.io.File
 
 import cats.data.{NonEmptyList, OptionT}
-import cats.effect.{ConcurrentEffect, IO, Sync, Timer}
+import cats.effect._
 import cats.implicits._
 import com.github.marklister.base64.Base64._
-import github4s.Github
-import github4s.GithubResponses._
+import github4s._
 import github4s.domain._
 import microsites.Exceptions._
 import microsites.github.Config._
 import microsites.ioops.{FileReader, IOUtils => FIO}
+import org.http4s.client._
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 
 class GitHubOps[F[_]: ConcurrentEffect: Timer](
+    client: Client[F],
     owner: String,
     repo: String,
     accessToken: Option[String],
     fileReader: FileReader = FileReader
 )(implicit ec: ExecutionContext) {
 
-  val gh: Github[F]                = Github[F](accessToken)
+  val gh: Github[F]                = Github[F](client, accessToken)
   val headers: Map[String, String] = Map("user-agent" -> "sbt-microsites")
 
   def commitDir(branch: String, message: String, dir: File): F[Ref] =
@@ -85,7 +86,7 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
 
     def fetchBaseTreeSha: F[Option[RefCommit]] =
       commitSha
-        .map(sha => run(gh.gitData.getCommit(owner, repo, sha)).map(Option.apply))
+        .map(sha => run(gh.gitData.getCommit(owner, repo, sha, headers)).map(Option.apply))
         .getOrElse(Sync[F].pure(none[RefCommit]))
 
     def getAllFiles: List[File] = Option(dirToCommit.listFiles()).toList.flatten.filter(_.isFile)
@@ -96,8 +97,7 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
         fileReader
           .getFileBytes(file)
           .handleError(e =>
-            throw IOException(s"Error loading ${file.getAbsolutePath} content", Some(e))
-          )
+            throw IOException(s"Error loading ${file.getAbsolutePath} content", Some(e)))
 
       def path(file: File): F[String] =
         Sync[F].delay(
@@ -112,7 +112,7 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
       ): F[TreeDataSha] =
         for {
           gh <- ghWithRateLimit
-          res <- run(gh.gitData.createBlob(owner, repo, array.toBase64, Some("base64")))
+          res <- run(gh.gitData.createBlob(owner, repo, array.toBase64, Some("base64"), headers))
             .map(refInfo => TreeDataSha(filePath, blobMode, blobType, refInfo.sha))
         } yield res
 
@@ -151,7 +151,7 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
     ): F[TreeResult] =
       for {
         gh  <- ghWithRateLimit
-        res <- run(gh.gitData.createTree(owner, repo, baseTreeSha, treeData))
+        res <- run(gh.gitData.createTree(owner, repo, baseTreeSha, treeData, headers))
       } yield res
 
     def createCommit(
@@ -161,7 +161,7 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
       for {
         gh <- ghWithRateLimit
         res <- run(
-          gh.gitData.createCommit(owner, repo, message, treeSha, List(parentCommit), author = None)
+          gh.gitData.createCommit(owner, repo, message, treeSha, List(parentCommit), author = None, headers)
         )
       } yield res
 
@@ -188,11 +188,11 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
           throw GitHub4sException(s"GitHub returned an error: ${e.getMessage}", Some(e))
       }
 
-    run(gh.gitData.getReference(owner, repo, s"heads/$branch")).map(findReference)
+    run(gh.gitData.getReference(owner, repo, s"heads/$branch", pagination = None, headers = headers)).map(findReference)
   }
 
   def updateHead(branch: String, commitSha: String): F[Ref] =
-    run(gh.gitData.updateReference(owner, repo, s"heads/$branch", commitSha, force = false))
+    run(gh.gitData.updateReference(owner, repo, s"heads/$branch", commitSha, force = false, headers))
 
   def run[A](f: F[GHResponse[A]]): F[A] =
     f.map(_.result match {
