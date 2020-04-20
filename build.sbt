@@ -40,13 +40,13 @@ lazy val `project-docs` = (project in file(".docs"))
 
 lazy val V = new {
   val ghPages: String             = "0.6.3"
-  val github4s: String            = "0.23.0"
+  val github4s: String            = "0.24.0"
   val mdoc: String                = "2.1.1"
   val moultingyaml: String        = "0.4.2"
   val sbtSite: String             = "1.4.0"
   val scala: String               = "2.12.11"
   val scalatestScalacheck: String = "3.1.1.1"
-  val scalatags: String           = "0.8.6"
+  val scalatags: String           = "0.9.0"
   val scrimage: String            = "2.1.8"
   val tut: String                 = "0.6.13"
 }
