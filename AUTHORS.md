@@ -29,7 +29,7 @@ These are the people that have contributed to the _sbt-microsites_ project:
 - [![jdesiloniz](https://avatars2.githubusercontent.com/u/2835739?v=4&s=20) **jdesiloniz**](https://github.com/jdesiloniz)
 - [![AntonioMateoGomez](https://avatars0.githubusercontent.com/u/25897490?v=4&s=20) **AntonioMateoGomez**](https://github.com/AntonioMateoGomez)
 - [![calvellido](https://avatars0.githubusercontent.com/u/7753447?v=4&s=20) **calvellido**](https://github.com/calvellido)
-- [![developer47deg](https://avatars1.githubusercontent.com/u/24799081?v=4&s=20) **developer47deg**](https://github.com/developer47deg)
+- [![47erbot](https://avatars1.githubusercontent.com/u/24799081?v=4&s=20) **47erbot**](https://github.com/47erbot)
 - [![rafaparadela](https://avatars3.githubusercontent.com/u/315070?v=4&s=20) **rafaparadela**](https://github.com/rafaparadela)
 - [![israelperezglez](https://avatars1.githubusercontent.com/u/646886?v=4&s=20) **israelperezglez**](https://github.com/israelperezglez)
 - [![fedefernandez](https://avatars0.githubusercontent.com/u/720923?v=4&s=20) **fedefernandez**](https://github.com/fedefernandez)
