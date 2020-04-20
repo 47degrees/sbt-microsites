@@ -97,7 +97,8 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
         fileReader
           .getFileBytes(file)
           .handleError(e =>
-            throw IOException(s"Error loading ${file.getAbsolutePath} content", Some(e)))
+            throw IOException(s"Error loading ${file.getAbsolutePath} content", Some(e))
+          )
 
       def path(file: File): F[String] =
         Sync[F].delay(
@@ -161,7 +162,8 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
       for {
         gh <- ghWithRateLimit
         res <- run(
-          gh.gitData.createCommit(owner, repo, message, treeSha, List(parentCommit), author = None, headers)
+          gh.gitData
+            .createCommit(owner, repo, message, treeSha, List(parentCommit), author = None, headers)
         )
       } yield res
 
@@ -188,11 +190,15 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
           throw GitHub4sException(s"GitHub returned an error: ${e.getMessage}", Some(e))
       }
 
-    run(gh.gitData.getReference(owner, repo, s"heads/$branch", pagination = None, headers = headers)).map(findReference)
+    run(
+      gh.gitData.getReference(owner, repo, s"heads/$branch", pagination = None, headers = headers)
+    ).map(findReference)
   }
 
   def updateHead(branch: String, commitSha: String): F[Ref] =
-    run(gh.gitData.updateReference(owner, repo, s"heads/$branch", commitSha, force = false, headers))
+    run(
+      gh.gitData.updateReference(owner, repo, s"heads/$branch", commitSha, force = false, headers)
+    )
 
   def run[A](f: F[GHResponse[A]]): F[A] =
     f.map(_.result match {
