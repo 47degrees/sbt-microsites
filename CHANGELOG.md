@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/47degrees/sbt-microsites/tree/HEAD)
+## [v1.2.0](https://github.com/47degrees/sbt-microsites/tree/v1.2.0) (2020-04-20)
 
-[Full Changelog](https://github.com/47degrees/sbt-microsites/compare/v1.1.4...HEAD)
+[Full Changelog](https://github.com/47degrees/sbt-microsites/compare/v1.1.4...v1.2.0)
 
 ⚠️ **Breaking changes**
 
@@ -10,6 +10,7 @@
 
 **Merged pull requests:**
 
+- Upgrade Build [\#475](https://github.com/47degrees/sbt-microsites/pull/475) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Update sbt to 1.3.9 [\#458](https://github.com/47degrees/sbt-microsites/pull/458) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-microsites to 1.1.5 [\#455](https://github.com/47degrees/sbt-microsites/pull/455) ([scala-steward](https://github.com/scala-steward))
 - Releases 1.1.5 [\#454](https://github.com/47degrees/sbt-microsites/pull/454) ([juanpedromoreno](https://github.com/juanpedromoreno))
@@ -213,6 +214,7 @@
 - Update sbt to 1.3.3 [\#352](https://github.com/47degrees/sbt-microsites/pull/352) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-mdoc to 1.3.5 [\#351](https://github.com/47degrees/sbt-microsites/pull/351) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-microsites to 0.9.7 [\#350](https://github.com/47degrees/sbt-microsites/pull/350) ([scala-steward](https://github.com/scala-steward))
+- Update sbt-microsites to 0.9.6 [\#345](https://github.com/47degrees/sbt-microsites/pull/345) ([scala-steward](https://github.com/scala-steward))
 
 ## [v0.9.7](https://github.com/47degrees/sbt-microsites/tree/v0.9.7) (2019-10-02)
 
@@ -224,7 +226,6 @@
 - Update tut-plugin to 0.6.13 [\#348](https://github.com/47degrees/sbt-microsites/pull/348) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-mdoc to 1.3.4 [\#347](https://github.com/47degrees/sbt-microsites/pull/347) ([scala-steward](https://github.com/scala-steward))
 - Update scalacheck to 1.14.2 [\#346](https://github.com/47degrees/sbt-microsites/pull/346) ([scala-steward](https://github.com/scala-steward))
-- Update sbt-microsites to 0.9.6 [\#345](https://github.com/47degrees/sbt-microsites/pull/345) ([scala-steward](https://github.com/scala-steward))
 
 ## [v0.9.6](https://github.com/47degrees/sbt-microsites/tree/v0.9.6) (2019-09-25)
 
@@ -1066,7 +1067,6 @@
 - Placeholder css moved to microsite/css [\#21](https://github.com/47degrees/sbt-microsites/pull/21) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - JP - Creates docs module [\#19](https://github.com/47degrees/sbt-microsites/pull/19) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - JP - Integrates sbt-ghpages plugin [\#18](https://github.com/47degrees/sbt-microsites/pull/18) ([juanpedromoreno](https://github.com/juanpedromoreno))
-- JP - Improves extra MD files settings [\#15](https://github.com/47degrees/sbt-microsites/pull/15) ([juanpedromoreno](https://github.com/juanpedromoreno))
 
 ## [0.1.0](https://github.com/47degrees/sbt-microsites/tree/0.1.0) (2016-09-12)
 
@@ -1080,6 +1080,7 @@
 **Merged pull requests:**
 
 - Bumps initial release version [\#17](https://github.com/47degrees/sbt-microsites/pull/17) ([juanpedromoreno](https://github.com/juanpedromoreno))
+- JP - Improves extra MD files settings [\#15](https://github.com/47degrees/sbt-microsites/pull/15) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - JP - Adds publish settings and more [\#14](https://github.com/47degrees/sbt-microsites/pull/14) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - JP - Creates new makeMicrosite task [\#13](https://github.com/47degrees/sbt-microsites/pull/13) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Fixes Relative Paths pointing to Resources [\#12](https://github.com/47degrees/sbt-microsites/pull/12) ([juanpedromoreno](https://github.com/juanpedromoreno))
