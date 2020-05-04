@@ -126,8 +126,8 @@ class MicrositeHelper(config: MicrositeSettings) {
           s"""---
              |layout: ${targetFileConfig.layout}
              |${targetFileConfig.metaProperties map {
-               case (key, value) => "%s: %s" format (key, value)
-             } mkString ("", "\n", "")}
+            case (key, value) => "%s: %s" format (key, value)
+          } mkString ("", "\n", "")}
              |---
              |${Source.fromFile(sourceFile.getAbsolutePath).mkString}
              |""".stripMargin
@@ -151,9 +151,9 @@ class MicrositeHelper(config: MicrositeSettings) {
         yaml.yamlInline.parseYaml.asYamlObject.fields
       else Map.empty[YamlValue, YamlValue]
     val fileYaml = yaml.yamlPath.fold(Map.empty[YamlValue, YamlValue])(f =>
-      if (f.exists()) {
+      if (f.exists())
         Source.fromFile(f.getAbsolutePath).mkString.parseYaml.asYamlObject.fields
-      } else Map.empty[YamlValue, YamlValue]
+      else Map.empty[YamlValue, YamlValue]
     )
 
     writeContentToFile(

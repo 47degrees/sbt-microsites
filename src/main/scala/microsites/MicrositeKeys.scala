@@ -265,7 +265,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
     val pluginName            = "microsites.MicrositesPlugin"
     val sbtMicrositesProjects = pluginProjects(pluginName)
     sbtMicrositesProjects match {
-      case Some(projects) => {
+      case Some(projects) =>
         List(
           "sbt",
           s"""clean; project ${projects(0)}; set micrositeBaseUrl := "$newBaseUrl"; makeMicrosite"""
@@ -276,7 +276,6 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           StandardCopyOption.REPLACE_EXISTING
         )
         ()
-      }
       case None => System.err.println(s"$pluginName not found in version $version")
     }
   }
@@ -412,21 +411,18 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val re    = tutNameFilter.value.pattern.toString
       _root_.tut.TutPlugin.tutOne(streams.value, r, in, out, cp, opts, pOpts, re).map(_._1)
     },
-    makeTut := {
-      Def.sequential(tut, micrositeTutExtraMdFiles)
-    }.value,
-    makeMdoc := {
-      Def.sequential(mdoc.toTask(""), micrositeMakeExtraMdFiles)
-    }.value,
+    makeTut :=
+      Def.sequential(tut, micrositeTutExtraMdFiles).value,
+    makeMdoc :=
+      Def.sequential(mdoc.toTask(""), micrositeMakeExtraMdFiles).value,
     makeDocs := Def.taskDyn {
       micrositeCompilingDocsTool.value match {
         case WithTut  => Def.sequential(makeTut)
         case WithMdoc => Def.sequential(makeMdoc)
       }
     }.value,
-    makeMicrosite := {
-      Def.sequential(microsite, makeDocs, makeSite)
-    }.value,
+    makeMicrosite :=
+      Def.sequential(microsite, makeDocs, makeSite).value,
     makeVersionsJson := {
       "which git".! match {
         case 0 => ()
@@ -481,12 +477,12 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         )
       }
     },
-    makeVersionedMicrosite := {
-      Def.sequential(microsite, makeVersionsJson, makeDocs, makeSite)
-    }.value,
-    makeMultiversionMicrosite := {
-      Def.sequential(createMicrositeVersions, clean, makeVersionedMicrosite, moveMicrositeVersions)
-    }.value,
+    makeVersionedMicrosite :=
+      Def.sequential(microsite, makeVersionsJson, makeDocs, makeSite).value,
+    makeMultiversionMicrosite :=
+      Def
+        .sequential(createMicrositeVersions, clean, makeVersionedMicrosite, moveMicrositeVersions)
+        .value,
     ghpagesPrivateMappings := {
       sbt.Path.allSubpaths((target in makeSite).value).toList
     },
@@ -552,12 +548,10 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           )
       }
     }.value,
-    publishMicrosite := {
-      Def.sequential(clean, makeMicrosite, pushMicrosite)
-    }.value,
-    publishMultiversionMicrosite := {
-      Def.sequential(clean, makeMultiversionMicrosite, pushMicrosite)
-    }.value
+    publishMicrosite :=
+      Def.sequential(clean, makeMicrosite, pushMicrosite).value,
+    publishMultiversionMicrosite :=
+      Def.sequential(clean, makeMultiversionMicrosite, pushMicrosite).value
   )
 
   val pushMicrositeCommand: Command = Command(pushMicrositeCommandKey)(_ => OptNotSpace) {

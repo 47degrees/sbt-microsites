@@ -5,7 +5,7 @@ inThisBuild(
   )
 )
 
-addCommandAlias("ci-test", "scalafmtCheck; scalafmtSbtCheck; docs/tut; compile; test; scripted")
+addCommandAlias("ci-test", "scalafmtCheckAll; scalafmtSbtCheck; docs/tut; compile; test; scripted")
 addCommandAlias("ci-docs", "project-docs/mdoc; headerCreateAll")
 addCommandAlias("ci-microsite", "docs/publishMicrosite")
 
