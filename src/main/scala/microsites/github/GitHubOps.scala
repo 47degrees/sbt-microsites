@@ -128,12 +128,13 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
           filePath: String,
           array: Array[Byte]
       ): OptionT[F, TreeData] =
-        if (blobConfig.acceptedExtensions.exists(s => file.getName.toLowerCase.endsWith(s)) &&
-          array.length < blobConfig.maximumSize) {
+        if (
+          blobConfig.acceptedExtensions.exists(s => file.getName.toLowerCase.endsWith(s)) &&
+          array.length < blobConfig.maximumSize
+        )
           OptionT(createTreeDataBlob(filePath, array).map(Option(_)))
-        } else {
+        else
           OptionT(createTreeDataSha(filePath, array).map(Option(_)))
-        }
 
       def processFile(file: File): F[TreeData] =
         (for {
@@ -167,10 +168,11 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
         )
       } yield res
 
-    def parentCommitSha: F[String] = commitSha match {
-      case Some(sha) => Sync[F].pure(sha)
-      case None      => fetchHeadCommit(branch).map(_.`object`.sha)
-    }
+    def parentCommitSha: F[String] =
+      commitSha match {
+        case Some(sha) => Sync[F].pure(sha)
+        case None      => fetchHeadCommit(branch).map(_.`object`.sha)
+      }
 
     for {
       parentCommit <- parentCommitSha

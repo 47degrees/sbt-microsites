@@ -28,9 +28,10 @@ import org.scalatest.matchers.should.Matchers
 
 class LayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitraries {
 
-  def buildParentLayout(implicit settings: MicrositeSettings) = new Layout(settings) {
-    override def render: TypedTag[String] = html
-  }
+  def buildParentLayout(implicit settings: MicrositeSettings) =
+    new Layout(settings) {
+      override def render: TypedTag[String] = html
+    }
 
   test("meta TypeTag list shouldn't be empty") {
 

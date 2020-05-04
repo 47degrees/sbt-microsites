@@ -38,12 +38,13 @@ package object ioops {
 
     final class FilteredEitherOps[T](either: Either[Throwable, T]) {
 
-      def withFilter(f: T => Boolean): Either[Throwable, T] = either match {
-        case Right(r) if !f(r) =>
-          new IllegalStateException("Filter condition has not been satisfied").asLeft[T]
-        case _ =>
-          either
-      }
+      def withFilter(f: T => Boolean): Either[Throwable, T] =
+        either match {
+          case Right(r) if !f(r) =>
+            new IllegalStateException("Filter condition has not been satisfied").asLeft[T]
+          case _ =>
+            either
+        }
     }
 
     final class FileNameOps(filename: String) {

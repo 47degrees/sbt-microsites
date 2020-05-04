@@ -76,14 +76,14 @@ abstract class Layout(config: MicrositeSettings) {
     else None
 
   val twitter: Option[TypedTag[String]] =
-    if (config.identity.twitter.nonEmpty) {
+    if (config.identity.twitter.nonEmpty)
       Some(meta(name := "twitter:site", content := config.identity.twitter))
-    } else None
+    else None
 
   val twitterCreator: Option[TypedTag[String]] =
-    if (config.identity.twitterCreator.nonEmpty) {
+    if (config.identity.twitterCreator.nonEmpty)
       Some(meta(name := "twitter:creator", content := config.identity.twitterCreator))
-    } else None
+    else None
 
   def metas: List[TypedTag[String]] = {
     val pageTitle = s"${config.identity.name}{% if page.title %}: {{page.title}}{% endif %}"
@@ -125,11 +125,10 @@ abstract class Layout(config: MicrositeSettings) {
   }
 
   def favicons: List[TypedTag[String]] =
-    (if (config.visualSettings.favicons.nonEmpty) {
+    (if (config.visualSettings.favicons.nonEmpty)
        config.visualSettings.favicons
-     } else {
-       micrositeHelper.faviconDescriptions
-     }).map { icon =>
+     else
+       micrositeHelper.faviconDescriptions).map { icon =>
       link(
         rel := "icon",
         `type` := "image/png",
@@ -141,7 +140,10 @@ abstract class Layout(config: MicrositeSettings) {
   def styles: List[TypedTag[String]] = {
 
     val customCssList =
-      fr.fetchFilesRecursively(List(config.fileLocations.micrositeCssDirectory), validFile("css")) match {
+      fr.fetchFilesRecursively(
+        List(config.fileLocations.micrositeCssDirectory),
+        validFile("css")
+      ) match {
         case Right(cssList) =>
           cssList.map(css =>
             link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${css.getName}")
@@ -150,7 +152,10 @@ abstract class Layout(config: MicrositeSettings) {
       }
 
     val customScssList =
-      fr.fetchFilesRecursively(List(config.fileLocations.micrositeCssDirectory), validFile("scss")) match {
+      fr.fetchFilesRecursively(
+        List(config.fileLocations.micrositeCssDirectory),
+        validFile("scss")
+      ) match {
         case Right(scssList) =>
           scssList.map { scss =>
             val fileNameWithOutExt = scss.getName.replaceFirst("[.][^.]+$", "")
@@ -205,7 +210,10 @@ abstract class Layout(config: MicrositeSettings) {
   def scripts: List[TypedTag[String]] = {
 
     val customJsList =
-      fr.fetchFilesRecursively(List(config.fileLocations.micrositeJsDirectory), validFile("js")) match {
+      fr.fetchFilesRecursively(
+        List(config.fileLocations.micrositeJsDirectory),
+        validFile("js")
+      ) match {
         case Right(jsList) =>
           jsList.map(js => script(src := s"{{site.url}}{{site.baseurl}}/js/${js.getName}"))
         case _ => Nil
@@ -273,7 +281,9 @@ abstract class Layout(config: MicrositeSettings) {
       """console.info('\x57\x65\x62\x73\x69\x74\x65\x20\x62\x75\x69\x6c\x74\x20\x77\x69\x74\x68\x3a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x5f\x5f\x0a\x20\x20\x20\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x5f\x20\x20\x2f\x20\x2f\x5f\x20\x20\x20\x20\x20\x20\x5f\x5f\x5f\x5f\x20\x5f\x5f\x5f\x20\x20\x28\x5f\x29\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x28\x5f\x29\x20\x2f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x0a\x20\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x60\x5f\x5f\x20\x5c\x2f\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x20\x2f\x20\x5f\x5f\x2f\x20\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x0a\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x5f\x2f\x20\x2f\x20\x2f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x5f\x5f\x2f\x20\x2f\x20\x20\x2f\x20\x2f\x5f\x2f\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x20\x2f\x5f\x2f\x20\x20\x5f\x5f\x28\x5f\x5f\x20\x20\x29\x0a\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2e\x5f\x5f\x5f\x2f\x5c\x5f\x5f\x2f\x20\x20\x20\x20\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x2f\x20\x20\x20\x5c\x5f\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x0a\x0a\x68\x74\x74\x70\x73\x3a\x2f\x2f\x34\x37\x64\x65\x67\x2e\x67\x69\x74\x68\x75\x62\x2e\x69\x6f\x2f\x73\x62\x74\x2d\x6d\x69\x63\x72\x6f\x73\x69\x74\x65\x73')"""
     )
 
-    auxScripts ++ languageScripts ++ List(highlightingScript) ++ customJsList ++ customCDNList ++ (message :: gitSidecar)
+    auxScripts ++ languageScripts ++ List(
+      highlightingScript
+    ) ++ customJsList ++ customCDNList ++ (message :: gitSidecar)
   }
 
   def versionScript: TypedTag[String] =
