@@ -11,7 +11,7 @@ addSbtPlugin("com.alejandrohdezma"  % "sbt-github-header" % "0.6.0")
 addSbtPlugin("com.alejandrohdezma"  % "sbt-github-mdoc"   % "0.6.0")
 addSbtPlugin("com.alejandrohdezma"  % "sbt-mdoc-toc"      % "0.2")
 addSbtPlugin("org.tpolecat"         % "tut-plugin"        % "0.6.13")
-addSbtPlugin("org.scalameta"        % "sbt-mdoc"          % "2.1.5")
+addSbtPlugin("org.scalameta"        % "sbt-mdoc"          % "2.2.0")
 addSbtPlugin("com.typesafe.sbt"     % "sbt-ghpages"       % "0.6.3")
 addSbtPlugin("com.typesafe.sbt"     % "sbt-site"          % "1.4.0")
 
