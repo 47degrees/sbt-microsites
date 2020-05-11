@@ -1,5 +1,26 @@
 # Changelog
 
+## [v1.2.1](https://github.com/47degrees/sbt-microsites/tree/v1.2.1) (2020-05-11)
+
+[Full Changelog](https://github.com/47degrees/sbt-microsites/compare/v1.2.0...v1.2.1)
+
+📘 **Documentation**
+
+- Removes duplicated LICENSE file [\#485](https://github.com/47degrees/sbt-microsites/pull/485) ([juanpedromoreno](https://github.com/juanpedromoreno))
+
+🐛 **Bug Fixes**
+
+- Fix distorted 2x jumbotron pattern [\#484](https://github.com/47degrees/sbt-microsites/pull/484) ([slice](https://github.com/slice))
+
+📈 **Dependency updates**
+
+- Update sbt-mdoc to 2.2.0 [\#483](https://github.com/47degrees/sbt-microsites/pull/483) ([scala-steward](https://github.com/scala-steward))
+- Update sbt-ci-release to 1.5.3 [\#479](https://github.com/47degrees/sbt-microsites/pull/479) ([scala-steward](https://github.com/scala-steward))
+
+**Merged pull requests:**
+
+- Update scalafmt-core to 2.5.1 [\#481](https://github.com/47degrees/sbt-microsites/pull/481) ([BenFradet](https://github.com/BenFradet))
+
 ## [v1.2.0](https://github.com/47degrees/sbt-microsites/tree/v1.2.0) (2020-04-20)
 
 [Full Changelog](https://github.com/47degrees/sbt-microsites/compare/v1.1.4...v1.2.0)
@@ -214,7 +235,6 @@
 - Update sbt to 1.3.3 [\#352](https://github.com/47degrees/sbt-microsites/pull/352) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-mdoc to 1.3.5 [\#351](https://github.com/47degrees/sbt-microsites/pull/351) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-microsites to 0.9.7 [\#350](https://github.com/47degrees/sbt-microsites/pull/350) ([scala-steward](https://github.com/scala-steward))
-- Update sbt-microsites to 0.9.6 [\#345](https://github.com/47degrees/sbt-microsites/pull/345) ([scala-steward](https://github.com/scala-steward))
 
 ## [v0.9.7](https://github.com/47degrees/sbt-microsites/tree/v0.9.7) (2019-10-02)
 
@@ -226,6 +246,7 @@
 - Update tut-plugin to 0.6.13 [\#348](https://github.com/47degrees/sbt-microsites/pull/348) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-mdoc to 1.3.4 [\#347](https://github.com/47degrees/sbt-microsites/pull/347) ([scala-steward](https://github.com/scala-steward))
 - Update scalacheck to 1.14.2 [\#346](https://github.com/47degrees/sbt-microsites/pull/346) ([scala-steward](https://github.com/scala-steward))
+- Update sbt-microsites to 0.9.6 [\#345](https://github.com/47degrees/sbt-microsites/pull/345) ([scala-steward](https://github.com/scala-steward))
 
 ## [v0.9.6](https://github.com/47degrees/sbt-microsites/tree/v0.9.6) (2019-09-25)
 
@@ -392,7 +413,6 @@
 **Merged pull requests:**
 
 - Release 0.7.26 [\#286](https://github.com/47degrees/sbt-microsites/pull/286) ([calvellido](https://github.com/calvellido))
-- Use the site absolute url for twitter:image [\#285](https://github.com/47degrees/sbt-microsites/pull/285) ([xerial](https://github.com/xerial))
 
 ## [v0.7.25](https://github.com/47degrees/sbt-microsites/tree/v0.7.25) (2018-11-16)
 
@@ -404,6 +424,7 @@
 
 **Merged pull requests:**
 
+- Use the site absolute url for twitter:image [\#285](https://github.com/47degrees/sbt-microsites/pull/285) ([xerial](https://github.com/xerial))
 - Release 0.7.25 [\#284](https://github.com/47degrees/sbt-microsites/pull/284) ([calvellido](https://github.com/calvellido))
 - Fix twitter image URL [\#283](https://github.com/47degrees/sbt-microsites/pull/283) ([xerial](https://github.com/xerial))
 - Changed position of Finch on README in order to see icon [\#282](https://github.com/47degrees/sbt-microsites/pull/282) ([lldh](https://github.com/lldh))
