@@ -37,7 +37,7 @@ body {
 	margin-bottom: 0;
 	background-attachment: fixed;
 	background: url('../img/jumbotron_pattern.png') fixed;
-	@include image-2x('../img/jumbotron_pattern2x.png', 56px,31px);
+	@include image-2x('../img/jumbotron_pattern2x.png', auto, auto);
 	h1 {
 		margin-bottom: ($line-height-computed * 1.8);
 	}
