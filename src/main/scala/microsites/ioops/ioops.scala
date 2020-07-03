@@ -53,7 +53,7 @@ package object ioops {
 
       def toFile: File = new File(filename.fixPath)
 
-      def fixPath: String = filename.replaceAll("/", File.separator)
+      def fixPath: String = filename.replaceAllLiterally("/", File.separator)
 
       def ensureFinalSlash: String =
         filename +
