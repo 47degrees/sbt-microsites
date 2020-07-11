@@ -5,9 +5,12 @@ inThisBuild(
   )
 )
 
-addCommandAlias("ci-test", "scalafmtCheckAll; scalafmtSbtCheck; docs/tut; compile; test; scripted")
-addCommandAlias("ci-docs", "project-docs/mdoc; headerCreateAll")
-addCommandAlias("ci-microsite", "docs/publishMicrosite")
+addCommandAlias(
+  "ci-test",
+  "scalafmtCheckAll; scalafmtSbtCheck; microsite/tut; compile; test; scripted"
+)
+addCommandAlias("ci-docs", "documentation/mdoc; headerCreateAll")
+addCommandAlias("ci-microsite", "microsite/publishMicrosite")
 
 lazy val `sbt-microsites` = (project in file("."))
   .settings(moduleName := "sbt-microsites")
@@ -15,8 +18,7 @@ lazy val `sbt-microsites` = (project in file("."))
   .enablePlugins(JekyllPlugin)
   .enablePlugins(SbtPlugin)
 
-lazy val docs = project
-  .settings(moduleName := "docs")
+lazy val microsite = project
   .settings(micrositeSettings: _*)
   .settings(skip in publish := true)
   .settings(
@@ -29,11 +31,7 @@ lazy val docs = project
   .enablePlugins(TutPlugin)
   .enablePlugins(BuildInfoPlugin)
 
-lazy val `project-docs` = (project in file(".docs"))
-  .aggregate(`sbt-microsites`)
-  .dependsOn(`sbt-microsites`)
-  .settings(moduleName := "sbt-microsites-project-docs")
-  .settings(mdocIn := file(".docs"))
+lazy val documentation = project
   .settings(mdocOut := file("."))
   .settings(skip in publish := true)
   .enablePlugins(MdocPlugin)
