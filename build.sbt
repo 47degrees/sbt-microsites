@@ -32,34 +32,22 @@ lazy val documentation = project
   .settings(skip in publish := true)
   .enablePlugins(MdocPlugin)
 
-lazy val V = new {
-  val ghPages: String             = "0.6.3"
-  val github4s: String            = "0.24.0"
-  val mdoc: String                = "2.1.1"
-  val moultingyaml: String        = "0.4.2"
-  val sbtSite: String             = "1.4.0"
-  val scalatestScalacheck: String = "3.1.1.1"
-  val scalatags: String           = "0.9.0"
-  val scrimage: String            = "2.1.8"
-  val tut: String                 = "0.6.13"
-}
-
 lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
   sbtPlugin := true,
   resolvers ++= Seq(
     Resolver.sonatypeRepo("snapshots"),
     "jgit-repo" at "https://download.eclipse.org/jgit/maven"
   ),
-  addSbtPlugin("org.tpolecat"     % "tut-plugin"  % V.tut),
-  addSbtPlugin("org.scalameta"    % "sbt-mdoc"    % V.mdoc),
-  addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % V.ghPages),
-  addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % V.sbtSite),
+  addSbtPlugin("org.tpolecat"     % "tut-plugin"  % "0.6.13"),
+  addSbtPlugin("org.scalameta"    % "sbt-mdoc"    % "2.1.1"),
+  addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.3"),
+  addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.4.0"),
   libraryDependencies ++= Seq(
-    "com.47deg"             %% "github4s"        % V.github4s,
-    "net.jcazevedo"         %% "moultingyaml"    % V.moultingyaml,
-    "com.lihaoyi"           %% "scalatags"       % V.scalatags,
-    "com.sksamuel.scrimage" %% "scrimage-core"   % V.scrimage,
-    "org.scalatestplus"     %% "scalacheck-1-14" % V.scalatestScalacheck % Test
+    "com.47deg"             %% "github4s"        % "0.24.0",
+    "net.jcazevedo"         %% "moultingyaml"    % "0.4.2",
+    "com.lihaoyi"           %% "scalatags"       % "0.9.0",
+    "com.sksamuel.scrimage" %% "scrimage-core"   % "2.1.8",
+    "org.scalatestplus"     %% "scalacheck-1-14" % "3.1.1.1" % Test
   ),
   scriptedLaunchOpts := {
     scriptedLaunchOpts.value ++
