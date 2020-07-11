@@ -1,9 +1,5 @@
-inThisBuild(
-  List(
-    organization := "com.47deg",
-    scalaVersion := V.scala
-  )
-)
+ThisBuild / organization := "com.47deg"
+ThisBuild / scalaVersion := "2.12.11"
 
 addCommandAlias(
   "ci-test",
@@ -42,7 +38,6 @@ lazy val V = new {
   val mdoc: String                = "2.1.1"
   val moultingyaml: String        = "0.4.2"
   val sbtSite: String             = "1.4.0"
-  val scala: String               = "2.12.11"
   val scalatestScalacheck: String = "3.1.1.1"
   val scalatags: String           = "0.9.0"
   val scrimage: String            = "2.1.8"
