@@ -33,11 +33,6 @@ lazy val documentation = project
   .enablePlugins(MdocPlugin)
 
 lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
-  sbtPlugin := true,
-  resolvers ++= Seq(
-    Resolver.sonatypeRepo("snapshots"),
-    "jgit-repo" at "https://download.eclipse.org/jgit/maven"
-  ),
   addSbtPlugin("org.tpolecat"     % "tut-plugin"  % "0.6.13"),
   addSbtPlugin("org.scalameta"    % "sbt-mdoc"    % "2.1.1"),
   addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.3"),
@@ -49,16 +44,13 @@ lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
     "com.sksamuel.scrimage" %% "scrimage-core"   % "2.1.8",
     "org.scalatestplus"     %% "scalacheck-1-14" % "3.1.1.1" % Test
   ),
-  scriptedLaunchOpts := {
-    scriptedLaunchOpts.value ++
-      Seq(
-        "-Xmx2048M",
-        "-XX:ReservedCodeCacheSize=256m",
-        "-XX:+UseConcMarkSweepGC",
-        "-Dplugin.version=" + version.value,
-        "-Dscala.version=" + scalaVersion.value
-      )
-  }
+  scriptedLaunchOpts ++= Seq(
+    "-Xmx2048M",
+    "-XX:ReservedCodeCacheSize=256m",
+    "-XX:+UseConcMarkSweepGC",
+    "-Dplugin.version=" + version.value,
+    "-Dscala.version=" + scalaVersion.value
+  )
 )
 
 lazy val micrositeSettings: Seq[Def.Setting[_]] = Seq(
@@ -66,8 +58,6 @@ lazy val micrositeSettings: Seq[Def.Setting[_]] = Seq(
   micrositeDescription := "An sbt plugin to create awesome microsites for your project",
   micrositeBaseUrl := "sbt-microsites",
   micrositeDocumentationUrl := "docs",
-  micrositeGithubOwner := "47degrees",
-  micrositeGithubRepo := "sbt-microsites",
   micrositeGithubToken := sys.env.get("GITHUB_TOKEN"),
   micrositePushSiteWith := GitHub4s,
   includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.svg"
