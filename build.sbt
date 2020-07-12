@@ -3,7 +3,7 @@ ThisBuild / scalaVersion := "2.12.11"
 
 addCommandAlias(
   "ci-test",
-  "scalafmtCheckAll; scalafmtSbtCheck; microsite/tut; compile; test; scripted"
+  "scalafmtCheckAll; scalafmtSbtCheck; microsite/mdoc; compile; test; scripted"
 )
 addCommandAlias("ci-docs", "documentation/mdoc; headerCreateAll")
 addCommandAlias("ci-microsite", "microsite/publishMicrosite")
@@ -18,7 +18,7 @@ lazy val microsite = project
   .settings(micrositeSettings: _*)
   .settings(skip in publish := true)
   .enablePlugins(MicrositesPlugin)
-  .enablePlugins(TutPlugin)
+  .enablePlugins(MdocPlugin)
 
 lazy val documentation = project
   .settings(mdocOut := file("."))
