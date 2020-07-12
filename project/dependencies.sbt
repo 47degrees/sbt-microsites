@@ -1,6 +1,8 @@
 // So the plugin is used in its own build
 unmanagedSourceDirectories in Compile +=
   baseDirectory.in(ThisBuild).value.getParentFile / "src" / "main" / "scala"
+unmanagedResourceDirectories in Compile +=
+  baseDirectory.in(ThisBuild).value.getParentFile / "src" / "main" / "resources"
 
 libraryDependencies ++= Seq(
   "com.47deg"             %% "github4s"      % "0.24.0",
