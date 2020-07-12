@@ -5,8 +5,11 @@ addCommandAlias(
   "ci-test",
   "scalafmtCheckAll; scalafmtSbtCheck; microsite/mdoc; compile; test; scripted"
 )
-addCommandAlias("ci-docs", "documentation/mdoc; headerCreateAll; microsite/publishMicrosite")
-addCommandAlias("ci-publish", "ci-release")
+addCommandAlias(
+  "ci-docs",
+  "github; documentation/mdoc; headerCreateAll; microsite/publishMicrosite"
+)
+addCommandAlias("ci-publish", "github; ci-release")
 
 lazy val `sbt-microsites` = (project in file("."))
   .settings(moduleName := "sbt-microsites")
