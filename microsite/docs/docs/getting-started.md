@@ -45,13 +45,9 @@ To begin, add the following lines to the `project/plugins.sbt` file within your 
 
 Latest release:
 
-[comment]: # (Start Replace)
-
 ```bash
-addSbtPlugin("com.47deg"  % "sbt-microsites" % "1.1.5")
+addSbtPlugin("com.47deg"  % "sbt-microsites" % "@VERSION@")
 ```
-
-[comment]: # (End Replace)
 
 Finally, to enable the plugin, add this to your `build.sbt` file:
 
