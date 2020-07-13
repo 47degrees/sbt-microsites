@@ -17,7 +17,9 @@
 package microsites.util
 
 import java.io.File
+import java.net.URL
 
+import cats.syntax.either._
 import com.sksamuel.scrimage._
 import microsites.util.YamlFormats._
 import microsites._
@@ -53,23 +55,31 @@ class MicrositeHelper(config: MicrositeSettings) {
       MicrositeFavicon(filename, s"${width}x$height")
   }
 
+  def copyJAROrFolder(
+      jarUrl: URL,
+      output: String,
+      filter: String = ""
+  ): Either[Exceptions.IOException, Any] =
+    copyJARResourcesTo(jarUrl, output, filter)
+      .orElse(copyFilesRecursively(jarUrl.getFile + filter, output + filter))
+
   def createResources(resourceManagedDir: File): List[File] = {
 
     val targetDir: String = resourceManagedDir.getAbsolutePath.ensureFinalSlash
     val pluginURL: URL    = getClass.getProtectionDomain.getCodeSource.getLocation
 
-    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "_sass")
-    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "css")
-    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "img")
-    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "js")
-    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "highlight/highlight.pack.js")
-    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "highlight/LICENSE")
-    copyJARResourcesTo(
+    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "_sass")
+    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "css")
+    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "img")
+    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "js")
+    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "highlight/highlight.pack.js")
+    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "highlight/LICENSE")
+    copyJAROrFolder(
       pluginURL,
       s"$targetDir$jekyllDir/",
       s"highlight/styles/${config.visualSettings.highlightTheme}.css"
     )
-    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "plugins")
+    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "plugins")
 
     copyFilesRecursively(
       config.fileLocations.micrositeImgDirectory.getAbsolutePath,

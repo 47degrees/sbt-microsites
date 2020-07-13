@@ -1,0 +1,3 @@
+pre:
+  ci: 'gem install jekyll -v 4'
+  docs: 'gem install jekyll -v 4'
