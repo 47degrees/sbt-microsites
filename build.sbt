@@ -1,5 +1,12 @@
 ThisBuild / organization := "com.47deg"
 ThisBuild / scalaVersion := "2.12.11"
+ThisBuild / scmInfo := Some(
+  ScmInfo(
+    url("https://github.com/47degrees/sbt-microsites"),
+    "scm:git:https://github.com/47degrees/sbt-microsites.git",
+    Some("scm:git:git@github.com:47degrees/sbt-microsites.git")
+  )
+)
 
 addCommandAlias(
   "ci-test",
