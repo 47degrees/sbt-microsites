@@ -17,7 +17,9 @@
 package microsites.util
 
 import java.io.File
+import java.net.URL
 
+import cats.syntax.either._
 import com.sksamuel.scrimage._
 import microsites.util.YamlFormats._
 import microsites._
@@ -53,23 +55,31 @@ class MicrositeHelper(config: MicrositeSettings) {
       MicrositeFavicon(filename, s"${width}x$height")
   }
 
+  def copyJAROrFolder(
+      jarUrl: URL,
+      output: String,
+      filter: String = ""
+  ): Either[Exceptions.IOException, Any] =
+    copyJARResourcesTo(jarUrl, output, filter)
+      .orElse(copyFilesRecursively(jarUrl.getFile + filter, output + filter))
+
   def createResources(resourceManagedDir: File): List[File] = {
 
     val targetDir: String = resourceManagedDir.getAbsolutePath.ensureFinalSlash
     val pluginURL: URL    = getClass.getProtectionDomain.getCodeSource.getLocation
 
-    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "_sass")
-    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "css")
-    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "img")
-    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "js")
-    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "highlight/highlight.pack.js")
-    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "highlight/LICENSE")
-    copyJARResourcesTo(
+    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "_sass")
+    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "css")
+    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "img")
+    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "js")
+    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "highlight/highlight.pack.js")
+    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "highlight/LICENSE")
+    copyJAROrFolder(
       pluginURL,
       s"$targetDir$jekyllDir/",
       s"highlight/styles/${config.visualSettings.highlightTheme}.css"
     )
-    copyJARResourcesTo(pluginURL, s"$targetDir$jekyllDir/", "plugins")
+    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "plugins")
 
     copyFilesRecursively(
       config.fileLocations.micrositeImgDirectory.getAbsolutePath,
@@ -116,25 +126,24 @@ class MicrositeHelper(config: MicrositeSettings) {
     val extraMdOutputDir = config.fileLocations.micrositeExtraMdFilesOutput
     extraMdOutputDir.mkdirs()
 
-    config.fileLocations.micrositeExtraMdFiles foreach {
-      case (sourceFile, targetFileConfig) =>
-        println(
-          s"Copying from ${sourceFile.getAbsolutePath} to ${extraMdOutputDir.getAbsolutePath}/$targetFileConfig"
-        )
+    config.fileLocations.micrositeExtraMdFiles foreach { case (sourceFile, targetFileConfig) =>
+      println(
+        s"Copying from ${sourceFile.getAbsolutePath} to ${extraMdOutputDir.getAbsolutePath}/$targetFileConfig"
+      )
 
-        val targetFileContent =
-          s"""---
+      val targetFileContent =
+        s"""---
              |layout: ${targetFileConfig.layout}
-             |${targetFileConfig.metaProperties map {
-            case (key, value) => "%s: %s" format (key, value)
-          } mkString ("", "\n", "")}
+             |${targetFileConfig.metaProperties map { case (key, value) =>
+          "%s: %s" format (key, value)
+        } mkString ("", "\n", "")}
              |---
              |${Source.fromFile(sourceFile.getAbsolutePath).mkString}
              |""".stripMargin
 
-        val outFile = extraMdOutputDir / targetFileConfig.fileName
+      val outFile = extraMdOutputDir / targetFileConfig.fileName
 
-        IO.write(outFile, targetFileContent)
+      IO.write(outFile, targetFileContent)
     }
 
     extraMdOutputDir
@@ -169,8 +178,8 @@ class MicrositeHelper(config: MicrositeSettings) {
     createFile(targetPath)
 
     val content = config.visualSettings.palette
-      .map {
-        case (key, value) => s"""$$$key: $value;"""
+      .map { case (key, value) =>
+        s"""$$$key: $value;"""
       }
       .mkString("\n")
     writeContentToFile(content, targetPath)
@@ -194,22 +203,20 @@ class MicrositeHelper(config: MicrositeSettings) {
           "page"         -> new PageLayout(config)
         )
 
-    layoutList map {
-      case (layoutName, layout) =>
-        val targetPath = s"$targetDir$jekyllDir/_layouts/$layoutName.html"
-        createFile(targetPath)
+    layoutList map { case (layoutName, layout) =>
+      val targetPath = s"$targetDir$jekyllDir/_layouts/$layoutName.html"
+      createFile(targetPath)
 
-        writeContentToFile("<!DOCTYPE html>" + layout.render.toString(), targetPath)
-        targetPath.toFile
+      writeContentToFile("<!DOCTYPE html>" + layout.render.toString(), targetPath)
+      targetPath.toFile
     }
   }
 
   def createPartialLayout(targetDir: String): List[File] =
-    List("menu" -> new MenuPartialLayout(config)) map {
-      case (layoutName, layout) =>
-        val targetPath = s"$targetDir$jekyllDir/_includes/$layoutName.html"
-        writeContentToFile(layout.render.toString(), targetPath)
-        targetPath.toFile
+    List("menu" -> new MenuPartialLayout(config)) map { case (layoutName, layout) =>
+      val targetPath = s"$targetDir$jekyllDir/_includes/$layoutName.html"
+      writeContentToFile(layout.render.toString(), targetPath)
+      targetPath.toFile
     }
 
   def createFavicons(targetDir: String): List[File] = {
@@ -223,13 +230,11 @@ class MicrositeHelper(config: MicrositeSettings) {
     createFile(sourceFile)
 
     (faviconFilenames zip faviconSizes)
-      .map {
-        case (name, size) =>
-          (new File(s"$targetDir$jekyllDir/img/$name"), size)
+      .map { case (name, size) =>
+        (new File(s"$targetDir$jekyllDir/img/$name"), size)
       }
-      .map {
-        case (file, (width, height)) =>
-          Image.fromFile(sourceFile.toFile).scaleTo(width, height).output(file)
+      .map { case (file, (width, height)) =>
+        Image.fromFile(sourceFile.toFile).scaleTo(width, height).output(file)
       }
   }
 
