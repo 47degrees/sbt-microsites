@@ -39,7 +39,7 @@ lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
   addSbtPlugin("org.tpolecat"     % "tut-plugin"  % "0.6.13"),
   addSbtPlugin("org.scalameta"    % "sbt-mdoc"    % "2.1.1"),
   addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.3"),
-  addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.4.0"),
+  addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.4.1"),
   libraryDependencies ++= Seq(
     "com.47deg"             %% "github4s"        % "0.24.0",
     "net.jcazevedo"         %% "moultingyaml"    % "0.4.2",
