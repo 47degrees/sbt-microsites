@@ -4,11 +4,11 @@ enablePlugins(MicrositesPlugin)
 scalaVersion := sys.props("scala.version")
 
 micrositeExtraMdFiles := Map(
-  file("README.md") -> ExtraMdFileConfig(
+  file("docs/README.md") -> ExtraMdFileConfig(
     "readme.md",
     "home"
   ),
-  file("CONSEQUAT.md") -> ExtraMdFileConfig(
+  file("docs/CONSEQUAT.md") -> ExtraMdFileConfig(
     "consequat.md",
     "page",
     Map("title" -> "Consequata", "section" -> "consequata", "position" -> "1")
