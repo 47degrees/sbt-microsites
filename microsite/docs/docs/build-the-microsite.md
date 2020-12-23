@@ -12,7 +12,7 @@ Once you have written your documents, you can build the microsite running this s
 sbt> makeMicrosite
 ```
 
-Internally, it'll sequentially run other tasks including its own, [`tut`](https://github.com/tpolecat/tut) or [`mdoc`](https://scalameta.org/mdoc/), and `makeSite` ([sbt-site](https://github.com/sbt/sbt-site)) tasks.
+Internally, it'll sequentially run other tasks including its own, [`mdoc`](https://scalameta.org/mdoc/), and `makeSite` ([sbt-site](https://github.com/sbt/sbt-site)) tasks.
 
 
 # Multiversion support
