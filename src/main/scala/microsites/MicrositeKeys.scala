@@ -513,22 +513,21 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
                  | * commitMessage: $commitMessage""".stripMargin)
 
             BlazeClientBuilder[IO](ec).resource
-              .use {
-                client =>
-                  val ghOps: GitHubOps[IO] =
-                    new GitHubOps[IO](client, githubOwner, githubRepo, githubToken)
+              .use { client =>
+                val ghOps: GitHubOps[IO] =
+                  new GitHubOps[IO](client, githubOwner, githubRepo, githubToken)
 
-                  if (noJekyll) FIO.touch(siteDir / ".nojekyll")
+                if (noJekyll) FIO.touch(siteDir / ".nojekyll")
 
-                  ghOps
-                    .commitDir(branch, commitMessage, siteDir)
-                    .map(_ => log.info("Success committing files"))
-                    .handleErrorWith { e =>
-                      IO {
-                        e.printStackTrace()
-                        log.error(s"Error committing files")
-                      }
+                ghOps
+                  .commitDir(branch, commitMessage, siteDir)
+                  .map(_ => log.info("Success committing files"))
+                  .handleErrorWith { e =>
+                    IO {
+                      e.printStackTrace()
+                      log.error(s"Error committing files")
                     }
+                  }
               }
               .unsafeRunSync()
           })
