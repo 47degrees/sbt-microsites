@@ -20,7 +20,8 @@ import java.io.File
 import java.net.URL
 
 import cats.syntax.either._
-import com.sksamuel.scrimage._
+import com.sksamuel.scrimage.ImmutableImage
+import com.sksamuel.scrimage.implicits._
 import microsites.util.YamlFormats._
 import microsites._
 import microsites.layouts._
@@ -234,7 +235,7 @@ class MicrositeHelper(config: MicrositeSettings) {
         (new File(s"$targetDir$jekyllDir/img/$name"), size)
       }
       .map { case (file, (width, height)) =>
-        Image.fromFile(sourceFile.toFile).scaleTo(width, height).output(file)
+        ImmutableImage.loader.fromFile(sourceFile.toFile).scaleTo(width, height).output(file)
       }
   }
 
