@@ -83,12 +83,9 @@ class FileWriter {
     def copyMultipleFiles(files: List[File]): IOResult[List[Path]] =
       files.traverse(copySingleFile)
 
-    println(sourcePath)
     for {
       files <- FileReader.fetchFilesRecursivelyFromPath(sourcePath)
-      _ = println(s"files: $files")
       paths <- copyMultipleFiles(files)
-      _ = println(s"paths: $paths")
     } yield paths
   }
 
