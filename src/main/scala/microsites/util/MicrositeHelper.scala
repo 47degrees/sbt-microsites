@@ -61,8 +61,9 @@ class MicrositeHelper(config: MicrositeSettings) {
       output: String,
       filter: String = ""
   ): Either[Exceptions.IOException, Any] =
-    copyJARResourcesTo(jarUrl, output, filter)
-      .orElse(copyFilesRecursively(jarUrl.getFile + filter, output + filter))
+    copyResourcesTo(jarUrl, output, filter).orElse(
+      copyFilesRecursively(jarUrl.getFile + filter, output + filter)
+    )
 
   def createResources(resourceManagedDir: File): List[File] = {
 
