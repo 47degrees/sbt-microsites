@@ -18,8 +18,7 @@ package microsites.ioops
 
 import java.io.File
 import java.net.URL
-import java.nio.file.{FileSystems, Files, Path, Paths}
-import java.nio.file.Files.{copy => fcopy}
+import java.nio.file.{FileSystem, Files, Path}
 import java.nio.file.StandardCopyOption.REPLACE_EXISTING
 import java.{util => ju}
 
@@ -64,7 +63,7 @@ class FileWriter {
 
     def safeCopy: Either[Throwable, Path] =
       Either
-        .catchNonFatal(fcopy(input.toPath, output.toPath, REPLACE_EXISTING))
+        .catchNonFatal(Files.copy(input.toPath, output.toPath, REPLACE_EXISTING))
 
     (for {
       result <- createFile(output)
@@ -90,29 +89,28 @@ class FileWriter {
   }
 
   /** Copies files from an arbitrary FileSystem (dir, JAR, ZIP) defined at the listed URL */
-  def copyResourcesTo(
-      url: URL,
-      outputPath: String,
-      filter: String = ""
+  def copyResourcesFromFileSystem(
+      fs: FileSystem,
+      outputPath: Path,
+      filters: List[String]
   ) = {
-    val emptyMap = new ju.HashMap[String, Any]
     Either
-      .catchNonFatal(FileSystems.newFileSystem(url.toURI, emptyMap))
-      .flatMap { fs =>
-        Either
-          .catchNonFatal {
-            val filesInPath = fs.getPath(filter).iterator
-
-            filesInPath.forEachRemaining { path =>
-              Files.copy(path, Paths.get(outputPath), REPLACE_EXISTING)
+      .catchNonFatal {
+        filters.foreach { filter =>
+          val fsPath = fs.getPath(filter)
+          if (Files.exists(fsPath)) {
+            Files.walk(fsPath).forEachOrdered { path =>
+              val dest = outputPath.resolve(path.toString.stripPrefix("/"))
+              try Option(dest.getParent()).foreach(Files.createDirectories(_))
+              finally Files.copy(path, dest, REPLACE_EXISTING)
             }
           }
-          .leftMap { e => fs.close(); e }
-          .map(_ => fs.close())
+        }
       }
-      .leftMap(e =>
-        IOException(s"Error copying resources from $url to directory $outputPath", Some(e))
-      )
+      .leftMap { e =>
+        e.printStackTrace()
+        IOException(s"Error copying resources from JAR to directory $outputPath", Some(e))
+      }
   }
 }
 

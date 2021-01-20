@@ -17,9 +17,11 @@
 package microsites.util
 
 import java.io.File
-import java.net.URL
+import java.net.{URI, URL}
+import java.nio.file.{FileSystem, FileSystems, Paths}
+import java.util.HashMap
 
-import cats.syntax.either._
+import cats.implicits._
 import com.sksamuel.scrimage.nio.ImageReader
 import com.sksamuel.scrimage.ImmutableImage
 import com.sksamuel.scrimage.implicits._
@@ -57,32 +59,52 @@ class MicrositeHelper(config: MicrositeSettings) {
       MicrositeFavicon(filename, s"${width}x$height")
   }
 
-  def copyJAROrFolder(
-      jarUrl: URL,
-      output: String,
-      filter: String = ""
-  ): Either[Exceptions.IOException, Any] =
-    copyResourcesTo(jarUrl, output, filter).orElse(
-      copyFilesRecursively(jarUrl.getFile + filter, output + filter)
-    )
+  def copyResources(
+      resourcesJarFSOrPath: Either[FileSystem, java.nio.file.Path],
+      outputPath: java.nio.file.Path,
+      filters: List[String]
+  ): Either[Exceptions.IOException, Any] = resourcesJarFSOrPath match {
+    case Left(fs) =>
+      println(s"Copying resources from sbt-microsite JAR")
+      val result = copyResourcesFromFileSystem(fs, outputPath, filters)
+      fs.close()
+      result
+    case Right(path) =>
+      println(s"Copying resources from local path $path")
+      filters.traverse { filter =>
+        copyFilesRecursively(path.toString, outputPath.toString)
+      }
+  }
 
   def createResources(resourceManagedDir: File): List[File] = {
 
     val targetDir: String = resourceManagedDir.getAbsolutePath.ensureFinalSlash
     val pluginURL: URL    = getClass.getProtectionDomain.getCodeSource.getLocation
+    val pluginPath        = Paths.get(pluginURL.getPath)
+    val outputPath        = Paths.get(s"$targetDir$jekyllDir/")
 
-    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "_sass")
-    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "css")
-    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "img")
-    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "js")
-    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "highlight/highlight.pack.js")
-    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "highlight/LICENSE")
-    copyJAROrFolder(
-      pluginURL,
-      s"$targetDir$jekyllDir/",
-      s"highlight/styles/${config.visualSettings.highlightTheme}.css"
+    val filters = List(
+      "_sass",
+      "css",
+      "img",
+      "js",
+      "highlight/highlight.pack.js",
+      "highlight/LICENSE",
+      s"highlight/styles/${config.visualSettings.highlightTheme}.css",
+      "plugins"
     )
-    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "plugins")
+
+    //If resources are in a JAR, we want to expose that as a FileSystem
+    //Otherwise we will just use the raw path
+    val pathOrFS: Either[FileSystem, java.nio.file.Path] =
+      if (pluginPath.getFileName.toString.endsWith(".jar")) {
+        val uri = URI.create("jar:file:" + pluginPath.toString)
+        FileSystems.newFileSystem(uri, new HashMap[String, Any]()).asLeft
+      } else {
+        pluginPath.asRight
+      }
+
+    copyResources(pathOrFS, outputPath, filters)
 
     copyFilesRecursively(
       config.fileLocations.micrositeImgDirectory.getAbsolutePath,
