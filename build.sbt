@@ -62,5 +62,6 @@ lazy val micrositeSettings: Seq[Def.Setting[_]] = Seq(
   micrositeDocumentationUrl := "docs",
   micrositeGithubToken := sys.env.get("GITHUB_TOKEN"),
   micrositePushSiteWith := GitHub4s,
+  micrositeGitterChannelUrl := "47deg/sbt-microsites",
   includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.svg"
 )
