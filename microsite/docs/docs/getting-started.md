@@ -57,7 +57,4 @@ enablePlugins(MicrositesPlugin)
 
 # Write your documentation `.md` files
 
-Your docs can be placed wherever you want in your project since there are sbt settings to point to the sources of your microsite, however the plugin expects to find the sources where both [**tut**](https://github.com/tpolecat/tut) and [**mdoc**](https://github.com/scalameta/mdoc) have defined by default. They are:
-
-- Tut: `src/main/tut/`
-- mdoc: `docs/`
+Your docs can be placed wherever you want in your project since there are sbt settings to point to the sources of your microsite, however the plugin expects to find the sources where [**mdoc**](https://github.com/scalameta/mdoc) have defined by default (`docs/`).
