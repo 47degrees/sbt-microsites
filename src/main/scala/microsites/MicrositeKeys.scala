@@ -35,7 +35,6 @@ import sbt.Keys._
 import sbt._
 import sbt.complete.DefaultParsers.OptNotSpace
 import sbt.io.{IO => FIO}
-import tut.TutPlugin.autoImport._
 
 import scala.concurrent.ExecutionContext
 import scala.sys.process._
@@ -52,10 +51,6 @@ trait MicrositeKeys {
   final case object GHPagesPlugin                  extends PushWith("ghPagesPlugin")
   final case object GitHub4s                       extends PushWith("github4s")
 
-  sealed abstract class CompilingDocsTool extends Product with Serializable
-  final case object WithTut               extends CompilingDocsTool
-  final case object WithMdoc              extends CompilingDocsTool
-
   object GitHostingService {
     implicit def string2GitHostingService(name: String): GitHostingService = {
       List(GitHub, GitLab, Bitbucket)
@@ -71,11 +66,8 @@ trait MicrositeKeys {
   }
 
   val makeMicrosite: TaskKey[Unit] = taskKey[Unit]("Main task to build a microsite")
-  val makeTut: TaskKey[Unit]       = taskKey[Unit]("Sequential tasks to compile tut and move the result")
   val makeMdoc: TaskKey[Unit] =
     taskKey[Unit]("Sequential tasks to compile mdoc and move the result")
-  val makeDocs: TaskKey[Unit] =
-    taskKey[Unit]("Dynamic task that will evaluate makeTut or makeMdoc depending on setting")
   val createMicrositeVersions: TaskKey[Unit] =
     taskKey[Unit](
       "Task to create the different microsites going through the list specified in the settings"
@@ -102,8 +94,6 @@ trait MicrositeKeys {
   val microsite: TaskKey[Seq[File]] = taskKey[Seq[File]]("Create microsite files")
   val micrositeMakeExtraMdFiles: TaskKey[File] =
     taskKey[File]("Create microsite extra md files")
-  val micrositeTutExtraMdFiles: TaskKey[Seq[File]] =
-    taskKey[Seq[File]]("Run tut for extra microsite md files")
   val micrositeName: SettingKey[String]        = settingKey[String]("Microsite name")
   val micrositeDescription: SettingKey[String] = settingKey[String]("Microsite description")
   val micrositeAuthor: SettingKey[String]      = settingKey[String]("Microsite author")
@@ -156,7 +146,7 @@ trait MicrositeKeys {
   )
   val micrositeExtraMdFiles: SettingKey[Map[File, ExtraMdFileConfig]] =
     settingKey[Map[File, ExtraMdFileConfig]](
-      "Optional. This key is useful when you want to include automatically markdown documents as a part of your microsite, and these files are located in different places from the tutSourceDirectory. The map key is related with the source file, the map value corresponds with the target relative file path and the document meta-information configuration. By default, the map is empty."
+      "Optional. This key is useful when you want to include automatically markdown documents as a part of your microsite, and these files are located in different places. The map key is related with the source file, the map value corresponds with the target relative file path and the document meta-information configuration. By default, the map is empty."
     )
   val micrositeExtraMdFilesOutput: SettingKey[File] = settingKey[File](
     "Optional. Microsite output location for extra-md files. Default is resourceManaged + '/jekyll/extra_md'"
@@ -213,9 +203,6 @@ trait MicrositeKeys {
     settingKey[Option[MicrositeEditButton]](
       "Optional. Add a button in DocsLayout pages that links to the file in the repository."
     )
-
-  val micrositeCompilingDocsTool =
-    settingKey[CompilingDocsTool]("Choose between compiling code snippets with tut or mdoc")
 
   val micrositeTheme: SettingKey[String] = settingKey[String](
     "Optional. 'light' by default. Set it to 'pattern' to generate the pattern theme design."
@@ -320,7 +307,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         "style"      -> "compressed",
         "sourcemap"  -> "never"
       ),
-      "collections" -> Map("tut" -> Map("output" -> true))
+      "collections" -> Map("mdoc" -> Map("output" -> true))
     )
 
     val userCustomVariables = micrositeConfigYaml.value
@@ -401,28 +388,10 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
     microsite := micrositeHelper.value
       .createResources(resourceManagedDir = (resourceManaged in Compile).value),
     micrositeMakeExtraMdFiles := micrositeHelper.value.buildAdditionalMd(),
-    micrositeTutExtraMdFiles := {
-      val r     = (runner in Tut).value
-      val in    = micrositeMakeExtraMdFiles.value
-      val out   = tutTargetDirectory.value
-      val cp    = (fullClasspath in Tut).value
-      val opts  = (scalacOptions in Tut).value
-      val pOpts = tutPluginJars.value.map(f => "–Xplugin:" + f.getAbsolutePath)
-      val re    = tutNameFilter.value.pattern.toString
-      _root_.tut.TutPlugin.tutOne(streams.value, r, in, out, cp, opts, pOpts, re).map(_._1)
-    },
-    makeTut :=
-      Def.sequential(tut, micrositeTutExtraMdFiles).value,
     makeMdoc :=
       Def.sequential(mdoc.toTask(""), micrositeMakeExtraMdFiles).value,
-    makeDocs := Def.taskDyn {
-      micrositeCompilingDocsTool.value match {
-        case WithTut  => Def.sequential(makeTut)
-        case WithMdoc => Def.sequential(makeMdoc)
-      }
-    }.value,
     makeMicrosite :=
-      Def.sequential(microsite, makeDocs, makeSite).value,
+      Def.sequential(microsite, makeMdoc, makeSite).value,
     makeVersionsJson := {
       "which git".! match {
         case 0 => ()
@@ -478,7 +447,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       }
     },
     makeVersionedMicrosite :=
-      Def.sequential(microsite, makeVersionsJson, makeDocs, makeSite).value,
+      Def.sequential(microsite, makeVersionsJson, makeMdoc, makeSite).value,
     makeMultiversionMicrosite :=
       Def
         .sequential(createMicrositeVersions, clean, makeVersionedMicrosite, moveMicrositeVersions)

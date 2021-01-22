@@ -25,7 +25,6 @@ The plugin provides basic free styles, css, and image resources by default. Ever
 
 In order to create microsites, this plugin directly uses the following plugins and libraries:
 
-* [tut-plugin](https://github.com/tpolecat/tut)
 * [sbt-mdoc](https://github.com/scalameta/mdoc)
 * [sbt-site](https://github.com/sbt/sbt-site)
 * [sbt-ghpages](https://github.com/sbt/sbt-ghpages)
