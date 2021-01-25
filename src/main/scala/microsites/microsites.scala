@@ -80,6 +80,8 @@ case class MicrositeEditButtonSettings(button: Option[MicrositeEditButton])
 
 case class MicrositeMultiversionSettings(versionList: Seq[String])
 
+final case class MicrositeSearchSettings(searchEnabled: Boolean)
+
 case class MicrositeSettings(
     identity: MicrositeIdentitySettings,
     visualSettings: MicrositeVisualSettings,
@@ -89,7 +91,8 @@ case class MicrositeSettings(
     urlSettings: MicrositeUrlSettings,
     gitSettings: MicrositeGitSettings,
     editButtonSettings: MicrositeEditButtonSettings,
-    multiversionSettings: MicrositeMultiversionSettings
+    multiversionSettings: MicrositeMultiversionSettings,
+    searchSettings: MicrositeSearchSettings
 ) {
 
   def gitSiteUrl: String = {
