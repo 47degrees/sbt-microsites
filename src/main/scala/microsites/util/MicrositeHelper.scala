@@ -83,6 +83,10 @@ class MicrositeHelper(config: MicrositeSettings) {
     val pluginPath        = Paths.get(pluginURL.getPath)
     val outputPath        = Paths.get(s"$targetDir$jekyllDir/")
 
+    val maybeLunrFilters = if (config.searchSettings.searchEnabled) {
+      List("lunr/lunr.js", "lunr/LICENSE")
+    } else Nil
+
     val filters = List(
       "_sass",
       "css",
@@ -92,7 +96,7 @@ class MicrositeHelper(config: MicrositeSettings) {
       "highlight/LICENSE",
       s"highlight/styles/${config.visualSettings.highlightTheme}.css",
       "plugins"
-    )
+    ) ++ maybeLunrFilters
 
     //If resources are in a JAR, we want to expose that as a FileSystem
     //Otherwise we will just use the raw path
@@ -144,7 +148,9 @@ class MicrositeHelper(config: MicrositeSettings) {
     )
 
     List(createConfigYML(targetDir), createPalette(targetDir)) ++
-      createLayouts(targetDir) ++ createPartialLayout(targetDir) ++ createFavicons(targetDir)
+      createLayouts(targetDir) ++ createPartialLayout(targetDir) ++ createFavicons(
+        targetDir
+      )
   }
 
   def buildAdditionalMd(): File = {

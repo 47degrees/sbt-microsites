@@ -35,6 +35,35 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
 
     val text = s"${config.identity.name} ${config.identity.description}"
 
+    def siteSearch: Seq[TypedTag[String]] = {
+      if (config.searchSettings.searchEnabled) {
+        Seq(
+          li(
+            cls := "search-nav",
+            div(
+              id := "search-dropdown",
+              label(
+                i(cls := "fa fa-search"),
+                "Search"
+              ),
+              input(
+                id := "search-bar",
+                `type` := "text",
+                placeholder := "Enter keywords here...",
+                onclick := "displayToggleSearch(event)"
+              ),
+              ul(
+                id := "search-dropdown-content",
+                cls := "dropdown dropdown-content"
+              )
+            )
+          )
+        )
+      } else {
+        Seq.empty
+      }
+    }
+
     def githubLinks: Seq[TypedTag[String]] = {
       if (config.gitSettings.githubLinks) {
         Seq(
@@ -91,6 +120,9 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
               div(cls := "col-lg-12",
                 div(cls := "action-menu pull-left clearfix",
                   a(href := "#menu-toggle", id := "menu-toggle", i(cls := "fa fa-bars", aria.hidden := "true"))
+                ),
+                ul(cls := "pull-left",
+                  siteSearch
                 ),
                 ul(cls := "pull-right",
                   githubLinks,
@@ -275,7 +307,10 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
     scripts ++ List(script(src := "{{ site.baseurl }}/js/main.js"))
 
   def scriptsDocsLight: List[TypedTag[String]] =
-    scripts ++ List(script(src := "{{ site.baseurl }}/js/docs.js"))
+    scripts ++ List(
+      searchScript,
+      script(src := "{{ site.baseurl }}/js/docs.js")
+    )
 
   def editButton: Option[TypedTag[String]] =
     config.editButtonSettings.button match {

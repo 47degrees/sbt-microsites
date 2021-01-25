@@ -36,7 +36,8 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
       body(
         bodyBlock,
         scripts,
-        versionScript
+        versionScript,
+        searchScript
       )
     )
   }

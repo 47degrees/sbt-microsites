@@ -36,7 +36,8 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
       body(
         pageBodyBlock,
         scripts,
-        versionScript
+        versionScript,
+        searchScript
       )
     )
   }
