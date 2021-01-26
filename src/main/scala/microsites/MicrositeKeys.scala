@@ -210,6 +210,10 @@ trait MicrositeKeys {
 
   val micrositeVersionList: SettingKey[Seq[String]] =
     settingKey[Seq[String]]("Optional. Microsite available versions")
+
+  val micrositeSearchEnabled: SettingKey[Boolean] = settingKey[Boolean](
+    "Adds a search bar and search features to your website using Lunr.js. Default is 'true'"
+  )
 }
 
 object MicrositeKeys extends MicrositeKeys
@@ -292,16 +296,17 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
     val fullCssList = baseCssList ++ customCssList ++ customScssList
 
     val defaultYamlCustomVariables = Map(
-      "name"        -> micrositeName.value,
-      "description" -> micrositeDescription.value,
-      "version"     -> version.value,
-      "org"         -> organizationName.value,
-      "baseurl"     -> baseUrl,
-      "docs"        -> true,
-      "markdown"    -> "kramdown",
-      "highlighter" -> "rouge",
-      "exclude"     -> List("css"),
-      "include"     -> fullCssList,
+      "name"           -> micrositeName.value,
+      "description"    -> micrositeDescription.value,
+      "version"        -> version.value,
+      "org"            -> organizationName.value,
+      "baseurl"        -> baseUrl,
+      "docs"           -> true,
+      "markdown"       -> "kramdown",
+      "highlighter"    -> "rouge",
+      "exclude"        -> List("css"),
+      "include"        -> fullCssList,
+      "search_enabled" -> micrositeSearchEnabled.value,
       "sass" -> Map(
         "load_paths" -> List("_sass", "_sass_custom"),
         "style"      -> "compressed",
@@ -379,19 +384,20 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         ),
         multiversionSettings = MicrositeMultiversionSettings(
           micrositeVersionList.value
+        ),
+        searchSettings = MicrositeSearchSettings(
+          micrositeSearchEnabled.value
         )
       )
     )
   }
 
   lazy val micrositeTasksSettings = Seq(
-    microsite := micrositeHelper.value
-      .createResources(resourceManagedDir = (resourceManaged in Compile).value),
+    microsite := (micrositeHelper.value
+      .createResources(resourceManagedDir = (resourceManaged in Compile).value)),
     micrositeMakeExtraMdFiles := micrositeHelper.value.buildAdditionalMd(),
-    makeMdoc :=
-      Def.sequential(mdoc.toTask(""), micrositeMakeExtraMdFiles).value,
-    makeMicrosite :=
-      Def.sequential(microsite, makeMdoc, makeSite).value,
+    makeMdoc := (Def.sequential(mdoc.toTask(""), micrositeMakeExtraMdFiles).value),
+    makeMicrosite := (Def.sequential(microsite, makeMdoc, makeSite).value),
     makeVersionsJson := {
       "which git".! match {
         case 0 => ()

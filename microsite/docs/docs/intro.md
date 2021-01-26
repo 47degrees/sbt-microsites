@@ -23,6 +23,8 @@ This plugin is based on and utilizes other awesome sbt plugins to make it possib
 
 The plugin provides basic free styles, css, and image resources by default. Everything is based on the [Bootstrap](https://getbootstrap.com/) framework. If you want to personalize the color palette, styles, and images for your project, you can easily do so by viewing the steps in the [documentation]({% link docs/getting-started.md %}).
 
+Document search is provided by the [Lunr.js](https://lunrjs.com/) project for client-side search functionality.
+
 In order to create microsites, this plugin directly uses the following plugins and libraries:
 
 * [sbt-mdoc](https://github.com/scalameta/mdoc)
