@@ -16,17 +16,13 @@
 
 package microsites.ioops
 
-import java.io.{File, FileOutputStream}
+import java.io.File
 import java.net.URL
-import java.nio.file.Files.{copy => fcopy}
-import java.nio.file.Path
+import java.nio.file.{FileSystem, Files, Path}
 import java.nio.file.StandardCopyOption.REPLACE_EXISTING
-import java.util.zip.ZipInputStream
+import java.{util => ju}
 
-import cats.instances.either._
-import cats.instances.list._
-import cats.syntax.either._
-import cats.syntax.traverse._
+import cats.implicits._
 import microsites.Exceptions._
 import syntax._
 
@@ -67,7 +63,7 @@ class FileWriter {
 
     def safeCopy: Either[Throwable, Path] =
       Either
-        .catchNonFatal(fcopy(input.toPath, output.toPath, REPLACE_EXISTING))
+        .catchNonFatal(Files.copy(input.toPath, output.toPath, REPLACE_EXISTING))
 
     (for {
       result <- createFile(output)
@@ -92,45 +88,30 @@ class FileWriter {
     } yield paths
   }
 
-  def copyJARResourcesTo(
-      jarUrl: URL,
-      output: String,
-      filter: String = ""
-  ): Either[IOException, Unit] =
+  /** Copies files from an arbitrary FileSystem (dir, JAR, ZIP) defined at the listed URL */
+  def copyResourcesFromFileSystem(
+      fs: FileSystem,
+      outputPath: Path,
+      filters: List[String]
+  ) = {
     Either
       .catchNonFatal {
-        output.fixPath.toFile.mkdir()
-
-        val zipIn = new ZipInputStream(jarUrl.openStream())
-
-        val buffer = new Array[Byte](1024)
-        Stream.continually(zipIn.getNextEntry).takeWhile(_ != null).foreach { entry =>
-          val newFile = IOUtils.file(output + File.separator + entry.getName)
-
-          (
-            entry.isDirectory,
-            !newFile.exists() &&
-              newFile.getAbsolutePath.startsWith(s"$output$filter")
-          ) match {
-            case (true, true) => createDir(newFile)
-            case (true, _)    =>
-            case (false, true) =>
-              createFile(newFile)
-
-              val fos = new FileOutputStream(newFile)
-
-              Stream.continually(zipIn.read(buffer)).takeWhile(_ != -1).foreach { count =>
-                fos.write(buffer, 0, count)
-              }
-
-              fos.close()
-            case _ =>
+        filters.foreach { filter =>
+          val fsPath = fs.getPath(filter)
+          if (Files.exists(fsPath)) {
+            Files.walk(fsPath).forEachOrdered { path =>
+              val dest = outputPath.resolve(path.toString.stripPrefix("/"))
+              try Option(dest.getParent()).foreach(Files.createDirectories(_))
+              finally Files.copy(path, dest, REPLACE_EXISTING)
+            }
           }
         }
       }
-      .leftMap(e =>
-        IOException(s"Error copying resources from $jarUrl to directory $output", Some(e))
-      )
+      .leftMap { e =>
+        e.printStackTrace()
+        IOException(s"Error copying resources from JAR to directory $outputPath", Some(e))
+      }
+  }
 }
 
 object FileWriter extends FileWriter
