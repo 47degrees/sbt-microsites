@@ -142,6 +142,7 @@ trait Arbitraries {
         micrositeFooterText                    ← Arbitrary.arbitrary[Option[String]]
         micrositeEditButton                    ← micrositeEditButtonArbitrary.arbitrary
         micrositeVersionList                   ← Arbitrary.arbitrary[Seq[String]]
+        micrositeSearchBar                    <- Arbitrary.arbitrary[Boolean]
       } yield MicrositeSettings(
         MicrositeIdentitySettings(
           name,
@@ -199,6 +200,9 @@ trait Arbitraries {
         ),
         MicrositeMultiversionSettings(
           micrositeVersionList
+        ),
+        MicrositeSearchSettings(
+          micrositeSearchBar
         )
       )
     }
