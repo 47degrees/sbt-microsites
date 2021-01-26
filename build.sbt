@@ -44,7 +44,7 @@ lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
     "net.jcazevedo"         %% "moultingyaml"    % "0.4.2",
     "com.lihaoyi"           %% "scalatags"       % "0.9.3",
     "com.sksamuel.scrimage" %% "scrimage-scala"  % "4.0.12",
-    "org.scalatestplus"     %% "scalacheck-1-14" % "3.1.4.0" % Test
+    "org.scalatestplus"     %% "scalacheck-1-15" % "3.2.3.0" % Test
   ),
   scriptedLaunchOpts ++= Seq(
     "-Xmx2048M",
