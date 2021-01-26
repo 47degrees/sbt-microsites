@@ -277,17 +277,29 @@ abstract class Layout(config: MicrositeSettings) {
       |hljs.initHighlightingOnLoad();
       """.stripMargin)
 
+    val maybeLunrJSScript =
+      if (config.searchSettings.searchEnabled) {
+        Seq(
+          script(src := "{{site.url}}{{site.baseurl}}/lunr/lunr.js")
+        )
+      } else {
+        Seq.empty
+      }
+
     val message = script(
       """console.info('\x57\x65\x62\x73\x69\x74\x65\x20\x62\x75\x69\x6c\x74\x20\x77\x69\x74\x68\x3a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x5f\x5f\x0a\x20\x20\x20\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x5f\x20\x20\x2f\x20\x2f\x5f\x20\x20\x20\x20\x20\x20\x5f\x5f\x5f\x5f\x20\x5f\x5f\x5f\x20\x20\x28\x5f\x29\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x28\x5f\x29\x20\x2f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x0a\x20\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x60\x5f\x5f\x20\x5c\x2f\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x20\x2f\x20\x5f\x5f\x2f\x20\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x0a\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x5f\x2f\x20\x2f\x20\x2f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x5f\x5f\x2f\x20\x2f\x20\x20\x2f\x20\x2f\x5f\x2f\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x20\x2f\x5f\x2f\x20\x20\x5f\x5f\x28\x5f\x5f\x20\x20\x29\x0a\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2e\x5f\x5f\x5f\x2f\x5c\x5f\x5f\x2f\x20\x20\x20\x20\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x2f\x20\x20\x20\x5c\x5f\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x0a\x0a\x68\x74\x74\x70\x73\x3a\x2f\x2f\x34\x37\x64\x65\x67\x2e\x67\x69\x74\x68\x75\x62\x2e\x69\x6f\x2f\x73\x62\x74\x2d\x6d\x69\x63\x72\x6f\x73\x69\x74\x65\x73')"""
     )
 
-    auxScripts ++ languageScripts ++ List(
+    auxScripts ++ languageScripts ++ maybeLunrJSScript ++ List(
       highlightingScript
     ) ++ customJsList ++ customCDNList ++ (message :: gitSidecar)
   }
 
   def versionScript: TypedTag[String] =
     script(src := "{{site.url}}{{site.baseurl}}/js/version-selector.js")
+
+  def searchScript: TypedTag[String] =
+    script(src := "{{site.url}}{{site.baseurl}}/js/search.js")
 
   def globalFooter: TypedTag[String] = {
     val divs: Seq[TypedTag[String]] =
@@ -427,13 +439,35 @@ abstract class Layout(config: MicrositeSettings) {
 
   def buildLightCollapseMenu: TypedTag[String] =
     ul(
+      "{% if site.search_enabled %}",
+      li(
+        cls := "search-nav",
+        div(
+          id := "search-dropdown",
+          label(
+            i(cls := "fa fa-search"),
+            "Search"
+          ),
+          input(
+            id := "search-bar",
+            `type` := "text",
+            placeholder := "Enter keywords here...",
+            onclick := "displayToggleSearch(event)"
+          ),
+          ul(
+            id := "search-dropdown-content",
+            cls := "dropdown dropdown-content"
+          )
+        )
+      ),
+      "{% endif %}",
       "{% if site.data.versions %}",
       raw("""{% assign own_version = site.data.versions | where: "own", true | first %}"""),
       li(
         div(
           id := "version-dropdown",
           button(
-            onclick := "displayToggle(event)",
+            onclick := "displayToggleVersion(event)",
             attr("title") := "Version {{ own_version.name }}",
             cls := "button link-like",
             i(cls := s"nav-item-icon fa fa-lg fa-caret-square-o-down", hidden := "true"),
@@ -445,7 +479,19 @@ abstract class Layout(config: MicrositeSettings) {
             i(cls := "nav-item-text fa fa-caret-down")
           ),
           ul(
+            id := "version-dropdown-content",
             cls := "dropdown dropdown-content",
+            li(
+              cls := "dropdown-item",
+              a(
+                attr("title") := "title",
+                cls := "dropdown-item-link",
+                href := "something",
+                span(
+                  "name"
+                )
+              )
+            ),
             raw("""{% for item in site.data.versions offset: 1 %}"""),
             li(
               cls := "dropdown-item",

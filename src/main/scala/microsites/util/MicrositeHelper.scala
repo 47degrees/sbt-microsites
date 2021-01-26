@@ -17,10 +17,14 @@
 package microsites.util
 
 import java.io.File
-import java.net.URL
+import java.net.{URI, URL}
+import java.nio.file.{FileSystem, FileSystems, Paths}
+import java.util.HashMap
 
-import cats.syntax.either._
-import com.sksamuel.scrimage._
+import cats.implicits._
+import com.sksamuel.scrimage.nio.ImageReader
+import com.sksamuel.scrimage.ImmutableImage
+import com.sksamuel.scrimage.implicits._
 import microsites.util.YamlFormats._
 import microsites._
 import microsites.layouts._
@@ -55,31 +59,56 @@ class MicrositeHelper(config: MicrositeSettings) {
       MicrositeFavicon(filename, s"${width}x$height")
   }
 
-  def copyJAROrFolder(
-      jarUrl: URL,
-      output: String,
-      filter: String = ""
-  ): Either[Exceptions.IOException, Any] =
-    copyJARResourcesTo(jarUrl, output, filter)
-      .orElse(copyFilesRecursively(jarUrl.getFile + filter, output + filter))
+  def copyResources(
+      resourcesJarFSOrPath: Either[FileSystem, java.nio.file.Path],
+      outputPath: java.nio.file.Path,
+      filters: List[String]
+  ): Either[Exceptions.IOException, Any] = resourcesJarFSOrPath match {
+    case Left(fs) =>
+      println(s"Copying resources from sbt-microsite JAR")
+      val result = copyResourcesFromFileSystem(fs, outputPath, filters)
+      fs.close()
+      result
+    case Right(path) =>
+      println(s"Copying resources from local path $path")
+      filters.traverse { filter =>
+        copyFilesRecursively(path.toString, outputPath.toString)
+      }
+  }
 
   def createResources(resourceManagedDir: File): List[File] = {
 
     val targetDir: String = resourceManagedDir.getAbsolutePath.ensureFinalSlash
     val pluginURL: URL    = getClass.getProtectionDomain.getCodeSource.getLocation
+    val pluginPath        = Paths.get(pluginURL.getPath)
+    val outputPath        = Paths.get(s"$targetDir$jekyllDir/")
 
-    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "_sass")
-    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "css")
-    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "img")
-    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "js")
-    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "highlight/highlight.pack.js")
-    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "highlight/LICENSE")
-    copyJAROrFolder(
-      pluginURL,
-      s"$targetDir$jekyllDir/",
-      s"highlight/styles/${config.visualSettings.highlightTheme}.css"
-    )
-    copyJAROrFolder(pluginURL, s"$targetDir$jekyllDir/", "plugins")
+    val maybeLunrFilters = if (config.searchSettings.searchEnabled) {
+      List("lunr/lunr.js", "lunr/LICENSE")
+    } else Nil
+
+    val filters = List(
+      "_sass",
+      "css",
+      "img",
+      "js",
+      "highlight/highlight.pack.js",
+      "highlight/LICENSE",
+      s"highlight/styles/${config.visualSettings.highlightTheme}.css",
+      "plugins"
+    ) ++ maybeLunrFilters
+
+    //If resources are in a JAR, we want to expose that as a FileSystem
+    //Otherwise we will just use the raw path
+    val pathOrFS: Either[FileSystem, java.nio.file.Path] =
+      if (pluginPath.getFileName.toString.endsWith(".jar")) {
+        val uri = URI.create("jar:file:" + pluginPath.toString)
+        FileSystems.newFileSystem(uri, new HashMap[String, Any]()).asLeft
+      } else {
+        pluginPath.asRight
+      }
+
+    copyResources(pathOrFS, outputPath, filters)
 
     copyFilesRecursively(
       config.fileLocations.micrositeImgDirectory.getAbsolutePath,
@@ -119,7 +148,9 @@ class MicrositeHelper(config: MicrositeSettings) {
     )
 
     List(createConfigYML(targetDir), createPalette(targetDir)) ++
-      createLayouts(targetDir) ++ createPartialLayout(targetDir) ++ createFavicons(targetDir)
+      createLayouts(targetDir) ++ createPartialLayout(targetDir) ++ createFavicons(
+        targetDir
+      )
   }
 
   def buildAdditionalMd(): File = {
@@ -229,13 +260,26 @@ class MicrositeHelper(config: MicrositeSettings) {
 
     createFile(sourceFile)
 
-    (faviconFilenames zip faviconSizes)
-      .map { case (name, size) =>
-        (new File(s"$targetDir$jekyllDir/img/$name"), size)
-      }
-      .map { case (file, (width, height)) =>
-        Image.fromFile(sourceFile.toFile).scaleTo(width, height).output(file)
-      }
+    //This is a dirty classloader hack to allow the latest version of Scrimage to work.
+    //This plugin's default classloader is limited and cannot load ImageReader instances.
+    //We get a different ClassLoader that will work, replace it, and then set it back after we're done.
+    //Will be fixed in Scrimage 4.1.0, see: https://github.com/sksamuel/scrimage/issues/217
+    val desiredCL: ClassLoader = classOf[ImageReader].getClassLoader
+    val currentCL              = Thread.currentThread.getContextClassLoader()
+
+    try {
+      Thread.currentThread.setContextClassLoader(desiredCL)
+
+      (faviconFilenames zip faviconSizes)
+        .map { case (name, size) =>
+          (new File(s"$targetDir$jekyllDir/img/$name"), size)
+        }
+        .map { case (file, (width, height)) =>
+          ImmutableImage.loader.fromFile(sourceFile.toFile).scaleTo(width, height).output(file)
+        }
+    } finally
+    //Reset the classloader to what it was previously
+    Thread.currentThread.setContextClassLoader(currentCL)
   }
 
   def copyConfigurationFile(sourceDir: File, targetDir: File): Unit = {

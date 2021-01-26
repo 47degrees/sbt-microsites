@@ -290,6 +290,8 @@ Each file (the map key) can be related to a specific configuration through the `
 micrositePluginsDirectory := (resourceDirectory in Compile).value / "site" / "plugins"
 ```
 
+- `micrositeSearchEnabled`: Whether or not the search bar functionality is enabled for your microsite. Enabled by default. To disable, set to `false`.
+
 - `micrositeTheme`: You can choose two different themes to generate your microsite. By default it will display the `light` theme but you have the option of choosing the classic `pattern` theme.
 
 ```scala
