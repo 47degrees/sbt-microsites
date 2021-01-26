@@ -4,26 +4,22 @@
 function displayToggleSearch(e) {
   e.preventDefault();
   e.stopPropagation();
-  const parent = e.target.closest("div[id$='search-dropdown']");
+
   closeDropdownSearch(e);
+  
   if (idx === null) {
     console.log("Building search index...");
     prepareIdxAndDocMap();
     console.log("Search index built.");
   }
-  if (parent) {
-    const dropdown = parent.querySelector("#search-dropdown-content");
-    if (dropdown) {
-      if (dropdown.classList.contains("show")) {
-        document.addEventListener("click", closeDropdownSearch);
-        document.addEventListener("keydown", searchOnKeyPress);
-      }
-      else {
-        dropdown.classList.add("show");
-        document.removeEventListener("click", closeDropdownSearch);
-        document.addEventListener("keydown", searchOnKeyPress);
-      }
+  const dropdown = document.querySelector("#search-dropdown-content");
+  if (dropdown) {
+    if (!dropdown.classList.contains("show")) {
+      dropdown.classList.add("show");
     }
+    document.addEventListener("click", closeDropdownSearch);
+    document.addEventListener("keydown", searchOnKeyDown);
+    document.addEventListener("keyup", searchOnKeyUp);
   }
 }
 
@@ -55,7 +51,7 @@ function prepareIdxAndDocMap() {
 }
 
 // The onkeypress handler for search functionality
-function searchOnKeyPress(e) {
+function searchOnKeyDown(e) {
   const keyCode = e.keyCode;
   const parent = e.target.parentElement;
   const isSearchBar = e.target.id === "search-bar";
@@ -77,8 +73,18 @@ function searchOnKeyPress(e) {
     e.preventDefault();
     e.stopPropagation();
     closeDropdownSearch(e);
-  } else if (isSearchBar) {
-    // Anything else, try to run a search
+  }
+}
+
+// Search is only done on key-up so that the search terms are properly propagated
+function searchOnKeyUp(e) {
+  // Filter out up, down, esc keys
+  const keyCode = e.keyCode;
+  const cannotBe = [40, 38, 27];
+  const isSearchBar = e.target.id === "search-bar";
+  const keyIsNotWrong = !cannotBe.includes(keyCode);
+  if (isSearchBar && keyIsNotWrong) {
+    // Try to run a search
     runSearch(e);
   }
 }
