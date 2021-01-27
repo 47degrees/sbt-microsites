@@ -205,6 +205,12 @@
         padding: 0;
         margin: 0;
 
+        .search-nav {
+          @include bp(small) {
+            display: none !important;
+          }
+        }
+
         li {
           list-style: none;
           display: inline-block;
