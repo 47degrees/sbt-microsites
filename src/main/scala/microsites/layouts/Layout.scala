@@ -569,7 +569,7 @@ abstract class Layout(config: MicrositeSettings) {
       )
     } else {
       a(
-        href := s"/${config.urlSettings.micrositeBaseUrl}${config.urlSettings.micrositeDocumentationUrl}",
+        href := s"/${config.urlSettings.micrositeBaseUrl}/${config.urlSettings.micrositeDocumentationUrl}",
         target := "_blank",
         rel := "noopener noreferrer",
         cls := linkClass,
