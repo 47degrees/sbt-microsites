@@ -367,7 +367,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           micrositeBaseUrl = micrositeBaseUrl.value,
           micrositeDocumentationUrl = micrositeDocumentationUrl.value,
           micrositeDocumentationLabelDescription = micrositeDocumentationLabelDescription.value,
-          micrositeHomeButtonTarget = "repo"
+          micrositeHomeButtonTarget = micrositeHomeButtonTarget.value
         ),
         gitSettings = MicrositeGitSettings(
           githubOwner = micrositeGitHostingService.value match {
