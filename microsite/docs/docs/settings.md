@@ -290,6 +290,8 @@ Each file (the map key) can be related to a specific configuration through the `
 micrositePluginsDirectory := (resourceDirectory in Compile).value / "site" / "plugins"
 ```
 
+- `micrositeHomeButtonTarget`: Where the large "call-to-action button" on your home page should take users. By default is set to `repo` for your project repository. Can be set to `docs` to take users to the project documentation page, if configured.
+
 - `micrositeSearchEnabled`: Whether or not the search bar functionality is enabled for your microsite. Enabled by default. To disable, set to `false`.
 
 - `micrositeTheme`: You can choose two different themes to generate your microsite. By default it will display the `light` theme but you have the option of choosing the classic `pattern` theme.

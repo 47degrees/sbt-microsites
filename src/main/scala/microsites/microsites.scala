@@ -58,7 +58,8 @@ case class MicrositeUrlSettings(
     micrositeUrl: String,
     micrositeBaseUrl: String,
     micrositeDocumentationUrl: String,
-    micrositeDocumentationLabelDescription: String
+    micrositeDocumentationLabelDescription: String,
+    micrositeHomeButtonTarget: String
 )
 
 case class MicrositeFavicon(filename: String, sizeDescription: String)
