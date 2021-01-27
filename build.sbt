@@ -1,5 +1,5 @@
 ThisBuild / organization := "com.47deg"
-ThisBuild / scalaVersion := "2.12.11"
+ThisBuild / scalaVersion := "2.12.12"
 ThisBuild / scmInfo := Some(
   ScmInfo(
     url("https://github.com/47degrees/sbt-microsites"),
@@ -36,7 +36,7 @@ lazy val documentation = project
   .enablePlugins(MdocPlugin)
 
 lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
-  addSbtPlugin("org.scalameta"    % "sbt-mdoc"    % "2.2.13"),
+  addSbtPlugin("org.scalameta"    % "sbt-mdoc"    % "2.2.16"),
   addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.3"),
   addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.4.1"),
   libraryDependencies ++= Seq(
