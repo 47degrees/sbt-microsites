@@ -1,5 +1,5 @@
 
-[![Maven Central](https://img.shields.io/badge/maven%20central-1.2.1-green.svg)](https://repo1.maven.org/maven2/com/47deg/sbt-microsites_2.12_1.0) [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/47degrees/sbt-microsites/master/LICENSE) [![Join the chat at https://gitter.im/47deg/sbt-microsites](https://badges.gitter.im/47deg/sbt-microsites.svg)](https://gitter.im/47deg/sbt-microsites?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![GitHub Issues](https://img.shields.io/github/issues/47degrees/sbt-microsites.svg)](https://github.com/47degrees/sbt-microsites/issues)
+[![Maven Central](https://img.shields.io/badge/maven%20central-1.2.1-green.svg)](https://repo1.maven.org/maven2/com/47deg/sbt-microsites_2.12_1.0) [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/47degrees/sbt-microsites/master/LICENSE) [![Join the chat at https://gitter.im/47degrees/sbt-microsites](https://badges.gitter.im/47degrees/sbt-microsites.svg)](https://gitter.im/47degrees/sbt-microsites?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![GitHub Issues](https://img.shields.io/github/issues/47degrees/sbt-microsites.svg)](https://github.com/47degrees/sbt-microsites/issues)
 
 # sbt-microsites
 
@@ -18,7 +18,7 @@ A microsite is an instance of Jekyll, ready to publish a static web page for you
 To begin, add the following lines to the `project/plugins.sbt` file within your project or sbt module where you want to use the `sbt-microsites` plugin.
 
 ```
-addSbtPlugin("com.47deg"  % "sbt-microsites" % "1.2.1")
+addSbtPlugin("com.47deg"  % "sbt-microsites" % "1.3.1")
 ```
 
 Finally, to enable the plugin, add this to your `build.sbt` file:
