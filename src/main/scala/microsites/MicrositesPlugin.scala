@@ -123,6 +123,7 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeEditButton := None,
     micrositeGithubLinks := true,
     micrositeSearchEnabled := true,
+    micrositeHomeButtonTarget := "repo",
     includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json",
     includeFilter in Jekyll := (includeFilter in makeSite).value || "LICENSE",
     commands ++= Seq(publishMicrositeCommand),

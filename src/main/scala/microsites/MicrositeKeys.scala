@@ -214,6 +214,10 @@ trait MicrositeKeys {
   val micrositeSearchEnabled: SettingKey[Boolean] = settingKey[Boolean](
     "Adds a search bar and search features to your website using Lunr.js. Default is 'true'"
   )
+
+  val micrositeHomeButtonTarget: SettingKey[String] = settingKey[String](
+    "Determines where the large, home-page call-to-action button links to. Default is 'repo' which links to the project open source repository. Can also be set to `docs` to link to your main documentation page."
+  )
 }
 
 object MicrositeKeys extends MicrositeKeys
@@ -362,7 +366,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           micrositeUrl = micrositeUrl.value,
           micrositeBaseUrl = micrositeBaseUrl.value,
           micrositeDocumentationUrl = micrositeDocumentationUrl.value,
-          micrositeDocumentationLabelDescription = micrositeDocumentationLabelDescription.value
+          micrositeDocumentationLabelDescription = micrositeDocumentationLabelDescription.value,
+          micrositeHomeButtonTarget = micrositeHomeButtonTarget.value
         ),
         gitSettings = MicrositeGitSettings(
           githubOwner = micrositeGitHostingService.value match {
