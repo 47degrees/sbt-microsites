@@ -107,6 +107,11 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
       } else Seq.empty
     }
 
+    val maybeSearch =
+      if (config.visualSettings.theme != "pattern" && config.searchSettings.searchEnabled) {
+        Seq(siteSearch)
+      } else Seq.empty
+
     val sidebar =
       if (config.visualSettings.theme == "pattern") buildSidebar else buildLightSidebar
 
@@ -121,10 +126,8 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
                 div(cls := "action-menu pull-left clearfix",
                   a(href := "#menu-toggle", id := "menu-toggle", i(cls := "fa fa-bars", aria.hidden := "true"))
                 ),
-                ul(cls := "pull-left",
-                  siteSearch
-                ),
                 ul(cls := "pull-right",
+                  maybeSearch,
                   githubLinks,
                   shareOnSocial
                 )

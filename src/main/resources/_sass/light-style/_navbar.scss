@@ -111,6 +111,12 @@
           display: inline-block;
         }
       }
+
+      .search-nav {
+        @include bp(medium) {
+          display: none;
+        }
+      }
     }
   }
 }
