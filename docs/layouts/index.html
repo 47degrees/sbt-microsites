@@ -1,0 +1,214 @@
+<!DOCTYPE html><html><head><title>sbt-microsites: Layouts</title><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="47 Degrees Open Source" /><meta name="description" content="An sbt plugin to create awesome microsites for your project" /><meta name="og:image" content="/sbt-microsites/img/poster.png" /><meta name="image" property="og:image" content="/sbt-microsites/img/poster.png" /><meta name="og:title" content="sbt-microsites: Layouts" /><meta name="title" property="og:title" content="sbt-microsites: Layouts" /><meta name="og:site_name" content="sbt-microsites" /><meta name="og:url" content="https://github.com/47degrees/sbt-microsites" /><meta name="og:type" content="website" /><meta name="og:description" content="An sbt plugin to create awesome microsites for your project" /><link rel="icon" type="image/png" href="/sbt-microsites/img/favicon.png" /><meta name="twitter:title" content="sbt-microsites: Layouts" /><meta name="twitter:image" content="/sbt-microsites/img/poster.png" /><meta name="twitter:description" content="An sbt plugin to create awesome microsites for your project" /><meta name="twitter:card" content="summary_large_image" /><link rel="icon" type="image/png" sizes="16x16" href="/sbt-microsites/img/favicon16x16.png" /><link rel="icon" type="image/png" sizes="24x24" href="/sbt-microsites/img/favicon24x24.png" /><link rel="icon" type="image/png" sizes="32x32" href="/sbt-microsites/img/favicon32x32.png" /><link rel="icon" type="image/png" sizes="48x48" href="/sbt-microsites/img/favicon48x48.png" /><link rel="icon" type="image/png" sizes="57x57" href="/sbt-microsites/img/favicon57x57.png" /><link rel="icon" type="image/png" sizes="60x60" href="/sbt-microsites/img/favicon60x60.png" /><link rel="icon" type="image/png" sizes="64x64" href="/sbt-microsites/img/favicon64x64.png" /><link rel="icon" type="image/png" sizes="70x70" href="/sbt-microsites/img/favicon70x70.png" /><link rel="icon" type="image/png" sizes="72x72" href="/sbt-microsites/img/favicon72x72.png" /><link rel="icon" type="image/png" sizes="76x76" href="/sbt-microsites/img/favicon76x76.png" /><link rel="icon" type="image/png" sizes="96x96" href="/sbt-microsites/img/favicon96x96.png" /><link rel="icon" type="image/png" sizes="114x114" href="/sbt-microsites/img/favicon114x114.png" /><link rel="icon" type="image/png" sizes="120x120" href="/sbt-microsites/img/favicon120x120.png" /><link rel="icon" type="image/png" sizes="128x128" href="/sbt-microsites/img/favicon128x128.png" /><link rel="icon" type="image/png" sizes="144x144" href="/sbt-microsites/img/favicon144x144.png" /><link rel="icon" type="image/png" sizes="150x150" href="/sbt-microsites/img/favicon150x150.png" /><link rel="icon" type="image/png" sizes="152x152" href="/sbt-microsites/img/favicon152x152.png" /><link rel="icon" type="image/png" sizes="196x196" href="/sbt-microsites/img/favicon196x196.png" /><link rel="icon" type="image/png" sizes="310x310" href="/sbt-microsites/img/favicon310x310.png" /><link rel="icon" type="image/png" sizes="310x150" href="/sbt-microsites/img/favicon310x150.png" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" /><link rel="stylesheet" href="/sbt-microsites/highlight/styles/vs.css" /><link rel="stylesheet" href="/sbt-microsites/css/light-style.css" /></head><body class="docs"><div id="wrapper"><div id="sidebar-wrapper"><div id="sidebar-brand"><a href="/sbt-microsites/" class="brand"><div class="brand-wrapper"></div><span>sbt-microsites</span></a><button id="main-toggle" class="sidebar-toggle"><span class="close"></span></button></div><div class="sidebar-nav"> <div class="sidebar-nav-item  "><a href="/sbt-microsites/docs/" title="Intro" class="">Intro</a></div> <div class="sidebar-nav-item  "><a href="/sbt-microsites/docs/getting-started/" title="Getting Started" class="">Getting Started</a></div> <div class="sidebar-nav-item  "><a href="/sbt-microsites/docs/settings/" title="Configuring the Microsite" class="">Configuring the Microsite</a></div> <div class="sidebar-nav-item  "><a href="/sbt-microsites/docs/typechecked-snippets/" title="Typechecked Snippets" class="">Typechecked Snippets</a></div> <div class="sidebar-nav-item active "><a href="/sbt-microsites/docs/layouts/" title="Layouts" class="active">Layouts</a></div> <div class="sidebar-nav-item  "><a href="/sbt-microsites/docs/customize/" title="Customize" class="">Customize</a></div> <div class="sidebar-nav-item  "><a href="/sbt-microsites/docs/build-the-microsite/" title="Build the microsite" class="">Build the microsite</a></div> <div class="sidebar-nav-item  "><a href="/sbt-microsites/docs/publish-with-travis/" title="Publish with Travis" class="">Publish with Travis</a></div> <div class="sidebar-nav-item  "><a href="/sbt-microsites/docs/troubleshooting/" title="Troubleshooting" class="">Troubleshooting</a></div></div></div><div id="page-content-wrapper"><div class="nav"><div class="container-fluid"><div class="row"><div class="col-lg-12"><div class="action-menu pull-left clearfix"><a href="#menu-toggle" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a></div><ul class="pull-right"><li class="search-nav"><div id="search-dropdown"><label><i class="fa fa-search"></i>Search</label><input id="search-bar" type="text" placeholder="Enter keywords here..." onclick="displayToggleSearch(event)" /><ul id="search-dropdown-content" class="dropdown dropdown-content"></ul></div></li><li id="gh-eyes-item" class="hidden-xs"><a href="https://github.com/47degrees/sbt-microsites" target="_blank" rel="noopener noreferrer"><i class="fa fa-eye"></i><span>Watchers<span id="eyes" class="label label-default">--</span></span></a></li><li id="gh-stars-item" class="hidden-xs"><a href="https://github.com/47degrees/sbt-microsites" target="_blank" rel="noopener noreferrer"><i class="fa fa-star-o"></i><span>Stars<span id="stars" class="label label-default">--</span></span></a></li></ul></div></div></div></div><div id="content" data-github-owner="47degrees" data-github-repo="sbt-microsites"><div class="content-wrapper"><section><h1 id="layouts">Layouts</h1>
+
+<p>Currently, the sbt-microsites plugin includes five different layouts:</p>
+
+<ul>
+  <li>There are two different options for the home section:
+    <ul>
+      <li><code class="highlighter-rouge">home</code>: The landing page–the public face of your library or project.</li>
+      <li><code class="highlighter-rouge">homeFeatures</code>: Another option for the landing page. Choosing this option, you could highlight some of the special features your library offers. (This layout is not available for the classic pattern style)</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">docs</code> (Optional): The page where the documentation for your library should be included. You are most likely seeing the <code class="highlighter-rouge">Documentation</code> page of this repo right now. It’s optional, depending on the <code class="highlighter-rouge">micrositeDocumentationUrl</code> setting. Take a look at the <a href="/sbt-microsites/docs/settings/">Configuring the Microsite</a> section for an in-depth explanation.</li>
+  <li><code class="highlighter-rouge">page</code> (Optional): Similar to <code class="highlighter-rouge">home</code>, but reducing the jumbotron layer and taking into account the submenu (jumbotron and other concepts related to style are explained in the <a href="/sbt-microsites/docs/customize/">Customize</a> section).</li>
+  <li>Menu Partial: This abstract layout reads all the files in your project that fit a set of requirements, and sets up a menu under the jumbotron image. We’ll see more details on this later.</li>
+</ul>
+
+<h2 id="home-layout">Home Layout</h2>
+
+<p>The <code class="highlighter-rouge">home</code> layout is usually related to the <code class="highlighter-rouge">index.md</code> file. In this document, you can put all the markdown content that’s related to the landing page.</p>
+
+<p>For instance:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">home</span>
+<span class="na">title</span><span class="pi">:</span>  <span class="s2">"</span><span class="s">Home"</span>
+<span class="na">section</span><span class="pi">:</span> <span class="s2">"</span><span class="s">home"</span>
+<span class="na">technologies</span><span class="pi">:</span>
+ <span class="pi">-</span> <span class="na">first</span><span class="pi">:</span>  <span class="pi">[</span><span class="s2">"</span><span class="s">Scala"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">sbt-microsites</span><span class="nv"> </span><span class="s">plugin</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">completely</span><span class="nv"> </span><span class="s">written</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">Scala"</span><span class="pi">]</span>
+ <span class="pi">-</span> <span class="na">second</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">SBT"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">sbt-microsites</span><span class="nv"> </span><span class="s">plugin</span><span class="nv"> </span><span class="s">uses</span><span class="nv"> </span><span class="s">SBT</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">other</span><span class="nv"> </span><span class="s">sbt</span><span class="nv"> </span><span class="s">plugins</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">generate</span><span class="nv"> </span><span class="s">microsites</span><span class="nv"> </span><span class="s">easily"</span><span class="pi">]</span>
+ <span class="pi">-</span> <span class="na">third</span><span class="pi">:</span>  <span class="pi">[</span><span class="s2">"</span><span class="s">Jekyll"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">Jekyll</span><span class="nv"> </span><span class="s">allows</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">transformation</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">plain</span><span class="nv"> </span><span class="s">text</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">static</span><span class="nv"> </span><span class="s">websites</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">blogs."</span><span class="pi">]</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<p>The technology list is optional. These three technologies will be shown as a sub-footer in your home page. These technologies are identified for the set of keys (<code class="highlighter-rouge">first</code>, <code class="highlighter-rouge">second</code>, <code class="highlighter-rouge">third</code>). You can specify to include all of them or none of them. There are no other choices at this time.
+This list is only available in the <code class="highlighter-rouge">pattern</code> theme, but, for the <code class="highlighter-rouge">light</code> theme, we have included the <code class="highlighter-rouge">homeFeatures</code> layout where you can highlight similar characteristics of your library.</p>
+
+<h2 id="homefeatures-layout">HomeFeatures Layout</h2>
+
+<p>Like the <code class="highlighter-rouge">home</code> layout, <code class="highlighter-rouge">homeFeatures</code> is related to the <code class="highlighter-rouge">index.md</code> file.
+This layout is designed to show a main title beside a big logo, and then a series of features that can be highlighted from the library.</p>
+
+<p>For instance:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">homeFeatures</span>
+<span class="na">features</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">first</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">Patterns"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">Solutions</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">recurrent</span><span class="nv"> </span><span class="s">problems,</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">purely</span><span class="nv"> </span><span class="s">Functional</span><span class="nv"> </span><span class="s">Programming</span><span class="nv"> </span><span class="s">manner."</span><span class="pi">,</span> <span class="s2">"</span><span class="s">patterns"</span><span class="pi">]</span>
+  <span class="pi">-</span> <span class="na">second</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">Typeclasses"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">Enable</span><span class="nv"> </span><span class="s">ad-hoc</span><span class="nv"> </span><span class="s">polymorphism</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">protocols</span><span class="nv"> </span><span class="s">like</span><span class="nv"> </span><span class="s">Functor,</span><span class="nv"> </span><span class="s">Applicative,</span><span class="nv"> </span><span class="s">Monad,</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">many</span><span class="nv"> </span><span class="s">others."</span><span class="pi">,</span> <span class="s2">"</span><span class="s">typeclasses"</span><span class="pi">]</span>
+  <span class="pi">-</span> <span class="na">third</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">Data</span><span class="nv"> </span><span class="s">Types"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">Take</span><span class="nv"> </span><span class="s">advantage</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">numerous</span><span class="nv"> </span><span class="s">data</span><span class="nv"> </span><span class="s">types</span><span class="nv"> </span><span class="s">based</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">algebraic</span><span class="nv"> </span><span class="s">properties."</span><span class="pi">,</span> <span class="s2">"</span><span class="s">datatypes"</span><span class="pi">]</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<p>This is basically all you´ll need to add to your <code class="highlighter-rouge">index.md</code> file using the <code class="highlighter-rouge">homeFeatures</code> layout.
+You can add up to three different features, and sbt-microsites will dispose them after the masthead layer. Every feature will be accompained by an icon that can be overridden, as explained in the <a href="/sbt-microsites/docs/customize/">Customize</a> section.
+These features are identified for the set of keys (<code class="highlighter-rouge">first</code>, <code class="highlighter-rouge">second</code>, <code class="highlighter-rouge">third</code>).
+The last value of each feature is optional and will be used to set the link to the docs section. For instance, the first feature in the example: <code class="highlighter-rouge">patterns</code>, this will serve to compose <code class="highlighter-rouge">docs/patterns</code> link to the docs section.</p>
+
+<h2 id="docs-layout">Docs Layout</h2>
+
+<p>All the markdown files that contain this <code class="highlighter-rouge">layout</code> and <code class="highlighter-rouge">section</code> as <code class="highlighter-rouge">docs</code> will be grouped in the Documentation page. Each markdown file with these characteristics will be shown on a collapsible left menu, with one item per existing file. From this menu, you can easily navigate all the docs.</p>
+
+<p>To be able to access the documentation, you have to configure <code class="highlighter-rouge">micrositeDocumentationUrl</code> setting.</p>
+
+<p>In order to change the default label description for the <code class="highlighter-rouge">micrositeDocumentationUrl</code> (the default value is <code class="highlighter-rouge">Documentation</code>), you have to change the <code class="highlighter-rouge">micrositeDocumentationLabelDescription</code>.</p>
+
+<p>As an example, you can look at the sbt-microsites documentation at <a href="https://github.com/47degrees/sbt-microsites/tree/master/microsite/docs">GitHub</a>. We have several documentation files:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">build-the-microsite.md</code></li>
+  <li><code class="highlighter-rouge">customize.md</code></li>
+  <li><code class="highlighter-rouge">getting-started.md</code></li>
+  <li><code class="highlighter-rouge">index.md</code></li>
+  <li>…</li>
+</ul>
+
+<p>All these files contain as a header, something similar to this:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">docs</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s">&lt;Document Title&gt;</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">&lt;Document Title&gt;</code> will be used as a menu item name on the left.</p>
+
+<h3 id="how-to-setup-the-docs-menu">How to setup the Docs Menu</h3>
+
+<p>Looking at the <a href="/sbt-microsites/docs/settings/">Configuring the Microsite</a> section, in the directory configured under the <code class="highlighter-rouge">micrositeDataDirectory</code> setting, you need to create a new file named <code class="highlighter-rouge">menu.yml</code>. This <code class="highlighter-rouge">YAML</code> file will be accessed by the <code class="highlighter-rouge">Docs Layout</code> in order to create the menu. Let’s see an example:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">options</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Getting Started</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">docs/index</span>
+    <span class="na">section</span><span class="pi">:</span> <span class="s">intro</span>
+
+  <span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Configuring the Microsite</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">docs/settings</span>
+
+  <span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Layouts</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">docs/layouts</span>
+    <span class="na">section</span><span class="pi">:</span> <span class="s">resources</span>
+
+  <span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Customize</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">docs/customize</span>
+
+  <span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Build the microsite</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">docs/build-the-microsite</span>
+</code></pre></div></div>
+
+<ul>
+  <li>The <code class="highlighter-rouge">options</code> key is mandatory. It’ll be the parent of all the options defined here. Each <code class="highlighter-rouge">option</code> or menu item will contain:</li>
+  <li><code class="highlighter-rouge">title</code>: the menu title. It should be the same as defined in the meta-property associated with the file (<code class="highlighter-rouge">&lt;Document Title&gt;</code>, where the layout is defined).</li>
+  <li><code class="highlighter-rouge">url</code>: relative path to the site URL.</li>
+  <li><code class="highlighter-rouge">menu_section</code>: this key is mandatory only when you have a nested submenu. It’ll be useful to distinguish between sub-items with the same name in different menu options.</li>
+  <li><code class="highlighter-rouge">menu_type</code>: optional parameter. It brings the ability to configure different menus for different sets of documents, defining all the menu options in the same <code class="highlighter-rouge">menu.yml</code> file. For example, you might want to define two different places in your microsite where the menu might be different. This is the setting you can use in order to group the set of menu options.</li>
+  <li>Optionally, we could define a second level of nested sub-items, thanks to the <code class="highlighter-rouge">nested_options</code> key, defined at the same level that <code class="highlighter-rouge">title</code> and <code class="highlighter-rouge">url</code> of the parent menu. For example:</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">options</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Introduction</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">index</span>
+    <span class="na">menu_section</span><span class="pi">:</span> <span class="s">intro</span>
+
+    <span class="na">nested_options</span><span class="pi">:</span>
+     <span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Submenu </span><span class="m">1</span>
+       <span class="na">url</span><span class="pi">:</span> <span class="s">subfolder/submenu1</span>
+     <span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Submenu </span><span class="m">2</span>
+       <span class="na">url</span><span class="pi">:</span> <span class="s">subfolder/submenu2</span>
+
+  <span class="pi">-</span> <span class="na">title</span><span class="pi">:</span> <span class="s">Configuring the Microsite</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">settings</span>
+</code></pre></div></div>
+
+<p>In this example, <code class="highlighter-rouge">Submenu 1</code> and <code class="highlighter-rouge">Submenu 2</code> will be nested under the <code class="highlighter-rouge">Introduction</code> menu option. At the same time, <code class="highlighter-rouge">submenu1</code> and <code class="highlighter-rouge">submenu2</code> would have the same section name as the parent. For instance, <code class="highlighter-rouge">submenu1.md</code> would have a header like this, where the <code class="highlighter-rouge">section</code> field matches the one defined in <code class="highlighter-rouge">menu.yml</code>:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">docs</span>
+<span class="na">title</span><span class="pi">:</span>  <span class="s2">"</span><span class="s">Submenu</span><span class="nv"> </span><span class="s">2"</span>
+<span class="na">section</span><span class="pi">:</span> <span class="s2">"</span><span class="s">intro"</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<h2 id="page-layout-and-menu-partial-layout">Page Layout and Menu Partial Layout</h2>
+
+<p>This layout is useful when we want to have different web pages at the same <code class="highlighter-rouge">home</code> level, but under the menu of the microsite.</p>
+
+<p>One example:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">page</span>
+<span class="na">title</span><span class="pi">:</span>  <span class="s2">"</span><span class="s">&lt;page-menu-title&gt;"</span>
+<span class="na">section</span><span class="pi">:</span> <span class="s2">"</span><span class="s">&lt;page_menu_title&gt;"</span>
+<span class="na">position</span><span class="pi">:</span> <span class="m">3</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<p>For each different <code class="highlighter-rouge">section</code> the framework finds in your source directory, it’ll create a new menu option in the microsite.</p>
+
+<p>Let’s review this in this example:</p>
+
+<p><code class="highlighter-rouge">file1.md</code> contents:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">home</span>
+<span class="na">title</span><span class="pi">:</span>  <span class="s2">"</span><span class="s">Home"</span>
+<span class="na">section</span><span class="pi">:</span> <span class="s2">"</span><span class="s">section_home"</span>
+<span class="na">position</span><span class="pi">:</span> <span class="m">1</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">file2.md</code> contents:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">page</span>
+<span class="na">title</span><span class="pi">:</span>  <span class="s2">"</span><span class="s">Section</span><span class="nv"> </span><span class="s">2"</span>
+<span class="na">section</span><span class="pi">:</span> <span class="s2">"</span><span class="s">section2"</span>
+<span class="na">position</span><span class="pi">:</span> <span class="m">3</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">file3.md</code> contents:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">page</span>
+<span class="na">title</span><span class="pi">:</span>  <span class="s2">"</span><span class="s">Section</span><span class="nv"> </span><span class="s">3"</span>
+<span class="na">section</span><span class="pi">:</span> <span class="s2">"</span><span class="s">section3"</span>
+<span class="na">position</span><span class="pi">:</span> <span class="m">2</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<p>In this case, thanks to Jekyll and the MenuPartial Layout implemented as a part of the <strong>sbt-microsites</strong> plugin, it will automatically generate a menu with three items:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Home | Section 3 | Section 2
+</code></pre></div></div>
+
+<p>As you can see, the menu is ordered by the tag <code class="highlighter-rouge">position</code>.</p>
+</section></div></div></div></div><script src="/sbt-microsites/highlight/highlight.pack.js"></script><script src="/sbt-microsites/lunr/lunr.js"></script><script>
+// For all code blocks, copy the language from the containing div
+// to the inner code tag (where hljs expects it to be)
+const langPrefix = 'language-';
+document.querySelectorAll(`div[class^='${langPrefix}']`).forEach(function(div) {
+  div.classList.forEach(function(cssClass) {
+    if (cssClass.startsWith(langPrefix)) {
+      const lang = cssClass.substring(langPrefix.length);
+      div.querySelectorAll('pre code').forEach(function(code) {
+        code.classList.add(lang);
+      });
+    }
+  });
+});
+
+hljs.configure({languages:['scala','java','bash']});
+hljs.initHighlightingOnLoad();
+      </script><script>console.info('\x57\x65\x62\x73\x69\x74\x65\x20\x62\x75\x69\x6c\x74\x20\x77\x69\x74\x68\x3a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x5f\x5f\x0a\x20\x20\x20\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x5f\x20\x20\x2f\x20\x2f\x5f\x20\x20\x20\x20\x20\x20\x5f\x5f\x5f\x5f\x20\x5f\x5f\x5f\x20\x20\x28\x5f\x29\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x28\x5f\x29\x20\x2f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x0a\x20\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x60\x5f\x5f\x20\x5c\x2f\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x20\x2f\x20\x5f\x5f\x2f\x20\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x0a\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x5f\x2f\x20\x2f\x20\x2f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x5f\x5f\x2f\x20\x2f\x20\x20\x2f\x20\x2f\x5f\x2f\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x20\x2f\x5f\x2f\x20\x20\x5f\x5f\x28\x5f\x5f\x20\x20\x29\x0a\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2e\x5f\x5f\x5f\x2f\x5c\x5f\x5f\x2f\x20\x20\x20\x20\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x2f\x20\x20\x20\x5c\x5f\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x0a\x0a\x68\x74\x74\x70\x73\x3a\x2f\x2f\x34\x37\x64\x65\x67\x2e\x67\x69\x74\x68\x75\x62\x2e\x69\x6f\x2f\x73\x62\x74\x2d\x6d\x69\x63\x72\x6f\x73\x69\x74\x65\x73')</script><script>((window.gitter = {}).chat = {}).options = {
+room: '47deg/sbt-microsites'};</script><script src="https://sidecar.gitter.im/dist/sidecar.v1.js"></script><script src="/sbt-microsites/js/search.js"></script><script src="/sbt-microsites/js/docs.js"></script></body></html>
