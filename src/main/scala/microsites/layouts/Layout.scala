@@ -557,4 +557,24 @@ abstract class Layout(config: MicrositeSettings) {
 
   private[this] def validFile(extension: String)(file: File): Boolean =
     file.getName.endsWith(s".$extension")
+
+  def ctaButton(linkClass: String): TypedTag[String] = {
+    if (config.urlSettings.micrositeHomeButtonTarget == "repo") {
+      a(
+        href := config.gitSiteUrl,
+        target := "_blank",
+        rel := "noopener noreferrer",
+        cls := linkClass,
+        s"View on ${config.gitSettings.gitHostingService.name}"
+      )
+    } else {
+      a(
+        href := s"/${config.urlSettings.micrositeBaseUrl}/${config.urlSettings.micrositeDocumentationUrl}",
+        target := "_blank",
+        rel := "noopener noreferrer",
+        cls := linkClass,
+        s"View Docs"
+      )
+    }
+  }
 }

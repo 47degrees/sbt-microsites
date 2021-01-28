@@ -71,13 +71,7 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
           h2(),
           p(
             cls := "text-center",
-            a(
-              href := config.gitSiteUrl,
-              target := "_blank",
-              rel := "noopener noreferrer",
-              cls := "btn btn-outline-inverse",
-              s"View on ${config.gitSettings.gitHostingService.name}"
-            )
+            ctaButton("btn btn-outline-inverse")
           )
         )
       ),
@@ -91,13 +85,7 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
         div(
           cls := "container text-center",
           h1(cls := "masthead-description", config.identity.description),
-          a(
-            href := config.gitSiteUrl,
-            target := "_blank",
-            rel := "noopener noreferrer",
-            cls := "masthead-button",
-            s"View on ${config.gitSettings.gitHostingService.name}"
-          )
+          ctaButton("masthead-button")
         )
       ),
       "{% if page.position != null %}",

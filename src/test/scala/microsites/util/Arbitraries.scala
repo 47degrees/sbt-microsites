@@ -22,6 +22,7 @@ import microsites.MicrositeKeys._
 import microsites._
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen._
+import org.scalacheck.Gen
 
 trait Arbitraries {
 
@@ -143,6 +144,7 @@ trait Arbitraries {
         micrositeEditButton                    ← micrositeEditButtonArbitrary.arbitrary
         micrositeVersionList                   ← Arbitrary.arbitrary[Seq[String]]
         micrositeSearchBar                    <- Arbitrary.arbitrary[Boolean]
+        micrositeHomeButtonTarget             <- Gen.oneOf("docs", "repo")
       } yield MicrositeSettings(
         MicrositeIdentitySettings(
           name,
@@ -184,7 +186,8 @@ trait Arbitraries {
           micrositeUrl,
           micrositeBaseUrl,
           micrositeDocumentationUrl,
-          micrositeDocumentationLabelDescription
+          micrositeDocumentationLabelDescription,
+          micrositeHomeButtonTarget
         ),
         MicrositeGitSettings(
           githubOwner,
