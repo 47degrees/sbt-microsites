@@ -100,8 +100,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
             li(a(href := "#", onclick := s"shareSiteTwitter('$text');", i(cls := "fa fa-twitter"))),
             li(
               a(href := "#", onclick := s"shareSiteFacebook('$text');", i(cls := "fa fa-facebook"))
-            ),
-            li(a(href := "#", onclick := "shareSiteGoogle();", i(cls := "fa fa-google-plus")))
+            )
           )
         } else Seq.empty
       } else Seq.empty
