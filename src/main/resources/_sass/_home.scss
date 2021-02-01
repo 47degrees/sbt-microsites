@@ -52,12 +52,6 @@
                         .fa-file-text {
                             font-size: 17px;
                         }
-                        &:hover,
-                        &:focus,
-                        &.focus {
-                            opacity: 0.5;
-                            text-decoration: none;
-                        }
                     }
 
                     label {
@@ -81,6 +75,15 @@
                 }
             }
         }
+    }
+}
+
+a.transparent-on-hover {
+    &:hover,
+    &:focus,
+    &.focus {
+        opacity: 0.5;
+        text-decoration: none;
     }
 }
 

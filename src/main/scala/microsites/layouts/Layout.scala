@@ -450,6 +450,7 @@ abstract class Layout(config: MicrositeSettings) {
         searchBar,
         li(
           a(
+            cls := "transparent-on-hover",
             href := config.gitSiteUrl,
             i(cls := s"fa ${config.gitHostingIconClass}"),
             target := "_blank",
@@ -460,6 +461,7 @@ abstract class Layout(config: MicrositeSettings) {
         if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
           li(
             a(
+              cls := "transparent-on-hover",
               href := s"${config.urlSettings.micrositeDocumentationUrl}",
               i(cls := "fa fa-file-text"),
               span(
