@@ -60,7 +60,18 @@
                         }
                     }
 
-                    &:first-child {
+                    label {
+                        color: #fff;
+                        font-size: 15px;
+                        font-weight: 400;
+                        margin-right: 6px;
+
+                        i {
+                            margin-right: 6px;
+                        }
+                    }
+
+                    &:not(:last-child) {
                         margin-right: 50px;
 
                         @media screen and (max-width: $screen-xs-max) {

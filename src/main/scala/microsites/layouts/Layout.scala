@@ -411,18 +411,50 @@ abstract class Layout(config: MicrositeSettings) {
     )
   }
 
+  def searchBar: Option[TypedTag[String]] = {
+    val classes =
+      if (config.visualSettings.theme == "pattern") "search-nav hidden-xs"
+      else "search-nav"
+
+    if (config.searchSettings.searchEnabled) {
+      Some(
+        li(
+          cls := classes,
+          div(
+            id := "search-dropdown",
+            label(
+              i(cls := "fa fa-search"),
+              "Search"
+            ),
+            input(
+              id := "search-bar",
+              `type` := "text",
+              placeholder := "Enter keywords here...",
+              onclick := "displayToggleSearch(event)"
+            ),
+            ul(
+              id := "search-dropdown-content",
+              cls := "dropdown dropdown-content"
+            )
+          )
+        )
+      )
+    } else Option.empty
+  }
+
   def buildCollapseMenu: TypedTag[String] =
     nav(
       cls := "text-right",
       ul(
         cls := "",
+        searchBar,
         li(
           a(
             href := config.gitSiteUrl,
             i(cls := s"fa ${config.gitHostingIconClass}"),
             target := "_blank",
             rel := "noopener noreferrer",
-            span(cls := "hidden-xs", config.gitSettings.gitHostingService.name)
+            span(cls := "hidden-sm hidden-xs", config.gitSettings.gitHostingService.name)
           )
         ),
         if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
@@ -430,7 +462,10 @@ abstract class Layout(config: MicrositeSettings) {
             a(
               href := s"${config.urlSettings.micrositeDocumentationUrl}",
               i(cls := "fa fa-file-text"),
-              span(cls := "hidden-xs", config.urlSettings.micrositeDocumentationLabelDescription)
+              span(
+                cls := "hidden-sm hidden-xs",
+                config.urlSettings.micrositeDocumentationLabelDescription
+              )
             )
           )
         else ()
@@ -439,28 +474,7 @@ abstract class Layout(config: MicrositeSettings) {
 
   def buildLightCollapseMenu: TypedTag[String] =
     ul(
-      "{% if site.search_enabled %}",
-      li(
-        cls := "search-nav",
-        div(
-          id := "search-dropdown",
-          label(
-            i(cls := "fa fa-search"),
-            "Search"
-          ),
-          input(
-            id := "search-bar",
-            `type` := "text",
-            placeholder := "Enter keywords here...",
-            onclick := "displayToggleSearch(event)"
-          ),
-          ul(
-            id := "search-dropdown-content",
-            cls := "dropdown dropdown-content"
-          )
-        )
-      ),
-      "{% endif %}",
+      searchBar,
       "{% if site.data.versions %}",
       raw("""{% assign own_version = site.data.versions | where: "own", true | first %}"""),
       li(

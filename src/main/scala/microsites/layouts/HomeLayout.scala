@@ -52,14 +52,14 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
           div(
             cls := "row",
             div(
-              cls := "col-xs-6",
+              cls := "col-xs-3",
               a(
                 href := "{{ site.baseurl }}/",
                 cls := "brand",
                 div(cls := "icon-wrapper", span(config.identity.name))
               )
             ),
-            div(cls := "col-xs-6", buildCollapseMenu)
+            div(cls := "col-xs-9", buildCollapseMenu)
           )
         )
       ),
