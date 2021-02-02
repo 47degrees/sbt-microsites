@@ -1,5 +1,84 @@
 # Changelog
 
+## [v1.3.1](https://github.com/47degrees/sbt-microsites/tree/v1.3.1) (2021-01-28)
+
+[Full Changelog](https://github.com/47degrees/sbt-microsites/compare/v1.3.0...v1.3.1)
+
+🚀 **Features**
+
+- \[Request\] Add a search plugin [\#503](https://github.com/47degrees/sbt-microsites/issues/503)
+- Allow config to specify if home-page button goes to repo or docs [\#540](https://github.com/47degrees/sbt-microsites/pull/540) ([sloshy](https://github.com/sloshy))
+- Add Document Search [\#534](https://github.com/47degrees/sbt-microsites/pull/534) ([sloshy](https://github.com/sloshy))
+
+🐛 **Bug Fixes**
+
+- Fix the build [\#531](https://github.com/47degrees/sbt-microsites/issues/531)
+- Search styling tweaks [\#541](https://github.com/47degrees/sbt-microsites/pull/541) ([sloshy](https://github.com/sloshy))
+- Fix Gitter links in README and microsite [\#530](https://github.com/47degrees/sbt-microsites/pull/530) ([sloshy](https://github.com/sloshy))
+- Update scrimage to 4.x from 2.x & fix copying resources [\#529](https://github.com/47degrees/sbt-microsites/pull/529) ([sloshy](https://github.com/sloshy))
+
+📈 **Dependency updates**
+
+- Update github4s to v0.28.0, add http4s dependency [\#539](https://github.com/47degrees/sbt-microsites/pull/539) ([sloshy](https://github.com/sloshy))
+- Update scrimage-scala to 4.0.15 [\#538](https://github.com/47degrees/sbt-microsites/pull/538) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc: 2.2.16, Scala: 2.12.12 [\#537](https://github.com/47degrees/sbt-microsites/pull/537) ([sloshy](https://github.com/sloshy))
+- Update ScalaCheck to 1.15, scalatestplus scalacheck to 3.2.3.0 [\#536](https://github.com/47degrees/sbt-microsites/pull/536) ([sloshy](https://github.com/sloshy))
+- Update scalatags to 0.9.3 [\#533](https://github.com/47degrees/sbt-microsites/pull/533) ([47erbot](https://github.com/47erbot))
+- Update sbt to 1.4.6 [\#528](https://github.com/47degrees/sbt-microsites/pull/528) ([47erbot](https://github.com/47erbot))
+
+**Closed issues:**
+
+- Remove `tut` dependency [\#514](https://github.com/47degrees/sbt-microsites/issues/514)
+- Make call to action button on landing page lead to "Documentation" instead of "View on GitHub" [\#508](https://github.com/47degrees/sbt-microsites/issues/508)
+- Allow doc search [\#196](https://github.com/47degrees/sbt-microsites/issues/196)
+
+## [v1.3.0](https://github.com/47degrees/sbt-microsites/tree/v1.3.0) (2020-12-23)
+
+[Full Changelog](https://github.com/47degrees/sbt-microsites/compare/v1.2.1...v1.3.0)
+
+⚠️ **Breaking changes**
+
+- Removes tut [\#527](https://github.com/47degrees/sbt-microsites/pull/527) ([juanpedromoreno](https://github.com/juanpedromoreno))
+
+📈 **Dependency updates**
+
+- Update sbt-mdoc to 2.2.14 [\#526](https://github.com/47degrees/sbt-microsites/pull/526) ([47erbot](https://github.com/47erbot))
+- Update sbt to 1.4.5 [\#525](https://github.com/47degrees/sbt-microsites/pull/525) ([47erbot](https://github.com/47erbot))
+- Update sbt-github, sbt-github-header, ... to 0.9.0 [\#524](https://github.com/47degrees/sbt-microsites/pull/524) ([47erbot](https://github.com/47erbot))
+- Update sbt-ci-release to 1.5.5 [\#523](https://github.com/47degrees/sbt-microsites/pull/523) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc to 2.2.13 [\#522](https://github.com/47degrees/sbt-microsites/pull/522) ([47erbot](https://github.com/47erbot))
+- Update sbt to 1.4.4 [\#521](https://github.com/47degrees/sbt-microsites/pull/521) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc to 2.2.12 [\#520](https://github.com/47degrees/sbt-microsites/pull/520) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc to 2.1.5 [\#519](https://github.com/47degrees/sbt-microsites/pull/519) ([47erbot](https://github.com/47erbot))
+- Update sbt-ci-release to 1.5.4 [\#518](https://github.com/47degrees/sbt-microsites/pull/518) ([47erbot](https://github.com/47erbot))
+- Update sbt to 1.4.3 [\#517](https://github.com/47degrees/sbt-microsites/pull/517) ([47erbot](https://github.com/47erbot))
+- Update sbt to 1.4.2 [\#516](https://github.com/47degrees/sbt-microsites/pull/516) ([47erbot](https://github.com/47erbot))
+- Update sbt-site to 1.4.1 [\#515](https://github.com/47degrees/sbt-microsites/pull/515) ([47erbot](https://github.com/47erbot))
+- Update sbt to 1.4.1 [\#513](https://github.com/47degrees/sbt-microsites/pull/513) ([47erbot](https://github.com/47erbot))
+- Update scalafmt-core to 2.7.5 [\#512](https://github.com/47degrees/sbt-microsites/pull/512) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc to 2.2.10 [\#511](https://github.com/47degrees/sbt-microsites/pull/511) ([47erbot](https://github.com/47erbot))
+- Update scalafmt-core to 2.7.4 [\#510](https://github.com/47degrees/sbt-microsites/pull/510) ([47erbot](https://github.com/47erbot))
+- Update sbt to 1.4.0 [\#509](https://github.com/47degrees/sbt-microsites/pull/509) ([47erbot](https://github.com/47erbot))
+- Update scalafmt-core to 2.7.3 [\#507](https://github.com/47degrees/sbt-microsites/pull/507) ([47erbot](https://github.com/47erbot))
+- Update scalatags to 0.9.2 [\#506](https://github.com/47degrees/sbt-microsites/pull/506) ([47erbot](https://github.com/47erbot))
+- Update scalafmt-core to 2.7.2 [\#505](https://github.com/47degrees/sbt-microsites/pull/505) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc to 2.2.9 [\#504](https://github.com/47degrees/sbt-microsites/pull/504) ([47erbot](https://github.com/47erbot))
+- Update scalafmt-core to 2.7.1 [\#502](https://github.com/47degrees/sbt-microsites/pull/502) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc to 2.2.8 [\#501](https://github.com/47degrees/sbt-microsites/pull/501) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc to 2.2.7 [\#500](https://github.com/47degrees/sbt-microsites/pull/500) ([47erbot](https://github.com/47erbot))
+- Update scalafmt-core to 2.7.0 [\#498](https://github.com/47degrees/sbt-microsites/pull/498) ([47erbot](https://github.com/47erbot))
+- Update scalacheck-1-14 to 3.1.4.0 [\#497](https://github.com/47degrees/sbt-microsites/pull/497) ([47erbot](https://github.com/47erbot))
+- Update scalafmt-core to 2.5.3 [\#496](https://github.com/47degrees/sbt-microsites/pull/496) ([47erbot](https://github.com/47erbot))
+- Update sbt-scalafmt to 2.4.2 [\#495](https://github.com/47degrees/sbt-microsites/pull/495) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc to 2.2.6 [\#494](https://github.com/47degrees/sbt-microsites/pull/494) ([47erbot](https://github.com/47erbot))
+- Update scalatags to 0.9.1 [\#493](https://github.com/47degrees/sbt-microsites/pull/493) ([47erbot](https://github.com/47erbot))
+- Update sbt-github, sbt-github-header, ... to 0.8.2 [\#492](https://github.com/47degrees/sbt-microsites/pull/492) ([47erbot](https://github.com/47erbot))
+
+**Merged pull requests:**
+
+- Prepare repository for next `.github` release, SBT build improvements and fix microsite creation [\#490](https://github.com/47degrees/sbt-microsites/pull/490) ([alejandrohdezma](https://github.com/alejandrohdezma))
+- Readme to v1.2.1 [\#487](https://github.com/47degrees/sbt-microsites/pull/487) ([jatcwang](https://github.com/jatcwang))
+
 ## [v1.2.1](https://github.com/47degrees/sbt-microsites/tree/v1.2.1) (2020-05-11)
 
 [Full Changelog](https://github.com/47degrees/sbt-microsites/compare/v1.2.0...v1.2.1)
@@ -328,6 +407,7 @@
 - Update to the latest stable Jekyll version [\#315](https://github.com/47degrees/sbt-microsites/pull/315) ([AntonioMateoGomez](https://github.com/AntonioMateoGomez))
 - Active doc page highlighted [\#314](https://github.com/47degrees/sbt-microsites/pull/314) ([AntonioMateoGomez](https://github.com/AntonioMateoGomez))
 - Home layout HighLighting [\#311](https://github.com/47degrees/sbt-microsites/pull/311) ([AntonioMateoGomez](https://github.com/AntonioMateoGomez))
+- Fix issue \#229 [\#300](https://github.com/47degrees/sbt-microsites/pull/300) ([kczulko](https://github.com/kczulko))
 
 ## [v0.9.1](https://github.com/47degrees/sbt-microsites/tree/v0.9.1) (2019-05-22)
 
@@ -372,7 +452,6 @@
 **Merged pull requests:**
 
 - Upgrades the project by using the latest sbt-org-policies version [\#302](https://github.com/47degrees/sbt-microsites/pull/302) ([juanpedromoreno](https://github.com/juanpedromoreno))
-- Fix issue \#229 [\#300](https://github.com/47degrees/sbt-microsites/pull/300) ([kczulko](https://github.com/kczulko))
 
 ## [v0.8.0](https://github.com/47degrees/sbt-microsites/tree/v0.8.0) (2019-01-15)
 
@@ -413,6 +492,7 @@
 **Merged pull requests:**
 
 - Release 0.7.26 [\#286](https://github.com/47degrees/sbt-microsites/pull/286) ([calvellido](https://github.com/calvellido))
+- Use the site absolute url for twitter:image [\#285](https://github.com/47degrees/sbt-microsites/pull/285) ([xerial](https://github.com/xerial))
 
 ## [v0.7.25](https://github.com/47degrees/sbt-microsites/tree/v0.7.25) (2018-11-16)
 
@@ -424,7 +504,6 @@
 
 **Merged pull requests:**
 
-- Use the site absolute url for twitter:image [\#285](https://github.com/47degrees/sbt-microsites/pull/285) ([xerial](https://github.com/xerial))
 - Release 0.7.25 [\#284](https://github.com/47degrees/sbt-microsites/pull/284) ([calvellido](https://github.com/calvellido))
 - Fix twitter image URL [\#283](https://github.com/47degrees/sbt-microsites/pull/283) ([xerial](https://github.com/xerial))
 - Changed position of Finch on README in order to see icon [\#282](https://github.com/47degrees/sbt-microsites/pull/282) ([lldh](https://github.com/lldh))
@@ -438,7 +517,6 @@
 **Merged pull requests:**
 
 - Release sbt-microsites 0.7.24 [\#279](https://github.com/47degrees/sbt-microsites/pull/279) ([juanpedromoreno](https://github.com/juanpedromoreno))
-- add 'Edit Page' feature to doc pages [\#278](https://github.com/47degrees/sbt-microsites/pull/278) ([britneywright](https://github.com/britneywright))
 
 ## [v0.7.23](https://github.com/47degrees/sbt-microsites/tree/v0.7.23) (2018-08-19)
 
@@ -458,6 +536,7 @@
 
 **Merged pull requests:**
 
+- add 'Edit Page' feature to doc pages [\#278](https://github.com/47degrees/sbt-microsites/pull/278) ([britneywright](https://github.com/britneywright))
 - Fix default layouts path [\#274](https://github.com/47degrees/sbt-microsites/pull/274) ([NeQuissimus](https://github.com/NeQuissimus))
 - Releases sbt-microsites 0.7.22 [\#273](https://github.com/47degrees/sbt-microsites/pull/273) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - gitSiteURL supports MicrositeKeys.GitHub and gitHostingUrl [\#272](https://github.com/47degrees/sbt-microsites/pull/272) ([britneywright](https://github.com/britneywright))
@@ -846,14 +925,11 @@
 - Add new val "micrositeOrganisationHomepage"  [\#162](https://github.com/47degrees/sbt-microsites/pull/162) ([AntonioMateoGomez](https://github.com/AntonioMateoGomez))
 - Upgrades sbt-org-policies and its configuration [\#160](https://github.com/47degrees/sbt-microsites/pull/160) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Add new line to the footer [\#159](https://github.com/47degrees/sbt-microsites/pull/159) ([AntonioMateoGomez](https://github.com/AntonioMateoGomez))
+- Org policies plugin and dep released versions [\#153](https://github.com/47degrees/sbt-microsites/pull/153) ([juanpedromoreno](https://github.com/juanpedromoreno))
 
 ## [v0.5.1](https://github.com/47degrees/sbt-microsites/tree/v0.5.1) (2017-03-25)
 
 [Full Changelog](https://github.com/47degrees/sbt-microsites/compare/v0.5.0...v0.5.1)
-
-**Merged pull requests:**
-
-- Org policies plugin and dep released versions [\#153](https://github.com/47degrees/sbt-microsites/pull/153) ([juanpedromoreno](https://github.com/juanpedromoreno))
 
 ## [v0.5.0](https://github.com/47degrees/sbt-microsites/tree/v0.5.0) (2017-03-23)
 

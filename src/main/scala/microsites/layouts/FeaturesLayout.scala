@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2020 47 Degrees Open Source <https://www.47deg.com>
+ * Copyright 2016-2021 47 Degrees Open Source <https://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,8 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
         homeMainFeatures,
         lightFooter,
         scripts,
-        versionScript
+        versionScript,
+        searchScript
       )
     )
   }
@@ -49,13 +50,7 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
             cls := "features-header-description",
             h1(cls := "masthead-title", config.identity.name),
             p(cls := "masthead-description", config.identity.description),
-            a(
-              href := config.gitSiteUrl,
-              target := "_blank",
-              rel := "noopener noreferrer",
-              cls := "masthead-button",
-              s"View on ${config.gitSettings.gitHostingService.name}"
-            )
+            ctaButton("masthead-button")
           ),
           div(cls := "features-image")
         )

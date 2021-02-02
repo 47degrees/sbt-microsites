@@ -189,7 +189,7 @@
         height: $top-bar-size;
       }
 
-      a {
+      a:not(.dropdown-item-link) {
         color: $brand-primary;
         padding: 0 $base-point-grid * 2;
         display: block;
@@ -205,11 +205,17 @@
         padding: 0;
         margin: 0;
 
+        .search-nav {
+          @include bp(small) {
+            display: none !important;
+          }
+        }
+
         li {
           list-style: none;
           display: inline-block;
 
-          span {
+          span:not(.dropdown-item-link-text) {
             display: inline-flex;
             flex-direction: row-reverse;
             font-size: 14px;

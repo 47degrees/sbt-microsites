@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2020 47 Degrees Open Source <https://www.47deg.com>
+ * Copyright 2016-2021 47 Degrees Open Source <https://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,6 @@ import com.typesafe.sbt.site.SitePlugin.autoImport._
 import sbt.Keys._
 import sbt._
 import sbt.plugins.IvyPlugin
-import tut.TutPlugin
-import tut.TutPlugin.autoImport._
 import mdoc.MdocPlugin
 import mdoc.MdocPlugin.autoImport._
 
@@ -38,7 +36,7 @@ object MicrositesPlugin extends AutoPlugin {
   import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport._
 
   override def requires: Plugins =
-    IvyPlugin && MdocPlugin && TutPlugin && JekyllPlugin && GhpagesPlugin
+    IvyPlugin && MdocPlugin && JekyllPlugin && GhpagesPlugin
 
   override def trigger: PluginTrigger = allRequirements
 
@@ -48,8 +46,6 @@ object MicrositesPlugin extends AutoPlugin {
       Seq(
         git.remoteRepo := s"git@github.com:${micrositeGithubOwner.value}/${micrositeGithubRepo.value}.git",
         sourceDirectory in Jekyll := resourceManaged.value / "main" / "jekyll",
-        tutSourceDirectory := sourceDirectory.value / "main" / "tut",
-        tutTargetDirectory := resourceManaged.value / "main" / "jekyll",
         mdocIn := baseDirectory.value / "docs",
         mdocOut := resourceManaged.value / "main" / "jekyll"
       )
@@ -126,7 +122,8 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeFooterText := Some(layouts.Layout.footer.toString),
     micrositeEditButton := None,
     micrositeGithubLinks := true,
-    micrositeCompilingDocsTool := WithMdoc,
+    micrositeSearchEnabled := true,
+    micrositeHomeButtonTarget := "repo",
     includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json",
     includeFilter in Jekyll := (includeFilter in makeSite).value || "LICENSE",
     commands ++= Seq(publishMicrositeCommand),

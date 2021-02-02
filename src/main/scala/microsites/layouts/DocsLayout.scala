@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2020 47 Degrees Open Source <https://www.47deg.com>
+ * Copyright 2016-2021 47 Degrees Open Source <https://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,12 +35,45 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
 
     val text = s"${config.identity.name} ${config.identity.description}"
 
+    def siteSearch: Seq[TypedTag[String]] = {
+      val classes =
+        if (config.visualSettings.theme == "pattern") "search-nav hidden-xs hidden-sm"
+        else "search-nav"
+
+      if (config.searchSettings.searchEnabled) {
+        Seq(
+          li(
+            cls := classes,
+            div(
+              id := "search-dropdown",
+              label(
+                i(cls := "fa fa-search"),
+                "Search"
+              ),
+              input(
+                id := "search-bar",
+                `type` := "text",
+                placeholder := "Enter keywords here...",
+                onclick := "displayToggleSearch(event)"
+              ),
+              ul(
+                id := "search-dropdown-content",
+                cls := "dropdown dropdown-content"
+              )
+            )
+          )
+        )
+      } else {
+        Seq.empty
+      }
+    }
+
     def githubLinks: Seq[TypedTag[String]] = {
       if (config.gitSettings.githubLinks) {
         Seq(
           li(
             id := "gh-eyes-item",
-            cls := "hidden-xs",
+            cls := "hidden-xs to-uppercase",
             a(
               href := config.gitSiteUrl,
               target := "_blank",
@@ -51,7 +84,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
           ),
           li(
             id := "gh-stars-item",
-            cls := "hidden-xs",
+            cls := "hidden-xs to-uppercase",
             a(
               href := config.gitSiteUrl,
               target := "_blank",
@@ -71,12 +104,16 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
             li(a(href := "#", onclick := s"shareSiteTwitter('$text');", i(cls := "fa fa-twitter"))),
             li(
               a(href := "#", onclick := s"shareSiteFacebook('$text');", i(cls := "fa fa-facebook"))
-            ),
-            li(a(href := "#", onclick := "shareSiteGoogle();", i(cls := "fa fa-google-plus")))
+            )
           )
         } else Seq.empty
       } else Seq.empty
     }
+
+    val maybeSearch =
+      if (config.searchSettings.searchEnabled) {
+        Seq(siteSearch)
+      } else Seq.empty
 
     val sidebar =
       if (config.visualSettings.theme == "pattern") buildSidebar else buildLightSidebar
@@ -93,6 +130,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
                   a(href := "#menu-toggle", id := "menu-toggle", i(cls := "fa fa-bars", aria.hidden := "true"))
                 ),
                 ul(cls := "pull-right",
+                  maybeSearch,
                   githubLinks,
                   shareOnSocial
                 )
@@ -272,10 +310,16 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
     if (config.visualSettings.theme == "pattern") scriptsDocsPattern else scriptsDocsLight
 
   def scriptsDocsPattern: List[TypedTag[String]] =
-    scripts ++ List(script(src := "{{ site.baseurl }}/js/main.js"))
+    scripts ++ List(
+      searchScript,
+      script(src := "{{ site.baseurl }}/js/main.js")
+    )
 
   def scriptsDocsLight: List[TypedTag[String]] =
-    scripts ++ List(script(src := "{{ site.baseurl }}/js/docs.js"))
+    scripts ++ List(
+      searchScript,
+      script(src := "{{ site.baseurl }}/js/docs.js")
+    )
 
   def editButton: Option[TypedTag[String]] =
     config.editButtonSettings.button match {

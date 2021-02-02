@@ -260,7 +260,7 @@ micrositeStaticDirectory := (resourceDirectory in Compile).value / "site" / "mys
 
 The directory will be copied as-is, but no process will be applied to any file on it. So the responsibility of loading/linking/using them on a layout is yours. Also, see the `includeFilter in makeSite` config setting for the allowed file types that will be copied.
 
-- `micrositeExtraMdFiles`: This setting can be handy if you want to include additional markdown files in your site, and these files are not located in the same place in your `mdoc` or `tut` directory. By default, the setting is set up as an empty map. You can override it in this way:
+- `micrositeExtraMdFiles`: This setting can be handy if you want to include additional markdown files in your site, and these files are not located in the same place in your `mdoc` directory. By default, the setting is set up as an empty map. You can override it in this way:
 
 ```scala
 micrositeExtraMdFiles := Map(
@@ -278,7 +278,7 @@ micrositeExtraMdFiles := Map(
 
 Each file (the map key) can be related to a specific configuration through the `ExtraMdFileConfig` case class. This class allows you to specify three additional configurations:
 
-1. The target file name. The plugin will copy the file, and it will put it in tut directory each time you build the microsite. Therefore, you might want to include this auto-copied file in the list of ignored files at the `.gitignore` file.
+1. The target file name. The plugin will copy the file, and it will put it in mdoc directory each time you build the microsite. Therefore, you might want to include this auto-copied file in the list of ignored files at the `.gitignore` file.
 2. Jekyll `layout` property.
 3. Other custom Jekyll properties that you might want to include in your document. A good point to highlight here is that through the `permalink` property you can control the place where `Jekyll` is going to move your extra file. The value of this property prevails over the folder where the file is copied.
 
@@ -289,6 +289,10 @@ Each file (the map key) can be related to a specific configuration through the `
 ```scala
 micrositePluginsDirectory := (resourceDirectory in Compile).value / "site" / "plugins"
 ```
+
+- `micrositeHomeButtonTarget`: Where the large "call-to-action button" on your home page should take users. By default is set to `repo` for your project repository. Can be set to `docs` to take users to the project documentation page, if configured.
+
+- `micrositeSearchEnabled`: Whether or not the search bar functionality is enabled for your microsite. Enabled by default. To disable, set to `false`.
 
 - `micrositeTheme`: You can choose two different themes to generate your microsite. By default it will display the `light` theme but you have the option of choosing the classic `pattern` theme.
 
@@ -367,15 +371,8 @@ repository URL, and should include the dynamic property `{% raw %}{{page.path}}{
 compiles the site.  **The strings are passed in unsanitized to the templating engine.**
 
 ```scala
-{% raw %}micrositeEditButton := Some(MicrositeEditButton("Improve this Page", "/edit/master/docs/src/main/tut/{{ page.path }}")){% endraw %}
+{% raw %}micrositeEditButton := Some(MicrositeEditButton("Improve this Page", "/edit/master/docs/{{ page.path }}")){% endraw %}
 ```
-
-- `micrositeCompilingDocsTool`: Choose between compiling code snippets with [**tut**](https://github.com/tpolecat/tut) or [**mdoc**](https://github.com/scalameta/mdoc). By default, it's set to `WithMdoc` since the sbt-microsites 1.0.0 release. But you could use `WithTut` if you want to preserve the compatibility with previous versions of your markdown files.
-
-```scala
-micrositeCompilingDocsTool := WithMdoc
-```
-If you are interested in learning where to place the markdown files according to the compilation tool chosen, please take a look at the [Typechecked Snippets]({% link docs/typechecked-snippets.md %}) section.
 
 - `includeFilter in makeSite`: Restrict the type of files that are included during the microsite build. The default value is `"*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json"` but you can override it like this:
 

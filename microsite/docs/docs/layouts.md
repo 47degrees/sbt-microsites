@@ -67,7 +67,7 @@ To be able to access the documentation, you have to configure `micrositeDocument
 
 In order to change the default label description for the `micrositeDocumentationUrl` (the default value is `Documentation`), you have to change the `micrositeDocumentationLabelDescription`.
 
-As an example, you can look at the sbt-microsites documentation at [GitHub](https://github.com/47deg/sbt-microsites/tree/master/docs/src/main/tut). We have several documentation files:
+As an example, you can look at the sbt-microsites documentation at [GitHub](https://github.com/47degrees/sbt-microsites/tree/master/microsite/docs). We have several documentation files:
 
 - `build-the-microsite.md`
 - `customize.md`

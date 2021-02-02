@@ -1,5 +1,5 @@
 ThisBuild / organization := "com.47deg"
-ThisBuild / scalaVersion := "2.12.11"
+ThisBuild / scalaVersion := "2.12.12"
 ThisBuild / scmInfo := Some(
   ScmInfo(
     url("https://github.com/47degrees/sbt-microsites"),
@@ -36,16 +36,17 @@ lazy val documentation = project
   .enablePlugins(MdocPlugin)
 
 lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
-  addSbtPlugin("org.tpolecat"     % "tut-plugin"  % "0.6.13"),
-  addSbtPlugin("org.scalameta"    % "sbt-mdoc"    % "2.1.1"),
+  addSbtPlugin("org.scalameta"    % "sbt-mdoc"    % "2.2.16"),
   addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.3"),
-  addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.4.0"),
+  addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.4.1"),
   libraryDependencies ++= Seq(
-    "com.47deg"             %% "github4s"        % "0.24.0",
-    "net.jcazevedo"         %% "moultingyaml"    % "0.4.2",
-    "com.lihaoyi"           %% "scalatags"       % "0.9.2",
-    "com.sksamuel.scrimage" %% "scrimage-core"   % "2.1.8",
-    "org.scalatestplus"     %% "scalacheck-1-14" % "3.1.4.0" % Test
+    "com.47deg"             %% "github4s"            % "0.28.1",
+    "org.http4s"            %% "http4s-blaze-client" % "0.21.16",
+    "net.jcazevedo"         %% "moultingyaml"        % "0.4.2",
+    "com.lihaoyi"           %% "scalatags"           % "0.9.3",
+    "com.sksamuel.scrimage" %% "scrimage-scala"      % "4.0.15",
+    "org.scalatest"         %% "scalatest"           % "3.2.3"   % Test,
+    "org.scalatestplus"     %% "scalacheck-1-15"     % "3.2.3.0" % Test
   ),
   scriptedLaunchOpts ++= Seq(
     "-Xmx2048M",
@@ -63,5 +64,6 @@ lazy val micrositeSettings: Seq[Def.Setting[_]] = Seq(
   micrositeDocumentationUrl := "docs",
   micrositeGithubToken := sys.env.get("GITHUB_TOKEN"),
   micrositePushSiteWith := GitHub4s,
+  micrositeGitterChannelUrl := "47deg/sbt-microsites",
   includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.svg"
 )

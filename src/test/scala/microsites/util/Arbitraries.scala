@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2020 47 Degrees Open Source <https://www.47deg.com>
+ * Copyright 2016-2021 47 Degrees Open Source <https://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import microsites.MicrositeKeys._
 import microsites._
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen._
+import org.scalacheck.Gen
 
 trait Arbitraries {
 
@@ -142,6 +143,8 @@ trait Arbitraries {
         micrositeFooterText                    ← Arbitrary.arbitrary[Option[String]]
         micrositeEditButton                    ← micrositeEditButtonArbitrary.arbitrary
         micrositeVersionList                   ← Arbitrary.arbitrary[Seq[String]]
+        micrositeSearchBar                    <- Arbitrary.arbitrary[Boolean]
+        micrositeHomeButtonTarget             <- Gen.oneOf("docs", "repo")
       } yield MicrositeSettings(
         MicrositeIdentitySettings(
           name,
@@ -183,7 +186,8 @@ trait Arbitraries {
           micrositeUrl,
           micrositeBaseUrl,
           micrositeDocumentationUrl,
-          micrositeDocumentationLabelDescription
+          micrositeDocumentationLabelDescription,
+          micrositeHomeButtonTarget
         ),
         MicrositeGitSettings(
           githubOwner,
@@ -199,6 +203,9 @@ trait Arbitraries {
         ),
         MicrositeMultiversionSettings(
           micrositeVersionList
+        ),
+        MicrositeSearchSettings(
+          micrositeSearchBar
         )
       )
     }

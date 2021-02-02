@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2020 47 Degrees Open Source <https://www.47deg.com>
+ * Copyright 2016-2021 47 Degrees Open Source <https://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -277,17 +277,29 @@ abstract class Layout(config: MicrositeSettings) {
       |hljs.initHighlightingOnLoad();
       """.stripMargin)
 
+    val maybeLunrJSScript =
+      if (config.searchSettings.searchEnabled) {
+        Seq(
+          script(src := "{{site.url}}{{site.baseurl}}/lunr/lunr.js")
+        )
+      } else {
+        Seq.empty
+      }
+
     val message = script(
       """console.info('\x57\x65\x62\x73\x69\x74\x65\x20\x62\x75\x69\x6c\x74\x20\x77\x69\x74\x68\x3a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x5f\x5f\x0a\x20\x20\x20\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x5f\x20\x20\x2f\x20\x2f\x5f\x20\x20\x20\x20\x20\x20\x5f\x5f\x5f\x5f\x20\x5f\x5f\x5f\x20\x20\x28\x5f\x29\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x28\x5f\x29\x20\x2f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x0a\x20\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x60\x5f\x5f\x20\x5c\x2f\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x20\x2f\x20\x5f\x5f\x2f\x20\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x0a\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x5f\x2f\x20\x2f\x20\x2f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x5f\x5f\x2f\x20\x2f\x20\x20\x2f\x20\x2f\x5f\x2f\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x20\x2f\x5f\x2f\x20\x20\x5f\x5f\x28\x5f\x5f\x20\x20\x29\x0a\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2e\x5f\x5f\x5f\x2f\x5c\x5f\x5f\x2f\x20\x20\x20\x20\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x2f\x20\x20\x20\x5c\x5f\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x0a\x0a\x68\x74\x74\x70\x73\x3a\x2f\x2f\x34\x37\x64\x65\x67\x2e\x67\x69\x74\x68\x75\x62\x2e\x69\x6f\x2f\x73\x62\x74\x2d\x6d\x69\x63\x72\x6f\x73\x69\x74\x65\x73')"""
     )
 
-    auxScripts ++ languageScripts ++ List(
+    auxScripts ++ languageScripts ++ maybeLunrJSScript ++ List(
       highlightingScript
     ) ++ customJsList ++ customCDNList ++ (message :: gitSidecar)
   }
 
   def versionScript: TypedTag[String] =
     script(src := "{{site.url}}{{site.baseurl}}/js/version-selector.js")
+
+  def searchScript: TypedTag[String] =
+    script(src := "{{site.url}}{{site.baseurl}}/js/search.js")
 
   def globalFooter: TypedTag[String] = {
     val divs: Seq[TypedTag[String]] =
@@ -399,26 +411,63 @@ abstract class Layout(config: MicrositeSettings) {
     )
   }
 
+  def searchBar: Option[TypedTag[String]] = {
+    val classes =
+      if (config.visualSettings.theme == "pattern") "search-nav hidden-xs"
+      else "search-nav"
+
+    if (config.searchSettings.searchEnabled) {
+      Some(
+        li(
+          cls := classes,
+          div(
+            id := "search-dropdown",
+            label(
+              i(cls := "fa fa-search"),
+              "Search"
+            ),
+            input(
+              id := "search-bar",
+              `type` := "text",
+              placeholder := "Enter keywords here...",
+              onclick := "displayToggleSearch(event)"
+            ),
+            ul(
+              id := "search-dropdown-content",
+              cls := "dropdown dropdown-content"
+            )
+          )
+        )
+      )
+    } else Option.empty
+  }
+
   def buildCollapseMenu: TypedTag[String] =
     nav(
       cls := "text-right",
       ul(
         cls := "",
+        searchBar,
         li(
           a(
+            cls := "transparent-on-hover",
             href := config.gitSiteUrl,
             i(cls := s"fa ${config.gitHostingIconClass}"),
             target := "_blank",
             rel := "noopener noreferrer",
-            span(cls := "hidden-xs", config.gitSettings.gitHostingService.name)
+            span(cls := "hidden-sm hidden-xs", config.gitSettings.gitHostingService.name)
           )
         ),
         if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
           li(
             a(
+              cls := "transparent-on-hover",
               href := s"${config.urlSettings.micrositeDocumentationUrl}",
               i(cls := "fa fa-file-text"),
-              span(cls := "hidden-xs", config.urlSettings.micrositeDocumentationLabelDescription)
+              span(
+                cls := "hidden-sm hidden-xs",
+                config.urlSettings.micrositeDocumentationLabelDescription
+              )
             )
           )
         else ()
@@ -427,13 +476,14 @@ abstract class Layout(config: MicrositeSettings) {
 
   def buildLightCollapseMenu: TypedTag[String] =
     ul(
+      searchBar,
       "{% if site.data.versions %}",
       raw("""{% assign own_version = site.data.versions | where: "own", true | first %}"""),
       li(
         div(
           id := "version-dropdown",
           button(
-            onclick := "displayToggle(event)",
+            onclick := "displayToggleVersion(event)",
             attr("title") := "Version {{ own_version.name }}",
             cls := "button link-like",
             i(cls := s"nav-item-icon fa fa-lg fa-caret-square-o-down", hidden := "true"),
@@ -445,7 +495,19 @@ abstract class Layout(config: MicrositeSettings) {
             i(cls := "nav-item-text fa fa-caret-down")
           ),
           ul(
+            id := "version-dropdown-content",
             cls := "dropdown dropdown-content",
+            li(
+              cls := "dropdown-item",
+              a(
+                attr("title") := "title",
+                cls := "dropdown-item-link",
+                href := "something",
+                span(
+                  "name"
+                )
+              )
+            ),
             raw("""{% for item in site.data.versions offset: 1 %}"""),
             li(
               cls := "dropdown-item",
@@ -511,4 +573,24 @@ abstract class Layout(config: MicrositeSettings) {
 
   private[this] def validFile(extension: String)(file: File): Boolean =
     file.getName.endsWith(s".$extension")
+
+  def ctaButton(linkClass: String): TypedTag[String] = {
+    if (config.urlSettings.micrositeHomeButtonTarget == "repo") {
+      a(
+        href := config.gitSiteUrl,
+        target := "_blank",
+        rel := "noopener noreferrer",
+        cls := linkClass,
+        s"View on ${config.gitSettings.gitHostingService.name}"
+      )
+    } else {
+      a(
+        href := s"/${config.urlSettings.micrositeBaseUrl}/${config.urlSettings.micrositeDocumentationUrl}",
+        target := "_blank",
+        rel := "noopener noreferrer",
+        cls := linkClass,
+        s"View Docs"
+      )
+    }
+  }
 }

@@ -52,15 +52,20 @@
                         .fa-file-text {
                             font-size: 17px;
                         }
-                        &:hover,
-                        &:focus,
-                        &.focus {
-                            opacity: 0.5;
-                            text-decoration: none;
+                    }
+
+                    label {
+                        color: #fff;
+                        font-size: 15px;
+                        font-weight: 400;
+                        margin-right: 6px;
+
+                        i {
+                            margin-right: 6px;
                         }
                     }
 
-                    &:first-child {
+                    &:not(:last-child) {
                         margin-right: 50px;
 
                         @media screen and (max-width: $screen-xs-max) {
@@ -70,6 +75,15 @@
                 }
             }
         }
+    }
+}
+
+a.transparent-on-hover {
+    &:hover,
+    &:focus,
+    &.focus {
+        opacity: 0.5;
+        text-decoration: none;
     }
 }
 

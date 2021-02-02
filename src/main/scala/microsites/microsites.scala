@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2020 47 Degrees Open Source <https://www.47deg.com>
+ * Copyright 2016-2021 47 Degrees Open Source <https://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,7 +58,8 @@ case class MicrositeUrlSettings(
     micrositeUrl: String,
     micrositeBaseUrl: String,
     micrositeDocumentationUrl: String,
-    micrositeDocumentationLabelDescription: String
+    micrositeDocumentationLabelDescription: String,
+    micrositeHomeButtonTarget: String
 )
 
 case class MicrositeFavicon(filename: String, sizeDescription: String)
@@ -80,6 +81,8 @@ case class MicrositeEditButtonSettings(button: Option[MicrositeEditButton])
 
 case class MicrositeMultiversionSettings(versionList: Seq[String])
 
+final case class MicrositeSearchSettings(searchEnabled: Boolean)
+
 case class MicrositeSettings(
     identity: MicrositeIdentitySettings,
     visualSettings: MicrositeVisualSettings,
@@ -89,7 +92,8 @@ case class MicrositeSettings(
     urlSettings: MicrositeUrlSettings,
     gitSettings: MicrositeGitSettings,
     editButtonSettings: MicrositeEditButtonSettings,
-    multiversionSettings: MicrositeMultiversionSettings
+    multiversionSettings: MicrositeMultiversionSettings,
+    searchSettings: MicrositeSearchSettings
 ) {
 
   def gitSiteUrl: String = {
