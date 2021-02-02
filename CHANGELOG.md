@@ -1,5 +1,19 @@
 # Changelog
 
+## [v1.3.2](https://github.com/47degrees/sbt-microsites/tree/v1.3.2) (2021-02-02)
+
+[Full Changelog](https://github.com/47degrees/sbt-microsites/compare/v1.3.1...v1.3.2)
+
+🚀 **Features**
+
+- Enable Search for pattern theme [\#542](https://github.com/47degrees/sbt-microsites/issues/542)
+- Enable Search for Pattern Theme [\#547](https://github.com/47degrees/sbt-microsites/pull/547) ([sloshy](https://github.com/sloshy))
+
+📈 **Dependency updates**
+
+- Update sbt to 1.4.7 [\#546](https://github.com/47degrees/sbt-microsites/pull/546) ([47erbot](https://github.com/47erbot))
+- Update github4s to 0.28.1 [\#545](https://github.com/47degrees/sbt-microsites/pull/545) ([47erbot](https://github.com/47erbot))
+
 ## [v1.3.1](https://github.com/47degrees/sbt-microsites/tree/v1.3.1) (2021-01-28)
 
 [Full Changelog](https://github.com/47degrees/sbt-microsites/compare/v1.3.0...v1.3.1)
@@ -155,6 +169,7 @@
 - Update sbt-org-policies to 0.13.1 [\#438](https://github.com/47degrees/sbt-microsites/pull/438) ([scala-steward](https://github.com/scala-steward))
 - Update scalafmt-core to 2.4.2 [\#437](https://github.com/47degrees/sbt-microsites/pull/437) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-microsites to 1.1.2 [\#436](https://github.com/47degrees/sbt-microsites/pull/436) ([scala-steward](https://github.com/scala-steward))
+- Trigger new patch version \(1.1.2\) [\#435](https://github.com/47degrees/sbt-microsites/pull/435) ([calvellido](https://github.com/calvellido))
 
 ## [v1.1.2](https://github.com/47degrees/sbt-microsites/tree/v1.1.2) (2020-02-21)
 
@@ -174,7 +189,6 @@
 
 **Merged pull requests:**
 
-- Trigger new patch version \(1.1.2\) [\#435](https://github.com/47degrees/sbt-microsites/pull/435) ([calvellido](https://github.com/calvellido))
 - Update scalatest to 3.1.1 [\#434](https://github.com/47degrees/sbt-microsites/pull/434) ([scala-steward](https://github.com/scala-steward))
 - Update scalactic to 3.1.1 [\#433](https://github.com/47degrees/sbt-microsites/pull/433) ([scala-steward](https://github.com/scala-steward))
 - Upgrade sbt-org-policies and modify sign key importing [\#431](https://github.com/47degrees/sbt-microsites/pull/431) ([calvellido](https://github.com/calvellido))
@@ -407,7 +421,6 @@
 - Update to the latest stable Jekyll version [\#315](https://github.com/47degrees/sbt-microsites/pull/315) ([AntonioMateoGomez](https://github.com/AntonioMateoGomez))
 - Active doc page highlighted [\#314](https://github.com/47degrees/sbt-microsites/pull/314) ([AntonioMateoGomez](https://github.com/AntonioMateoGomez))
 - Home layout HighLighting [\#311](https://github.com/47degrees/sbt-microsites/pull/311) ([AntonioMateoGomez](https://github.com/AntonioMateoGomez))
-- Fix issue \#229 [\#300](https://github.com/47degrees/sbt-microsites/pull/300) ([kczulko](https://github.com/kczulko))
 
 ## [v0.9.1](https://github.com/47degrees/sbt-microsites/tree/v0.9.1) (2019-05-22)
 
@@ -452,6 +465,7 @@
 **Merged pull requests:**
 
 - Upgrades the project by using the latest sbt-org-policies version [\#302](https://github.com/47degrees/sbt-microsites/pull/302) ([juanpedromoreno](https://github.com/juanpedromoreno))
+- Fix issue \#229 [\#300](https://github.com/47degrees/sbt-microsites/pull/300) ([kczulko](https://github.com/kczulko))
 
 ## [v0.8.0](https://github.com/47degrees/sbt-microsites/tree/v0.8.0) (2019-01-15)
 
@@ -517,6 +531,7 @@
 **Merged pull requests:**
 
 - Release sbt-microsites 0.7.24 [\#279](https://github.com/47degrees/sbt-microsites/pull/279) ([juanpedromoreno](https://github.com/juanpedromoreno))
+- add 'Edit Page' feature to doc pages [\#278](https://github.com/47degrees/sbt-microsites/pull/278) ([britneywright](https://github.com/britneywright))
 
 ## [v0.7.23](https://github.com/47degrees/sbt-microsites/tree/v0.7.23) (2018-08-19)
 
@@ -536,7 +551,6 @@
 
 **Merged pull requests:**
 
-- add 'Edit Page' feature to doc pages [\#278](https://github.com/47degrees/sbt-microsites/pull/278) ([britneywright](https://github.com/britneywright))
 - Fix default layouts path [\#274](https://github.com/47degrees/sbt-microsites/pull/274) ([NeQuissimus](https://github.com/NeQuissimus))
 - Releases sbt-microsites 0.7.22 [\#273](https://github.com/47degrees/sbt-microsites/pull/273) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - gitSiteURL supports MicrositeKeys.GitHub and gitHostingUrl [\#272](https://github.com/47degrees/sbt-microsites/pull/272) ([britneywright](https://github.com/britneywright))
@@ -925,11 +939,14 @@
 - Add new val "micrositeOrganisationHomepage"  [\#162](https://github.com/47degrees/sbt-microsites/pull/162) ([AntonioMateoGomez](https://github.com/AntonioMateoGomez))
 - Upgrades sbt-org-policies and its configuration [\#160](https://github.com/47degrees/sbt-microsites/pull/160) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - Add new line to the footer [\#159](https://github.com/47degrees/sbt-microsites/pull/159) ([AntonioMateoGomez](https://github.com/AntonioMateoGomez))
-- Org policies plugin and dep released versions [\#153](https://github.com/47degrees/sbt-microsites/pull/153) ([juanpedromoreno](https://github.com/juanpedromoreno))
 
 ## [v0.5.1](https://github.com/47degrees/sbt-microsites/tree/v0.5.1) (2017-03-25)
 
 [Full Changelog](https://github.com/47degrees/sbt-microsites/compare/v0.5.0...v0.5.1)
+
+**Merged pull requests:**
+
+- Org policies plugin and dep released versions [\#153](https://github.com/47degrees/sbt-microsites/pull/153) ([juanpedromoreno](https://github.com/juanpedromoreno))
 
 ## [v0.5.0](https://github.com/47degrees/sbt-microsites/tree/v0.5.0) (2017-03-23)
 
