@@ -1,4 +1,4 @@
-div[id$='search-dropdown'] {
+#search-dropdown {
   position: relative;
 
   .dropdown {
@@ -9,6 +9,7 @@ div[id$='search-dropdown'] {
 
   label {
     padding-right: 0.3em;
+    font-weight: normal;
 
     i {
       padding-right: 0.2em;
@@ -32,6 +33,7 @@ div[id$='search-dropdown'] {
 
     .dropdown-item {
       width: 100%;
+      text-align: left;
 
       .dropdown-item-link {
         padding: 12px 9px;

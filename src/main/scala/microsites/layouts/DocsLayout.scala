@@ -36,10 +36,14 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
     val text = s"${config.identity.name} ${config.identity.description}"
 
     def siteSearch: Seq[TypedTag[String]] = {
+      val classes =
+        if (config.visualSettings.theme == "pattern") "search-nav hidden-xs hidden-sm"
+        else "search-nav"
+
       if (config.searchSettings.searchEnabled) {
         Seq(
           li(
-            cls := "search-nav",
+            cls := classes,
             div(
               id := "search-dropdown",
               label(
@@ -69,7 +73,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
         Seq(
           li(
             id := "gh-eyes-item",
-            cls := "hidden-xs",
+            cls := "hidden-xs to-uppercase",
             a(
               href := config.gitSiteUrl,
               target := "_blank",
@@ -80,7 +84,7 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
           ),
           li(
             id := "gh-stars-item",
-            cls := "hidden-xs",
+            cls := "hidden-xs to-uppercase",
             a(
               href := config.gitSiteUrl,
               target := "_blank",
@@ -100,15 +104,14 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
             li(a(href := "#", onclick := s"shareSiteTwitter('$text');", i(cls := "fa fa-twitter"))),
             li(
               a(href := "#", onclick := s"shareSiteFacebook('$text');", i(cls := "fa fa-facebook"))
-            ),
-            li(a(href := "#", onclick := "shareSiteGoogle();", i(cls := "fa fa-google-plus")))
+            )
           )
         } else Seq.empty
       } else Seq.empty
     }
 
     val maybeSearch =
-      if (config.visualSettings.theme != "pattern" && config.searchSettings.searchEnabled) {
+      if (config.searchSettings.searchEnabled) {
         Seq(siteSearch)
       } else Seq.empty
 
@@ -307,7 +310,10 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
     if (config.visualSettings.theme == "pattern") scriptsDocsPattern else scriptsDocsLight
 
   def scriptsDocsPattern: List[TypedTag[String]] =
-    scripts ++ List(script(src := "{{ site.baseurl }}/js/main.js"))
+    scripts ++ List(
+      searchScript,
+      script(src := "{{ site.baseurl }}/js/main.js")
+    )
 
   def scriptsDocsLight: List[TypedTag[String]] =
     scripts ++ List(
