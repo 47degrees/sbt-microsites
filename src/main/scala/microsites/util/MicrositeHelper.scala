@@ -260,26 +260,21 @@ class MicrositeHelper(config: MicrositeSettings) {
 
     createFile(sourceFile)
 
-    //This is a dirty classloader hack to allow the latest version of Scrimage to work.
-    //This plugin's default classloader is limited and cannot load ImageReader instances.
-    //We get a different ClassLoader that will work, replace it, and then set it back after we're done.
-    //Will be fixed in Scrimage 4.1.0, see: https://github.com/sksamuel/scrimage/issues/217
+    //Scrimage needs a different classloader as our plugin's default classloader is restricted
+    //See: https://github.com/sksamuel/scrimage/issues/217
     val desiredCL: ClassLoader = classOf[ImageReader].getClassLoader
-    val currentCL              = Thread.currentThread.getContextClassLoader()
 
-    try {
-      Thread.currentThread.setContextClassLoader(desiredCL)
-
-      (faviconFilenames zip faviconSizes)
-        .map { case (name, size) =>
-          (new File(s"$targetDir$jekyllDir/img/$name"), size)
-        }
-        .map { case (file, (width, height)) =>
-          ImmutableImage.loader.fromFile(sourceFile.toFile).scaleTo(width, height).output(file)
-        }
-    } finally
-    //Reset the classloader to what it was previously
-    Thread.currentThread.setContextClassLoader(currentCL)
+    (faviconFilenames zip faviconSizes)
+      .map { case (name, size) =>
+        (new File(s"$targetDir$jekyllDir/img/$name"), size)
+      }
+      .map { case (file, (width, height)) =>
+        ImmutableImage.loader
+          .withClassLoader(desiredCL)
+          .fromFile(sourceFile.toFile)
+          .scaleTo(width, height)
+          .output(file)
+      }
   }
 
   def copyConfigurationFile(sourceDir: File, targetDir: File): Unit = {
