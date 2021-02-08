@@ -8,5 +8,5 @@ libraryDependencies ++= Seq(
   "com.47deg"             %% "github4s"       % "0.24.0",
   "net.jcazevedo"         %% "moultingyaml"   % "0.4.2",
   "com.lihaoyi"           %% "scalatags"      % "0.9.3",
-  "com.sksamuel.scrimage" %% "scrimage-scala" % "4.0.16"
+  "com.sksamuel.scrimage" %% "scrimage-scala" % "4.0.17"
 )
