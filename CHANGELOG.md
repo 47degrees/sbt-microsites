@@ -1,5 +1,43 @@
 # Changelog
 
+## [v1.3.3](https://github.com/47degrees/sbt-microsites/tree/v1.3.3) (2021-03-31)
+
+[Full Changelog](https://github.com/47degrees/sbt-microsites/compare/v1.3.2...v1.3.3)
+
+🐛 **Bug Fixes**
+
+- Remove Scrimage classloader hack [\#553](https://github.com/47degrees/sbt-microsites/pull/553) ([sloshy](https://github.com/sloshy))
+
+📈 **Dependency updates**
+
+- Update sbt-mdoc to 2.2.19 [\#573](https://github.com/47degrees/sbt-microsites/pull/573) ([47erbot](https://github.com/47erbot))
+- Update http4s-blaze-client to 0.21.21 [\#572](https://github.com/47degrees/sbt-microsites/pull/572) ([47erbot](https://github.com/47erbot))
+- Update scalatags to 0.9.4 [\#571](https://github.com/47degrees/sbt-microsites/pull/571) ([47erbot](https://github.com/47erbot))
+- Update sbt-ci-release to 1.5.7 [\#570](https://github.com/47degrees/sbt-microsites/pull/570) ([47erbot](https://github.com/47erbot))
+- Update github4s to 0.28.3 [\#569](https://github.com/47degrees/sbt-microsites/pull/569) ([47erbot](https://github.com/47erbot))
+- Update sbt-github, sbt-github-header, ... to 0.9.2 [\#568](https://github.com/47degrees/sbt-microsites/pull/568) ([47erbot](https://github.com/47erbot))
+- Update sbt-ci-release to 1.5.6 [\#567](https://github.com/47degrees/sbt-microsites/pull/567) ([47erbot](https://github.com/47erbot))
+- Update sbt to 1.4.9 [\#566](https://github.com/47degrees/sbt-microsites/pull/566) ([47erbot](https://github.com/47erbot))
+- Update scalacheck-1-15 to 3.2.6.0 [\#565](https://github.com/47degrees/sbt-microsites/pull/565) ([47erbot](https://github.com/47erbot))
+- Update scalatest to 3.2.6 [\#564](https://github.com/47degrees/sbt-microsites/pull/564) ([47erbot](https://github.com/47erbot))
+- Update sbt to 1.4.8 [\#563](https://github.com/47degrees/sbt-microsites/pull/563) ([47erbot](https://github.com/47erbot))
+- Update sbt-github, sbt-github-header, ... to 0.9.1 [\#562](https://github.com/47degrees/sbt-microsites/pull/562) ([47erbot](https://github.com/47erbot))
+- Update http4s-blaze-client to 0.21.20 [\#561](https://github.com/47degrees/sbt-microsites/pull/561) ([47erbot](https://github.com/47erbot))
+- Update scalacheck-1-15 to 3.2.5.0 [\#560](https://github.com/47degrees/sbt-microsites/pull/560) ([47erbot](https://github.com/47erbot))
+- Update scalatest to 3.2.5 [\#559](https://github.com/47degrees/sbt-microsites/pull/559) ([47erbot](https://github.com/47erbot))
+- Update scalatest to 3.2.4 [\#557](https://github.com/47degrees/sbt-microsites/pull/557) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc to 2.2.18 [\#556](https://github.com/47degrees/sbt-microsites/pull/556) ([47erbot](https://github.com/47erbot))
+- Update http4s-blaze-client to 0.21.19 [\#555](https://github.com/47degrees/sbt-microsites/pull/555) ([47erbot](https://github.com/47erbot))
+- Update github4s to 0.28.2 [\#554](https://github.com/47degrees/sbt-microsites/pull/554) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc to 2.2.17 [\#552](https://github.com/47degrees/sbt-microsites/pull/552) ([47erbot](https://github.com/47erbot))
+- Update http4s-blaze-client to 0.21.18 [\#551](https://github.com/47degrees/sbt-microsites/pull/551) ([47erbot](https://github.com/47erbot))
+- Update http4s-blaze-client to 0.21.17 [\#549](https://github.com/47degrees/sbt-microsites/pull/549) ([47erbot](https://github.com/47erbot))
+- Update scrimage-scala to 4.0.16 [\#548](https://github.com/47degrees/sbt-microsites/pull/548) ([47erbot](https://github.com/47erbot))
+
+**Closed issues:**
+
+- Remove Scrimage classloader hack [\#535](https://github.com/47degrees/sbt-microsites/issues/535)
+
 ## [v1.3.2](https://github.com/47degrees/sbt-microsites/tree/v1.3.2) (2021-02-02)
 
 [Full Changelog](https://github.com/47degrees/sbt-microsites/compare/v1.3.1...v1.3.2)
@@ -169,7 +207,6 @@
 - Update sbt-org-policies to 0.13.1 [\#438](https://github.com/47degrees/sbt-microsites/pull/438) ([scala-steward](https://github.com/scala-steward))
 - Update scalafmt-core to 2.4.2 [\#437](https://github.com/47degrees/sbt-microsites/pull/437) ([scala-steward](https://github.com/scala-steward))
 - Update sbt-microsites to 1.1.2 [\#436](https://github.com/47degrees/sbt-microsites/pull/436) ([scala-steward](https://github.com/scala-steward))
-- Trigger new patch version \(1.1.2\) [\#435](https://github.com/47degrees/sbt-microsites/pull/435) ([calvellido](https://github.com/calvellido))
 
 ## [v1.1.2](https://github.com/47degrees/sbt-microsites/tree/v1.1.2) (2020-02-21)
 
@@ -189,6 +226,7 @@
 
 **Merged pull requests:**
 
+- Trigger new patch version \(1.1.2\) [\#435](https://github.com/47degrees/sbt-microsites/pull/435) ([calvellido](https://github.com/calvellido))
 - Update scalatest to 3.1.1 [\#434](https://github.com/47degrees/sbt-microsites/pull/434) ([scala-steward](https://github.com/scala-steward))
 - Update scalactic to 3.1.1 [\#433](https://github.com/47degrees/sbt-microsites/pull/433) ([scala-steward](https://github.com/scala-steward))
 - Upgrade sbt-org-policies and modify sign key importing [\#431](https://github.com/47degrees/sbt-microsites/pull/431) ([calvellido](https://github.com/calvellido))
