@@ -36,7 +36,7 @@ lazy val documentation = project
   .enablePlugins(MdocPlugin)
 
 lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
-  addSbtPlugin("org.scalameta"    % "sbt-mdoc"    % "2.2.19"),
+  addSbtPlugin("org.scalameta"    % "sbt-mdoc"    % "2.2.20"),
   addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.3"),
   addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.4.1"),
   libraryDependencies ++= Seq(
@@ -44,9 +44,9 @@ lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
     "org.http4s"            %% "http4s-blaze-client" % "0.21.22",
     "net.jcazevedo"         %% "moultingyaml"        % "0.4.2",
     "com.lihaoyi"           %% "scalatags"           % "0.9.4",
-    "com.sksamuel.scrimage" %% "scrimage-scala"      % "4.0.17",
+    "com.sksamuel.scrimage" %% "scrimage-scala"      % "4.0.18",
     "org.scalatest"         %% "scalatest"           % "3.2.8"   % Test,
-    "org.scalatestplus"     %% "scalacheck-1-15"     % "3.2.7.0" % Test
+    "org.scalatestplus"     %% "scalacheck-1-15"     % "3.2.8.0" % Test
   ),
   scriptedLaunchOpts ++= Seq(
     "-Xmx2048M",
