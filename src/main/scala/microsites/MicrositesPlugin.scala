@@ -45,7 +45,7 @@ object MicrositesPlugin extends AutoPlugin {
       micrositeTasksSettings ++
       Seq(
         git.remoteRepo := s"git@github.com:${micrositeGithubOwner.value}/${micrositeGithubRepo.value}.git",
-        sourceDirectory in Jekyll := resourceManaged.value / "main" / "jekyll",
+        Jekyll / sourceDirectory := resourceManaged.value / "main" / "jekyll",
         mdocIn := baseDirectory.value / "docs",
         mdocOut := resourceManaged.value / "main" / "jekyll"
       )
@@ -71,20 +71,20 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeHighlightTheme := "vs",
     micrositeHighlightLanguages := Seq("scala", "java", "bash"),
     micrositeConfigYaml := ConfigYml(
-      yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "_config.yml")
+      yamlPath = Some((Compile / resourceDirectory).value / "microsite" / "_config.yml")
     ),
-    micrositeImgDirectory := (resourceDirectory in Compile).value / "microsite" / "img",
-    micrositeCssDirectory := (resourceDirectory in Compile).value / "microsite" / "css",
-    micrositeSassDirectory := (resourceDirectory in Compile).value / "microsite" / "sass",
-    micrositeJsDirectory := (resourceDirectory in Compile).value / "microsite" / "js",
+    micrositeImgDirectory := (Compile / resourceDirectory).value / "microsite" / "img",
+    micrositeCssDirectory := (Compile / resourceDirectory).value / "microsite" / "css",
+    micrositeSassDirectory := (Compile / resourceDirectory).value / "microsite" / "sass",
+    micrositeJsDirectory := (Compile / resourceDirectory).value / "microsite" / "js",
     micrositeCDNDirectives := CdnDirectives(),
-    micrositeExternalLayoutsDirectory := (resourceDirectory in Compile).value / "microsite" / "layouts",
-    micrositeExternalIncludesDirectory := (resourceDirectory in Compile).value / "microsite" / "includes",
-    micrositeDataDirectory := (resourceDirectory in Compile).value / "microsite" / "data",
-    micrositeStaticDirectory := (resourceDirectory in Compile).value / "microsite" / "static",
+    micrositeExternalLayoutsDirectory := (Compile / resourceDirectory).value / "microsite" / "layouts",
+    micrositeExternalIncludesDirectory := (Compile / resourceDirectory).value / "microsite" / "includes",
+    micrositeDataDirectory := (Compile / resourceDirectory).value / "microsite" / "data",
+    micrositeStaticDirectory := (Compile / resourceDirectory).value / "microsite" / "static",
     micrositeExtraMdFiles := Map.empty,
-    micrositeExtraMdFilesOutput := (resourceManaged in Compile).value / "jekyll" / "extra_md",
-    micrositePluginsDirectory := (resourceDirectory in Compile).value / "microsite" / "plugins",
+    micrositeExtraMdFilesOutput := (Compile / resourceManaged).value / "jekyll" / "extra_md",
+    micrositePluginsDirectory := (Compile / resourceDirectory).value / "microsite" / "plugins",
     micrositeTheme := "light",
     micrositePalette := {
 
@@ -124,8 +124,8 @@ object MicrositesPlugin extends AutoPlugin {
     micrositeGithubLinks := true,
     micrositeSearchEnabled := true,
     micrositeHomeButtonTarget := "repo",
-    includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json",
-    includeFilter in Jekyll := (includeFilter in makeSite).value || "LICENSE",
+    makeSite / includeFilter := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json",
+    Jekyll / includeFilter := (makeSite / includeFilter).value || "LICENSE",
     commands ++= Seq(publishMicrositeCommand),
     javaOptions += "-Djava.awt.headless=true"
   )

@@ -399,7 +399,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 
   lazy val micrositeTasksSettings = Seq(
     microsite := (micrositeHelper.value
-      .createResources(resourceManagedDir = (resourceManaged in Compile).value)),
+      .createResources(resourceManagedDir = (Compile / resourceManaged).value)),
     micrositeMakeExtraMdFiles := micrositeHelper.value.buildAdditionalMd(),
     makeMdoc := (Def.sequential(mdoc.toTask(""), micrositeMakeExtraMdFiles).value),
     makeMicrosite := (Def.sequential(microsite, makeMdoc, makeSite).value),
@@ -409,7 +409,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         case n => sys.error("Could not run git, error: " + n)
       }
 
-      val sourceDir         = (resourceManaged in Compile).value
+      val sourceDir         = (Compile / resourceManaged).value
       val targetDir: String = sourceDir.getAbsolutePath.ensureFinalSlash
       val currentBranchTag  = "git name-rev --name-only HEAD".!!.trim
 
@@ -426,7 +426,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         case n => sys.error("Could not run git, error: " + n)
       }
 
-      val publishingDir    = (target in makeSite).value
+      val publishingDir    = (makeSite / target).value
       val genDocsDir       = ".sbt-versioned-docs"
       val currentBranchTag = "git name-rev --name-only HEAD".!!.trim
 
@@ -446,7 +446,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       s"git checkout -f $currentBranchTag".!
     },
     moveMicrositeVersions := {
-      val publishingDir = (target in makeSite).value
+      val publishingDir = (makeSite / target).value
       val genDocsDir    = ".sbt-versioned-docs"
 
       micrositeVersionList.value.foreach { tag =>
@@ -464,10 +464,10 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         .sequential(createMicrositeVersions, clean, makeVersionedMicrosite, moveMicrositeVersions)
         .value,
     ghpagesPrivateMappings := {
-      sbt.Path.allSubpaths((target in makeSite).value).toList
+      sbt.Path.allSubpaths((makeSite / target).value).toList
     },
     pushMicrosite := Def.taskDyn {
-      val siteDir: File                 = (target in makeSite).value
+      val siteDir: File                 = (makeSite / target).value
       val noJekyll: Boolean             = ghpagesNoJekyll.value
       val branch: String                = ghpagesBranch.value
       val pushSiteWith: PushWith        = micrositePushSiteWith.value
