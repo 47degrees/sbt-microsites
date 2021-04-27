@@ -8,7 +8,7 @@ micrositeConfigYaml := ConfigYml(
   yamlInline =
     """exclude: [css, README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffee, node_modules]
       |""".stripMargin,
-  yamlPath = Some((resourceDirectory in Compile).value / "myconfig.yml")
+  yamlPath = Some((Compile / resourceDirectory).value / "myconfig.yml")
 )
 
 def getLines(fileName: String) =
@@ -17,7 +17,7 @@ def getLines(fileName: String) =
 lazy val check = TaskKey[Unit]("check")
 
 check := {
-  val content = getLines(s"${(resourceManaged in Compile).value}/jekyll/_config.yml").mkString
+  val content = getLines(s"${(Compile / resourceManaged).value}/jekyll/_config.yml").mkString
 
   if (!content.contains("org: Test"))
     sys.error("custom properties not found")

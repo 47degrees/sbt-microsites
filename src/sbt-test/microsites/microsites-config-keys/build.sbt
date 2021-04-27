@@ -34,7 +34,7 @@ micrositePalette := Map(
 lazy val check = TaskKey[Unit]("check")
 
 check := {
-  val configFiles = IO.readLines(file(s"${(resourceManaged in Compile).value}/jekyll/_config.yml"))
+  val configFiles = IO.readLines(file(s"${(Compile / resourceManaged).value}/jekyll/_config.yml"))
 
   configFiles foreach {
     case s if s.toString.startsWith("name") && !s.contains("test-microsite") =>

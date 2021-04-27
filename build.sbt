@@ -26,13 +26,13 @@ lazy val `sbt-microsites` = (project in file("."))
 
 lazy val microsite = project
   .settings(micrositeSettings: _*)
-  .settings(skip in publish := true)
+  .settings(publish / skip := true)
   .enablePlugins(MicrositesPlugin)
   .enablePlugins(MdocPlugin)
 
 lazy val documentation = project
   .settings(mdocOut := file("."))
-  .settings(skip in publish := true)
+  .settings(publish / skip := true)
   .enablePlugins(MdocPlugin)
 
 lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
@@ -65,5 +65,5 @@ lazy val micrositeSettings: Seq[Def.Setting[_]] = Seq(
   micrositeGithubToken := sys.env.get("GITHUB_TOKEN"),
   micrositePushSiteWith := GitHub4s,
   micrositeGitterChannelUrl := "47deg/sbt-microsites",
-  includeFilter in makeSite := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.svg"
+  makeSite / includeFilter := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.svg"
 )

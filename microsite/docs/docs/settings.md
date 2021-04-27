@@ -179,28 +179,28 @@ message MyMessage {
 
 [Available languages: https://cdnjs.com/libraries/highlight.js/](https://cdnjs.com/libraries/highlight.js/)
 
-- `micrositeImgDirectory`: The plugin provides some basic images, but you can add new images to personalize the microsite. This is the property where you can specify where they will be placed. The images in this folder will be automatically copied by the plugin, and they will be placed together with the rest of the Jekyll resources. By default, its value is `(resourceDirectory in Compile).value / "microsite" / "img"`, but you can override it. For instance:
+- `micrositeImgDirectory`: The plugin provides some basic images, but you can add new images to personalize the microsite. This is the property where you can specify where they will be placed. The images in this folder will be automatically copied by the plugin, and they will be placed together with the rest of the Jekyll resources. By default, its value is `(Compile / resourceDirectory).value / "microsite" / "img"`, but you can override it. For instance:
 
 ```scala
-micrositeImgDirectory := (resourceDirectory in Compile).value / "site" / "images"
+micrositeImgDirectory := (Compile / resourceDirectory).value / "site" / "images"
 ```
 
-- `micrositeCssDirectory`: You can also override the styles through the `micrositeCssDirectory` setting by using the same method. The css files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "css"`, but you can override it like this:
+- `micrositeCssDirectory`: You can also override the styles through the `micrositeCssDirectory` setting by using the same method. The css files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(Compile / resourceDirectory).value / "microsite" / "css"`, but you can override it like this:
 
 ```scala
-micrositeCssDirectory := (resourceDirectory in Compile).value / "site" / "styles"
+micrositeCssDirectory := (Compile / resourceDirectory).value / "site" / "styles"
 ```
 
-- `micrositeSassDirectory`: If you want to use SCSS files, you might want to override the place to put the partials. This can be done through the `micrositeSassDirectory` setting. The main SCSS files need to go into the CSS directory, where they will be transformed into CSS files, and the partials will be loaded from this directory. The default value is `(resourceDirectory in Compile).value / "microsite" / "sass"`, but you can override it like this:
+- `micrositeSassDirectory`: If you want to use SCSS files, you might want to override the place to put the partials. This can be done through the `micrositeSassDirectory` setting. The main SCSS files need to go into the CSS directory, where they will be transformed into CSS files, and the partials will be loaded from this directory. The default value is `(Compile / resourceDirectory).value / "microsite" / "sass"`, but you can override it like this:
 
 ```scala
-micrositeSassDirectory := (resourceDirectory in Compile).value / "site" / "partials"
+micrositeSassDirectory := (Compile / resourceDirectory).value / "site" / "partials"
 ```
 
-- `micrositeJsDirectory`: You can also introduce custom javascript files in the generated microsite through the `micrositeJsDirectory` setting by using the same method. The javascript files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "js"`, but you can override it like this:
+- `micrositeJsDirectory`: You can also introduce custom javascript files in the generated microsite through the `micrositeJsDirectory` setting by using the same method. The javascript files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(Compile / resourceDirectory).value / "microsite" / "js"`, but you can override it like this:
 
 ```scala
-micrositeJsDirectory := (resourceDirectory in Compile).value / "site" / "scripts"
+micrositeJsDirectory := (Compile / resourceDirectory).value / "site" / "scripts"
 ```
 
 There is a reserved filename that you cannot use in your personal microsite: `main.js`, which is provided by the plugin.
@@ -221,10 +221,10 @@ micrositeCDNDirectives := CdnDirectives(
 )
 ```
 
-- `micrositeExternalLayoutsDirectory`: You can also introduce custom html layouts in the generated microsite through the `micrositeExternalLayoutsDirectory` setting. The layout files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "layouts"`, but you can override it like this:
+- `micrositeExternalLayoutsDirectory`: You can also introduce custom html layouts in the generated microsite through the `micrositeExternalLayoutsDirectory` setting. The layout files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(Compile / resourceDirectory).value / "microsite" / "layouts"`, but you can override it like this:
 
 ```scala
-micrositeExternalLayoutsDirectory := (resourceDirectory in Compile).value / "site" / "layouts"
+micrositeExternalLayoutsDirectory := (Compile / resourceDirectory).value / "site" / "layouts"
 ```
 
 These will be available to your pages by using the `layout` keyword in the YAML front matter block in each of your docs' markdown files (i.e., having included a `extra-layout.html` external layout file):
@@ -236,29 +236,29 @@ layout: extra-layout
 ---
 ```
 
-- `micrositeExternalIncludesDirectory`: You can also introduce custom html partial layouts in the generated microsite through the `micrositeExternalIncludesDirectory` setting. The layout files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "includes"`, but you can override it like this:
+- `micrositeExternalIncludesDirectory`: You can also introduce custom html partial layouts in the generated microsite through the `micrositeExternalIncludesDirectory` setting. The layout files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(Compile / resourceDirectory).value / "microsite" / "includes"`, but you can override it like this:
 
 ```scala
-micrositeExternalIncludesDirectory := (resourceDirectory in Compile).value / "site" / "includes"
+micrositeExternalIncludesDirectory := (Compile / resourceDirectory).value / "site" / "includes"
 ```
 
 These will be available to your pages by using `Jekyll`'s [include](https://jekyllrb.com/docs/templates/#includes) keyword in your layouts.
 
-- `micrositeDataDirectory`: In addition, you can provide new data to your Jekyll site through the `micrositeDataDirectory` setting. It's based on the idea of [Jekyll Data Files](https://jekyllrb.com/docs/datafiles/). It's important to keep in mind that, if you are defining documentation in your microsite, you have to configure the menu through this setting. The default value is `(resourceDirectory in Compile).value / "microsite" / "data"`, but you can override it like this:
+- `micrositeDataDirectory`: In addition, you can provide new data to your Jekyll site through the `micrositeDataDirectory` setting. It's based on the idea of [Jekyll Data Files](https://jekyllrb.com/docs/datafiles/). It's important to keep in mind that, if you are defining documentation in your microsite, you have to configure the menu through this setting. The default value is `(Compile / resourceDirectory).value / "microsite" / "data"`, but you can override it like this:
 
 ```scala
-micrositeDataDirectory := (resourceDirectory in Compile).value / "site" / "mydatafiles"
+micrositeDataDirectory := (Compile / resourceDirectory).value / "site" / "mydatafiles"
 ```
 
 In the Documentation **Menu** case, as you can see in the [layouts]({% link docs/layouts.md %}) section, you need to create a file named `menu.yml` under the `micrositeDataDirectory` setting.
 
-- `micrositeStaticDirectory`: You can also provide a static directory to your Jekyll site through the `micrositeStaticDirectory` setting. It's based on the idea of [Jekyll Static Files](https://jekyllrb.com/docs/static-files/). The default value is `(resourceDirectory in Compile).value / "microsite" / "static"`, but you can override it like this:
+- `micrositeStaticDirectory`: You can also provide a static directory to your Jekyll site through the `micrositeStaticDirectory` setting. It's based on the idea of [Jekyll Static Files](https://jekyllrb.com/docs/static-files/). The default value is `(Compile / resourceDirectory).value / "microsite" / "static"`, but you can override it like this:
 
 ```scala
-micrositeStaticDirectory := (resourceDirectory in Compile).value / "site" / "mystaticfiles"
+micrositeStaticDirectory := (Compile / resourceDirectory).value / "site" / "mystaticfiles"
 ```
 
-The directory will be copied as-is, but no process will be applied to any file on it. So the responsibility of loading/linking/using them on a layout is yours. Also, see the `includeFilter in makeSite` config setting for the allowed file types that will be copied.
+The directory will be copied as-is, but no process will be applied to any file on it. So the responsibility of loading/linking/using them on a layout is yours. Also, see the `makeSite / includeFilter` config setting for the allowed file types that will be copied.
 
 - `micrositeExtraMdFiles`: This setting can be handy if you want to include additional markdown files in your site, and these files are not located in the same place in your `mdoc` directory. By default, the setting is set up as an empty map. You can override it in this way:
 
@@ -284,10 +284,10 @@ Each file (the map key) can be related to a specific configuration through the `
 
 - `micrositeExtraMdFilesOutput` this is an optional parameter when you are using `mdoc`, and refers to the microsite output location for extra-md files. Default is resourceManaged + `/jekyll/extra_md` although you can modify it.
 
-- `micrositePluginsDirectory`: You can also introduce custom [Jekyll plugins](https://jekyllrb.com/docs/plugins/) in the generated microsite through the `micrositePluginsDirectory` setting. The plugin files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(resourceDirectory in Compile).value / "microsite" / "plugins"`, but you can override it like this:
+- `micrositePluginsDirectory`: You can also introduce custom [Jekyll plugins](https://jekyllrb.com/docs/plugins/) in the generated microsite through the `micrositePluginsDirectory` setting. The plugin files in that folder will be automatically copied and imported by the plugin in your microsite. The default value is `(Compile / resourceDirectory).value / "microsite" / "plugins"`, but you can override it like this:
 
 ```scala
-micrositePluginsDirectory := (resourceDirectory in Compile).value / "site" / "plugins"
+micrositePluginsDirectory := (Compile / resourceDirectory).value / "site" / "plugins"
 ```
 
 - `micrositeHomeButtonTarget`: Where the large "call-to-action button" on your home page should take users. By default is set to `repo` for your project repository. Can be set to `docs` to take users to the project documentation page, if configured.
@@ -353,7 +353,7 @@ micrositeConfigYaml := ConfigYml(
   yamlCustomProperties = Map("org" -> "My Org"),
   yamlInline = """exclude: [package.json, grunt.js, Gruntfile.js, node_modules]
 |""".stripMargin,
-  yamlPath = Some((resourceDirectory in Compile).value / "microsite" / "myconfig.yml")
+  yamlPath = Some((Compile / resourceDirectory).value / "microsite" / "myconfig.yml")
 )
 ```
 
@@ -374,8 +374,8 @@ compiles the site.  **The strings are passed in unsanitized to the templating en
 {% raw %}micrositeEditButton := Some(MicrositeEditButton("Improve this Page", "/edit/master/docs/{{ page.path }}")){% endraw %}
 ```
 
-- `includeFilter in makeSite`: Restrict the type of files that are included during the microsite build. The default value is `"*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json"` but you can override it like this:
+- `makeSite / includeFilter`: Restrict the type of files that are included during the microsite build. The default value is `"*.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json"` but you can override it like this:
 
 ```scala
-includeFilter in makeSite := "*.csv" | "*.pdf" | *.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json"
+makeSite / includeFilter := "*.csv" | "*.pdf" | *.html" | "*.css" | "*.png" | "*.jpg" | "*.jpeg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.webm" | "*.ico" | "CNAME" | "*.yml" | "*.svg" | "*.json"
 ```
