@@ -1,5 +1,25 @@
 # Changelog
 
+## [v1.3.4](https://github.com/47degrees/sbt-microsites/tree/v1.3.4) (2021-04-27)
+
+[Full Changelog](https://github.com/47degrees/sbt-microsites/compare/v1.3.3...v1.3.4)
+
+📈 **Dependency updates**
+
+- Update sbt to 1.5.1 [\#584](https://github.com/47degrees/sbt-microsites/pull/584) ([47erbot](https://github.com/47erbot))
+- Update scalacheck-1-15 to 3.2.8.0 [\#583](https://github.com/47degrees/sbt-microsites/pull/583) ([47erbot](https://github.com/47erbot))
+- Update scalatest to 3.2.8 [\#582](https://github.com/47degrees/sbt-microsites/pull/582) ([47erbot](https://github.com/47erbot))
+- Update sbt-mdoc to 2.2.20 [\#581](https://github.com/47degrees/sbt-microsites/pull/581) ([47erbot](https://github.com/47erbot))
+- Update scrimage-scala to 4.0.18 [\#580](https://github.com/47degrees/sbt-microsites/pull/580) ([47erbot](https://github.com/47erbot))
+- Update http4s-blaze-client to 0.21.22 [\#577](https://github.com/47degrees/sbt-microsites/pull/577) ([47erbot](https://github.com/47erbot))
+- Update sbt to 1.5.0 [\#576](https://github.com/47degrees/sbt-microsites/pull/576) ([47erbot](https://github.com/47erbot))
+- Update scalacheck-1-15 to 3.2.7.0 [\#575](https://github.com/47degrees/sbt-microsites/pull/575) ([47erbot](https://github.com/47erbot))
+- Update scalatest to 3.2.7 [\#574](https://github.com/47degrees/sbt-microsites/pull/574) ([47erbot](https://github.com/47erbot))
+
+**Merged pull requests:**
+
+- Replaces deprecated SBT syntax [\#585](https://github.com/47degrees/sbt-microsites/pull/585) ([juanpedromoreno](https://github.com/juanpedromoreno))
+
 ## [v1.3.3](https://github.com/47degrees/sbt-microsites/tree/v1.3.3) (2021-03-31)
 
 [Full Changelog](https://github.com/47degrees/sbt-microsites/compare/v1.3.2...v1.3.3)
@@ -33,6 +53,7 @@
 - Update http4s-blaze-client to 0.21.18 [\#551](https://github.com/47degrees/sbt-microsites/pull/551) ([47erbot](https://github.com/47erbot))
 - Update http4s-blaze-client to 0.21.17 [\#549](https://github.com/47degrees/sbt-microsites/pull/549) ([47erbot](https://github.com/47erbot))
 - Update scrimage-scala to 4.0.16 [\#548](https://github.com/47degrees/sbt-microsites/pull/548) ([47erbot](https://github.com/47erbot))
+- Update scrimage-scala to 4.0.15 [\#538](https://github.com/47degrees/sbt-microsites/pull/538) ([47erbot](https://github.com/47erbot))
 
 **Closed issues:**
 
@@ -50,7 +71,6 @@
 📈 **Dependency updates**
 
 - Update sbt to 1.4.7 [\#546](https://github.com/47degrees/sbt-microsites/pull/546) ([47erbot](https://github.com/47erbot))
-- Update github4s to 0.28.1 [\#545](https://github.com/47degrees/sbt-microsites/pull/545) ([47erbot](https://github.com/47erbot))
 
 ## [v1.3.1](https://github.com/47degrees/sbt-microsites/tree/v1.3.1) (2021-01-28)
 
@@ -67,12 +87,11 @@
 - Fix the build [\#531](https://github.com/47degrees/sbt-microsites/issues/531)
 - Search styling tweaks [\#541](https://github.com/47degrees/sbt-microsites/pull/541) ([sloshy](https://github.com/sloshy))
 - Fix Gitter links in README and microsite [\#530](https://github.com/47degrees/sbt-microsites/pull/530) ([sloshy](https://github.com/sloshy))
-- Update scrimage to 4.x from 2.x & fix copying resources [\#529](https://github.com/47degrees/sbt-microsites/pull/529) ([sloshy](https://github.com/sloshy))
 
 📈 **Dependency updates**
 
+- Update github4s to 0.28.1 [\#545](https://github.com/47degrees/sbt-microsites/pull/545) ([47erbot](https://github.com/47erbot))
 - Update github4s to v0.28.0, add http4s dependency [\#539](https://github.com/47degrees/sbt-microsites/pull/539) ([sloshy](https://github.com/sloshy))
-- Update scrimage-scala to 4.0.15 [\#538](https://github.com/47degrees/sbt-microsites/pull/538) ([47erbot](https://github.com/47erbot))
 - Update sbt-mdoc: 2.2.16, Scala: 2.12.12 [\#537](https://github.com/47degrees/sbt-microsites/pull/537) ([sloshy](https://github.com/sloshy))
 - Update ScalaCheck to 1.15, scalatestplus scalacheck to 3.2.3.0 [\#536](https://github.com/47degrees/sbt-microsites/pull/536) ([sloshy](https://github.com/sloshy))
 - Update scalatags to 0.9.3 [\#533](https://github.com/47degrees/sbt-microsites/pull/533) ([47erbot](https://github.com/47erbot))
@@ -91,6 +110,10 @@
 ⚠️ **Breaking changes**
 
 - Removes tut [\#527](https://github.com/47degrees/sbt-microsites/pull/527) ([juanpedromoreno](https://github.com/juanpedromoreno))
+
+🐛 **Bug Fixes**
+
+- Update scrimage to 4.x from 2.x & fix copying resources [\#529](https://github.com/47degrees/sbt-microsites/pull/529) ([sloshy](https://github.com/sloshy))
 
 📈 **Dependency updates**
 
@@ -536,6 +559,7 @@
 
 - Release with tut 0.6.9 [\#289](https://github.com/47degrees/sbt-microsites/pull/289) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - upgrade tut to 0.6.9 [\#288](https://github.com/47degrees/sbt-microsites/pull/288) ([erikerlandson](https://github.com/erikerlandson))
+- Use the site absolute url for twitter:image [\#285](https://github.com/47degrees/sbt-microsites/pull/285) ([xerial](https://github.com/xerial))
 
 ## [v0.7.26](https://github.com/47degrees/sbt-microsites/tree/v0.7.26) (2018-11-20)
 
@@ -544,7 +568,6 @@
 **Merged pull requests:**
 
 - Release 0.7.26 [\#286](https://github.com/47degrees/sbt-microsites/pull/286) ([calvellido](https://github.com/calvellido))
-- Use the site absolute url for twitter:image [\#285](https://github.com/47degrees/sbt-microsites/pull/285) ([xerial](https://github.com/xerial))
 
 ## [v0.7.25](https://github.com/47degrees/sbt-microsites/tree/v0.7.25) (2018-11-16)
 
@@ -627,6 +650,7 @@
 - Release sbt-microsites v0.7.19 [\#266](https://github.com/47degrees/sbt-microsites/pull/266) ([AntonioMateoGomez](https://github.com/AntonioMateoGomez))
 - Updated sbt-org-policies, and sbt to the latest versions. [\#265](https://github.com/47degrees/sbt-microsites/pull/265) ([AntonioMateoGomez](https://github.com/AntonioMateoGomez))
 - Add Scanamo to wild sbt-microsites [\#263](https://github.com/47degrees/sbt-microsites/pull/263) ([philwills](https://github.com/philwills))
+- docs typos [\#261](https://github.com/47degrees/sbt-microsites/pull/261) ([ryan-williams](https://github.com/ryan-williams))
 
 ## [v0.7.18](https://github.com/47degrees/sbt-microsites/tree/v0.7.18) (2018-03-30)
 
@@ -639,7 +663,6 @@
 **Merged pull requests:**
 
 - Update tut to 0.6.4 for incomplete input fix [\#262](https://github.com/47degrees/sbt-microsites/pull/262) ([felixmulder](https://github.com/felixmulder))
-- docs typos [\#261](https://github.com/47degrees/sbt-microsites/pull/261) ([ryan-williams](https://github.com/ryan-williams))
 
 ## [v0.7.17](https://github.com/47degrees/sbt-microsites/tree/v0.7.17) (2018-03-11)
 
@@ -837,6 +860,7 @@
 
 **Merged pull requests:**
 
+- Bumps sbt-org-policies version in order to fix scripted issues [\#224](https://github.com/47degrees/sbt-microsites/pull/224) ([juanpedromoreno](https://github.com/juanpedromoreno))
 - User configurable footer [\#220](https://github.com/47degrees/sbt-microsites/pull/220) ([suhasgaddam](https://github.com/suhasgaddam))
 - Including console output in kazari [\#219](https://github.com/47degrees/sbt-microsites/pull/219) ([dominv](https://github.com/dominv))
 - Update CHANGELOG.md [\#217](https://github.com/47degrees/sbt-microsites/pull/217) ([fedefernandez](https://github.com/fedefernandez))
