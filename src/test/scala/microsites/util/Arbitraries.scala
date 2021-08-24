@@ -131,20 +131,20 @@ trait Arbitraries {
         micrositeDocumentationUrl              ← Arbitrary.arbitrary[String]
         micrositeDocumentationLabelDescription ← Arbitrary.arbitrary[String]
         palette                                ← paletteMapArbitrary.arbitrary
-        favicon                                ← listOf[MicrositeFavicon](micrositeFaviconArbitrary.arbitrary)
-        githubOwner                            ← Arbitrary.arbitrary[String]
-        githubRepo                             ← Arbitrary.arbitrary[String]
-        gitHostingService                      ← Arbitrary.arbitrary[GitHostingService]
-        gitHostingUrl                          ← Arbitrary.arbitrary[String]
-        githubLinks                            ← Arbitrary.arbitrary[Boolean]
-        gitSidecarChat                         ← Arbitrary.arbitrary[Boolean]
-        gitSidecarChatUrl                      ← Arbitrary.arbitrary[String]
-        shareOnSocial                          ← Arbitrary.arbitrary[Boolean]
-        micrositeFooterText                    ← Arbitrary.arbitrary[Option[String]]
-        micrositeEditButton                    ← micrositeEditButtonArbitrary.arbitrary
-        micrositeVersionList                   ← Arbitrary.arbitrary[Seq[String]]
-        micrositeSearchBar                    <- Arbitrary.arbitrary[Boolean]
-        micrositeHomeButtonTarget             <- Gen.oneOf("docs", "repo")
+        favicon                    ← listOf[MicrositeFavicon](micrositeFaviconArbitrary.arbitrary)
+        githubOwner                ← Arbitrary.arbitrary[String]
+        githubRepo                 ← Arbitrary.arbitrary[String]
+        gitHostingService          ← Arbitrary.arbitrary[GitHostingService]
+        gitHostingUrl              ← Arbitrary.arbitrary[String]
+        githubLinks                ← Arbitrary.arbitrary[Boolean]
+        gitSidecarChat             ← Arbitrary.arbitrary[Boolean]
+        gitSidecarChatUrl          ← Arbitrary.arbitrary[String]
+        shareOnSocial              ← Arbitrary.arbitrary[Boolean]
+        micrositeFooterText        ← Arbitrary.arbitrary[Option[String]]
+        micrositeEditButton        ← micrositeEditButtonArbitrary.arbitrary
+        micrositeVersionList       ← Arbitrary.arbitrary[Seq[String]]
+        micrositeSearchBar        <- Arbitrary.arbitrary[Boolean]
+        micrositeHomeButtonTarget <- Gen.oneOf("docs", "repo")
       } yield MicrositeSettings(
         MicrositeIdentitySettings(
           name,

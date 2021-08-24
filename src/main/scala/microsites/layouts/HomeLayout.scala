@@ -55,7 +55,7 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
               cls := "col-xs-3",
               a(
                 href := "{{ site.baseurl }}/",
-                cls := "brand",
+                cls  := "brand",
                 div(cls := "icon-wrapper", span(config.identity.name))
               )
             ),
@@ -90,7 +90,7 @@ class HomeLayout(config: MicrositeSettings) extends Layout(config) {
       ),
       "{% if page.position != null %}",
       nav(
-        cls := "menu-container",
+        cls             := "menu-container",
         aria.labelledby := "section-navigation",
         "{% include menu.html %}"
       ),

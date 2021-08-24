@@ -51,13 +51,13 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
                 "Search"
               ),
               input(
-                id := "search-bar",
-                `type` := "text",
+                id          := "search-bar",
+                `type`      := "text",
                 placeholder := "Enter keywords here...",
-                onclick := "displayToggleSearch(event)"
+                onclick     := "displayToggleSearch(event)"
               ),
               ul(
-                id := "search-dropdown-content",
+                id  := "search-dropdown-content",
                 cls := "dropdown dropdown-content"
               )
             )
@@ -72,23 +72,23 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
       if (config.gitSettings.githubLinks) {
         Seq(
           li(
-            id := "gh-eyes-item",
+            id  := "gh-eyes-item",
             cls := "hidden-xs to-uppercase",
             a(
-              href := config.gitSiteUrl,
+              href   := config.gitSiteUrl,
               target := "_blank",
-              rel := "noopener noreferrer",
+              rel    := "noopener noreferrer",
               i(cls := "fa fa-eye"),
               span("Watchers", span(id := "eyes", cls := "label label-default", "--"))
             )
           ),
           li(
-            id := "gh-stars-item",
+            id  := "gh-stars-item",
             cls := "hidden-xs to-uppercase",
             a(
-              href := config.gitSiteUrl,
+              href   := config.gitSiteUrl,
               target := "_blank",
-              rel := "noopener noreferrer",
+              rel    := "noopener noreferrer",
               i(cls := "fa fa-star-o"),
               span("Stars", span(id := "stars", cls := "label label-default", "--"))
             )
@@ -328,10 +328,10 @@ class DocsLayout(config: MicrositeSettings) extends Layout(config) {
           div(
             cls := "edit-button",
             a(
-              href := s"${config.gitSiteUrl}${button.basePath}",
+              href   := s"${config.gitSiteUrl}${button.basePath}",
               target := "_blank",
-              rel := "noopener noreferrer",
-              cls := "btn-sm btn-info",
+              rel    := "noopener noreferrer",
+              cls    := "btn-sm btn-info",
               button.text
             )
           )

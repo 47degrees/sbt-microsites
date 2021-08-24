@@ -58,12 +58,12 @@ lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
 )
 
 lazy val micrositeSettings: Seq[Def.Setting[_]] = Seq(
-  micrositeName := "sbt-microsites",
-  micrositeDescription := "An sbt plugin to create awesome microsites for your project",
-  micrositeBaseUrl := "sbt-microsites",
+  micrositeName             := "sbt-microsites",
+  micrositeDescription      := "An sbt plugin to create awesome microsites for your project",
+  micrositeBaseUrl          := "sbt-microsites",
   micrositeDocumentationUrl := "docs",
-  micrositeGithubToken := sys.env.get("GITHUB_TOKEN"),
-  micrositePushSiteWith := GitHub4s,
+  micrositeGithubToken      := sys.env.get("GITHUB_TOKEN"),
+  micrositePushSiteWith     := GitHub4s,
   micrositeGitterChannelUrl := "47deg/sbt-microsites",
   makeSite / includeFilter := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.svg"
 )
