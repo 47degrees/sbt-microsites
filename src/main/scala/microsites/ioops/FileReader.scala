@@ -27,9 +27,8 @@ import scala.annotation.tailrec
 
 class FileReader {
 
-  private[this] val defaultValidDirs: (File) => Boolean = (f: File) => {
+  private[this] val defaultValidDirs: (File) => Boolean = (f: File) =>
     !Set("target", "bin", "output").contains(f.getName) && !f.getName.startsWith(".")
-  }
 
   def getFileBytes[F[_]: Sync](file: File): F[Array[Byte]] =
     Sync[F].delay(IOUtils.readBytes(file))

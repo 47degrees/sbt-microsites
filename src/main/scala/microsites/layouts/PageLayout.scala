@@ -52,10 +52,10 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
           div(
             cls := "navbar-header",
             button(
-              tpe := "button",
-              cls := "navbar-toggle collapsed",
-              data.toggle := "collapse",
-              data.target := "#bs-example-navbar-collapse-1",
+              tpe           := "button",
+              cls           := "navbar-toggle collapsed",
+              data.toggle   := "collapse",
+              data.target   := "#bs-example-navbar-collapse-1",
               aria.expanded := "false",
               span(cls := "sr-only", "Toggle navigation"),
               span(cls := "icon-bar"),
@@ -64,7 +64,7 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
             ),
             a(
               href := "{{ site.baseurl }}/",
-              cls := "brand",
+              cls  := "brand",
               div(cls := "icon-wrapper", span(config.identity.name))
             )
           ),
@@ -72,7 +72,7 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
         )
       ),
       div(
-        cls := "jumbotron",
+        cls   := "jumbotron",
         style := "background-image:url('{{site.baseurl}}/img/jumbotron_pattern.png')"
       ),
       "{% include menu.html %}"
@@ -81,7 +81,7 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
   def lightPageNav: List[Frag] =
     List(
       nav(
-        id := "navigation",
+        id              := "navigation",
         aria.labelledby := "main-navigation",
         div(
           cls := "navbar-wrapper container",
@@ -89,8 +89,8 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
             cls := "navigation-brand",
             a(
               href := "{{ site.baseurl }}/",
-              cls := s"brand ${backgroundLogoCssMask}",
-              div(cls := "page-icon-wrapper"),
+              cls  := s"brand $backgroundLogoCssMask",
+              div(cls  := "page-icon-wrapper"),
               span(cls := "brand-title", config.identity.name)
             )
           ),
@@ -99,7 +99,7 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
       ),
       "{% if page.position != null %}",
       nav(
-        cls := "menu-container",
+        cls             := "menu-container",
         aria.labelledby := "section-navigation",
         "{% include menu.html %}"
       ),
@@ -108,7 +108,7 @@ class PageLayout(config: MicrositeSettings) extends Layout(config) {
 
   def pageMain: TypedTag[String] =
     main(
-      id := "site-main",
+      id  := "site-main",
       cls := "page-site-main",
       section(cls := "use", div(cls := "container", div(id := "content", "{{ content }}")))
     )

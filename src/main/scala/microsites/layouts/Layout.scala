@@ -31,16 +31,16 @@ object Layout {
     p(
       s"Website built with ",
       a(
-        href := s"https://47degrees.github.io/sbt-microsites/",
+        href   := s"https://47degrees.github.io/sbt-microsites/",
         target := "_blank",
-        rel := "noopener noreferrer",
+        rel    := "noopener noreferrer",
         s"sbt-microsites"
       ),
       s" - © 2019 ",
       a(
-        href := s"https://www.47deg.com/",
+        href   := s"https://www.47deg.com/",
         target := "_blank",
-        rel := "noopener noreferrer",
+        rel    := "noopener noreferrer",
         s"47 Degrees"
       )
     )
@@ -89,29 +89,29 @@ abstract class Layout(config: MicrositeSettings) {
     val pageTitle = s"${config.identity.name}{% if page.title %}: {{page.title}}{% endif %}"
     List(
       title(pageTitle),
-      meta(charset := "utf-8"),
+      meta(charset   := "utf-8"),
       meta(httpEquiv := "X-UA-Compatible", content := "IE=edge,chrome=1"),
-      meta(name := "viewport", content := "width=device-width, initial-scale=1.0"),
-      meta(name := "author", content := config.identity.author),
-      meta(name := "description", content := config.identity.description),
+      meta(name      := "viewport", content        := "width=device-width, initial-scale=1.0"),
+      meta(name      := "author", content          := config.identity.author),
+      meta(name      := "description", content     := config.identity.description),
       meta(name := "og:image", content := "{{site.url}}{{site.baseurl}}/img/poster.png"),
       // Linked-In requires this og:image tag format
       meta(
-        name := "image",
+        name             := "image",
         attr("property") := "og:image",
-        content := "{{site.url}}{{site.baseurl}}/img/poster.png"
+        content          := "{{site.url}}{{site.baseurl}}/img/poster.png"
       ),
       meta(name := "og:title", content := pageTitle),
       // For Linked-In
       meta(name := "title", attr("property") := "og:title", content := pageTitle),
-      meta(name := "og:site_name", content := config.identity.name),
-      meta(name := "og:url", content := config.identity.homepage),
-      meta(name := "og:type", content := "website"),
+      meta(name := "og:site_name", content   := config.identity.name),
+      meta(name := "og:url", content         := config.identity.homepage),
+      meta(name := "og:type", content        := "website"),
       meta(name := "og:description", content := config.identity.description),
       link(
-        rel := "icon",
+        rel    := "icon",
         `type` := "image/png",
-        href := "{{site.url}}{{site.baseurl}}/img/favicon.png"
+        href   := "{{site.url}}{{site.baseurl}}/img/favicon.png"
       ),
       meta(name := "twitter:title", content := pageTitle),
       meta(
@@ -120,7 +120,7 @@ abstract class Layout(config: MicrositeSettings) {
         content := s"${config.urlSettings.micrositeUrl}{{site.baseurl}}/img/poster.png"
       ),
       meta(name := "twitter:description", content := config.identity.description),
-      meta(name := "twitter:card", content := "summary_large_image")
+      meta(name := "twitter:card", content        := "summary_large_image")
     ) ++ twitter.toList ++ twitterCreator.toList
   }
 
@@ -130,10 +130,10 @@ abstract class Layout(config: MicrositeSettings) {
      else
        micrositeHelper.faviconDescriptions).map { icon =>
       link(
-        rel := "icon",
-        `type` := "image/png",
+        rel           := "icon",
+        `type`        := "image/png",
         attr("sizes") := s"${icon.sizeDescription}",
-        href := s"{{site.url}}{{site.baseurl}}/img/${icon.filename}"
+        href          := s"{{site.url}}{{site.baseurl}}/img/${icon.filename}"
       )
     }.toList
 
@@ -159,7 +159,7 @@ abstract class Layout(config: MicrositeSettings) {
         case Right(scssList) =>
           scssList.map { scss =>
             val fileNameWithOutExt = scss.getName.replaceFirst("[.][^.]+$", "")
-            link(rel := "stylesheet", href := s"{{site.baseurl}}/css/${fileNameWithOutExt}.css")
+            link(rel := "stylesheet", href := s"{{site.baseurl}}/css/$fileNameWithOutExt.css")
           }
         case _ => Nil
       }
@@ -172,11 +172,11 @@ abstract class Layout(config: MicrositeSettings) {
       if (config.visualSettings.theme == "pattern")
         List(
           link(
-            rel := "stylesheet",
+            rel  := "stylesheet",
             href := "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           ),
           link(
-            rel := "stylesheet",
+            rel  := "stylesheet",
             href := "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
           ),
           link(
@@ -184,7 +184,7 @@ abstract class Layout(config: MicrositeSettings) {
             href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"
           ),
           link(
-            rel := "stylesheet",
+            rel  := "stylesheet",
             href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css"
           )
         )
@@ -199,7 +199,7 @@ abstract class Layout(config: MicrositeSettings) {
             href := s"{{site.url}}{{site.baseurl}}/highlight/styles/${config.visualSettings.highlightTheme}.css"
           ),
           link(
-            rel := "stylesheet",
+            rel  := "stylesheet",
             href := s"{{site.baseurl}}/css/${config.visualSettings.theme}-style.css"
           )
         )
@@ -240,7 +240,7 @@ abstract class Layout(config: MicrositeSettings) {
     val languageScripts =
       config.visualSettings.highlightLanguages.filterNot(builtinLanguages.contains).map { lang =>
         script(
-          src := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/${lang}.min.js"
+          src := s"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/languages/$lang.min.js"
         )
       }
 
@@ -273,7 +273,7 @@ abstract class Layout(config: MicrositeSettings) {
       |  });
       |});
       |
-      |hljs.configure({languages:${languages}});
+      |hljs.configure({languages:$languages});
       |hljs.initHighlightingOnLoad();
       """.stripMargin)
 
@@ -310,9 +310,9 @@ abstract class Layout(config: MicrositeSettings) {
           p(
             "{{ site.name }} is designed and developed by ",
             a(
-              href := s"${config.identity.organizationHomepage}",
+              href   := s"${config.identity.organizationHomepage}",
               target := "_blank",
-              rel := "noopener noreferrer",
+              rel    := "noopener noreferrer",
               s"${config.identity.author}"
             )
           )
@@ -322,9 +322,9 @@ abstract class Layout(config: MicrositeSettings) {
           p(
             cls := "text-right",
             a(
-              href := config.gitSiteUrl,
+              href   := config.gitSiteUrl,
               target := "_blank",
-              rel := "noopener noreferrer",
+              rel    := "noopener noreferrer",
               span(cls := s"fa ${config.gitHostingIconClass}"),
               s"View on ${config.gitSettings.gitHostingService.name}"
             )
@@ -357,7 +357,7 @@ abstract class Layout(config: MicrositeSettings) {
 
   def lightHomeNav: TypedTag[String] =
     nav(
-      id := "navigation",
+      id              := "navigation",
       aria.labelledby := "main-navigation",
       div(
         cls := "navbar-wrapper container",
@@ -365,8 +365,8 @@ abstract class Layout(config: MicrositeSettings) {
           cls := "navigation-brand",
           a(
             href := "{{ site.baseurl }}/",
-            cls := s"brand ${backgroundLogoCssMask}",
-            div(cls := "icon-wrapper"),
+            cls  := s"brand $backgroundLogoCssMask",
+            div(cls  := "icon-wrapper"),
             span(cls := "brand-title", config.identity.name)
           )
         ),
@@ -381,9 +381,9 @@ abstract class Layout(config: MicrositeSettings) {
         p(
           "{{ site.name }} is designed and developed by ",
           a(
-            href := s"${config.identity.organizationHomepage}",
+            href   := s"${config.identity.organizationHomepage}",
             target := "_blank",
-            rel := "noopener noreferrer",
+            rel    := "noopener noreferrer",
             s"${config.identity.author}"
           )
         )
@@ -427,13 +427,13 @@ abstract class Layout(config: MicrositeSettings) {
               "Search"
             ),
             input(
-              id := "search-bar",
-              `type` := "text",
+              id          := "search-bar",
+              `type`      := "text",
               placeholder := "Enter keywords here...",
-              onclick := "displayToggleSearch(event)"
+              onclick     := "displayToggleSearch(event)"
             ),
             ul(
-              id := "search-dropdown-content",
+              id  := "search-dropdown-content",
               cls := "dropdown dropdown-content"
             )
           )
@@ -450,18 +450,18 @@ abstract class Layout(config: MicrositeSettings) {
         searchBar,
         li(
           a(
-            cls := "transparent-on-hover",
+            cls  := "transparent-on-hover",
             href := config.gitSiteUrl,
             i(cls := s"fa ${config.gitHostingIconClass}"),
             target := "_blank",
-            rel := "noopener noreferrer",
+            rel    := "noopener noreferrer",
             span(cls := "hidden-sm hidden-xs", config.gitSettings.gitHostingService.name)
           )
         ),
         if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
           li(
             a(
-              cls := "transparent-on-hover",
+              cls  := "transparent-on-hover",
               href := s"${config.urlSettings.micrositeDocumentationUrl}",
               i(cls := "fa fa-file-text"),
               span(
@@ -483,26 +483,26 @@ abstract class Layout(config: MicrositeSettings) {
         div(
           id := "version-dropdown",
           button(
-            onclick := "displayToggleVersion(event)",
+            onclick       := "displayToggleVersion(event)",
             attr("title") := "Version {{ own_version.name }}",
-            cls := "button link-like",
+            cls           := "button link-like",
             i(cls := s"nav-item-icon fa fa-lg fa-caret-square-o-down", hidden := "true"),
             span(
               cls := "nav-item-text",
-              id := "own-version",
+              id  := "own-version",
               "Version {{ own_version.name }}"
             ),
             i(cls := "nav-item-text fa fa-caret-down")
           ),
           ul(
-            id := "version-dropdown-content",
+            id  := "version-dropdown-content",
             cls := "dropdown dropdown-content",
             li(
               cls := "dropdown-item",
               a(
                 attr("title") := "title",
-                cls := "dropdown-item-link",
-                href := "something",
+                cls           := "dropdown-item-link",
+                href          := "something",
                 span(
                   "name"
                 )
@@ -513,8 +513,8 @@ abstract class Layout(config: MicrositeSettings) {
               cls := "dropdown-item",
               a(
                 attr("title") := "{{ item.name }}",
-                cls := "dropdown-item-link",
-                href := "{{ item.name | relative_url }}",
+                cls           := "dropdown-item-link",
+                href          := "{{ item.name | relative_url }}",
                 span(
                   "{{ item.name }}"
                 )
@@ -530,7 +530,7 @@ abstract class Layout(config: MicrositeSettings) {
           href := config.gitSiteUrl,
           i(cls := s"nav-item-icon fa fa-lg ${config.gitHostingIconClass}", hidden := "true"),
           target := "_blank",
-          rel := "noopener noreferrer",
+          rel    := "noopener noreferrer",
           span(cls := "nav-item-text", config.gitSettings.gitHostingService.name)
         )
       ),
@@ -538,7 +538,7 @@ abstract class Layout(config: MicrositeSettings) {
         li(
           a(
             href := s"${config.urlSettings.micrositeDocumentationUrl}",
-            i(cls := "nav-item-icon fa fa-lg fa-file-text", hidden := "true"),
+            i(cls    := "nav-item-icon fa fa-lg fa-file-text", hidden := "true"),
             span(cls := "nav-item-text", config.urlSettings.micrositeDocumentationLabelDescription)
           )
         )
@@ -577,18 +577,18 @@ abstract class Layout(config: MicrositeSettings) {
   def ctaButton(linkClass: String): TypedTag[String] = {
     if (config.urlSettings.micrositeHomeButtonTarget == "repo") {
       a(
-        href := config.gitSiteUrl,
+        href   := config.gitSiteUrl,
         target := "_blank",
-        rel := "noopener noreferrer",
-        cls := linkClass,
+        rel    := "noopener noreferrer",
+        cls    := linkClass,
         s"View on ${config.gitSettings.gitHostingService.name}"
       )
     } else {
       a(
         href := s"/${config.urlSettings.micrositeBaseUrl}/${config.urlSettings.micrositeDocumentationUrl}",
         target := "_blank",
-        rel := "noopener noreferrer",
-        cls := linkClass,
+        rel    := "noopener noreferrer",
+        cls    := linkClass,
         s"View Docs"
       )
     }
