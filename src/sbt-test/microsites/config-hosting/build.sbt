@@ -3,8 +3,8 @@ import microsites._
 enablePlugins(MicrositesPlugin)
 scalaVersion := sys.props("scala.version")
 
-micrositeGitHostingService := GitLab
-micrositeGitHostingUrl := "https://gitlab.com/gitlab-org/gitlab-ce"
+micrositeGitHostingService  := GitLab
+micrositeGitHostingUrl      := "https://gitlab.com/gitlab-org/gitlab-ce"
 micrositeExtraMdFilesOutput := (Compile / resourceManaged).value / "jekyll"
 
 micrositeExtraMdFiles := Map(
