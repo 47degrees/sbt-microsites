@@ -12,7 +12,7 @@ micrositeExtraMdFiles := Map(
 
 micrositeExtraMdFilesOutput := (target in Compile).value / "extra_md_override"
 
-micrositeImgDirectory := (Compile / resourceDirectory).value / "images"
-micrositeCssDirectory := (Compile / resourceDirectory).value / "styles"
+micrositeImgDirectory     := (Compile / resourceDirectory).value / "images"
+micrositeCssDirectory     := (Compile / resourceDirectory).value / "styles"
 micrositePluginsDirectory := (Compile / resourceDirectory).value / "plugins"
-mdocIn := baseDirectory.in(ThisBuild).value / "src" / "main" / "mdoc"
+mdocIn                    := baseDirectory.in(ThisBuild).value / "src" / "main" / "mdoc"
