@@ -42,14 +42,14 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
   def homeHeaderFeatures: List[Frag] =
     List(
       header(
-        id := "masthead",
+        id  := "masthead",
         cls := "features-masthead",
         div(
           cls := "container feature-header",
           div(
             cls := "features-header-description",
             h1(cls := "masthead-title", config.identity.name),
-            p(cls := "masthead-description", config.identity.description),
+            p(cls  := "masthead-description", config.identity.description),
             ctaButton("masthead-button")
           ),
           div(cls := "features-image")
@@ -57,7 +57,7 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
       ),
       "{% if page.position != null %}",
       nav(
-        cls := "menu-container",
+        cls             := "menu-container",
         aria.labelledby := "section-navigation",
         "{% include menu.html %}"
       ),
@@ -76,14 +76,14 @@ class FeaturesLayout(config: MicrositeSettings) extends Layout(config) {
           div(
             cls := "feature-item",
             div(
-              cls := s"feature-item-header ${backgroundFeatureCssMask}",
+              cls := s"feature-item-header $backgroundFeatureCssMask",
               div(cls := "{{ feature[0] }}-feature-icon-wrapper"),
               h4("{{ feature[1][0] }}"),
               p("{{ feature[1][1] }}")
             ),
             if (!config.urlSettings.micrositeDocumentationUrl.isEmpty)
               a(
-                cls := "learn-more-button",
+                cls  := "learn-more-button",
                 href := s"${config.urlSettings.micrositeDocumentationUrl}/{{ feature[1][2] }}",
                 span(cls := "learn-more", "Learn More")
               )

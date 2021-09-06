@@ -9,17 +9,17 @@ micrositeExtraMdFiles := Map(
     "home"
   )
 )
-micrositeName := "test-microsite"
-micrositeDescription := "Description of test-microsite"
-micrositeAuthor := "Microsite author"
-micrositeHomepage := "https://47deg.github.io/sbt-microsites/"
-micrositeTwitter := "@47deg"
-micrositeBaseUrl := "/test-microsite"
-micrositeDocumentationUrl := "/api"
-micrositeHighlightTheme := "just-another-theme"
+micrositeName               := "test-microsite"
+micrositeDescription        := "Description of test-microsite"
+micrositeAuthor             := "Microsite author"
+micrositeHomepage           := "https://47deg.github.io/sbt-microsites/"
+micrositeTwitter            := "@47deg"
+micrositeBaseUrl            := "/test-microsite"
+micrositeDocumentationUrl   := "/api"
+micrositeHighlightTheme     := "just-another-theme"
 micrositeHighlightLanguages := Seq("scala", "bash", "protobuf")
-micrositeGithubOwner := "47deg"
-micrositeGithubRepo := "sbt-microsites"
+micrositeGithubOwner        := "47deg"
+micrositeGithubRepo         := "sbt-microsites"
 micrositePalette := Map(
   "brand-primary"   -> "#111111",
   "brand-secondary" -> "#222222",

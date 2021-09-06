@@ -105,7 +105,7 @@ trait MicrositeKeys {
   val micrositeShareOnSocial: SettingKey[Boolean] = settingKey[Boolean](
     "Optional. Includes links to share on social media in the layout. Enabled by default."
   )
-  val micrositeUrl: SettingKey[String]     = settingKey[String]("Microsite site absolute url prefix")
+  val micrositeUrl: SettingKey[String] = settingKey[String]("Microsite site absolute url prefix")
   val micrositeBaseUrl: SettingKey[String] = settingKey[String]("Microsite site base url")
   val micrositeDocumentationUrl: SettingKey[String] =
     settingKey[String]("Microsite site documentation url")
@@ -401,8 +401,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
     microsite := (micrositeHelper.value
       .createResources(resourceManagedDir = (Compile / resourceManaged).value)),
     micrositeMakeExtraMdFiles := micrositeHelper.value.buildAdditionalMd(),
-    makeMdoc := (Def.sequential(mdoc.toTask(""), micrositeMakeExtraMdFiles).value),
-    makeMicrosite := (Def.sequential(microsite, makeMdoc, makeSite).value),
+    makeMdoc                  := (Def.sequential(mdoc.toTask(""), micrositeMakeExtraMdFiles).value),
+    makeMicrosite             := (Def.sequential(microsite, makeMdoc, makeSite).value),
     makeVersionsJson := {
       "which git".! match {
         case 0 => ()

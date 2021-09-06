@@ -36,12 +36,12 @@ lazy val documentation = project
   .enablePlugins(MdocPlugin)
 
 lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
-  addSbtPlugin("org.scalameta"    % "sbt-mdoc"    % "2.2.22"),
+  addSbtPlugin("org.scalameta"    % "sbt-mdoc"    % "2.2.23"),
   addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.3"),
   addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.4.1"),
   libraryDependencies ++= Seq(
-    "com.47deg"             %% "github4s"            % "0.29.1",
-    "org.http4s"            %% "http4s-blaze-client" % "0.21.26",
+    "com.47deg"             %% "github4s"            % "0.28.5",
+    "org.http4s"            %% "http4s-blaze-client" % "0.21.28",
     "net.jcazevedo"         %% "moultingyaml"        % "0.4.2",
     "com.lihaoyi"           %% "scalatags"           % "0.9.4",
     "com.sksamuel.scrimage" %% "scrimage-scala"      % "4.0.22",
@@ -58,12 +58,12 @@ lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
 )
 
 lazy val micrositeSettings: Seq[Def.Setting[_]] = Seq(
-  micrositeName := "sbt-microsites",
-  micrositeDescription := "An sbt plugin to create awesome microsites for your project",
-  micrositeBaseUrl := "sbt-microsites",
+  micrositeName             := "sbt-microsites",
+  micrositeDescription      := "An sbt plugin to create awesome microsites for your project",
+  micrositeBaseUrl          := "sbt-microsites",
   micrositeDocumentationUrl := "docs",
-  micrositeGithubToken := sys.env.get("GITHUB_TOKEN"),
-  micrositePushSiteWith := GitHub4s,
+  micrositeGithubToken      := sys.env.get("GITHUB_TOKEN"),
+  micrositePushSiteWith     := GitHub4s,
   micrositeGitterChannelUrl := "47deg/sbt-microsites",
   makeSite / includeFilter := "*.html" | "*.css" | "*.png" | "*.jpg" | "*.gif" | "*.js" | "*.swf" | "*.md" | "*.svg"
 )

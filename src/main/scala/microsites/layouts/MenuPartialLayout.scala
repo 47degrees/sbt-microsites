@@ -33,7 +33,7 @@ class MenuPartialLayout(config: MicrositeSettings) extends Layout(config) {
         "{% if p.position != null %}",
         li(
           a(
-            cls := "{% if p.url == page.url %} active {% endif %}",
+            cls  := "{% if p.url == page.url %} active {% endif %}",
             href := "{{ site.baseurl }}{{ p.url }}",
             "{{ p.title }}"
           )
