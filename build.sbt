@@ -1,5 +1,5 @@
 ThisBuild / organization := "com.47deg"
-ThisBuild / scalaVersion := "2.12.12"
+ThisBuild / scalaVersion := "2.12.15"
 ThisBuild / scmInfo := Some(
   ScmInfo(
     url("https://github.com/47degrees/sbt-microsites"),
