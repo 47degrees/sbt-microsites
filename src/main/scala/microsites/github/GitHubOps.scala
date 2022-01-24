@@ -115,7 +115,15 @@ class GitHubOps[F[_]: Async: Clock](
       ): F[TreeDataSha] =
         for {
           gh <- ghWithRateLimit
-          res <- run(gh.gitData.createBlob(owner, repo, Base64.getEncoder().encode(array).mkString(""), Some("base64"), headers))
+          res <- run(
+            gh.gitData.createBlob(
+              owner,
+              repo,
+              Base64.getEncoder().encode(array).mkString(""),
+              Some("base64"),
+              headers
+            )
+          )
             .map(refInfo => TreeDataSha(filePath, blobMode, blobType, refInfo.sha))
         } yield res
 
