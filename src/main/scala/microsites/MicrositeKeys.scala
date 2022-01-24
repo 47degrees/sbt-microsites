@@ -477,8 +477,6 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val githubRepo: String            = micrositeGithubRepo.value
       val githubToken: Option[String]   = micrositeGithubToken.value
 
-      implicit val ec: ExecutionContext = ExecutionContext.global
-
       lazy val log: Logger = streams.value.log
 
       (pushSiteWith.name, gitHosting.name) match {
@@ -491,7 +489,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
                  | * repo: $githubOwner/$githubRepo
                  | * commitMessage: $commitMessage""".stripMargin)
 
-            BlazeClientBuilder[IO](ec).resource
+            BlazeClientBuilder[IO].resource
               .use { client =>
                 val ghOps: GitHubOps[IO] =
                   new GitHubOps[IO](client, githubOwner, githubRepo, githubToken)
