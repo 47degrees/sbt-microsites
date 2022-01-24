@@ -40,13 +40,13 @@ lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
   addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.3"),
   addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.4.1"),
   libraryDependencies ++= Seq(
-    "com.47deg"             %% "github4s"            % "0.28.5",
-    "org.http4s"            %% "http4s-blaze-client" % "0.21.31",
+    "com.47deg"             %% "github4s"            % "0.30.0",
+    "org.http4s"            %% "http4s-blaze-client" % "0.23.7",
     "net.jcazevedo"         %% "moultingyaml"        % "0.4.2",
     "com.lihaoyi"           %% "scalatags"           % "0.11.1",
     "com.sksamuel.scrimage" %% "scrimage-scala"      % "4.0.25",
     "org.scalatest"         %% "scalatest"           % "3.2.11"   % Test,
-    "org.scalatestplus"     %% "scalacheck-1-15"     % "3.2.10.0" % Test
+    "org.scalatestplus"     %% "scalacheck-1-15"     % "3.2.11.0" % Test
   ),
   scriptedLaunchOpts ++= Seq(
     "-Xmx2048M",
