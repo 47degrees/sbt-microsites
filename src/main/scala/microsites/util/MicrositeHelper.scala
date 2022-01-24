@@ -98,8 +98,8 @@ class MicrositeHelper(config: MicrositeSettings) {
       "plugins"
     ) ++ maybeLunrFilters
 
-    //If resources are in a JAR, we want to expose that as a FileSystem
-    //Otherwise we will just use the raw path
+    // If resources are in a JAR, we want to expose that as a FileSystem
+    // Otherwise we will just use the raw path
     val pathOrFS: Either[FileSystem, java.nio.file.Path] =
       if (pluginPath.getFileName.toString.endsWith(".jar")) {
         val uri = URI.create("jar:file:" + pluginPath.toString)
@@ -260,8 +260,8 @@ class MicrositeHelper(config: MicrositeSettings) {
 
     createFile(sourceFile)
 
-    //Scrimage needs a different classloader as our plugin's default classloader is restricted
-    //See: https://github.com/sksamuel/scrimage/issues/217
+    // Scrimage needs a different classloader as our plugin's default classloader is restricted
+    // See: https://github.com/sksamuel/scrimage/issues/217
     val desiredCL: ClassLoader = classOf[ImageReader].getClassLoader
 
     (faviconFilenames zip faviconSizes)
