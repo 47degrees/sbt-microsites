@@ -18,7 +18,8 @@ package microsites
 
 import java.nio.file._
 
-import cats.effect.{ContextShift, IO, Timer}
+import cats.effect.IO
+import cats.effect.unsafe.implicits.global
 import com.typesafe.sbt.sbtghpages.GhpagesPlugin.autoImport._
 import com.typesafe.sbt.site.SitePlugin.autoImport.makeSite
 import io.circe._
@@ -30,7 +31,7 @@ import microsites.ioops.FileWriter._
 import microsites.ioops._
 import microsites.ioops.syntax._
 import microsites.util.MicrositeHelper
-import org.http4s.client.blaze.BlazeClientBuilder
+import org.http4s.blaze.client.BlazeClientBuilder
 import sbt.Keys._
 import sbt._
 import sbt.complete.DefaultParsers.OptNotSpace
@@ -476,9 +477,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val githubRepo: String            = micrositeGithubRepo.value
       val githubToken: Option[String]   = micrositeGithubToken.value
 
-      implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
       implicit val ec: ExecutionContext = ExecutionContext.global
-      implicit val t: Timer[IO]         = IO.timer(ExecutionContext.global)
 
       lazy val log: Logger = streams.value.log
 
