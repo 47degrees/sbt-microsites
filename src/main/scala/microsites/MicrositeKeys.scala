@@ -18,7 +18,8 @@ package microsites
 
 import java.nio.file._
 
-import cats.effect.{ContextShift, IO, Timer}
+import cats.effect.IO
+import cats.effect.unsafe.implicits.global
 import com.typesafe.sbt.sbtghpages.GhpagesPlugin.autoImport._
 import com.typesafe.sbt.site.SitePlugin.autoImport.makeSite
 import io.circe._
@@ -476,9 +477,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val githubRepo: String            = micrositeGithubRepo.value
       val githubToken: Option[String]   = micrositeGithubToken.value
 
-      implicit val cs: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
       implicit val ec: ExecutionContext = ExecutionContext.global
-      implicit val t: Timer[IO]         = IO.timer(ExecutionContext.global)
 
       lazy val log: Logger = streams.value.log
 
@@ -492,7 +491,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
                  | * repo: $githubOwner/$githubRepo
                  | * commitMessage: $commitMessage""".stripMargin)
 
-            BlazeClientBuilder[IO](ec).resource
+            BlazeClientBuilder[IO].resource
               .use { client =>
                 val ghOps: GitHubOps[IO] =
                   new GitHubOps[IO](client, githubOwner, githubRepo, githubToken)
