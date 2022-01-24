@@ -477,7 +477,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val githubRepo: String            = micrositeGithubRepo.value
       val githubToken: Option[String]   = micrositeGithubToken.value
 
-      implicit val ec: ExecutionContext = ExecutionContext.global
+      implicit val executionContext: ExecutionContext = ExecutionContext.global
 
       lazy val log: Logger = streams.value.log
 

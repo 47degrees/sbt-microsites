@@ -34,7 +34,7 @@ import scala.concurrent.duration._
 
 import java.util.Base64
 
-class GitHubOps[F[_]: Async: Clock](
+class GitHubOps[F[_]: Async: Temporal](
     client: Client[F],
     owner: String,
     repo: String,
