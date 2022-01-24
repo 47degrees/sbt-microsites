@@ -19,9 +19,9 @@ package microsites.github
 import java.io.File
 
 import cats.data.{NonEmptyList, OptionT}
-import cats.effect._
+import cats.effect.{Ref => _, _}
+import cats.effect.kernel.Temporal
 import cats.implicits._
-import com.github.marklister.base64.Base64._
 import github4s._
 import github4s.domain._
 import microsites.Exceptions._
@@ -32,7 +32,9 @@ import org.http4s.client._
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 
-class GitHubOps[F[_]: ConcurrentEffect: Timer](
+import java.util.Base64
+
+class GitHubOps[F[_]: Async: Temporal](
     client: Client[F],
     owner: String,
     repo: String,
@@ -113,7 +115,15 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
       ): F[TreeDataSha] =
         for {
           gh <- ghWithRateLimit
-          res <- run(gh.gitData.createBlob(owner, repo, array.toBase64, Some("base64"), headers))
+          res <- run(
+            gh.gitData.createBlob(
+              owner,
+              repo,
+              Base64.getEncoder().encode(array).mkString(""),
+              Some("base64"),
+              headers
+            )
+          )
             .map(refInfo => TreeDataSha(filePath, blobMode, blobType, refInfo.sha))
         } yield res
 
@@ -210,5 +220,5 @@ class GitHubOps[F[_]: ConcurrentEffect: Timer](
 
   // Due to GitHub abuse rate limits, we should wait 1 sec between each request
   // https://developer.github.com/guides/best-practices-for-integrators/#dealing-with-abuse-rate-limits
-  def ghWithRateLimit: F[Github[F]] = Timer[F].sleep(1.second).as(gh)
+  def ghWithRateLimit: F[Github[F]] = Temporal[F].sleep(1.second).as(gh)
 }
