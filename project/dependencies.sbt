@@ -9,5 +9,5 @@ libraryDependencies ++= Seq(
   "org.http4s"            %% "http4s-blaze-client" % "0.23.10",
   "net.jcazevedo"         %% "moultingyaml"        % "0.4.2",
   "com.lihaoyi"           %% "scalatags"           % "0.11.1",
-  "com.sksamuel.scrimage" %% "scrimage-scala"      % "4.0.30"
+  "com.sksamuel.scrimage" %% "scrimage-scala"      % "4.0.31"
 )
