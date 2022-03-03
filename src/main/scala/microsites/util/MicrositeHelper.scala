@@ -166,8 +166,8 @@ class MicrositeHelper(config: MicrositeSettings) {
         s"""---
              |layout: ${targetFileConfig.layout}
              |${targetFileConfig.metaProperties map { case (key, value) =>
-          "%s: %s" format (key, value)
-        } mkString ("", "\n", "")}
+            "%s: %s" format (key, value)
+          } mkString ("", "\n", "")}
              |---
              |${Source.fromFile(sourceFile.getAbsolutePath).mkString}
              |""".stripMargin
