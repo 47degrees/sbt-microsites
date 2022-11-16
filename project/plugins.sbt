@@ -1,5 +1,5 @@
 addSbtPlugin("com.github.sbt"      % "sbt-ci-release"           % "1.5.10")
-addSbtPlugin("org.scalameta"       % "sbt-scalafmt"             % "2.4.6")
+addSbtPlugin("org.scalameta"       % "sbt-scalafmt"             % "2.5.0")
 addSbtPlugin("de.heikoseeberger"   % "sbt-header"               % "5.8.0")
 addSbtPlugin("com.alejandrohdezma" % "sbt-github"               % "0.11.4")
 addSbtPlugin("com.alejandrohdezma" % "sbt-github-header"        % "0.11.4")
