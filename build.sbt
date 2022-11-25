@@ -53,7 +53,8 @@ lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
     "-XX:+UseConcMarkSweepGC",
     "-Dplugin.version=" + version.value,
     "-Dscala.version=" + scalaVersion.value
-  )
+  ),
+  headerSources / excludeFilter := "*GhpagesKeys.scala" || "*GhpagesPlugin.scala"
 )
 
 lazy val micrositeSettings: Seq[Def.Setting[_]] = Seq(
