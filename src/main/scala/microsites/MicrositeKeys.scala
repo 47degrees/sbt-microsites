@@ -46,7 +46,7 @@ trait MicrositeKeys {
   final case object GitHub                                  extends GitHostingService("GitHub")
   final case object GitLab                                  extends GitHostingService("GitLab")
   final case object Bitbucket                               extends GitHostingService("Bitbucket")
-  final case class Other(value: String)                     extends GitHostingService(value)
+  case class Other(value: String)                           extends GitHostingService(value)
 
   sealed abstract class PushWith(val name: String) extends Product with Serializable
   final case object GHPagesPlugin                  extends PushWith("ghPagesPlugin")
