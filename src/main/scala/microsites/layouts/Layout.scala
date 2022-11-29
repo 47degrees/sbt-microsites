@@ -41,7 +41,7 @@ object Layout {
         href   := s"https://www.47deg.com/",
         target := "_blank",
         rel    := "noopener noreferrer",
-        s"47 Degrees"
+        s"Xebia Functional"
       )
     )
 }
