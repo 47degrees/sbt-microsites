@@ -20,7 +20,7 @@ import java.nio.file._
 
 import cats.effect.IO
 import cats.effect.unsafe.implicits.global
-import com.typesafe.sbt.sbtghpages.GhpagesPlugin.autoImport._
+import com.github.sbt.sbtghpages.GhpagesPlugin.autoImport._
 import com.typesafe.sbt.site.SitePlugin.autoImport.makeSite
 import io.circe._
 import io.circe.generic.semiauto._

@@ -16,8 +16,8 @@
 
 package microsites
 
-import com.typesafe.sbt.SbtGit.git
-import com.typesafe.sbt.sbtghpages.GhpagesPlugin
+import com.github.sbt.git.SbtGit.git
+import com.github.sbt.sbtghpages.GhpagesPlugin
 import com.typesafe.sbt.site.jekyll.JekyllPlugin
 import com.typesafe.sbt.site.SitePlugin.autoImport._
 import sbt.Keys._
