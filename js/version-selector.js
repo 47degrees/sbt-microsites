@@ -1,1 +1,36 @@
-ï­v×]u×Müë5Ótóß5ÓºãÏ{ï_9×MõÓO<ïÍtóßuÓº×N½ó½uÓÍtëŞù×¾õÓ|çNv×MõÓNõ×N5ÓÎ÷ï^w×N5ÓMt÷]<×]<÷Ï<Û]v÷ÎtçmtßÍ»×õÓ­tÓÎø÷]<÷ÍuÓÍµÓtÓ½uÓÍuóß5Óº×NuÓO<ón<÷Îtçmuç®õÓ¹×]ûß½¼Û]|÷Nt×M5×Ÿtó~º×N}ÓÏ<Û}ÓÎüë]{ï~õ×N5×otï]tó]{÷Mv×®µÓ|×O|×]7÷Şt×N5×ÍtÓ5ÓÍuïİ5Û^ºãÏ{ï_9×MıÓ½»ã]|÷Şõómuó]4çNv×Mü÷9ï]{×M;×Îµ×½tÓ®ùÛ¾{ß®õ×]uó®õÓßtãß|×O{ó=ïÎùï]{ï~õómuÛßy×®µ×Ÿ=óÍtóÎ}ó5ÓMuÓß;×Î¼ïİ<ó¾5Ûo{ó¾{×^ûç½|ç]vï~ö×^{ç½úï®µÓÎú×]:ë]µ÷O<÷Mtóß5×O6ëßtó¿t×N5ÓO;×m8ó¾zï];ç»×Nzç]7÷O7ç}vÛ]4ï^{×_|ç½»ã]|÷ŞõïMuÓÏ|óÍµ×o|çNv×]{çÎ5×ùï~»ëuó¾µÛ^ºëÏ=ó½vÓ]y÷¿;ç}uÓ½û×¿5×Ÿ|ç^ü×O;ß½}Ó}ó]=ï½uï½û×]<×^ûß½{ó]8÷Ştótß]4çO9×]=÷]=ótßÏyÓ]´×]¼÷5×­uÛß5Óß}×Mü÷Îùß]|×M;×]8×O=÷]9ë­tïßuÓŞ{×_}Ó½yï}ó]9ë®u÷¿<ómu×½û×õ×¿tó~º×_=÷½|ë]{÷O;ó^ùï~»ë­tëß;×õÛotóŸ6×m}ózë];÷Îu×M5×¿:×O|ë]µ÷Şt×O5×Ï|×NuÓtó¾|ã]yï÷ë¾º×N½ó9ß]¶×M:ï®µ×ß=óÎø×O=ó]tó]tßÍ<ß®µÓÎú×]<Û]8÷İt÷]4×O5ÓN»ç}tëß;×õÛotóÎüãÎùë¾ø×NıïÏ=Óß=ïÎü×];óO7×M9Óİ<ó¾5Ûo{ó¾{×^ûëÎüÛ]µ÷Îuë­tïß9×]4×^ûãxó]9ïŸ8×^{ç½úï®µ×ot×Nzç]u÷ŞõïMv×İ<ïøó¾|ß®¹ç®õÓ¹×Mûß®úë]:÷Îtç}vÛ]4ë¾º×Nı÷]=ç½u÷İ;×ù×ß5Ó¹ç¾÷ïnº×N=÷]=ó­uï]4ë¾w×m5ÓO;ó­v×]5ó®ü×O=ó½|ë]:×M;×õÛ^ùë¾÷×NµÓMt÷ÎµÛ_}çMtó]|÷ÍtçuÓ¿}×Oyï]}÷Nõç¾u÷ÍtçuÓ¯|çNwãÏtó¾wãÎ÷×NuÓ¾yë½tç®uÓ~÷ë¾º×]½Ó]9ëu×İ;Û¾5×Ï}ï_6×_5ÓNtçmuÛ½ûÛ]yï÷ë¾¹×Mûß®úç]7÷Nöïuóß{×Íµ×ÍtÓ9Û]{óŞt×m5Ó}ç^üï¿{óÎüãÎú×]<Û]|÷Nt×M5×Ÿtó}tß]9÷Şt×N5×ÍtÓ]µï}uÛ¿u×İu×]7ï~»ëtß½úï®µ×ot×Nzç]u÷Nöïuóß{×Íµ×ÍtÓ9Û]{óŞt×m5Ó}ç^üï¿{óÎüãÎú×O{ó]|÷ÍuÓÍµÓ{ó¾w×m»ç®ûã]¶÷¾õç¾uï}tç];×]»ß½µ×ùï~»ëtß½úï®uÓ~÷ë¾º×Nıó;ó}óÎüë]{×M:ïõÓ¿|çNüãß|ó¿:×^õÓN½ó­uçİ<ïuÓÏ|×]<×]{óß;ómtïÍ¼óİ5ÓÏ|×]<Û¾ıïÏ;ó=ÓÎùß]<÷İtç]7×N|÷5ÛMuÛÏyÓ]y×N{ë®úë]:÷Îõç½vÛİ<çÍµÛ_|ç^º×NıóuÓMuïÎµÓß:×m}÷5ÓÍuóß5Ótïzï]9ëtß½úï®uÓ~÷ïn<ï÷ë¾¹×Mûß®úç]7÷O;×m5Ûotó~ºç»×Nzç]7ï~»ëtß½úï®uÓtï^{×NµÓO;ãİtóß5×O5×^ıÓ½yï]:×M<ïuÓÏ|×]<Û½=ó½|ë]z÷O;ç~<ï­uÓ¾5ÓÏ|ó¾{çOtóŸ:çOtó¾wãÏ8ï]tó]¶×M;×Îµ×¿tóÎ÷×]{ß]=ïÍuçŞüï¿5×÷×Nu×İtßÏyÓ]´×_=÷<ë¯}÷]=ç½u÷İ;×ù×ß5ÓÏt×O=÷]tïÍuÛß9Óµ×nı×_u×]tß½úï®uÓ~÷ë¾ºç¾»×Nzç]7ï~»ë®{ë½tç®uÓ}tÛÍu×n{ë½tß]u×_;ë]µë®¼÷Îõç½vÛİ<ß®¸óŞû×ÎuÓtïnø×_=÷½|Û]|×M9ÓµÓ{ó¿=×MõÓNõ×N5ÓÎ÷ïo:×m½ÓÏ;ß]7óŞt×m5×o=çMuë]¶ï~»×N5×Ï|×OuÛNwïŸ7ë­uó]4óÏ6×m½ïÎüÛ]<ï~õç½t÷½û×]<ãÎ»×O}Ó}ó]=ïÎ<÷¿;ç½uï½û×¿5×Ÿ|ç^ü×O<Û½»ã]|÷Şõómuó]4çNwó¿tóÎø×m½ïÎùï]{ïõóuÛ½ûÛ]yï÷ë¾º×N½ó9ß]¶×M:ï®µÓ¿}×Oyï]}÷Nõç¾u÷Ítç®yï½û×Íµ×Ï=ç_:×^½ÓÎùß;ë]tïN=÷O<ïwótó­uçİ<ï¿8óß9×½õ×^÷×O|Û]v×M5ÓÍuë]v÷N»ó^{ïu÷Mtóßu×Nü×]½ó9Û]z÷Nöïuóß{×Íµ×ÍtÓ9Û]tóÏ7ë7ï~»ç}tïßuÓŞ{×_}Ó½yï}ó]9ãİtëß9Óøóİ<ïøó¾µ×Nü×]}ó}÷]9ïŸ8×^{ç½úï®µ×ot×Nzç]u÷Nöïuóß{×Íµ×ÍtÓ9Û]vï~ö×^{ç½úï®uÓ~÷ï^ü×_=ó]tïÎ<ï~õïÎ=÷İuÓ¾5ÓÏ|×]<ÛÎ|÷Ï;ã]t÷O<ó]tßÍ<ß®µÓÎú×O{ó}÷]tïtóß5×O6óŸ=óÎø×]=ÓÏ<×]7×M»Û]}×MõÓ^uãÎyë½tç®uÓ~÷ë¾º×N½ó9ß]¶×M:ï®µÓ­tÓÏ;ã]µ÷O;ç~<ó®õïMv×İ9ÓÎ¸óÎ{×½5Û_tó¾wãÎ÷ëÎ<×Mü÷|ë]µ÷İt÷Îµ×½tÓ½<Û]8÷İt÷]4×O5ÓN»ç}tëß;×õÛotóÎüãÎùë¾ø×NıïÏ=Óß=ïÎü×];óO7×M9Óİ<ó¾5Ûo{ó¾{×^ûëÎüÛ]µ÷Îuë­tïß9×]4×^ûãxó]9ïŸ8×^{ç½úï®uÓ~÷ï^ü×_=ó]tïÎ<ï~õómv×ß9×®µÓ¿|ç]tÓ]{óõïMv×İ<ïøó½úó5Ótïnø×_=÷½|Û]|×M9Óµ×¿=çMvÓ]|÷Ştó­vÛ]4ë½tß]9÷Nõ×O9ÓÎùÓ]<×Nûã¯8ó]t×M5Óß:×m}÷5ÓÍuóß5Ó=×Nı÷]=ç½u÷İ;×ù×ß5ÓtÓ]4ï}tç];ç»×Nzç]7ï~»ë­uÛİ5Ó¹×]|÷|ë]µ÷İt÷Îµ×½tÓ½<Û]8÷İt÷]4×O5ÓNôë­tãßuÓß:×^õÓN»ëtãÍ<ã5Ótïnø×_=÷½|Û]|×M9Óü×Ï|ó¾5ÓÏ|×]<×]vï~ö×^{ç½úï®uÓ~÷ë¾¹×MıÓ½»ã]|÷Şõómuó]4çNv×^ü÷5ÛMtãßy×¿;ïŞüó¿8ó¾µ×Nø×O=óÎùï=ÓÍõÓ}tçßyÓ]8×_5ÓMv×½õ×nı×_u×]tß½úï®uÓ}tÛÍu×]tß½úï®uÓtï^{×NµÓO;ãİtóß5×O5×^ıÓ½yï]:×M<ïuÓÏ|×]<Û½=ó½|ë]z÷O;ç~<ï­uÓ¾5ÓÏ|ó¾{çOtóŸ:çOtó¾wãÏ8ï]tó]¶×M;×Îµ×¿tóÎ÷×]{ß]=ïÍuçŞüï¿5×÷×Nu×İtßÏyÓ]´×_=÷<ë¯}÷]=ç½u÷İ;×ù×ß5ÓÏt×O=÷]tïÍuÛß9Óµ×nı×_u×]tß½ûÛ;ç]6ó]u×­
+/* When the user clicks on the navigation Documentation button,
+ * toggle between hiding and showing the dropdown content.
+ */
+function displayToggleVersion(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  // Calling close func. in case we're clicking another dropdown with one opened
+  closeDropdownVersion(e);
+  const parent = e.target.closest("div[id$='version-dropdown']");
+  if (parent) {
+    const dropdown = parent.querySelector("#version-dropdown-content");
+    if (dropdown) {
+      dropdown.classList.toggle("show");
+      if (dropdown.classList.contains("show")) {
+        document.documentElement.addEventListener("click", closeDropdownVersion);
+      }
+      else {
+        document.documentElement.removeEventListener("click", closeDropdownVersion);
+      }
+    }
+  }
+}
+
+// Close the dropdown if the user clicks (only) outside of it
+function closeDropdownVersion(e) {
+  const dropdown = document.querySelector("div[id$='version-dropdown'] > .dropdown-content.show");
+  if (dropdown) {
+    const currentTarget = e.currentTarget || {};
+    const currentTargetParent = currentTarget.closest("div[id$='version-dropdown']");
+    const dropdownParent = dropdown.closest("div[id$='version-dropdown']");
+    if (currentTargetParent !== dropdownParent) {
+      dropdown.classList.remove("show");
+    }
+    document.documentElement.removeEventListener("click", closeDropdownVersion);
+  }
+}
