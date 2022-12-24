@@ -1,1 +1,163 @@
-ï­v×]u×]úï]9ëuß½ûÓÍµ×ÏtçMtÓ]y÷O7ë­tãß5Óº×m½÷½|ë]:÷¿;÷MuÛÏuÛ^º×N½ó½{Ó]¶÷İv×®¸óß5Û^ºãÏ{ï_9×Mı÷]=ó­tëİ<ï]<çOtó¿5×MüÛ¯yï¿;ß½|ë]y÷O;ãİtóß5×O5×^úï]9ëuß½ú÷®µ×ß=óÎø×N=óÍúë}÷|Û]µ÷¿;ç}uÓ]6ó]tó]<÷Îõó­uëÎyÓÎµ×Ÿtó¾üãÏ|ç^÷×Müë½uÓtó½ûÛ½8÷İ<ó¾9ß½ûÛ¿5ÓÏ|ï_:×NµÓNõç½v×½ûÛ¿5×ßtó¾ü×]½Ó]t×O5×o|×O}÷]7×M;×]8×O;ß½¼Û]8÷İt÷]4×O5ÓN»ë­tóß;×Îµ×¯tó¾wãÎú×Mõ×]tß¾uÓºëŸ}ï^ô×m|÷Îøó]7×My×¿8óßuÓİtó]{÷NuãÎøó¾tïMtë]4ï]tó=ÓÎ{ó]yóß<ïÍvÛÍ<ß]4×N<÷|Û]v×M5Óß9×]<óÍúëÎ}ï½|ç]7óŞt×m5Ó}ç^û×MõÓNõç­tßÏuÓß9×Mü÷Ï:ë]}÷Îõ×O5ÓÏtë¾{×m}ÓÎø÷]|×M5Óß:×Nûë]7×]uÓ~ù×Nyë¾}Ó]tó­uïÏy×Íµ×o|çNv×MõÓNõç½uÓİ9Ó]´×O<×5ÛMtãßy×¾õ×_tó½vÓ]<÷Ï:ïÍtóß;×ÎµÓ­tÓ½yï]µï®»ë­tãÏy×Íµ×mtÓ]=ó®¼÷ÎõïMvÛßuÛ^¹ç¾÷ë¾ø×N<÷|Û]v×M5Óß9×N{çÍúëzï]9ëtßÏyÓõ×¿}ç_5×MıÓÎõÛMtóß<ß®yï½û×Íµ×Ï=ç_:×^½ÓÎùß;ë]tïN=÷O<ïwótó­uçİ<ï¿8óß9×½õ×_tó½vÓ]<÷Ï:ïÍtóß;×ÎµÓ­tÓ½yï]µïŸ8×^{ç½úï®µ×ot×Nzç]u÷O;×m5ÓÏ|ó}tï]7×Mu×İu×]7ï~»ëtßİ<ï]´×O=óÍùß]:÷ÎõïMvÛßxó]´×]½÷|×]{×M;×õ×OtçMvÓ]<ïõïMtë]4ï]tó=ÓÎ{ó]yóß<ïÍvÛ¾|ã]yï÷ë¾ºç¾»×]8ó¾zï]9ç­uß¾uÓ}u×]7ïtç®¼çß9Ó]4×]=ó½|ç]7÷Şuë­tóÏyÓ]<×O}ïÎûï]7óŞt×m5Ó}ç^ü×O=÷]µë®<÷Ív×®µÓ|×Nzë]8÷İuÓ¾5Ót×Íúë]|÷Mtç®µÓ¯|ç^ø×m}ÓÏ;ó]}÷Îtç}tïŞüïõ×N÷ëß6óO8ó~º×O=ó½|ë]z÷O;ç~<÷İv×»ç½úï]u×Mü×½ºë]8÷İt÷½5×®÷ïmuë®½÷]tïtã]5óvÓ]¶×M;Û¾5×o|×O}÷õÓo5×O5ÓÏ|ï_:×^¼ç<ë]y÷O;ïÎ<÷ÎuïvÛ½ûÓÍµ×_tó~º×m5ÓO;ó­v×]5ó~º×m½ÓÎõÛMtóÏy×Íµ×Ï}×];ï]7÷Şuë­tóÏyÓ]<×OuÓ_;×O5×¿t×mzë=ï½|ç]7×M;×½5Û_tçO:ãÎ÷ï_:×^}ÓÎø÷]<÷ÍuÓÍµÛnú×Mõ×]tß¾uÓºëŸ}ï^ô×m|÷Îøó]7×Mxó½5Û_}×O{ÓüÓ½»ó=÷]=×O5×¿t×m¹ßúïÎûÓ]:×M;×]<çOtóü×^|÷Ï;ó]¶÷O<ï½tßÎ»×]8×O;ß½{ó]yóß<ïÍvÛİ<ó¾õÓ}tÓ½yë]7óİt÷ÎuÓ=óÎº×_}ó½uÓÍtóİ:ïõÛ_tó¾=×_5ÓMt÷ÎµÓ¾ú×Mõ×]tß¾uÓzïŸt×]<ë]{óŞuómuÛß9ÓµÓ}tÓ½yï]t÷Nt×m5ÓÏ5çMvÓ]8÷ŞuïÍtóßuÛ]tã]<÷Îõó­uëÎyÓÎµ×Ÿtó¾üãÏ|ç^ø×m»ë®úë]8óŞuómuÛ]4×O|ë¯=ó½{Ó]¶÷Ştó­vÛ¾|ß®¹ç®õÓ¹×MıÓÎõÛMtóß<ë¿5ÓÏ|ï_:×NµÓNõç½v×ßuÛ^w×^¼÷Ï:ç]uïõó­uçİ<ï|ãİ<ï]´×O<÷|Û]|÷İtç]}×MıïÎüÛ»çÍúçüÓ]9ë®yë½tç®uÓ~÷ë¾ºãÏ|çMtÓ]t÷Îõó®¼÷ÎõïMvÛßuÛ]tã]<÷Îõó­uëÎyÓÎµ×Ÿtó¾üãÏ|ç^÷×^{ß½{Ó]:×M;×]<çOtóü×^|÷Ï;ó]¶÷O<ïÏ|÷¿;ónvóÏ7×Nùç®õÓ¹×MõÓo7×Nùç®õ×N<ï»×Nyë]wïtß]u×Mûç]9ë¯7÷O;ãİuó]4×O|ç]7óß;ïÎ<÷¿<÷Mtó½û×¿5×Ÿ=óÎü×m»ß½}Ó]µ÷ÎtãÍtßßyÓ]<×N}ó½uÓÍuïİ9×¾õÓ6ëŞ{ïÎ÷ï_:×^}ÓÎø÷]<÷ÍuÓÍµÛn÷ï^ô×^ıÓ®úë]8÷Şöë­uç]5ó~º×]µÓN»ë®<÷Ív×®µÓÍtÓ]=ó­uï]4ë¾ºãÏ=óÎø×]=ÓÏ<×]{ë½tç®u×~÷ëŞº×_|÷Ï;ã]8÷Ï7ë®yóo;×m5ÓÏ|ó¿:×^õÓNöãÎøë¿;ó­uçİ<ïuÓÏ|×]<×]7ó®õ×N5ÓÎ÷ï_:×^}ÓÎø÷]<÷ÍuÓÍuÓ}×O|ë]:÷O;×O9ÓŞüïõ×N÷ïo6×]}ÓÍúë]:÷ÎõïMvÛßuÛ]u÷]7óß;ç}tï½ûÛ]4×]}ó{ó]<ï~öïÍuÛÏuÓİvÓ]v÷Ít÷]4×m»ß½µÓMuÛß;×]}×Mıó½yï]¶÷O7ë­uÛ]4ë¾vï÷ë½u×]7ó^öë­tãßuÓŞô×^»ß½µ×­vÛ]4ïnø×]½ó]=×M9ï®ü×]<÷Ï=ó¾üãÏ{óÏt×O<×5ÛMtãßy×¾ùï¾9Ó½5Ó­tÓ½uÓÎt÷O7×M5ÓN÷ïO6×]}ÓÍúë]:÷ÎõïMvÛßuÛ^ºãÏ|×mzë]9÷O7ë­tãß{Û®µ×Ÿ{ó¿:×Nûë]7×]uÓ~ù×Nyë¾}Ó]tó­uïÏy×Íµ×o|çNv×Mü÷Îûó=ïÏ=Ó]8×M;×Îu×_tó½vÓ]<÷Ï;ó­uï]4ë½u÷]7óß;ïÎ<÷¿<÷MtóÍyÓ]´×N=÷{ï]7óO7ëtçÏ|ï¿8óŞüóİ5ÓÎ÷×NuÓ½tß]5×_u×]tß½ûÓ]y×^ûë]9ç}tóß;×Îµ×¯tó¾wãÎú×]:ë]8÷İt÷Îµ×½tÓ¯yß]|÷NõóuïÏyÓ]8×]½ó½|Û]µ÷O;ç}tÓ¾µÓŞ=×N=÷®õÓtóß;×Îµ×®÷ëÎ<ã~»×Nzç]7ï~»ë­tóß;×Îµ×®ú×O{ó]yóß<ïÍvÛÎ;×]<×mµÓN»ç}v×İ<ïu×ÍtÓ]=óu×Ï|ï¿8óŞüóİ5ÓÏ5çMvÓ]8÷Şuï½uÛ®õÓ¹×MûçÎ5×ùï~»ë­tóß;×Îµ×¯tó¾wãÎú×O{ó]yóß<ïÍvÛÎ;×]<×mµÓN»ç}tãİ;×Íu×_=ó¾üãÏ{óÏt×O<×5ÛMtãßy×¾õ×nı×_u×n{ë½tß]u×_;ç]9×]{ç½úï]u×Müç]=ó­uëß9×İ5ÓÎ÷ï^ô×NµÓNõ×O9Óİ<ß®µÓ¯|ï^ô×m½÷]µë­t÷ßuÓŞ{×^»ß½»ó]vóİt÷]´×]½ó]=×M5Ûn÷ïnº×N=÷]=ó­uï]4ë¾ºëß8ãÎ<×MıÓÎõÛMtóß<ïÎµ×½tÓ½»ï]7óß;ç}tï½û×½5×ß}ï]vÓûß½uÓÎ<ï~öómuó½û×Îµ×Ÿtó¾=×O=ó]tó]tß]4ï^ô×m}Ó<ë;ß½ºë]8÷İt÷Îµ×½tÓ®ùÛ¾{ß®õ×]tßÍ{Û®µÓ}×O{Ó]zï~ö×^»Óß;×Îµ×¯tó¾wãÍtÛÍuÓ¾ø÷O;×m5ÓÏ|ó¿:×^õÓN»ë¯9÷¾õótßİ<ï]´×O=óÎüë]{×M:ï®µÛ_tó¾ü×O=ïÏ=Ó]v÷Ít÷ßuÓ}tÓ½uÓtó½û×¿5×Ÿ=óÎü×m»ë®úë]8÷Ít÷ÍuÓ}tÓ5ÓuóßyÓÎuÓ}çMtó]9÷Îõ×O5×¿tç^û×MõÓNt×O5×Ÿ|ë¾º×^}ó{ó]<ï~õ×O8ó¾µÓ}u×]7ïtç®ºçß{×½5Û_=ó¾<×MõÓ^uïÎ<÷İt÷]<×^ıÓxó¾:ïÎµ×­tãÏy×Íµ×mtÓ]=ó®¼÷ÎõïMvÛßuÛn<×]<÷Îûó=ïÏ=Ó]<ï=ãÍtßÎ»×]8×O;ß½{ó]yóß<ïÍvÛ½ûÛÍµ×Î÷ï^ø×O;ß½{Ó]}÷Şõ×m5×otó¿5×^úï]9ëuß¾µ×İuÛ]=×M<ïõÓ­tÓ½uÓÍuóß5Óº×N<÷|Û]v×M5ÓŞôãÏtó®º×N=÷]=ó­uï]4ë½tã]<÷Îõó­uëİ<ïøó¾ºï®µÓ=ç_6×]µÓMt÷Îºóß;×½5Ûo}×mzçûß®ûã]8óŞuómuÛ]4×O|ç]9ïŸ7ë®yë½tç®uÓ=çN{×^ı÷|×]7÷O;×m5ÓÏ|ó®º×N=÷]=ó­uï]4ë¾¹ç¾÷ï_:×^}ÓÎø÷]<÷ÍuÓÍu×¿}ï^ô×m}ÓÎùß<ã]=ç½tïİ<ã]yï÷ë¾º×N<÷|Û]v×M5ÓŞôãÏtó}tã]<÷Îõó­uëÎ{×½5Û_tó¾wãÎúë¾º×N<÷|Û]v×M5Óß:ëÏ|ï^ô×m½÷]µ×Nùç®õ×N<ï»×Nyë]wïtß]u×Mûç]9ë¯7÷O;ãİuó]4×O|ç]7óß;ïÎ<÷¿<÷Mtó½û×¿5×Ÿ=óÎü×m»ß½}Ó]µ÷ÎtãÍtßßyÓ]<×N}ó½uÓÍuïİ9×¾õÓ}ï^ô×m}ÓÎùß;ß¯|ÛÍ<ãÍúë]<÷Îõó­uëİ<ïøóßuÛ^º×N=ó]=ó]tßÏ|ó®µ×ß|ïmtï]7÷¿<ó]tß]4ï^z×MıÓÎõÛMtóß<ïÎµ×½tÓ®úë<÷Ï;ã]t÷O<ó]tßß{×½5Û_tó¾wãÎú×Mõ×]tß¾uÓºëŸ}ï^ô×m|÷Îøó]7×MxóÎµ×Ÿtó¾=×O=ó]tón{ë¿5×O5ÓÏ|ï_:×^½ÓÎùß;ß½<Û]u÷O7ë­tóß;×Îµ×¯tó¾wãÎ÷ïnø×O<÷<ë]v×M5Óİtó]{÷Mv×®¸óŞû×ÎuÓ=çMvÓ]8÷Şuï½uç½û×½5×¿të¾ºç_{ï^{×m½ÓÍúë]¶÷¿;ïuçŞüïõ×O}×mzë}ïÎõÛMuç½û×]´×_=÷<ç]7÷¿<ó]uï®õÓ¹×]ûß¯zë]}óß<ïtãß<ß®¹çßy×ÍµÛ_{ó¾w×]5Óo5×NûãÎùÓ½5Ó­tÓ½uÓÎt÷O9ïÍuçÏ|ó¿5Ûo4ó}tÓ]8óŞuómuÛ]4×O|ç]tóÏ7ë¯9÷¾õótßÏyÓ]´×N=÷{ï]7×M;×µÓ=×O|ç]7óß<ë­u÷ß;×]<×O=Ó®ùÛ¾{ß®õ×]uó®õÓßtãß|×O{ó=ïÎùï]{ï~öómuóİ9Ó]4×^}ÓÎºë]8÷İt÷Îµ×½tÓ®õÓtóß;×Îµ×¯tó¾wãÎúë¾º×N<÷|Û]v×M5Óß:ëÏ|ï^ô×m½÷]µë{ï~»ïtãÏy×Íµ×mtÓ]=ótç¾|ß®¹ç®õÓ¹×Mü÷9ï]{÷Şuó]tßİ<ï]´×O=óÎºë]8÷İt÷Îµ×½tÓ®úçûß½|ë]y÷O;ãİtóß5×O5×^ı÷½{Ó]µ÷O;ç~<ót÷õÓ¿tóuç¾{ß®úë]v÷Mtç®u×_tó½vÓ]<÷Ï:ë­tãßuÓß:×^õÓN»×NõÓ}t×]}×]uÓ~÷ë¾¹×MıÓÎõÛMtóß<ë®µÓ}×O|ë]{×M:ïõÓ¯|ï^ô×m½÷5ÛMuÛßy×Íu×½tÓ½yï]t÷Nt×m5ÓÎùï^ô×NµÓNõ×O9Óİ<ç¿5×Ÿ=óÎü×m»çÎ5×ùï~»ë®{ë½uÓ;ç®õÓz×]ûç]7×]uÓ~ù×NzëÎ}ï½uÓÍvÛ½ûÛ]4×]½ó½u×İtßß<ï½5×tó~ºãÏ{ï_9×Mı÷zë]<óŞt×O5Óß{ó¿:×Nûß½|ë]y÷O;ãİtóß5×O6×m»ß½{ó]y÷¿;ïÍuã½û×Î¹Óİ<ïøó½ûÛÍµ×Î÷ïnü×]}ó}÷]|÷¾õ×O5Ó¿tó~ºãÏ{ï_9×MıóÎüë]{×M<ß®µÛo{ó¿6×O<÷]=ïMv×¾µÓ}u×]7ïtç»çİ5×O:×^ü÷|Û]v÷ÎtçmtßÏ|ï¿8óŞüóİ5ÓtÓ½|ëÎ}ó5ÓMuÓß;×Îu×^ùó~ºç»×Nzç]7óŞtç½uïßy×ÍuÓ|ó¿:×^õÓO:ómuóİ9Ó]4×^}ÓÏ;ï]7óO7ë­tïß9Ó¿8÷ß<ïÎµ×½tÓ®ùß]´×M<ïÎµÛ]t×Î»ó]<÷Îõó­të]4ï^{×m|×ÎõÛMuç¾zï½õÓ¯|ó¿:×^õÓO7ãŞ<÷Ît×M5×O|ï_9×^{ß®ûó]zóß;×O5×¾úóÏ6×_=Ó5ÓMuçİ<ß½õ×nı×_u×]tß½û×]<×O{ß®õÓuëİ<ïø÷Î»×õ×OtçMvÓ]<÷İv×];×MõÓ]u÷]u×Mûß®úç]7ó½v×µ×¾ú×Ox÷]<÷ÍuÓÎ¼çß9Ó]4×]=ó½|ë]¶óÏ7ç}uëÏ|ó®u×_tó½vÓ]<÷Ï7ë{óMtç®¹ç®õÓ¹×Mûß®úç]7ï~õó­uçİ<ï5×¿|çNw×N½ó½uÓÍtëŞõÛ^¹ç¾÷ï_9×MüÓÎ9Û]7×Mu×İu×]7ï~»ëtß½úï®uÓ~÷ï_9×^ı÷½»ã]<×M5Óß:×^õÓN½ómtóİ5ÓŞôãß|ïo5×]{çÎ5×ùï~»ëtß½úï®uÓ~÷ë¾ºãÏ|çMtÓ]t÷Îõó®¼÷ÎõïMvÛßuÛ]tß]9ï~u×M5Û_=óÎº×_}ÓÏ;ß]9ï®»ëtç]4ï^{×]=Ó5ÛMtóİ:ï½õ×nı×_u×]tß½úï®uÓ~÷ë¾ºç¾ı×_u×]tß½úï®uÓ}tÛÍõÓ¾yë½tç®uÓ}tÛÍu×n{ë½tß]u×_;ç]9×]{ç½úï]u×Müë½uÓuÛßuÛ^ºç_{ó½vÓ]yï~õãİtãŞùÓÎuÓ}tÓ½uÓtó½ûÛ¿5×ßtó¾ü×]½Ó]=×O5ÓÏtë¾º×O=ó½|ë]z÷O;ç~<÷İv×®µÓ¯|ï]tó]:÷½v×®µÓÍtÓ]=ó­uï]4ë¾ºãÏ|×mzë]9÷O;×N5ÓtÓ]=ótßÏ|ó¾õÓ=ó~º×^½ÓÎùßzï]9ëuß½ûÛ®µÓ}×O|ë]{×M:ï®µÓÏ|×]<Û]µ×M|ß]}×Mıó{ß]7óß7ë­uçŞüïõ×úë¾º×_=÷]9ë­vÛß9ÓuÓÍtÓ½uÓÍuëİ<ó¾õÓ=×Oyï=ï®õ×İtßİ;×Îµ×ßtó¾w×NıïÎùß]tï~õç½uï½ûÛÍµ×_tó~º×N½ó9ß=ÓÏ5Ó<ï­tß]u×Mûç]9ç®ù÷MuÓÎµ×¿=ç_6×]½ó9Û]7óß;ïÎ<÷¿<÷Mtã]4ï_:ïÏtó¾wãß8×O|ë]¶×M;×]<×^ıÓ]µ×Mõ×n÷ïmuç¾{ß®úë]:÷Îtç}vÛ]4ë¾º×^½ÓÎùß|ç½{Ó]µ÷O;ç~<÷İv×®yï½û×Íµ×Ï=ç_:×^½ÓÎùß;ë]tïN=÷O<ïwótó­uçİ<ï¿8óß9×¾:ëß;×]}×]{ß]9ç}tïßuÓŞ{×_{ëÎùß]<÷Şuómtóİ:ï½õ×nı×_u×]tß½û×]<×O{ß®õÓuëİ<ïø÷Î{×½5Û_tó¾wãÏ}×muÓ½tß]5×_u×]tß½úï®uÓ;×myÛ]{ï­t÷uÓÏ|×]<ëÍ|÷Ï;ã]<÷ÍuÓÍµÛo<ó~w×^¼÷Ï:ç]u÷O;×m5ÓÏ|ó~¹ç¿4×Nzëzï]9ëtß½úï®uÓ~÷ï_:×^}ÓÎøó]{÷Îtç}tëß;×]<×N½ï]µë{ï~õótßÍ<ãµÓ}t×]}×]uÓ~÷ë¾¹×Mûß®úç]7ï~õóuïß{Û¾5ÓÍtÓ]=ó­uï]4ëß6×O=Ó]=ïN=÷Îöó]u×¾|ã]yï÷ë¾¹×Mûß®úç]7ï~»ë®<÷Ît×M5×O|ï_:ó_=óÎø×O=ó]tó]u×İ<ï]´×O=óÍõ×İtß½õÓŞ{×_}ÓÎùÛ]9ïŸ8×^{ç½úï®uÓ~÷ë¾¹×Mûß®úë]:÷Îtç}vÛ]4ë¾º×O=ó½|ë]z÷O;ç~<ó®ö×O5×ßtó~¹ç¾÷ï_9×^ü÷|ë]µ÷İt÷Îµ×½tÓ½<Û]8÷İt÷]4×O5ÓN»ç~<óß;×M;÷Ï|ïuÓÎú×]<Û]|óõç¾u÷O<ï¼óß<ïÍtó¾zï];ç»×Nzç]7ï~»ëtß½úï®uÓ{ó¿=×Mûç½|ë]y÷O;ãİtóß5×O6ót×Ï:ë]<ï~¼ãÎ{óO7ëtçÏ|ß½õ×n÷ïmuç¾{ß®úç]7ï~»ëtß½úï®uÓ~÷ï^ü×_=ó]tïÎ<ï~õ×m5×o|×Ou×®ô÷Îõó­uëİ<ïøó½úó5Ótó~w×NµÓO<ïv×İ<ïøóÎ»×½5Û_tçO:ãÎı×_u×]tß½úï®uÓ~÷ë¾¹×Mûß®úç]7óŞtç½uïßy×ÍuÓ|ï]tó]{÷¾<ó­uçİ<ïuÓÏ|×]<ÛÍ|÷Ï;ã]<÷ÍuÓÍuÓ4ó~º×^}ïÎùß]xóo;×m5ÓÏ|ó¿:×^õÓN»ç}u÷Ï|ó¾5ÓÏ|×]<Û¿}ó<Û]<ïİu÷]u×Mûß®úç]7ï~»ëtß½úï®uÓ=çN{×^ı÷|×]7÷Nõó­vÛ]4ï]tó]{óß<ómuÛß9ÓµÓ4ó~º×^}ïÎùß]xóo;×m5ÓÏ|ó¿:×^õÓN»ç}u×ßuÓß:×O{÷]}×]uÓ~÷ë¾¹×Mûß®úç]7ï~»ëtßŞüïÏuÓ~ùëu×]7ï~»ëtß½úï®uÓ~÷ë¾¹×Mûß®úë];÷O<ïÎ<÷¿;ç}tã]4ï]tó]|÷Ítç®uÓ4ó<×MõÓNt×O5×¿tï^{ç^ú×OuÛMuóÏyÓ½8óŞüïõ×¾ú×OuÓv×İ<ïÏuÓ~ø×N|÷¾{ß®úç]7ï~»ëtß½úï®uÓ~÷ë¾¹×MûßÎõÛMuÛß5Óİuë½=ó½|ë]z÷O;ç~<óõïMv×İ<ïøó¾µÓŞü×^|÷Ï;ó]¶óõ×O5ÛmtÓ®ùß]:÷Îtç~<óß;×O5×¿}×muÓ}tçÏ|ï¿8óŞüóİ5ÓÎ÷×NuÓ¾ùï~»ëtß½úï®uÓ~÷ë¾¹×Mûß®õÓ½tß]5×_u×]tß½úï®uÓ~÷ë¾¹×Mûß®úç]7ï~»ë®u÷¿;ç}tïß9×ßu×¿|ï^{×N¼÷Ï<Û]v÷ÎtçmuïŞûÛ¾5ÓÏt×Nzçûß½|Û]<÷ŞuómuÛß5ÓŞôãÏ{ó¾{×^û÷]}×]uÓ~÷ë¾¹×Mûß®úç]7ï~»ëtß]6ó]u×]7ï~»ëtß½úï®uÓ~÷ïn<ï÷ë¾¹×Mûß®úç]7×M¼ã]yï÷ë¾¹×Mûß½¸ó]vïİu÷]u×Mûß½¸ó¾uÓo5×]{ç¾µÛ]u×]wë½tç®u×~÷ëŞôãİt×®úë]=×M<ïõÓ­tÓ½uÓÍuóß5ÓºãÏ|×mzë]µ÷O<ómv×ŞüïÎ¹Óİ<ß®µÛ_tóÎº×_=÷5ÓÎ<÷Îuïwï~öïÎ<óß<ïvÛ½û×½5×¿të¾ºç_=óÏ6×N½ï½|ë]µ÷İv×®µÓ¯|ç_:×^õÓN»ë­uÛß5Óßt×_;ß½}Ó]µ÷ÎtãÎùï~»×]uÓ6çMtó<ß½¼ë]9ï~½ïO5ó7ë­tãß5Óß5×Mı÷<ë;ß½uÓÎ<ï~õç½uï½û×]<ãÏ}×mzë]}÷İt÷õ×ßtóÎ÷×Mıó]=ç½tïİ<ó¾õ×¾»×Nzç]wï­u÷]v×N=÷uÓÍuïÏuÛ^º×OuÓO;ç}të]4ï]tó]|÷Ítç®µ×Ÿ|çNô×NüÛ5ÓÎ<ó~öó­tçÎy×ÍµÓtÓ½»ï]uïŸ7ë®yë½tç®uÓ=çN{×^ı÷|×]7óŞtç½uï]4ï_:×^õÓN»ë{ï~õómuóÏy×Îµ×¯tó¾wãÎú×];Ó}ÓÏ;ãüç<ë]y÷O;ïÎ<÷Îuï}u×½õÓü×N½ó9ß=ÓÎùß;ß]9×Nùç®õÓ¹×Mü÷9ï]{÷Şuó]tßİ9Ó]8óMtÓ9ß]<÷İtç®yï½û×¿5×Ï|×]<Û]<÷ÍuÓÍu×¿tï^ôãÏ=óÎü×O5ÓN»ç}uÓŞüóÍµ×]tÓÎûãÍ5ÓNtç}tóßuÓ­uç¾{ß®úë]:÷Îtç}vÛ]4ë¾º×]=ï½;ã]<÷Şõç­tßÍ<ß®µÓ¯|çNwãÏtó¾wãÎú×O|Û]8×M;×½5ÛotóÏ5×^ıÓ5ÓÎ<÷¾öó­tçÎuÓß:×_}ó]¶×^{ç®õÓ¹×MıïÎü÷]7ïõ×M5×_8ç]tÓ]{÷O<ï}tß¾5ÓŸ=×MıÓ5Ó7÷O<ë­uó¾|ß®¹ç®õÓ¹×Mûß®úë]:÷Îtç}vÛ]4ë¾º×]=ï¯{ÓÍ|ßÍúçûß½zë]u×M;ÛÍµ×ß}×mµ×]uó¾¹Ó½5×ß{ó~w×]=ïÏ<Û]u×M<ï½õ×¿=çN{×^»ë{ã]<÷Şõç½vÛ¾µÛ_6çŸtçMtãÍ5ÓNtç}tóßu×N<×_;ã½µ×­uÓŞûÓ¾5ÓÏ}ï^{ç¿=ëÍuç¾{ß®úç]7ï~õïÍuóß5×NüãÎ÷ï]tÓ]uónõïN<óß:ïtóßy×®µ×Ï|×];ó]<ï~¼ãÍtßÏ|ó]4×N=ïÏ<×]7÷Mt÷Î¸óÏyÓ]7×]}Ó5Óºó½×Nõ×nı×_u×]tß½úï®uÓ=çN{×^ı÷|×]7÷Nt×N:÷Ï|óÍµÓ÷ëÎ<×Mü÷Ï5ÓMtãŞüóÍuÓtçMtã¯|÷Ï<Û]8ót÷ÎµÛo}ï^{×^ı÷<ç]{÷½uÓ¿5×Ï|×NuÓ}uÛ¿u×İu×]7ï~»ëtßÏyÓõ×¿}ç_5×MõÓNtïN<óŞt×N5ÓÏ}×];ó½=ó½|ë]z÷O;ç~<ï~¼ãÍtßİ;×õÓ­tÓÎø÷]<÷ÍuÓÍu×¿}óÏ:×O=÷]t×O<ãİ<ï]´×O<÷|Û]|÷İtç]7×N{ß<ëıÓÏ;ï]9ïŸ8×^{ç½úï®uÓ~÷ï^ü×_=ó]tïÎ<ï~öïÎ<óß<ïvÛÍ¼ï]´×O=óÎüë]{×M:ï®yï½û×Íµ×Ï=ç_:×^½ÓÎùß;ë]tïN=÷O<ïwótó­uçİ<ï¿8óß9×½õ×^÷×N{ó]¶×M;×½5Û_}×m{ß]vïİu÷]u×Mûß®úç]7×M9Ó½8óÏyÓ]8×O=÷]tïÎô÷Îõó­uëİ<ïøó¾µ×O6×O5Ó^öón¼÷Îtç~<÷O;ç~<ï~¼ãÍtßİ9Ó]8ëß=óÏ6×N;ë]tïÎ=óİuÓ¿5Ó¯}×OuÓÍtçİ<ó¾5Ûo<çNü×_5ÓO;ç~<ïİu÷]u×Mûß®úç]7÷Şuómtãßu×NüïO|ï_:×^½ÓÎùß;ë]tómtó]5ïo6ëÏ|çNwãÏtó¾wãÎ÷ëÎ<×MıÓ5Ó½óß<ómtã¾µ×NüãÏ=óÎø×]<÷Ï5×mtóßu×Nü×M¼÷9ï}ó]tó^yë½tç®uÓ}tÛÍu×n{ë½tß]u×_;ç]9×]{ç½úï]u×MüÛ]tó­uïÏy×Íµ×o|çNv×MõÓNõç­tßÏy×¾5ÓÏ=óÏ6×O;ß½{Ó]{ï~õïMuïÏyÓ]8×_=÷]9ë®u÷¿<ómu×½û×½5×¾÷ïnü×_}ÓÎûó]v÷Mt÷]<×N»ß½uÓÍtï®õÓ¹×]ûß¯zë]}óß<ïtãß<ß®¹çßy×ÍµÛ_{ó¾w×]5Óo7ëtß½úï®µ×otë¾ºóŸ{ï_9×Mü÷9ï]µ÷İt÷ÎµÛo}ï^{×^ıÓ½uÓÍuïİ5Û^º×]½Ó®úë]=÷İt÷õ×®÷ïmtÓ]u÷¿;ïÍu×½ûÛÍµ×_tó~º×]}÷]=ó­t÷½ûÛ]4×]½ó½u×İtßÏuÓß9×Mü÷{ã]<óß<ómtóİ:ï»ç½úï]u×Mü×½»ã]<×M;ÛÎµÛ_|×];ï]7×MxóÎµ×Ÿtó¾=×O=ó]tón{ï~ôómu×İ<ß®µ×¿tóÏ}×Mü÷{ã]<óß<ómtóİ:ï®µÓ|×O{ó]u÷Îuï}uï®õÓ¹×]ûë]}×]µÓİtÓÎùß]:×M;×]<×_=ó]9ë­tãß5ÓŞü×]}ó{ã½}ó{ã¾=Ó®õÓuÛİ:ï];×MõÓ]u÷]u×Mûß½{ó]|÷ÍuÓ¿8ó½û×½5×¿=çMtã]|÷İtç®yï½û×Íµ×Ï=ç_:×^½ÓÎùß;ë]=ïÍv×İ<ï½8óİ<çÎµ×Ÿtó¾=×O=ó]tó]u×½õÓŞ½×N{çÎ5×ùï~»ë­tãß5ÓŞü×]}ó{ß]{óŞt×m5Ó}ç^üïß=ó¾=×O;ß¯8ó]7ï}t÷]8×O<÷ÎüÛ]<÷İtçu×Ÿ{ó¾w×^;ß]:×^{ç½úï®µÓ|×O{ó]u÷Îuï}uïŞûÛ¾5ÓÏt×Nzçûß½zç]:ïö×^µ×otïn=×Mû÷]}×]uÓ~÷ï^ô×^ü÷5ÓuóßuÓw×]½ó]=ç}tóßuÓ½tãÎ|ãÎu×İtßÍ<ß®u×O4ï]tï]7óŞt×m5Ó}ç^ûç¾÷×O}Ó]8ï~õ÷Mtã¾¼ï]´×]½ó]=×^uÓŸ4×Nµ×İuóŞüãµ×Nı×_u×]tß½ûÛ¾5ÓÍtÓ½¼ë]µ÷Ítç®µÓ|×O{ó]u÷Îuï~yë½uÓ;ç®õÓz×]ûç]7×]uÓ~ù×Nzë®µÓO<×MõÓt×]<ë]{óŞuómuÛß9ÓµÓ}tÓ½yë]7÷İt÷Î¸óßuÓİtó]<×M5Óß9×Mı÷]=ó­u÷ß9×¿5×mtÓ½yï]µ×M|ß®µÛmtÓ½{Ó]µ÷İv×®µÓ|×O|×]7×M9Ó½8óÏyÓ]8×O=÷]tï½tßÏyÓø÷ß5×O5×MıïÎùß]=÷Ív×®µÓß}×Oyï]zë½tç®u×~÷ëŞº×_|÷Ï;ã]8÷Ï7ë®y÷Şuómv×Şüïõ×MtÛÍuÓÍuçİ<óİ5ÓÏ|ë¾ºóŸ{ï_9×Mı÷zë]<óŞt×O5Óß{ó¾û×Mıó½|ë=ÓÎõ×İtß]4ï^z×Mı÷<ë]y÷O;ïÎ<ï~õ×N5ÓÏ=ó¿6×O=÷]9ë­t÷ßuÓŞ{×^»ë]7×]uÓ~ù×Nzë®}÷½{Ó]µóß;ãÍtß]5ãÏ:×^}ÓÎø÷]<÷ÍuÓÍ¹ï®üï¿5×Ï|×]<Û]8÷¿;ç}uÛß5ÓİtÓ½=ó½|ë]z÷O;ç~<ï~ôómu×İ<ß®µÓÏ|ï_:×^½ÓÎùß;ß½»ã]<óŞtó­uÛ]4×OuÓÍuïİ5Û^ºãÏ{ï_9×Mü÷Îùß]:÷¾õç½v×¾µÓ}u×]7ïtç»çİ5×O:×^ü÷|Û]v÷Îtçmtßß;×]<×^ıï5ÓÍt÷]5óô×^ü÷5Óuóßu×Nû×]}ó½|ë=ÓÎõ×İuç½û×¿5×Ï|×]<Û]8÷¿;ç}uÛß5ÓİtÓ½=ó½|ë]z÷O;ç~<ïŸ7ë®yë½tç®uÓ=çN{×^ı÷|×]7÷¾õó­tãİ;×ÎµÛ_}×mzçûß½{ó]|÷ÍuÓÍµÓ{ó¾w×]½ó]=×M;Óß;×Îµ×¯tó¾wãÎú×OuÓMtó]4ëß:×^}ÓÎø÷]<÷ÍuÓÍµÛo5×]5ÓÏ9óß;×M;÷Ï|ïuÓÎùï^º×]{ã½µ×­uçİ<óİ5ÓÏ|ïn=×MûçÎ5×ùï~»ë¯|ï­tçµ×¿{ï_:×N=Ó½|ë]µ÷Ş=ãÍuïß<ï½5×Şùï]tã]<óß;ómtóßuÓ¹ç¿4×Nzëzï]9ëtß½úï®µ×ot×Nzç]u×M;Û]<×_}ÓÎùï]=ï~õ×N5ÓÏ=ó¿6×O=÷]9ç}uÛİ:ï®uÓ4ó<×Mûß]tó­uïİ;×ÎµÓß{ó¾w×O=Ó®ûß]7ïtçÏuÓ{ï_:×N=Ó½|ë]µï­t÷]<×Nûß®ú÷üÓÍúç]9ï}tç];×MõÓ]u÷]u×Mûß®úç]7ï~»ë­u×İ<ï½5Ó¿tóÎ÷×^ü÷Ï:ë]}÷O;ç}tï¾{×½5×¿=çMtã]|÷İtïİ5×Ï}×NõÓÍtï¾{×]8×O<÷ÎüÛ]<÷İtçõ×otë½tï]vïİu÷]u×Mûß®úç]7×M¼×]u×Mûß½¸ó]vïİu÷]vç¾»×Mõ×]uó¾uÓu×¾{ß®õ×]tßÍµ×O:×^ü÷|Û]v÷Îtçnùï~»×]u×Î»×O}Ó}ó]=ïÎ<÷¿;ç½uï½û×]´×]½ó]=×^µ×ot×]5ÓÎº÷Îõ×m;ïİ<óİ5ÓÏ|ïnû×]{çÍúëzï]9ëtßÏyÓõ×¿}ç_5×Mü÷9ï]{×M;×Îµ×½tÓ®úçûß½|Û]|óŞuó­uëİ<ïøó¾µ×NôãßtóÎøç9çO:×^}ÓÎûó=ó{ß]uï}tç¿5Ó¯|çNwãÏtó¾wãÎ÷×NuÓ¾yë½tç®uÓ;×myÛ]{ï­tï½5Û_}×O{Óûç¯=÷]vï­t÷]z×O5Ó_<ï½u×¾|ë5×¿|ó¾ô×_{ç½uÛMtó]4×O|ë]yï~¼ãÎ7ï~ö×^{ç½úï®uÓ~÷ï]vÓ]v÷Ít÷]z×]½Ó]t×O:ëß5ÓŞü×]}ó{ã]¶ïõ×m5ÓÍtÓ]=ó­uç¾ºï®µÓ¯|çNwãÏtó¾wãÎùóuç¾{ß®úëûçÎ5×ù×M¼×]uïtÓ5ÓÍuïİ;×ù×¾µÓŞô×NıÓ¯|ë=ÓÎùß<ã½uÓÍvÛ]4ï_:×^ıÓÏ;ß]uï}tïÍ¼ÓÎ<ç¿5×Ï|×]<Û]<÷ÍuÓÍ»ïß9Ó½5Ó¿tó¿5×N{ë®úç]uïŸ7ë{óMtç®¹ç®õÓ¹×Mü÷Îûó=ïÏ=Ó]8×M;×Î¼çß9Ó]4×]=ó½|ç]uïŸ8×^{ç½úï®µÓ=ç_6×]µÓMt÷½8óİ<çuÓÏ|×]<ë¿}ÓÏ;ó=ïÎùß]tï»×Nùç®õÓ¹×Mıó½yï]8÷N½×M5×mtÓ¯uÓ=óİtó¿8óÏ|óÍµÛnùë½tïzï]9ëtßß;×]<×^ıï5ÓÍt÷]5óô×^}ó¯uÛMtó]4×O|ë]y÷İv×]7×]»÷]}×]¹ï¾|ã]yï
+/**
+ * Toggle an specific class to the received DOM element.
+ * @param {string}	elemSelector The query selector specifying the target element.
+ * @param {string}	[activeClass='active'] The class to be applied/removed.
+ */
+function toggleClass(elemSelector, activeClass = "active") {
+  const elem = document.querySelector(elemSelector);
+  if (elem) {
+    elem.classList.toggle(activeClass);
+  }
+}
+
+/**
+ * Toggle specific classes to an array of corresponding DOM elements.
+ * @param {Array<string>}	elemSelectors The query selectors specifying the target elements.
+ * @param {Array<string>}	activeClasses The classes to be applied/removed.
+ */
+function toggleClasses(elemSelectors, activeClasses) {
+  elemSelectors.map((elemSelector, idx) => {
+    toggleClass(elemSelector, activeClasses[idx]);
+  });
+}
+
+/**
+ * Remove active class from siblings DOM elements and apply it to event target.
+ * @param {Element}		element The element receiving the class, and whose siblings will lose it.
+ * @param {string}		[activeClass='active'] The class to be applied.
+ */
+function activate(element, activeClass = "active") {
+  [...element.parentNode.children].map(elem =>
+    elem.classList.remove(activeClass)
+  );
+  element.classList.add(activeClass);
+}
+
+/**
+ * Remove active class from siblings parent DOM elements and apply it to element target parent.
+ * @param {Element}		element The element receiving the class, and whose siblings will lose it.
+ * @param {string}		[activeClass='active'] The class to be applied.
+ */
+function activateParent(element, activeClass = "active") {
+  const elemParent = element.parentNode;
+  activate(elemParent, activeClass);
+}
+
+/**
+ * Remove active class from siblings parent DOM elements and apply it to element target parent.
+ * @param {Element}		element The element receiving the class, and whose siblings will lose it.
+ * @param {string}		[activeClass='active'] The class to be applied.
+ */
+function toggleParent(element, activeClass = "active") {
+  const elemParent = element.parentNode;
+  if (elemParent) {
+    elemParent.classList.toggle(activeClass);
+  }
+}
+
+/**
+ * This will make the specified elements click event to show/hide the menu sidebar.
+ */
+function activateToggle() {
+  const menuToggles = document.querySelectorAll("#menu-toggle, #main-toggle");
+  if (menuToggles) {
+    [...menuToggles].map(elem => {
+      elem.onclick = e => {
+        e.preventDefault();
+        toggleClass("#wrapper", "toggled");
+      };
+    });
+  }
+}
+
+/**
+ * This will make the specified elements click event to behave as a menu
+ * parent entry, or a link, or sometimes both, depending on the context.
+ */
+function activateMenuNesting() {
+  const menuParents = document.querySelectorAll(".drop-nested");
+  if (menuParents) {
+    [...menuParents].map(elem => {
+      elem.onclick = e => {
+        e.preventDefault();
+        toggleParent(elem, "open");
+        const elementType = e.currentTarget.tagName.toLowerCase();
+        if (elementType === "a") {
+          const linkElement = e.currentTarget;
+          const linkElementParent = linkElement.parentNode;
+          const destination = linkElement.href;
+          if (
+            destination !== window.location.href &&
+            !linkElementParent.classList.contains("active")
+          ) {
+            window.location.href = destination;
+          }
+        }
+      };
+    });
+  }
+}
+
+/**
+ * Aux function to retrieve repository stars and watchers count info from
+ * GitHub API and set it on its proper nodes.
+ */
+async function loadGitHubStats() {
+  const content = document.querySelector("#content");
+  const ghOwner = content.dataset.githubOwner;
+  const ghRepo = content.dataset.githubRepo;
+
+  if (ghOwner && ghRepo) {
+    const ghAPI = `https://api.github.com/repos/${ghOwner}/${ghRepo}`;
+    const ghDataResponse = await fetch(ghAPI);
+    const ghData = await ghDataResponse.json();
+    const watchersElement = document.querySelector("#eyes");
+    const starsElement = document.querySelector("#stars");
+    watchersElement.textContent = ghData.subscribers_count;
+    starsElement.textContent = ghData.stargazers_count;
+  }
+}
+
+/**
+ * Function to create an anchor with an specific id
+ * @param {string}    id The corresponding id from which the href will be created.
+ * @returns {Element} The new created anchor.
+ */
+function anchorForId(id) {
+  const anchor = document.createElement("a");
+  anchor.className = "header-link";
+  anchor.href = `#${id}`;
+  anchor.innerHTML = '<i class="fa fa-link"></i>';
+  return anchor;
+}
+
+/**
+ * Aux function to retrieve repository stars and watchers count info from
+ * @param {string}	level The specific level to select header from.
+ * @param {Element}	containingElement The element receiving the anchor.
+ */
+function linkifyAnchors(level, containingElement) {
+  const headers = containingElement.getElementsByTagName(`h${level}`);
+  [...headers].map(header => {
+    if (typeof header.id !== "undefined" && header.id !== "") {
+      header.append(anchorForId(header.id));
+    }
+  });
+}
+
+/**
+ * Function
+ */
+function linkifyAllLevels() {
+  const content = document.querySelector("#content");
+  [...Array(7).keys()].map(level => {
+    linkifyAnchors(level, content);
+  });
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  activateToggle();
+  activateMenuNesting();
+  loadGitHubStats();
+  linkifyAllLevels();
+});
