@@ -18,7 +18,7 @@ A microsite is an instance of Jekyll, ready to publish a static web page for you
 To begin, add the following lines to the `project/plugins.sbt` file within your project or sbt module where you want to use the `sbt-microsites` plugin.
 
 ```
-addSbtPlugin("com.47deg"  % "sbt-microsites" % "0.0.0")
+addSbtPlugin("com.47deg"  % "sbt-microsites" % "1.4.0")
 ```
 
 Finally, to enable the plugin, add this to your `build.sbt` file:
