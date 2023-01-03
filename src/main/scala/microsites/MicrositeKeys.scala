@@ -16,55 +16,46 @@
 
 package microsites
 
-import java.nio.file._
-
+import java.nio.file.*
 import cats.effect.IO
 import cats.effect.unsafe.implicits.global
-import com.github.sbt.sbtghpages.GhpagesPlugin.autoImport._
+import com.github.sbt.sbtghpages.GhpagesPlugin.autoImport.*
 import com.typesafe.sbt.site.SitePlugin.autoImport.makeSite
-import io.circe._
-import io.circe.generic.semiauto._
-import io.circe.syntax._
-import mdoc.MdocPlugin.autoImport._
+import io.circe.*
+import io.circe.generic.semiauto.*
+import io.circe.syntax.*
+import mdoc.MdocPlugin.autoImport.*
 import microsites.github.GitHubOps
-import microsites.ioops.FileWriter._
-import microsites.ioops._
-import microsites.ioops.syntax._
+import microsites.ioops.FileWriter.*
+import microsites.ioops.*
+import microsites.ioops.syntax.*
 import microsites.util.MicrositeHelper
 import org.http4s.blaze.client.BlazeClientBuilder
-import sbt.Keys._
-import sbt._
+import sbt.Keys.*
+import sbt.*
 import sbt.complete.DefaultParsers.OptNotSpace
-import sbt.io.{IO => FIO}
+import sbt.io.IO as FIO
 
-import scala.concurrent.ExecutionContext
-import scala.sys.process._
+import scala.language.implicitConversions
+import scala.sys.process.*
+
+sealed abstract class GitHostingService(val name: String) extends Product with Serializable
+case object GitHub                                        extends GitHostingService("GitHub")
+case object GitLab                                        extends GitHostingService("GitLab")
+case object Bitbucket                                     extends GitHostingService("Bitbucket")
+final case class Other(value: String)                     extends GitHostingService(value)
+
+sealed abstract class PushWith(val name: String) extends Product with Serializable
+case object GHPagesPlugin                        extends PushWith("ghPagesPlugin")
+case object GitHub4s                             extends PushWith("github4s")
+
+case class Version(name: String, own: Boolean)
+object Version {
+  implicit val encoder: Encoder[Version] = deriveEncoder[Version]
+  implicit val decoder: Decoder[Version] = deriveDecoder[Version]
+}
 
 trait MicrositeKeys {
-
-  sealed abstract class GitHostingService(val name: String) extends Product with Serializable
-  final case object GitHub                                  extends GitHostingService("GitHub")
-  final case object GitLab                                  extends GitHostingService("GitLab")
-  final case object Bitbucket                               extends GitHostingService("Bitbucket")
-  final case class Other(value: String)                     extends GitHostingService(value)
-
-  sealed abstract class PushWith(val name: String) extends Product with Serializable
-  final case object GHPagesPlugin                  extends PushWith("ghPagesPlugin")
-  final case object GitHub4s                       extends PushWith("github4s")
-
-  object GitHostingService {
-    implicit def string2GitHostingService(name: String): GitHostingService = {
-      List(GitHub, GitLab, Bitbucket)
-        .find(_.name.toLowerCase == name.toLowerCase)
-        .getOrElse(Other(name))
-    }
-  }
-
-  case class Version(name: String, own: Boolean)
-  object Version {
-    implicit val encoder: Encoder[Version] = deriveEncoder[Version]
-    implicit val decoder: Decoder[Version] = deriveDecoder[Version]
-  }
 
   val makeMicrosite: TaskKey[Unit] = taskKey[Unit]("Main task to build a microsite")
   val makeMdoc: TaskKey[Unit] =
@@ -227,7 +218,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 
   lazy val fr = new FileReader
 
-  def createVersionsJson(targetDir: String, content: List[Version]): File = {
+  private def createVersionsJson(targetDir: String, content: List[Version]): File = {
     val jekyllDir  = "jekyll"
     val targetPath = s"$targetDir$jekyllDir/_data/versions.json"
     createFile(targetPath)
@@ -235,13 +226,14 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
     targetPath.toFile
   }
 
-  def generateVersionList(versionStringList: List[String], ownVersion: String) = {
+  private def generateVersionList(
+      versionStringList: List[String],
+      ownVersion: String
+  ): List[Version] =
     versionStringList
-      .map(version => Version(version, own = (ownVersion == version)))
-      .toList
-  }
+      .map(version => Version(version, own = ownVersion == version))
 
-  def pluginProjects(pluginName: String): Option[Array[String]] = {
+  private def pluginProjects(pluginName: String): Option[Array[String]] = {
     val sbtPluginsOutput = "sbt --error plugins".lineStream
     val pluginLine =
       sbtPluginsOutput.find(_.trim.startsWith(s"$pluginName: enabled in "))
@@ -250,7 +242,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
   }
 
   // Generate a microsite externally through sbt and sbt-microsites tasks
-  def createMicrositeVersion(
+  private def createMicrositeVersion(
       sourceDir: String,
       targetDir: String,
       baseUrl: String,
@@ -278,7 +270,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 
   lazy val micrositeHelper: Def.Initialize[MicrositeHelper] = Def.setting {
     val baseUrl =
-      if (!micrositeBaseUrl.value.isEmpty && !micrositeBaseUrl.value.startsWith("/"))
+      if (micrositeBaseUrl.value.nonEmpty && !micrositeBaseUrl.value.startsWith("/"))
         s"/${micrositeBaseUrl.value}"
       else micrositeBaseUrl.value
 
@@ -380,7 +372,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
             case _      => ""
           },
           githubLinks = micrositeGithubLinks.value,
-          gitHostingService = micrositeGitHostingService.value.name,
+          gitHostingService = micrositeGitHostingService.value,
           gitHostingUrl = micrositeGitHostingUrl.value,
           gitSidecarChat = micrositeGitterChannel.value,
           gitSidecarChatUrl = micrositeGitterChannelUrl.value
@@ -398,12 +390,12 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
     )
   }
 
-  lazy val micrositeTasksSettings = Seq(
-    microsite := (micrositeHelper.value
-      .createResources(resourceManagedDir = (Compile / resourceManaged).value)),
+  lazy val micrositeTasksSettings: Seq[Def.Setting[?]] = Seq(
+    microsite := micrositeHelper.value
+      .createResources(resourceManagedDir = (Compile / resourceManaged).value),
     micrositeMakeExtraMdFiles := micrositeHelper.value.buildAdditionalMd(),
-    makeMdoc                  := (Def.sequential(mdoc.toTask(""), micrositeMakeExtraMdFiles).value),
-    makeMicrosite             := (Def.sequential(microsite, makeMdoc, makeSite).value),
+    makeMdoc                  := Def.sequential(mdoc.toTask(""), micrositeMakeExtraMdFiles).value,
+    makeMicrosite             := Def.sequential(microsite, makeMdoc, makeSite).value,
     makeVersionsJson := {
       "which git".! match {
         case 0 => ()
@@ -415,7 +407,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val currentBranchTag  = "git name-rev --name-only HEAD".!!.trim
 
       val versionList = generateVersionList(
-        (currentBranchTag :: micrositeVersionList.value.toList),
+        currentBranchTag :: micrositeVersionList.value.toList,
         currentBranchTag
       )
 
@@ -453,7 +445,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       micrositeVersionList.value.foreach { tag =>
         Files.move(
           Paths.get(s"$genDocsDir/$tag"),
-          Paths.get(s"${publishingDir.getPath()}/$tag"),
+          Paths.get(s"${publishingDir.getPath}/$tag"),
           StandardCopyOption.REPLACE_EXISTING
         )
       }
@@ -476,8 +468,6 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val githubOwner: String           = micrositeGithubOwner.value
       val githubRepo: String            = micrositeGithubRepo.value
       val githubToken: Option[String]   = micrositeGithubToken.value
-
-      implicit val executionContext: ExecutionContext = ExecutionContext.global
 
       lazy val log: Logger = streams.value.log
 

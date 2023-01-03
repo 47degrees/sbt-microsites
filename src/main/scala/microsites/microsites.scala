@@ -48,7 +48,7 @@ case class MicrositeGitSettings(
     githubOwner: String,
     githubRepo: String,
     githubLinks: Boolean,
-    gitHostingService: MicrositeKeys.GitHostingService,
+    gitHostingService: GitHostingService,
     gitHostingUrl: String,
     gitSidecarChat: Boolean,
     gitSidecarChatUrl: String
@@ -98,7 +98,7 @@ case class MicrositeSettings(
 
   def gitSiteUrl: String = {
     (gitSettings.gitHostingService, gitSettings.gitHostingUrl) match {
-      case (MicrositeKeys.GitHub, "") =>
+      case (GitHub, "") =>
         s"https://github.com/${gitSettings.githubOwner}/${gitSettings.githubRepo}"
       case _ => gitSettings.gitHostingUrl
     }
@@ -106,10 +106,10 @@ case class MicrositeSettings(
 
   def gitHostingIconClass: String = {
     gitSettings.gitHostingService match {
-      case MicrositeKeys.GitHub    => "fa-github"
-      case MicrositeKeys.GitLab    => "fa-gitlab"
-      case MicrositeKeys.Bitbucket => "fa-bitbucket"
-      case _                       => "fa-git"
+      case GitHub    => "fa-github"
+      case GitLab    => "fa-gitlab"
+      case Bitbucket => "fa-bitbucket"
+      case _         => "fa-git"
     }
   }
 }
