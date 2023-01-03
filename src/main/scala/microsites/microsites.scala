@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023 47 Degrees Open Source <https://www.47deg.com>
+ * Copyright 2016-2022 47 Degrees Open Source <https://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ case class MicrositeGitSettings(
     githubOwner: String,
     githubRepo: String,
     githubLinks: Boolean,
-    gitHostingService: GitHostingService,
+    gitHostingService: MicrositeKeys.GitHostingService,
     gitHostingUrl: String,
     gitSidecarChat: Boolean,
     gitSidecarChatUrl: String
@@ -98,7 +98,7 @@ case class MicrositeSettings(
 
   def gitSiteUrl: String = {
     (gitSettings.gitHostingService, gitSettings.gitHostingUrl) match {
-      case (GitHub, "") =>
+      case (MicrositeKeys.GitHub, "") =>
         s"https://github.com/${gitSettings.githubOwner}/${gitSettings.githubRepo}"
       case _ => gitSettings.gitHostingUrl
     }
@@ -106,10 +106,10 @@ case class MicrositeSettings(
 
   def gitHostingIconClass: String = {
     gitSettings.gitHostingService match {
-      case GitHub    => "fa-github"
-      case GitLab    => "fa-gitlab"
-      case Bitbucket => "fa-bitbucket"
-      case _         => "fa-git"
+      case MicrositeKeys.GitHub    => "fa-github"
+      case MicrositeKeys.GitLab    => "fa-gitlab"
+      case MicrositeKeys.Bitbucket => "fa-bitbucket"
+      case _                       => "fa-git"
     }
   }
 }

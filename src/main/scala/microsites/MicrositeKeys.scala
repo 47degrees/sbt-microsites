@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023 47 Degrees Open Source <https://www.47deg.com>
+ * Copyright 2016-2022 47 Degrees Open Source <https://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,23 +39,31 @@ import sbt.io.IO as FIO
 import scala.language.implicitConversions
 import scala.sys.process.*
 
-sealed abstract class GitHostingService(val name: String) extends Product with Serializable
-case object GitHub                                        extends GitHostingService("GitHub")
-case object GitLab                                        extends GitHostingService("GitLab")
-case object Bitbucket                                     extends GitHostingService("Bitbucket")
-final case class Other(value: String)                     extends GitHostingService(value)
-
-sealed abstract class PushWith(val name: String) extends Product with Serializable
-case object GHPagesPlugin                        extends PushWith("ghPagesPlugin")
-case object GitHub4s                             extends PushWith("github4s")
-
-case class Version(name: String, own: Boolean)
-object Version {
-  implicit val encoder: Encoder[Version] = deriveEncoder[Version]
-  implicit val decoder: Decoder[Version] = deriveDecoder[Version]
-}
-
 trait MicrositeKeys {
+
+  sealed abstract class GitHostingService(val name: String) extends Product with Serializable
+  final case object GitHub                                  extends GitHostingService("GitHub")
+  final case object GitLab                                  extends GitHostingService("GitLab")
+  final case object Bitbucket                               extends GitHostingService("Bitbucket")
+  final case class Other(value: String)                     extends GitHostingService(value)
+
+  sealed abstract class PushWith(val name: String) extends Product with Serializable
+  final case object GHPagesPlugin                  extends PushWith("ghPagesPlugin")
+  final case object GitHub4s                       extends PushWith("github4s")
+
+  object GitHostingService {
+    implicit def string2GitHostingService(name: String): GitHostingService = {
+      List(GitHub, GitLab, Bitbucket)
+        .find(_.name.toLowerCase == name.toLowerCase)
+        .getOrElse(Other(name))
+    }
+  }
+
+  case class Version(name: String, own: Boolean)
+  object Version {
+    implicit val encoder: Encoder[Version] = deriveEncoder[Version]
+    implicit val decoder: Decoder[Version] = deriveDecoder[Version]
+  }
 
   val makeMicrosite: TaskKey[Unit] = taskKey[Unit]("Main task to build a microsite")
   val makeMdoc: TaskKey[Unit] =
@@ -372,7 +380,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
             case _      => ""
           },
           githubLinks = micrositeGithubLinks.value,
-          gitHostingService = micrositeGitHostingService.value,
+          gitHostingService = micrositeGitHostingService.value.name,
           gitHostingUrl = micrositeGitHostingUrl.value,
           gitSidecarChat = micrositeGitterChannel.value,
           gitSidecarChatUrl = micrositeGitterChannelUrl.value

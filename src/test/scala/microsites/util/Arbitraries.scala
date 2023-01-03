@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2023 47 Degrees Open Source <https://www.47deg.com>
+ * Copyright 2016-2022 47 Degrees Open Source <https://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package microsites.util
 import java.io.File
 
 import microsites.*
+import microsites.MicrositeKeys.*
 import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 import org.scalacheck.Gen.*
@@ -78,7 +79,7 @@ trait Arbitraries {
     Arbitrary {
       oneOf(
         oneOf(GitHub, GitLab, Bitbucket),
-        Arbitrary.arbitrary[String].map(Other.apply)
+        Arbitrary.arbitrary[String].map(Other(_))
       )
     }
 
