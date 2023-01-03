@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2022 47 Degrees Open Source <https://www.47deg.com>
+ * Copyright 2016-2023 47 Degrees Open Source <https://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,12 @@
 package microsites.github
 
 import java.io.File
-import java.util.Base64
 
 import cats.data.{NonEmptyList, OptionT}
 import cats.effect.{Ref as _, *}
 import cats.effect.kernel.Temporal
 import cats.implicits.*
+import com.github.marklister.base64.Base64.*
 import github4s.*
 import github4s.domain.*
 import microsites.Exceptions.*
@@ -117,15 +117,7 @@ class GitHubOps[F[_]: Async: Temporal](
       ): F[TreeDataSha] =
         for {
           gh <- ghWithRateLimit
-          res <- run(
-            gh.gitData.createBlob(
-              owner,
-              repo,
-              Base64.getEncoder.encode(array).mkString(""),
-              Some("base64"),
-              headers
-            )
-          )
+          res <- run(gh.gitData.createBlob(owner, repo, array.toBase64, Some("base64"), headers))
             .map(refInfo => TreeDataSha(filePath, blobMode, blobType, refInfo.sha))
         } yield res
 
