@@ -22,6 +22,7 @@ import cats.data.{NonEmptyList, OptionT}
 import cats.effect.{Ref => _, _}
 import cats.effect.kernel.Temporal
 import cats.implicits._
+import com.github.marklister.base64.Base64._
 import github4s._
 import github4s.domain._
 import microsites.Exceptions._
@@ -115,15 +116,7 @@ class GitHubOps[F[_]: Async: Temporal](
       ): F[TreeDataSha] =
         for {
           gh <- ghWithRateLimit
-          res <- run(
-            gh.gitData.createBlob(
-              owner,
-              repo,
-              Base64.getEncoder().encode(array).mkString(""),
-              Some("base64"),
-              headers
-            )
-          )
+          res <- run(gh.gitData.createBlob(owner, repo, array.toBase64, Some("base64"), headers))
             .map(refInfo => TreeDataSha(filePath, blobMode, blobType, refInfo.sha))
         } yield res
 
