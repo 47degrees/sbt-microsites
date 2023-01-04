@@ -8,25 +8,9 @@
 
 The maintainers of the project are:
 
-- [![47erbot](https://avatars.githubusercontent.com/u/24799081?v=4&s=20) **47erbot**](https://github.com/47erbot)
-- [![AdrianRaFo](https://avatars.githubusercontent.com/u/15971742?v=4&s=20) **Adrian Ramirez Fornell (AdrianRaFo)**](https://github.com/AdrianRaFo)
-- [![anamariamv](https://avatars.githubusercontent.com/u/2183589?v=4&s=20) **Ana Mª Marquez (anamariamv)**](https://github.com/anamariamv)
-- [![AntonioMateoGomez](https://avatars.githubusercontent.com/u/25897490?v=4&s=20) **Antonio Mateo (AntonioMateoGomez)**](https://github.com/AntonioMateoGomez)
 - [![cb372](https://avatars.githubusercontent.com/u/106760?v=4&s=20) **Chris Birchall (cb372)**](https://github.com/cb372)
-- [![diesalbla](https://avatars.githubusercontent.com/u/1764610?v=4&s=20) **Diego E. Alonso Blas (diesalbla)**](https://github.com/diesalbla)
-- [![dominv](https://avatars.githubusercontent.com/u/3943031?v=4&s=20) **Domingo Valera (dominv)**](https://github.com/dominv)
-- [![fedefernandez](https://avatars.githubusercontent.com/u/720923?v=4&s=20) **Fede Fernández (fedefernandez)**](https://github.com/fedefernandez)
 - [![franciscodr](https://avatars.githubusercontent.com/u/1200151?v=4&s=20) **Francisco Diaz (franciscodr)**](https://github.com/franciscodr)
-- [![israelpzglez](https://avatars.githubusercontent.com/u/646886?v=4&s=20) **Israel Pérez (israelpzglez)**](https://github.com/israelpzglez)
-- [![jkmcclellan](https://avatars.githubusercontent.com/u/52432856?v=4&s=20) **Jason McClellan (jkmcclellan)**](https://github.com/jkmcclellan)
-- [![jdesiloniz](https://avatars.githubusercontent.com/u/2835739?v=4&s=20) **Javier de Silóniz Sandino (jdesiloniz)**](https://github.com/jdesiloniz)
 - [![juanpedromoreno](https://avatars.githubusercontent.com/u/4879373?v=4&s=20) **Juan Pedro Moreno (juanpedromoreno)**](https://github.com/juanpedromoreno)
-- [![calvellido](https://avatars.githubusercontent.com/u/7753447?v=4&s=20) **Juan Valencia (calvellido)**](https://github.com/calvellido)
-- [![MaureenElsberry](https://avatars.githubusercontent.com/u/17556002?v=4&s=20) **Maureen Elsberry  (MaureenElsberry)**](https://github.com/MaureenElsberry)
-- [![noelmarkham](https://avatars.githubusercontent.com/u/1492487?v=4&s=20) **Noel Markham (noelmarkham)**](https://github.com/noelmarkham)
-- [![rafaparadela](https://avatars.githubusercontent.com/u/315070?v=4&s=20) **Rafa Paradela (rafaparadela)**](https://github.com/rafaparadela)
-- [![raulraja](https://avatars.githubusercontent.com/u/456796?v=4&s=20) **Raúl Raja Martínez (raulraja)**](https://github.com/raulraja)
-- [![sloshy](https://avatars.githubusercontent.com/u/427237?v=4&s=20) **Ryan Peters (sloshy)**](https://github.com/sloshy)
 
 ## Contributors
 
