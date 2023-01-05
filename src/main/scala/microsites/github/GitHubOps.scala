@@ -19,21 +19,19 @@ package microsites.github
 import java.io.File
 
 import cats.data.{NonEmptyList, OptionT}
-import cats.effect.{Ref => _, _}
+import cats.effect.{Ref as _, *}
 import cats.effect.kernel.Temporal
-import cats.implicits._
-import com.github.marklister.base64.Base64._
-import github4s._
-import github4s.domain._
-import microsites.Exceptions._
-import microsites.github.Config._
-import microsites.ioops.{FileReader, IOUtils => FIO}
-import org.http4s.client._
+import cats.implicits.*
+import com.github.marklister.base64.Base64.*
+import github4s.*
+import github4s.domain.*
+import microsites.Exceptions.*
+import microsites.github.Config.*
+import microsites.ioops.{FileReader, IOUtils as FIO}
+import org.http4s.client.*
 
-import scala.concurrent.ExecutionContext
-import scala.concurrent.duration._
-
-import java.util.Base64
+import scala.concurrent.duration.*
+import scala.language.higherKinds
 
 class GitHubOps[F[_]: Async: Temporal](
     client: Client[F],
@@ -41,22 +39,25 @@ class GitHubOps[F[_]: Async: Temporal](
     repo: String,
     accessToken: Option[String],
     fileReader: FileReader = FileReader
-)(implicit ec: ExecutionContext) {
+) {
 
-  val gh: Github[F]                = Github[F](client, accessToken)
-  val headers: Map[String, String] = Map("user-agent" -> "sbt-microsites")
+  private val gh: Github[F]                = Github[F](client, accessToken)
+  private val headers: Map[String, String] = Map("user-agent" -> "sbt-microsites")
 
   def commitDir(branch: String, message: String, dir: File): F[Ref] =
     Sync[F]
       .delay(fileReader.fetchDirsRecursively(List(dir)))
-      .handleError(e => throw IOException(s"Error fetching files recursively", Some(e)))
       .flatMap {
-        case Nil => throw IOException(s"Nothing to commit in dir ${dir.getAbsolutePath}")
+        case Nil =>
+          IOException(s"Nothing to commit in dir ${dir.getAbsolutePath}").raiseError[F, Ref]
         case h :: t =>
           commitDirAux(branch, message, dir, NonEmptyList(h, t))
       }
+      .handleErrorWith { e =>
+        IOException(s"Error fetching files recursively", Some(e)).raiseError[F, Ref]
+      }
 
-  def commitDirAux(
+  private def commitDirAux(
       branch: String,
       message: String,
       baseDir: File,
@@ -186,7 +187,7 @@ class GitHubOps[F[_]: Async: Temporal](
     } yield refCommit
   }
 
-  def fetchHeadCommit(branch: String): F[Ref] = {
+  private def fetchHeadCommit(branch: String): F[Ref] = {
     def findReference(refs: NonEmptyList[Ref]): Ref =
       refs.find(_.ref == s"refs/heads/$branch") match {
         case Some(ref) => ref
@@ -200,12 +201,12 @@ class GitHubOps[F[_]: Async: Temporal](
     ).map(findReference)
   }
 
-  def updateHead(branch: String, commitSha: String): F[Ref] =
+  private def updateHead(branch: String, commitSha: String): F[Ref] =
     run(
       gh.gitData.updateReference(owner, repo, s"heads/$branch", commitSha, force = false, headers)
     )
 
-  def run[A](f: F[GHResponse[A]]): F[A] =
+  private def run[A](f: F[GHResponse[A]]): F[A] =
     f.map(_.result match {
       case Right(r) => r
       case Left(e)  => throw GitHub4sException("Error making request to GitHub", Some(e))
@@ -213,5 +214,5 @@ class GitHubOps[F[_]: Async: Temporal](
 
   // Due to GitHub abuse rate limits, we should wait 1 sec between each request
   // https://developer.github.com/guides/best-practices-for-integrators/#dealing-with-abuse-rate-limits
-  def ghWithRateLimit: F[Github[F]] = Temporal[F].sleep(1.second).as(gh)
+  private def ghWithRateLimit: F[Github[F]] = Temporal[F].sleep(1.second).as(gh)
 }

@@ -19,12 +19,12 @@ package microsites
 import com.github.sbt.git.SbtGit.git
 import com.github.sbt.sbtghpages.GhpagesPlugin
 import com.typesafe.sbt.site.jekyll.JekyllPlugin
-import com.typesafe.sbt.site.SitePlugin.autoImport._
-import sbt.Keys._
-import sbt._
-import sbt.plugins.IvyPlugin
+import com.typesafe.sbt.site.SitePlugin.autoImport.*
 import mdoc.MdocPlugin
-import mdoc.MdocPlugin.autoImport._
+import mdoc.MdocPlugin.autoImport.*
+import sbt.Keys.*
+import sbt.*
+import sbt.plugins.IvyPlugin
 
 import scala.util.control.NonFatal
 
@@ -32,15 +32,15 @@ object MicrositesPlugin extends AutoPlugin {
 
   object autoImport extends MicrositeAutoImportSettings
 
-  import MicrositesPlugin.autoImport._
-  import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport._
+  import MicrositesPlugin.autoImport.*
+  import com.typesafe.sbt.site.jekyll.JekyllPlugin.autoImport.*
 
   override def requires: Plugins =
     IvyPlugin && MdocPlugin && JekyllPlugin && GhpagesPlugin
 
   override def trigger: PluginTrigger = allRequirements
 
-  override def projectSettings: Seq[Def.Setting[_]] =
+  override def projectSettings: Seq[Def.Setting[?]] =
     micrositeDefaultSettings ++
       micrositeTasksSettings ++
       Seq(
@@ -50,7 +50,7 @@ object MicrositesPlugin extends AutoPlugin {
         mdocOut                  := resourceManaged.value / "main" / "jekyll"
       )
 
-  lazy val micrositeDefaultSettings = Seq(
+  private lazy val micrositeDefaultSettings: Seq[Def.Setting[?]] = Seq(
     micrositeName        := name.value,
     micrositeDescription := description.value,
     micrositeAuthor      := organizationName.value,
@@ -132,7 +132,7 @@ object MicrositesPlugin extends AutoPlugin {
 
   /** Gets the Github user and repository from the git remote info */
   private val gitRemoteInfo = {
-    import scala.sys.process._
+    import scala.sys.process.*
 
     val identifier = """([^\/]+)"""
 
