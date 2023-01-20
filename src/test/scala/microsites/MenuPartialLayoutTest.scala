@@ -27,11 +27,12 @@ class MenuPartialLayoutTest extends AnyFunSuite with Checkers with Matchers with
 
   test("render should return a div container") {
 
-    val property = forAll { settings: MicrositeSettings ⇒
-      val layout = new MenuPartialLayout(settings)
+    val property = forAll {
+      settings: MicrositeSettings ⇒
+        val layout = new MenuPartialLayout(settings)
 
-      layout.render.tag shouldBe "div"
-      !layout.render.void
+        layout.render.tag shouldBe "div"
+        !layout.render.void
     }
 
     check(property)
