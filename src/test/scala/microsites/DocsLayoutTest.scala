@@ -27,11 +27,12 @@ class DocsLayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitr
 
   test("render should return a html document") {
 
-    val property = forAll { settings: MicrositeSettings ⇒
-      val layout = new DocsLayout(settings)
+    val property = forAll {
+      settings: MicrositeSettings ⇒
+        val layout = new DocsLayout(settings)
 
-      layout.render.tag shouldBe "html"
-      !layout.render.void
+        layout.render.tag shouldBe "html"
+        !layout.render.void
     }
 
     check(property)
@@ -39,11 +40,12 @@ class DocsLayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitr
 
   test("sideBarAndContent should return at least a div container") {
 
-    val property = forAll { settings: MicrositeSettings ⇒
-      val layout = new DocsLayout(settings)
+    val property = forAll {
+      settings: MicrositeSettings ⇒
+        val layout = new DocsLayout(settings)
 
-      layout.sideBarAndContent.tag shouldBe "div"
-      !layout.sideBarAndContent.void
+        layout.sideBarAndContent.tag shouldBe "div"
+        !layout.sideBarAndContent.void
     }
 
     check(property)

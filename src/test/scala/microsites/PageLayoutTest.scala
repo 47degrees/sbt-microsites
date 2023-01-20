@@ -27,11 +27,12 @@ class PageLayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitr
 
   test("render should return a html document") {
 
-    val property = forAll { settings: MicrositeSettings ⇒
-      val layout = new PageLayout(settings)
+    val property = forAll {
+      settings: MicrositeSettings ⇒
+        val layout = new PageLayout(settings)
 
-      layout.render.tag shouldBe "html"
-      !layout.render.void
+        layout.render.tag shouldBe "html"
+        !layout.render.void
     }
 
     check(property)
@@ -39,11 +40,12 @@ class PageLayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitr
 
   test("homeHeader should return a `header` TypeTag") {
 
-    val property = forAll { settings: MicrositeSettings ⇒
-      val layout = new PageLayout(settings)
+    val property = forAll {
+      settings: MicrositeSettings ⇒
+        val layout = new PageLayout(settings)
 
-      layout.pageHeader.tag shouldBe "header"
-      !layout.pageHeader.void
+        layout.pageHeader.tag shouldBe "header"
+        !layout.pageHeader.void
     }
 
     check(property)
