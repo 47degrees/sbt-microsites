@@ -21,6 +21,7 @@ import cats.effect.IO
 import cats.effect.unsafe.implicits.global
 import com.github.sbt.sbtghpages.GhpagesPlugin.autoImport.*
 import com.typesafe.sbt.site.SitePlugin.autoImport.makeSite
+import github4s.GithubConfig
 import io.circe.*
 import io.circe.generic.semiauto.*
 import io.circe.syntax.*
@@ -491,8 +492,20 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 
             BlazeClientBuilder[IO].resource
               .use { client =>
-                val ghOps: GitHubOps[IO] =
-                  new GitHubOps[IO](client, githubOwner, githubRepo, githubToken)
+
+                implicit val config: GithubConfig = if(micrositeGitHostingUrl.value.nonEmpty) {
+                  val url = new URL(micrositeGitHostingUrl.value)
+                  val replaceHost: String => String = s => s.replace("github.com", url.getHost)
+
+                   GithubConfig.default
+                    .copy(
+                      baseUrl = replaceHost(s"${GithubConfig.default.baseUrl}"),
+                      authorizeUrl = replaceHost(s"${GithubConfig.default.authorizeUrl}"),
+                      accessTokenUrl = replaceHost(s"${GithubConfig.default.accessTokenUrl}")
+                    )
+                } else GithubConfig.default
+
+                val ghOps = new GitHubOps[IO](client, githubOwner, githubRepo, githubToken)(implicitly, implicitly, config)
 
                 if (noJekyll) FIO.touch(siteDir / ".nojekyll")
 
