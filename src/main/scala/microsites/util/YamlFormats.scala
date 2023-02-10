@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021 47 Degrees Open Source <https://www.47deg.com>
+ * Copyright 2016-2023 47 Degrees Open Source <https://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,20 +16,24 @@
 
 package microsites.util
 
-import net.jcazevedo.moultingyaml._
+import net.jcazevedo.moultingyaml.*
 
 object YamlFormats extends DefaultYamlProtocol {
 
   implicit object AnyYamlFormat extends YamlFormat[Any] {
     def write(x: Any): YamlValue =
       x match {
-        case n: Int            => YamlNumber(n)
-        case n: Long           => YamlNumber(n)
-        case n: Double         => YamlNumber(n)
-        case s: String         => YamlString(s)
-        case b: Boolean        => YamlBoolean(b)
-        case x: Seq[_]         => seqFormat[Any].write(x)
-        case m: Map[String, _] => mapFormat[String, Any].write(m)
+        case n: Int     => YamlNumber(n)
+        case n: Long    => YamlNumber(n)
+        case n: Double  => YamlNumber(n)
+        case s: String  => YamlString(s)
+        case b: Boolean => YamlBoolean(b)
+        case x: Seq[?]  => seqFormat[Any].write(x)
+        case m: Map[?, ?] =>
+          val stringMap = m.collect { case (k: String, v) =>
+            (k, v)
+          }
+          mapFormat[String, Any].write(stringMap)
         case t =>
           serializationError("Serialization Error - Non expected type " + t.getClass.getName)
       }

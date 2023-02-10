@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2021 47 Degrees Open Source <https://www.47deg.com>
+ * Copyright 2016-2023 47 Degrees Open Source <https://www.47deg.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,11 +27,12 @@ class DocsLayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitr
 
   test("render should return a html document") {
 
-    val property = forAll { settings: MicrositeSettings ⇒
-      val layout = new DocsLayout(settings)
+    val property = forAll {
+      settings: MicrositeSettings ⇒
+        val layout = new DocsLayout(settings)
 
-      layout.render.tag shouldBe "html"
-      !layout.render.void
+        layout.render.tag shouldBe "html"
+        !layout.render.void
     }
 
     check(property)
@@ -39,11 +40,12 @@ class DocsLayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitr
 
   test("sideBarAndContent should return at least a div container") {
 
-    val property = forAll { settings: MicrositeSettings ⇒
-      val layout = new DocsLayout(settings)
+    val property = forAll {
+      settings: MicrositeSettings ⇒
+        val layout = new DocsLayout(settings)
 
-      layout.sideBarAndContent.tag shouldBe "div"
-      !layout.sideBarAndContent.void
+        layout.sideBarAndContent.tag shouldBe "div"
+        !layout.sideBarAndContent.void
     }
 
     check(property)

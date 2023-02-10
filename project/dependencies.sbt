@@ -6,8 +6,9 @@ unmanagedResourceDirectories in Compile +=
 
 libraryDependencies ++= Seq(
   "com.47deg"             %% "github4s"            % "0.31.2",
-  "org.http4s"            %% "http4s-blaze-client" % "0.23.12",
+  "org.http4s"            %% "http4s-blaze-client" % "0.23.13",
   "net.jcazevedo"         %% "moultingyaml"        % "0.4.2",
   "com.lihaoyi"           %% "scalatags"           % "0.12.0",
-  "com.sksamuel.scrimage" %% "scrimage-scala"      % "4.0.32"
+  "com.sksamuel.scrimage" %% "scrimage-scala"      % "4.0.33",
+  "com.github.marklister" %% "base64"              % "0.3.0"
 )
