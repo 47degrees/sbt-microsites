@@ -67,7 +67,7 @@ micrositeDocumentationLabelDescription := "Documentation"
 - `micrositeAuthor`: The author of the microsite is taken from this sbt setting. However, if nothing is specified, the default value will be `organizationName`, but you can override it, as we can see in this example:
 
 ```scala
-micrositeAuthor := "47 Degrees"
+micrositeAuthor := "Xebia Functional"
 ```
 
 - `micrositeHomepage`: Used for the homepage URL, similar to the way we've seen in other properties. This link is used in the footer-left link in the microsite. By default, the value is taken from the sbt setting `homepage`.
@@ -357,7 +357,7 @@ micrositeConfigYaml := ConfigYml(
 )
 ```
 
-- `micrositeFooterText`: This setting allows the optional configuration of the second line in the footer. By default, it is set to `Some("""Website built with "Sbt-microsites © 2019 47 Degrees""")`. **This string is passed in unsanitized to the templating engine.**. If this setting is set to `None`, the second line is not displayed.
+- `micrositeFooterText`: This setting allows the optional configuration of the second line in the footer. By default, it is set to `Some("""Website built with "Sbt-microsites © 2019 Xebia Functional""")`. **This string is passed in unsanitized to the templating engine.**. If this setting is set to `None`, the second line is not displayed.
 
 ```scala
 micrositeFooterText := Some("<b>Bob</b> the <i>Builder</i>")
