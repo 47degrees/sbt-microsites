@@ -59,8 +59,8 @@ class MicrositeAutoImportSettingsTest
 
         val actualGitBaseUrl = new URL(githubConfig.baseUrl)
         actualGitBaseUrl.getProtocol shouldBe "https"
-        actualGitBaseUrl.getHost shouldBe s"api.${gitSiteUrl.getHost}"
-        actualGitBaseUrl.getPath shouldBe new URL(GithubConfig.default.baseUrl).getPath
+        actualGitBaseUrl.getHost shouldBe gitSiteUrl.getHost
+        actualGitBaseUrl.getPath shouldBe "/api/v3"
 
         val actualGitAuthorizeUrl = new URL(githubConfig.authorizeUrl)
         actualGitAuthorizeUrl.getProtocol shouldBe "https"

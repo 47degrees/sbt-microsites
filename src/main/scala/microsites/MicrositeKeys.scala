@@ -497,7 +497,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 
                 implicit val config: GithubConfig =
                   buildGithubConfig(micrositeGitHostingUrl.value)(log)
-                val ghOps = new GitHubOps[IO](client, githubOwner, githubRepo, githubToken)
+                val ghOps: GitHubOps[IO] =
+                  new GitHubOps[IO](client, githubOwner, githubRepo, githubToken)
 
                 if (noJekyll) FIO.touch(siteDir / ".nojekyll")
 
@@ -564,8 +565,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         GithubConfig.default
           .copy(
             baseUrl = s"${url.getProtocol}://${url.getHost}/api/v3/",
-            authorizeUrl = replaceHost(s"${GithubConfig.default.authorizeUrl}"),
-            accessTokenUrl = replaceHost(s"${GithubConfig.default.accessTokenUrl}")
+            authorizeUrl = replaceHost(GithubConfig.default.authorizeUrl),
+            accessTokenUrl = replaceHost(GithubConfig.default.accessTokenUrl)
           )
       case Right(url) =>
         log.warn(s"Invalid protocol: ${url.getProtocol}")
