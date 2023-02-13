@@ -19,6 +19,7 @@ package microsites
 import java.nio.file.*
 import cats.effect.IO
 import cats.effect.unsafe.implicits.global
+import cats.syntax.either.*
 import com.github.sbt.sbtghpages.GhpagesPlugin.autoImport.*
 import com.typesafe.sbt.site.SitePlugin.autoImport.makeSite
 import github4s.GithubConfig
@@ -37,6 +38,7 @@ import sbt.*
 import sbt.complete.DefaultParsers.OptNotSpace
 import sbt.io.IO as FIO
 
+import java.net.MalformedURLException
 import scala.language.implicitConversions
 import scala.sys.process.*
 
@@ -493,19 +495,9 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
             BlazeClientBuilder[IO].resource
               .use { client =>
 
-                implicit val config: GithubConfig = if(micrositeGitHostingUrl.value.nonEmpty) {
-                  val url = new URL(micrositeGitHostingUrl.value)
-                  val replaceHost: String => String = s => s.replace("github.com", url.getHost)
-
-                   GithubConfig.default
-                    .copy(
-                      baseUrl = replaceHost(s"${GithubConfig.default.baseUrl}"),
-                      authorizeUrl = replaceHost(s"${GithubConfig.default.authorizeUrl}"),
-                      accessTokenUrl = replaceHost(s"${GithubConfig.default.accessTokenUrl}")
-                    )
-                } else GithubConfig.default
-
-                val ghOps = new GitHubOps[IO](client, githubOwner, githubRepo, githubToken)(implicitly, implicitly, config)
+                implicit val config: GithubConfig =
+                  buildGithubConfig(micrositeGitHostingUrl.value)(log)
+                val ghOps = new GitHubOps[IO](client, githubOwner, githubRepo, githubToken)
 
                 if (noJekyll) FIO.touch(siteDir / ".nojekyll")
 
@@ -562,6 +554,24 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       val extracted = Project.extract(st)
 
       extracted.runTask(publishMultiversionMicrosite, st)._1
+    }
+
+  protected[this] def buildGithubConfig(hostingUrl: String)(implicit log: Logger): GithubConfig =
+    Either.catchOnly[MalformedURLException](new URL(hostingUrl)) match {
+      case Right(url) if url.getProtocol.startsWith("https") =>
+        val replaceHost: String => String = s => s.replace("github.com", url.getHost)
+        GithubConfig.default
+          .copy(
+            baseUrl = replaceHost(s"${GithubConfig.default.baseUrl}"),
+            authorizeUrl = replaceHost(s"${GithubConfig.default.authorizeUrl}"),
+            accessTokenUrl = replaceHost(s"${GithubConfig.default.accessTokenUrl}")
+          )
+      case Right(url) =>
+        log.warn(s"Invalid protocol: ${url.getProtocol}")
+        GithubConfig.default
+      case Left(ex) =>
+        log.error(ex.getMessage)
+        GithubConfig.default
     }
 
   private[this] def validFile(extension: String)(file: File): Boolean =
