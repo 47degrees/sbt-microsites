@@ -558,6 +558,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
 
   protected[this] def buildGithubConfig(hostingUrl: String)(implicit log: Logger): GithubConfig =
     Either.catchOnly[MalformedURLException](new URL(hostingUrl)) match {
+      case Right(url) if url.getHost == "github.com" => GithubConfig.default
       case Right(url) if url.getProtocol.startsWith("https") =>
         val replaceHost: String => String = s => s.replace("github.com", url.getHost)
         GithubConfig.default
