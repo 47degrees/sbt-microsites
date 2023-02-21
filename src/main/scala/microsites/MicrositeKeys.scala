@@ -563,7 +563,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
         val replaceHost: String => String = s => s.replace("github.com", url.getHost)
         GithubConfig.default
           .copy(
-            baseUrl = replaceHost(s"${GithubConfig.default.baseUrl}"),
+            baseUrl = s"${url.getProtocol}://${url.getHost}/api/v3/",
             authorizeUrl = replaceHost(s"${GithubConfig.default.authorizeUrl}"),
             accessTokenUrl = replaceHost(s"${GithubConfig.default.accessTokenUrl}")
           )
