@@ -24,6 +24,8 @@ import org.scalacheck.Arbitrary
 import org.scalacheck.Gen
 import org.scalacheck.Gen.*
 
+import java.net.URL
+
 trait Arbitraries {
 
   implicit def fileArbitrary: Arbitrary[File] =
@@ -99,6 +101,16 @@ trait Arbitraries {
       } yield Some(MicrositeEditButton(text, basePath))
     }
 
+  implicit val urlArbitrary: Arbitrary[URL] =
+    Arbitrary {
+      for {
+        protocol <- Gen.oneOf("http", "https", "ftp", "file")
+        domain   <- Gen.alphaNumStr
+        tld      <- Gen.oneOf("com", "io", "net")
+        path     <- Gen.alphaNumStr
+      } yield new URL(s"$protocol://$domain.$tld/$path")
+    }
+
   implicit def settingsArbitrary: Arbitrary[MicrositeSettings] =
     Arbitrary {
       for {
@@ -135,7 +147,7 @@ trait Arbitraries {
         githubOwner               <- Arbitrary.arbitrary[String]
         githubRepo                <- Arbitrary.arbitrary[String]
         gitHostingService         <- Arbitrary.arbitrary[GitHostingService]
-        gitHostingUrl             <- Arbitrary.arbitrary[String]
+        gitHostingUrl             <- Arbitrary.arbitrary[URL]
         githubLinks               <- Arbitrary.arbitrary[Boolean]
         gitSidecarChat            <- Arbitrary.arbitrary[Boolean]
         gitSidecarChatUrl         <- Arbitrary.arbitrary[String]
@@ -194,7 +206,7 @@ trait Arbitraries {
           githubRepo,
           githubLinks,
           gitHostingService,
-          gitHostingUrl,
+          gitHostingUrl.toString, // ToDo: Change to URL type on codebase
           gitSidecarChat,
           gitSidecarChatUrl
         ),
