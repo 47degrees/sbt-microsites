@@ -43,7 +43,7 @@ lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
     "org.http4s"            %% "http4s-blaze-client" % "0.23.14",
     "net.jcazevedo"         %% "moultingyaml"        % "0.4.2",
     "com.lihaoyi"           %% "scalatags"           % "0.12.0",
-    "com.sksamuel.scrimage" %% "scrimage-scala"      % "4.0.33",
+    "com.sksamuel.scrimage" %% "scrimage-scala"      % "4.0.34",
     "com.github.marklister" %% "base64"              % "0.3.0",
     "org.scalatest"         %% "scalatest"           % "3.2.15"   % Test,
     "org.scalatestplus"     %% "scalacheck-1-15"     % "3.2.11.0" % Test
