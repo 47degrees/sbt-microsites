@@ -64,6 +64,7 @@ These are the people that have contributed to the _sbt-microsites_ project:
 - [![jonas](https://avatars.githubusercontent.com/u/8417?v=4&s=20) **jonas**](https://github.com/jonas)
 - [![mcanlas](https://avatars.githubusercontent.com/u/881934?v=4&s=20) **mcanlas**](https://github.com/mcanlas)
 - [![thesamet](https://avatars.githubusercontent.com/u/307373?v=4&s=20) **thesamet**](https://github.com/thesamet)
+- [![necosta](https://avatars.githubusercontent.com/u/26248959?v=4&s=20) **necosta**](https://github.com/necosta)
 - [![taig](https://avatars.githubusercontent.com/u/567857?v=4&s=20) **taig**](https://github.com/taig)
 - [![pdalpra](https://avatars.githubusercontent.com/u/1514127?v=4&s=20) **pdalpra**](https://github.com/pdalpra)
 - [![metasim](https://avatars.githubusercontent.com/u/131013?v=4&s=20) **metasim**](https://github.com/metasim)
