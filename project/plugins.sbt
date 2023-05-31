@@ -1,3 +1,6 @@
+ThisBuild / libraryDependencySchemes ++= Seq(
+  "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
+)
 addSbtPlugin("com.github.sbt"      % "sbt-ci-release"           % "1.5.12")
 addSbtPlugin("org.scalameta"       % "sbt-scalafmt"             % "2.5.0")
 addSbtPlugin("de.heikoseeberger"   % "sbt-header"               % "5.9.0")
