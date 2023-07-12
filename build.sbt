@@ -35,9 +35,12 @@ lazy val documentation = project
   .enablePlugins(MdocPlugin)
 
 lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
+  libraryDependencySchemes ++= Seq(
+    "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
+  )
   addSbtPlugin("org.scalameta"    % "sbt-mdoc"    % "2.3.7"),
   addSbtPlugin("com.github.sbt"   % "sbt-ghpages" % "0.8.0"),
-  addSbtPlugin("com.typesafe.sbt" % "sbt-site"    % "1.4.1"),
+  addSbtPlugin("com.github.sbt" % "sbt-site"    % "1.5.0"),
   libraryDependencies ++= Seq(
     "com.47deg"             %% "github4s"            % "0.32.0",
     "org.http4s"            %% "http4s-blaze-client" % "0.23.14",
