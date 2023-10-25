@@ -185,7 +185,7 @@ trait MicrositeKeys {
 
   val micrositeAnalyticsToken: SettingKey[String] =
     settingKey[String](
-      "Optional. Add your property id of Google Analytics to add a Google Analytics tracker"
+      "Optional. Add your legacy Universal Access (UA-...) property id of Google Analytics to add a Google Analytics tracker"
     )
   val micrositeGitterChannel: SettingKey[Boolean] = settingKey[Boolean](
     "Optional. Includes Gitter sidecar Chat functionality. Enabled by default."

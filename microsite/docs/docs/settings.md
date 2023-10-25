@@ -124,7 +124,7 @@ micrositeGitHostingService := GitLab
 micrositeGitHostingUrl := "https://gitlab.com/gitlab-org/gitlab-ce"
 ```
 
-- `micrositeAnalyticsToken`: Property id of Google Analytics. This is empty by default.
+- `micrositeAnalyticsToken`: Property id of Google's Universal Analytics token ("UA-...-1"). This is empty by default.
 
 ```scala
 micrositeAnalyticsToken := 'UA-XXXXX-Y'
