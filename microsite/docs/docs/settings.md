@@ -130,6 +130,12 @@ micrositeGitHostingUrl := "https://gitlab.com/gitlab-org/gitlab-ce"
 micrositeAnalyticsToken := 'UA-XXXXX-Y'
 ```
 
+- `micrositeGoogleAnalytics4Token`: Property id of Google Analytics 4 (GA4). This is empty by default.
+
+```scala
+micrositeGoogleAnalytics4Token := 'G-XXXXXXXXXX'
+```
+
 - `micrositeGithubLinks`: This setting defines whether to show/hide GitHub links for stars and forks in docs layout. By default, it is enabled.
 
 ```scala

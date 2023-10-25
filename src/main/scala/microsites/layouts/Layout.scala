@@ -59,7 +59,7 @@ abstract class Layout(config: MicrositeSettings) {
       metas,
       favicons,
       styles
-    ))
+    )) ++ ganalytics4
 
   val ganalytics: Option[TypedTag[String]] =
     if (config.identity.analytics.nonEmpty)
@@ -205,6 +205,18 @@ abstract class Layout(config: MicrositeSettings) {
 
     cssStyles ++ customCssList ++ customScssList ++ customCDNList ++ ganalytics.toList
   }
+
+  val ganalytics4: List[TypedTag[String]] =
+    if (config.identity.googleAnalytics4.nonEmpty)
+      List(
+        script(attr("async") := "async", attr("src") := s"https://www.googletagmanager.com/gtag/js?id=${config.identity.googleAnalytics4}"),
+        script(s"""
+        |window.dataLayer = window.dataLayer || [];
+        |function gtag(){dataLayer.push(arguments);}
+        |gtag('js', new Date());
+        |gtag('config', '${config.identity.googleAnalytics4}');
+        """.stripMargin))
+    else Nil
 
   def scripts: List[TypedTag[String]] = {
 

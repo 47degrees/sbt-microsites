@@ -187,6 +187,10 @@ trait MicrositeKeys {
     settingKey[String](
       "Optional. Add your legacy Universal Access (UA-...) property id of Google Analytics to add a Google Analytics tracker"
     )
+  val micrositeGoogleAnalytics4Token: SettingKey[String] =
+    settingKey[String](
+      "Optional. Add your Google Analytics 4 (GA4, G-...) property id of Google Analytics to add a Google Analytics tracker"
+    )
   val micrositeGitterChannel: SettingKey[Boolean] = settingKey[Boolean](
     "Optional. Includes Gitter sidecar Chat functionality. Enabled by default."
   )
@@ -338,7 +342,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
           organizationHomepage = micrositeOrganizationHomepage.value,
           twitter = micrositeTwitter.value,
           twitterCreator = micrositeTwitterCreator.value,
-          analytics = micrositeAnalyticsToken.value
+          analytics = micrositeAnalyticsToken.value,
+          googleAnalytics4 = micrositeGoogleAnalytics4Token.value
         ),
         visualSettings = MicrositeVisualSettings(
           highlightTheme = micrositeHighlightTheme.value,
