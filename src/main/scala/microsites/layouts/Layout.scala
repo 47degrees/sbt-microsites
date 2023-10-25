@@ -54,13 +54,12 @@ abstract class Layout(config: MicrositeSettings) {
 
   def render: TypedTag[String]
 
-  def commonHead: TypedTag[String] = {
-    head(
+  def commonHead: List[TypedTag[String]] =
+    List(head(
       metas,
       favicons,
       styles
-    )
-  }
+    ))
 
   val ganalytics: Option[TypedTag[String]] =
     if (config.identity.analytics.nonEmpty)
