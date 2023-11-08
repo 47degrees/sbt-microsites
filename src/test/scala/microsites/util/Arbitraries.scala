@@ -122,6 +122,7 @@ trait Arbitraries {
         twitter                                <- Arbitrary.arbitrary[String]
         twitterCreator                         <- Arbitrary.arbitrary[String]
         analytics                              <- Arbitrary.arbitrary[String]
+        googleAnalytics4                       <- Arbitrary.arbitrary[String]
         highlightTheme                         <- Arbitrary.arbitrary[String]
         highlightLanguages                     <- Arbitrary.arbitrary[Seq[String]]
         theme                                  <- Arbitrary.arbitrary[String]
@@ -166,7 +167,8 @@ trait Arbitraries {
           organizationHomepage,
           twitter,
           twitterCreator,
-          analytics
+          analytics,
+          googleAnalytics4
         ),
         MicrositeVisualSettings(
           highlightTheme,
