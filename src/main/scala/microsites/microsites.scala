@@ -27,7 +27,7 @@ case class MicrositeIdentitySettings(
     twitter: String,
     twitterCreator: String,
     analytics: String,
-    googleAnalytics4: String,
+    googleAnalytics4: String
 )
 
 case class MicrositeFileLocations(
