@@ -45,7 +45,7 @@ lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
     "com.lihaoyi"           %% "scalatags"           % "0.12.0",
     "com.sksamuel.scrimage" %% "scrimage-scala"      % "4.1.0",
     "com.github.marklister" %% "base64"              % "0.3.0",
-    "org.scalatest"         %% "scalatest"           % "3.2.17"   % Test,
+    "org.scalatest"         %% "scalatest"           % "3.2.18"   % Test,
     "org.scalatestplus"     %% "scalacheck-1-16"     % "3.2.14.0" % Test
   ),
   scriptedLaunchOpts ++= Seq(
