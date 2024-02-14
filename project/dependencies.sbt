@@ -5,7 +5,7 @@ unmanagedResourceDirectories in Compile +=
   baseDirectory.in(ThisBuild).value.getParentFile / "src" / "main" / "resources"
 
 libraryDependencies ++= Seq(
-  "com.47deg"             %% "github4s"            % "0.32.1",
+  "com.47deg"             %% "github4s"            % "0.32.2",
   "org.http4s"            %% "http4s-blaze-client" % "0.23.16",
   "net.jcazevedo"         %% "moultingyaml"        % "0.4.2",
   "com.lihaoyi"           %% "scalatags"           % "0.12.0",
