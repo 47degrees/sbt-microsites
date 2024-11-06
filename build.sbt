@@ -40,7 +40,7 @@ lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
   addSbtPlugin("com.github.sbt" % "sbt-site"    % "1.6.0"),
   libraryDependencies ++= Seq(
     "com.47deg"             %% "github4s"            % "0.33.3",
-    "org.http4s"            %% "http4s-blaze-client" % "0.23.16",
+    "org.http4s"            %% "http4s-blaze-client" % "0.23.17",
     "net.jcazevedo"         %% "moultingyaml"        % "0.4.2",
     "com.lihaoyi"           %% "scalatags"           % "0.13.1",
     "com.sksamuel.scrimage" %% "scrimage-scala"      % "4.1.3",
