@@ -37,7 +37,7 @@ lazy val documentation = project
 lazy val pluginSettings: Seq[Def.Setting[_]] = Seq(
   addSbtPlugin("org.scalameta"  % "sbt-mdoc"    % "2.5.2"),
   addSbtPlugin("com.github.sbt" % "sbt-ghpages" % "0.7.0"),
-  addSbtPlugin("com.github.sbt" % "sbt-site"    % "1.6.0"),
+  addSbtPlugin("com.github.sbt" % "sbt-site"    % "1.7.0"),
   libraryDependencies ++= Seq(
     "com.47deg"             %% "github4s"            % "0.33.3",
     "org.http4s"            %% "http4s-blaze-client" % "0.23.16",
