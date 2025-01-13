@@ -53,11 +53,12 @@ class DocsLayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitr
 
   test("scriptsDocs TypeTag list shouldn't be empty") {
 
-    val property = forAll { implicit settings: MicrositeSettings ⇒
-      val layout = new DocsLayout(settings)
+    val property = forAll {
+      implicit settings: MicrositeSettings ⇒
+        val layout = new DocsLayout(settings)
 
-      layout.scriptsDocs should not be empty
-      layout.scriptsDocs.nonEmpty
+        layout.scriptsDocs should not be empty
+        layout.scriptsDocs.nonEmpty
     }
 
     check(property)
