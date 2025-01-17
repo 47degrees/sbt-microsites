@@ -53,11 +53,12 @@ class HomeLayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitr
 
   test("homeMain should return a `main` TypeTag") {
 
-    val property = forAll { implicit settings: MicrositeSettings ⇒
-      val layout = new HomeLayout(settings)
+    val property = forAll {
+      implicit settings: MicrositeSettings ⇒
+        val layout = new HomeLayout(settings)
 
-      layout.homeMain.tag shouldBe "main"
-      !layout.homeMain.void
+        layout.homeMain.tag shouldBe "main"
+        !layout.homeMain.void
     }
 
     check(property)

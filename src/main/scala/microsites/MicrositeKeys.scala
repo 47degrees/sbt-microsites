@@ -472,9 +472,8 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       Def
         .sequential(createMicrositeVersions, clean, makeVersionedMicrosite, moveMicrositeVersions)
         .value,
-    ghpagesPrivateMappings := {
-      sbt.Path.allSubpaths((makeSite / target).value).toList
-    },
+    ghpagesPrivateMappings :=
+      sbt.Path.allSubpaths((makeSite / target).value).toList,
     pushMicrosite := Def.taskDyn {
       val siteDir: File                 = (makeSite / target).value
       val noJekyll: Boolean             = ghpagesNoJekyll.value
@@ -490,7 +489,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
       (pushSiteWith.name, gitHosting.name) match {
         case (GHPagesPlugin.name, _) => ghpagesPushSite
         case (GitHub4s.name, GitHub.name) if githubToken.nonEmpty =>
-          Def.task({
+          Def.task {
             val commitMessage = sys.env.getOrElse("SBT_GHPAGES_COMMIT_MESSAGE", "updated site")
 
             log.info(s"""Committing files from ${siteDir.getAbsolutePath} into branch '$branch'
@@ -518,7 +517,7 @@ trait MicrositeAutoImportSettings extends MicrositeKeys {
                   }
               }
               .unsafeRunSync()
-          })
+          }
         case (GitHub4s.name, GitHub.name) =>
           Def.task(
             log.error(
