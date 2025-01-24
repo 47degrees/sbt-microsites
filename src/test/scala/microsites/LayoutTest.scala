@@ -35,11 +35,12 @@ class LayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitrarie
 
   test("meta TypeTag list shouldn't be empty") {
 
-    val property = forAll { implicit settings: MicrositeSettings ⇒
-      val layout = buildParentLayout
+    val property = forAll {
+      implicit settings: MicrositeSettings ⇒
+        val layout = buildParentLayout
 
-      layout.metas should not be empty
-      layout.metas.nonEmpty
+        layout.metas should not be empty
+        layout.metas.nonEmpty
     }
 
     check(property)
@@ -47,11 +48,12 @@ class LayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitrarie
 
   test("styles TypeTag list shouldn't be empty") {
 
-    val property = forAll { implicit settings: MicrositeSettings ⇒
-      val layout = buildParentLayout
+    val property = forAll {
+      implicit settings: MicrositeSettings ⇒
+        val layout = buildParentLayout
 
-      layout.styles should not be empty
-      layout.styles.nonEmpty
+        layout.styles should not be empty
+        layout.styles.nonEmpty
     }
 
     check(property)
@@ -59,11 +61,12 @@ class LayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitrarie
 
   test("scripts TypeTag list shouldn't be empty") {
 
-    val property = forAll { implicit settings: MicrositeSettings ⇒
-      val layout = buildParentLayout
+    val property = forAll {
+      implicit settings: MicrositeSettings ⇒
+        val layout = buildParentLayout
 
-      layout.scripts should not be empty
-      layout.scripts.nonEmpty
+        layout.scripts should not be empty
+        layout.scripts.nonEmpty
     }
 
     check(property)
@@ -71,11 +74,12 @@ class LayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitrarie
 
   test("globalFooter TypeTag should be `footer`") {
 
-    val property = forAll { implicit settings: MicrositeSettings ⇒
-      val layout = buildParentLayout
+    val property = forAll {
+      implicit settings: MicrositeSettings ⇒
+        val layout = buildParentLayout
 
-      layout.globalFooter.tag shouldBe "footer"
-      !layout.globalFooter.void
+        layout.globalFooter.tag shouldBe "footer"
+        !layout.globalFooter.void
     }
 
     check(property)
@@ -83,8 +87,8 @@ class LayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitrarie
 
   test("globalFooter TypeTag should have the appropriate content") {
 
-    val property = forAll { implicit settings: MicrositeSettings ⇒
-      (settings.templateTexts.footer.isDefined) ==> {
+    val property = forAll {
+      implicit settings: MicrositeSettings ⇒ (settings.templateTexts.footer.isDefined) ==> {
         val layout = buildParentLayout
 
         layout.globalFooter.render contains settings.templateTexts.footer.get
@@ -96,12 +100,13 @@ class LayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitrarie
 
   test("globalFooter TypeTag should have the appropriate number of </div>s") {
 
-    val property = forAll { implicit settings: MicrositeSettings ⇒
-      val layout = buildParentLayout
+    val property = forAll {
+      implicit settings: MicrositeSettings ⇒
+        val layout = buildParentLayout
 
-      val footer = settings.templateTexts.footer
+        val footer = settings.templateTexts.footer
 
-      "</div>".r.findAllIn(layout.globalFooter.render).length === (4 + footer.fold(0)(_ => 2))
+        "</div>".r.findAllIn(layout.globalFooter.render).length === (4 + footer.fold(0)(_ => 2))
     }
 
     check(property)
@@ -109,11 +114,12 @@ class LayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitrarie
 
   test("buildCollapseMenu TypeTag should be a `div`") {
 
-    val property = forAll { implicit settings: MicrositeSettings ⇒
-      val layout = buildParentLayout
+    val property = forAll {
+      implicit settings: MicrositeSettings ⇒
+        val layout = buildParentLayout
 
-      layout.buildCollapseMenu.tag shouldBe "nav"
-      !layout.buildCollapseMenu.void
+        layout.buildCollapseMenu.tag shouldBe "nav"
+        !layout.buildCollapseMenu.void
     }
 
     check(property)

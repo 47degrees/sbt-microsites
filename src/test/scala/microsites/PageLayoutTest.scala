@@ -53,11 +53,12 @@ class PageLayoutTest extends AnyFunSuite with Checkers with Matchers with Arbitr
 
   test("pageMain should return a `main` TypeTag") {
 
-    val property = forAll { implicit settings: MicrositeSettings ⇒
-      val layout = new PageLayout(settings)
+    val property = forAll {
+      implicit settings: MicrositeSettings ⇒
+        val layout = new PageLayout(settings)
 
-      layout.pageMain.tag shouldBe "main"
-      !layout.pageMain.void
+        layout.pageMain.tag shouldBe "main"
+        !layout.pageMain.void
     }
 
     check(property)
